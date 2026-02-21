@@ -1,0 +1,1725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Benchmarks: How We Measure AI Intelligence</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Nunito:wght@400;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-cream: #FDF8F3;
+            --bg-paper: #FFFEF9;
+            --accent-coral: #FF6B6B;
+            --accent-teal: #4ECDC4;
+            --accent-sunflower: #FFE66D;
+            --accent-lavender: #C9B1FF;
+            --accent-sky: #A8E6CF;
+            --accent-red: #E74C3C;
+            --accent-green: #27AE60;
+            --accent-orange: #E67E22;
+            --text-dark: #2D3436;
+            --text-muted: #636E72;
+            --pencil: #2B2B2B;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg-cream);
+            color: var(--text-dark);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+
+        header { text-align: center; margin-bottom: 50px; }
+
+        h1 {
+            font-family: 'Caveat', cursive;
+            font-size: 3.5rem;
+            color: var(--pencil);
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent-coral), var(--accent-teal), var(--accent-sunflower));
+            border-radius: 3px;
+            opacity: 0.6;
+        }
+
+        .subtitle { font-family: 'Patrick Hand', cursive; font-size: 1.5rem; color: var(--text-muted); margin-top: 20px; }
+
+        .card {
+            background: var(--bg-paper);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            padding: 40px;
+            margin-bottom: 28px;
+            box-shadow: 3px 4px 0 rgba(0,0,0,0.1), 6px 8px 0 rgba(0,0,0,0.05);
+            position: relative;
+            transition: transform 0.3s ease;
+            border: 2px solid var(--pencil);
+        }
+
+        .card:hover { transform: translate(-2px, -2px); }
+
+        h2 { 
+            font-family: 'Caveat', cursive; 
+            font-size: 2.2rem; 
+            color: var(--pencil); 
+            margin-bottom: 20px;
+            padding-left: 50px;
+            position: relative;
+            min-height: 45px;
+            display: flex;
+            align-items: center;
+        }
+
+        h2 .fa-icon {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 42px;
+            height: 42px;
+            background: var(--bg-paper);
+            border: 2px solid var(--pencil);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        h3 { font-family: 'Patrick Hand', cursive; font-size: 1.5rem; color: var(--text-dark); margin: 30px 0 15px; }
+        h4 { font-family: 'Patrick Hand', cursive; font-size: 1.2rem; color: var(--text-muted); margin: 20px 0 10px; }
+        p { margin-bottom: 15px; font-size: 1.08rem; }
+
+        .highlight { background: linear-gradient(180deg, transparent 65%, rgba(255, 230, 109, 0.5) 65%); }
+        .highlight-coral { background: linear-gradient(180deg, transparent 65%, rgba(255, 107, 107, 0.35) 65%); }
+        .highlight-teal { background: linear-gradient(180deg, transparent 65%, rgba(78, 205, 196, 0.35) 65%); }
+
+        .code-block {
+            background: linear-gradient(135deg, #1E272E 0%, #252F38 100%);
+            color: #E8F4F8;
+            padding: 0;
+            border-radius: 20px;
+            font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin: 25px 0;
+            overflow-x: auto;
+            border: 3px solid var(--pencil);
+            box-shadow: 4px 6px 0 rgba(0,0,0,0.2);
+        }
+
+        .code-header {
+            background: linear-gradient(135deg, #2D3A47 0%, #384554 100%);
+            padding: 12px 20px;
+            border-bottom: 2px solid #343D46;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 0.95rem;
+            color: #8FA5B5;
+        }
+
+        .code-header .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .code-header .dot.red { background: #FF5F56; }
+        .code-header .dot.yellow { background: #FFBD2E; }
+        .code-header .dot.green { background: #27CA40; }
+
+        .code-content {
+            padding: 20px 25px;
+            line-height: 1.7;
+            white-space: pre-wrap;
+            overflow-x: auto;
+        }
+
+        .code-block .comment { color: #6A9955; font-style: italic; }
+        .code-block .key { color: #9CDCFE; font-weight: 600; }
+        .code-block .string { color: #CE9178; }
+
+        .insight-box {
+            background: linear-gradient(135deg, #FFFDE7, #FFF9C4);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            padding: 22px;
+            margin: 22px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            border: 3px solid var(--accent-sunflower);
+        }
+
+        .insight-icon { font-size: 1.8rem; color: var(--accent-orange); }
+
+        .benchmark-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .benchmark-card {
+            background: var(--bg-paper);
+            padding: 25px;
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            border: 2px solid var(--pencil);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .benchmark-card:hover { transform: scale(1.03); box-shadow: 3px 4px 0 rgba(0,0,0,0.1); }
+
+        .benchmark-card.featured { 
+            background: linear-gradient(135deg, #FFF8E1, #FFECB3); 
+            border: 3px solid var(--accent-orange);
+        }
+
+        .benchmark-icon { font-size: 2rem; margin-bottom: 10px; }
+        .benchmark-name { font-family: 'Patrick Hand', cursive; font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; }
+        .benchmark-desc { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 10px; }
+        .benchmark-tag { 
+            display: inline-block; 
+            padding: 3px 10px; 
+            border-radius: 10px; 
+            font-size: 0.75rem; 
+            font-weight: 600;
+            margin-right: 5px;
+        }
+        .tag-knowledge { background: #E3F2FD; color: #1565C0; }
+        .tag-coding { background: #E8F5E9; color: #2E7D32; }
+        .tag-math { background: #FFF3E0; color: #EF6C00; }
+        .tag-reasoning { background: #F3E5F5; color: #6A1B9A; }
+        .tag-safety { background: #FFEBEE; color: #C62828; }
+        .tag-chat { background: #E0F7FA; color: #00838F; }
+
+        .comparison-box {
+            display: flex;
+            gap: 20px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+
+        .comparison-item {
+            flex: 1;
+            min-width: 280px;
+            padding: 25px;
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            border: 3px solid var(--pencil);
+            transition: transform 0.3s;
+        }
+
+        .comparison-item:hover { transform: scale(1.02) rotate(1deg); }
+
+        .comparison-item.good { background: linear-gradient(135deg, #E8FAF4, #D1F2EB); border-color: var(--accent-green); }
+        .comparison-item.bad { background: linear-gradient(135deg, #FFEBEE, #FFCDD2); border-color: var(--accent-red); }
+
+        .comparison-icon { font-size: 2.5rem; text-align: center; margin-bottom: 15px; }
+        .comparison-label { font-family: 'Caveat', cursive; font-size: 1.6rem; text-align: center; margin-bottom: 12px; }
+
+        .category-section {
+            margin: 40px 0;
+        }
+
+        .category-title {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.8rem;
+            color: var(--pencil);
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #F5F0E8, #E8E0D5);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            display: inline-block;
+            border: 2px solid var(--pencil);
+        }
+
+        .back-link {
+            display: inline-block;
+            color: var(--accent-teal);
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.1rem;
+            text-decoration: none;
+            margin-bottom: 30px;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover { color: var(--accent-coral); }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            font-family: 'Patrick Hand', cursive;
+        }
+
+        .example-list {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        .example-list li {
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .example-list li::marker {
+            color: var(--accent-teal);
+            font-weight: bold;
+        }
+
+        .score-badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            margin-left: 10px;
+        }
+
+        .score-high { background: #E8F5E9; color: #2E7D32; }
+        .score-medium { background: #FFF3E0; color: #EF6C00; }
+        .score-low { background: #FFEBEE; color: #C62828; }
+
+        @media (max-width: 768px) {
+            .benchmark-grid { grid-template-columns: 1fr; }
+            .comparison-box { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Mind & Machine</a>
+        
+        <header>
+            <h1>LLM Benchmarks</h1>
+            <p class="subtitle">How We Measure If Your AI Is Actually Smart (Or Just Good at BS)</p>
+        </header>
+
+        <!-- Introduction -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-ruler-combined fa-icon"></i>Why Do We Need Benchmarks?</h2>
+            <p>Picture this: Two AI companies both claim their model is "the best." One says they're great at coding, another says they're a genius at math. But how do we actually know? Do we just take their word for it? (Spoiler: <span class="highlight">NO.</span>)</p>
+            
+            <p>Benchmarks are like standardized tests for AI. They're collections of questions and tasks that models have to complete, so we can compare them objectively. Think SATs, but for robots.</p>
+
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-exclamation-triangle"></i></div>
+                <div>
+                    <strong>The Benchmark Problem:</strong> Models can be overfit to benchmarks (basically, they "study for the test"). A model might crush MMLU but still fail at basic real-world tasks. That's why we need MANY different benchmarks, not just one!
+                </div>
+            </div>
+
+            <p>Below is the complete landscape of LLM benchmarks—everything from "can it do math?" to "will it try to convince you to break into your neighbor's house?" (Yes, that's a real safety concern.)</p>
+        </section>
+
+        <!-- Complete Benchmark List -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-list-ul fa-icon"></i>The Complete Benchmark Universe</h2>
+            <p>There are literally hundreds of benchmarks out there. Here's the master list, organized by what they're testing:</p>
+
+            <!-- Knowledge & Reasoning -->
+            <div class="category-section">
+                <div class="category-title"><i class="fa-solid fa-brain"></i> Knowledge & General Intelligence</div>
+                <div class="benchmark-grid">
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-graduation-cap" style="color: var(--accent-coral);"></i></div>
+                        <div class="benchmark-name">MMLU <span class="benchmark-tag tag-knowledge">Knowledge</span></div>
+                        <div class="benchmark-desc">Massive Multitask Language Understanding. 15,908 questions across 57 subjects (STEM, humanities, social sciences).</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-book" style="color: var(--accent-teal);"></i></div>
+                        <div class="benchmark-name">MMLU-Pro <span class="benchmark-tag tag-knowledge">Knowledge</span></div>
+                        <div class="benchmark-desc">Harder version of MMLU with more complex questions and 10 choices instead of 4.</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-globe" style="color: var(--accent-lavender);"></i></div>
+                        <div class="benchmark-name">C-Eval / CMMLU <span class="benchmark-tag tag-knowledge">Knowledge</span></div>
+                        <div class="benchmark-desc">Chinese versions of MMLU—tests knowledge of Chinese culture, law, history.</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-clipboard-question" style="color: var(--accent-sunflower);"></i></div>
+                        <div class="benchmark-name">ARC (Easy & Challenge) <span class="benchmark-tag tag-knowledge">Knowledge</span></div>
+                        <div class="benchmark-desc">Science exam questions from grades 3-9. Challenge set requires reasoning.</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-lightbulb" style="color: var(--accent-orange);"></i></div>
+                        <div class="benchmark-name">OpenBookQA <span class="benchmark-tag tag-knowledge">Knowledge</span></div>
+                        <div class="benchmark-desc">Open-book science questions requiring reasoning over provided facts.</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-puzzle-piece" style="color: var(--accent-green);"></i></div>
+                        <div class="benchmark-name">CommonsenseQA <span class="benchmark-tag tag-reasoning">Reasoning</span></div>
+                        <div class="benchmark-desc">Questions requiring commonsense knowledge (e.g., "Where do you put a cake?").</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mathematics -->
+            <div class="category-section">
+                <div class="category-title"><i class="fa-solid fa-calculator"></i> Mathematics</div>
+                <div class="benchmark-grid">
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-square-root-variable" style="color: var(--accent-coral);"></i></div>
+                        <div class="benchmark-name">GSM8K <span class="benchmark-tag tag-math">Math</span></div>
+                        <div class="benchmark-desc">8,500 grade school math word problems. The gold standard for testing math reasoning.</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-function" style="color: var(--accent-teal);"></i></div>
+                        <div class="benchmark-name">MATH Dataset <span class="benchmark-tag tag-math">Math</span></div>
+                        <div class="benchmark-desc">12,500 competition-level math problems from AMC, AIME, and other competitions.</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-shapes" style="color: var(--accent-lavender);"></i></div>
+                        <div class="benchmark-name">MathVista <span class="benchmark-tag tag-math">Multimodal</span></div>
+                        <div class="benchmark-desc">Math problems with visual components (graphs, diagrams, geometry).</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-infinity" style="color: var(--accent-sunflower);"></i></div>
+                        <div class="benchmark-name">TheoremQA <span class="benchmark-tag tag-math">Math</span></div>
+                        <div class="benchmark-desc">Tests understanding and application of theorems across STEM fields.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coding -->
+            <div class="category-section">
+                <div class="category-title"><i class="fa-solid fa-code"></i> Programming & Coding</div>
+                <div class="benchmark-grid">
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-brands fa-python" style="color: var(--accent-coral);"></i></div>
+                        <div class="benchmark-name">HumanEval <span class="benchmark-tag tag-coding">Coding</span></div>
+                        <div class="benchmark-desc">164 hand-written Python programming problems with test cases. The coding benchmark.</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-laptop-code" style="color: var(--accent-teal);"></i></div>
+                        <div class="benchmark-name">MBPP (Mostly Basic Python) <span class="benchmark-tag tag-coding">Coding</span></div>
+                        <div class="benchmark-desc">974 entry-level Python problems, crowdsourced from programmers.</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-bug" style="color: var(--accent-lavender);"></i></div>
+                        <div class="benchmark-name">SWE-bench <span class="benchmark-tag tag-coding">Coding</span></div>
+                        <div class="benchmark-desc">Real GitHub issues from open-source projects. Can the AI actually fix production bugs?</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-terminal" style="color: var(--accent-sunflower);"></i></div>
+                        <div class="benchmark-name">DS-1000 <span class="benchmark-tag tag-coding">Coding</span></div>
+                        <div class="benchmark-desc">Data science code completion problems in Python, using real libraries (NumPy, Pandas).</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reasoning & Logic -->
+            <div class="category-section">
+                <div class="category-title"><i class="fa-solid fa-chess"></i> Reasoning & Logic</div>
+                <div class="benchmark-grid">
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-brain" style="color: var(--accent-coral);"></i></div>
+                        <div class="benchmark-name">HellaSwag <span class="benchmark-tag tag-reasoning">Reasoning</span></div>
+                        <div class="benchmark-desc">Sentence completion requiring commonsense inference. "How does this situation end?"</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-user-friends" style="color: var(--accent-teal);"></i></div>
+                        <div class="benchmark-name">WinoGrande <span class="benchmark-tag tag-reasoning">Reasoning</span></div>
+                        <div class="benchmark-desc">Pronoun resolution with commonsense reasoning. "The trophy didn't fit in the suitcase because it was too big. What was too big?"</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-balance-scale" style="color: var(--accent-lavender);"></i></div>
+                        <div class="benchmark-name">COPA <span class="benchmark-tag tag-reasoning">Reasoning</span></div>
+                        <div class="benchmark-desc">Choice of Plausible Alternatives. Cause and effect reasoning.</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-trophy" style="color: var(--accent-sunflower);"></i></div>
+                        <div class="benchmark-name">Big-Bench (BBH) <span class="benchmark-tag tag-reasoning">Reasoning</span></div>
+                        <div class="benchmark-desc">204 diverse tasks including logic, causality, and social reasoning.</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-project-diagram" style="color: var(--accent-orange);"></i></div>
+                        <div class="benchmark-name">ReClor <span class="benchmark-tag tag-reasoning">Reasoning</span></div>
+                        <div class="benchmark-desc">Logical reasoning from reading comprehension (LSAT-style questions).</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Truth & Safety -->
+            <div class="category-section">
+                <div class="category-title"><i class="fa-solid fa-shield-alt"></i> Truthfulness & Safety</div>
+                <div class="benchmark-grid">
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-check-double" style="color: var(--accent-coral);"></i></div>
+                        <div class="benchmark-name">TruthfulQA <span class="benchmark-tag tag-safety">Truth</span></div>
+                        <div class="benchmark-desc">Questions that humans often answer incorrectly due to misconceptions. Tests if AI avoids human-like false beliefs.</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-exclamation-circle" style="color: var(--accent-red);"></i></div>
+                        <div class="benchmark-name">ToxiGen <span class="benchmark-tag tag-safety">Safety</span></div>
+                        <div class="benchmark-desc">Tests generation of toxic content about minority groups.</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-user-secret" style="color: var(--accent-lavender);"></i></div>
+                        <div class="benchmark-name">HarmBench <span class="benchmark-tag tag-safety">Safety</span></div>
+                        <div class="benchmark-desc">Tests if models can be jailbroken to produce harmful content.</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-graduation-cap" style="color: var(--accent-teal);"></i></div>
+                        <div class="benchmark-name">DeepSafe <span class="benchmark-tag tag-safety">Safety</span></div>
+                        <div class="benchmark-desc">Comprehensive safety evaluation across physical, mental, and social harm.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat & Conversation -->
+            <div class="category-section">
+                <div class="category-title"><i class="fa-solid fa-comments"></i> Chat & Conversation</div>
+                <div class="benchmark-grid">
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-comments" style="color: var(--accent-coral);"></i></div>
+                        <div class="benchmark-name">MT-Bench <span class="benchmark-tag tag-chat">Chat</span></div>
+                        <div class="benchmark-desc">Multi-turn conversation benchmark. GPT-4 judges the quality of responses.</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-chart-line" style="color: var(--accent-teal);"></i></div>
+                        <div class="benchmark-name">Chatbot Arena (ELO) <span class="benchmark-tag tag-chat">Chat</span></div>
+                        <div class="benchmark-desc">Human preference ratings in head-to-head model comparisons. Like chess ratings for chatbots.</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-list-check" style="color: var(--accent-lavender);"></i></div>
+                        <div class="benchmark-name">AlpacaEval <span class="benchmark-tag tag-chat">Chat</span></div>
+                        <div class="benchmark-desc">805 instructions comparing model outputs to GPT-4 (Davinci-003 baseline).</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-tasks" style="color: var(--accent-sunflower);"></i></div>
+                        <div class="benchmark-name">IFEval <span class="benchmark-tag tag-chat">Instruction</span></div>
+                        <div class="benchmark-desc">Tests if models follow explicit formatting instructions ("write in 3 paragraphs", "use bullet points").</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reading & Comprehension -->
+            <div class="category-section">
+                <div class="category-title"><i class="fa-solid fa-book-open"></i> Reading Comprehension</div>
+                <div class="benchmark-grid">
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-paragraph" style="color: var(--accent-coral);"></i></div>
+                        <div class="benchmark-name">SQuAD <span class="benchmark-tag tag-knowledge">Reading</span></div>
+                        <div class="benchmark-desc">Stanford Question Answering Dataset. Extract answers from Wikipedia passages.</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-newspaper" style="color: var(--accent-teal);"></i></div>
+                        <div class="benchmark-name">Natural Questions <span class="benchmark-tag tag-knowledge">Reading</span></div>
+                        <div class="benchmark-desc">Real Google search queries with answers from Wikipedia.</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-question-circle" style="color: var(--accent-lavender);"></i></div>
+                        <div class="benchmark-name">TriviaQA <span class="benchmark-tag tag-knowledge">Reading</span></div>
+                        <div class="benchmark-desc">650K question-answer-evidence triples. Trivia questions with evidence documents.</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-book" style="color: var(--accent-sunflower);"></i></div>
+                        <div class="benchmark-name">RACE <span class="benchmark-tag tag-knowledge">Reading</span></div>
+                        <div class="benchmark-desc">Reading comprehension from Chinese English exams (middle school & high school).</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Long Context -->
+            <div class="category-section">
+                <div class="category-title"><i class="fa-solid fa-ruler-horizontal"></i> Long Context & Memory</div>
+                <div class="benchmark-grid">
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-scroll" style="color: var(--accent-coral);"></i></div>
+                        <div class="benchmark-name">LongBench <span class="benchmark-tag tag-reasoning">Long Context</span></div>
+                        <div class="benchmark-desc">Bilingual benchmark for long-context understanding (up to 100K tokens).</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-search" style="color: var(--accent-teal);"></i></div>
+                        <div class="benchmark-name">Needle in a Haystack <span class="benchmark-tag tag-reasoning">Long Context</span></div>
+                        <div class="benchmark-desc">Hide a specific fact deep in a long document. Can the model find it?</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-ruler" style="color: var(--accent-lavender);"></i></div>
+                        <div class="benchmark-name">RULER <span class="benchmark-tag tag-reasoning">Long Context</span></div>
+                        <div class="benchmark-desc">Tests retrieval from very long contexts (up to 4M tokens!).</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-book-reader" style="color: var(--accent-sunflower);"></i></div>
+                        <div class="benchmark-name">Scrolls <span class="benchmark-tag tag-reasoning">Long Context</span></div>
+                        <div class="benchmark-desc">Long-document understanding across government reports, books, and scientific papers.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Multimodal -->
+            <div class="category-section">
+                <div class="category-title"><i class="fa-solid fa-images"></i> Multimodal (Vision + Text)</div>
+                <div class="benchmark-grid">
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-image" style="color: var(--accent-coral);"></i></div>
+                        <div class="benchmark-name">MMMU <span class="benchmark-tag tag-knowledge">Multimodal</span></div>
+                        <div class="benchmark-desc">College-level multimodal questions (images + text) across 6 disciplines.</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-chart-bar" style="color: var(--accent-teal);"></i></div>
+                        <div class="benchmark-name">ChartQA <span class="benchmark-tag tag-knowledge">Multimodal</span></div>
+                        <div class="benchmark-desc">Answer questions about charts and graphs (bar charts, line graphs, pie charts).</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-file-alt" style="color: var(--accent-lavender);"></i></div>
+                        <div class="benchmark-name">DocVQA <span class="benchmark-tag tag-knowledge">Multimodal</span></div>
+                        <div class="benchmark-desc">Reading text from scanned documents, forms, and letters.</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-clipboard-list" style="color: var(--accent-sunflower);"></i></div>
+                        <div class="benchmark-name">TextVQA <span class="benchmark-tag tag-knowledge">Multimodal</span></div>
+                        <div class="benchmark-desc">Reading text in images (street signs, store names, license plates).</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Domain Specific -->
+            <div class="category-section">
+                <div class="category-title"><i class="fa-solid fa-stethoscope"></i> Domain-Specific</div>
+                <div class="benchmark-grid">
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-heartbeat" style="color: var(--accent-red);"></i></div>
+                        <div class="benchmark-name">PubMedQA <span class="benchmark-tag tag-knowledge">Medical</span></div>
+                        <div class="benchmark-desc">Biomedical question answering from PubMed abstracts.</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-gavel" style="color: var(--accent-coral);"></i></div>
+                        <div class="benchmark-name">LegalBench <span class="benchmark-tag tag-knowledge">Legal</span></div>
+                        <div class="benchmark-desc">Legal reasoning tasks: contract analysis, statutory interpretation, case law.</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-flask" style="color: var(--accent-teal);"></i></div>
+                        <div class="benchmark-name">SciEval <span class="benchmark-tag tag-knowledge">Science</span></div>
+                        <div class="benchmark-desc">Scientific reasoning across physics, chemistry, and biology.</div>
+                    </div>
+                    <div class="benchmark-card">
+                        <div class="benchmark-icon"><i class="fa-solid fa-money-bill-wave" style="color: var(--accent-green);"></i></div>
+                        <div class="benchmark-name">FinanceBench <span class="benchmark-tag tag-knowledge">Finance</span></div>
+                        <div class="benchmark-desc">Financial analysis, accounting principles, and economic reasoning.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Deep Dives Header -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-microscope fa-icon" style="color: var(--accent-coral);"></i>Deep Dives: 5 Benchmarks That Matter Most</h2>
+            <p>Now that you've seen the whole landscape, let's zoom in on <span class="highlight">5 benchmarks that really move the needle</span> in AI development. These are the ones that show up in every major model announcement, and for good reason.</p>
+
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-star"></i></div>
+                <div>
+                    <strong>Why These 5?</strong> They cover the essentials: broad knowledge (MMLU), coding ability (HumanEval), math reasoning (GSM8K), truthfulness (TruthfulQA), and conversational quality (MT-Bench). If a model does well on all five, it's probably legitimately capable.
+                </div>
+            </div>
+        </section>
+
+        <!-- MMLU Deep Dive -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-graduation-cap fa-icon" style="color: var(--accent-coral);"></i>MMLU: The Ultimate Knowledge Test</h2>
+            
+            <p><strong>Full Name:</strong> Massive Multitask Language Understanding</p>
+            <p><strong>What it tests:</strong> Broad knowledge across 57 subjects, from grade school to professional level</p>
+            <p><strong>Why it matters:</strong> It's become <span class="highlight">THE benchmark</span> for general intelligence. When OpenAI announces GPT-5, you can bet they'll lead with MMLU scores.</p>
+
+            <h3>What Makes MMLU Special</h3>
+            <p>MMLU isn't just trivia. It covers everything from elementary math to professional law, from anatomy to abstract algebra. It's like the SAT, MCAT, LSAT, and every other standardized test rolled into one. If a model crushes MMLU, it means it's broadly knowledgeable—not just good at one thing.</p>
+
+            <h3>The 57 Subjects (Yes, Really)</h3>
+            <p>Here's just a taste: Abstract Algebra, Anatomy, Astronomy, Business Ethics, Clinical Knowledge, College Chemistry, College Medicine, Computer Security, Conceptual Physics, Econometrics, Electrical Engineering, Formal Logic, Global Facts, High School Biology, High School Chemistry, High School Computer Science, High School European History, High School Geography, High School Government and Politics, High School Macroeconomics, High School Mathematics, High School Microeconomics, High School Physics, High School Psychology, High School Statistics, High School US History, High School World History, Human Aging, Human Sexuality, International Law, Jurisprudence, Logical Fallacies, Machine Learning, Management, Marketing, Medical Genetics, Miscellaneous, Moral Disputes, Moral Scenarios, Nutrition, Philosophy, Prehistory, Professional Accounting, Professional Law, Professional Medicine, Professional Psychology, Public Relations, Security Studies, Sociology, US Foreign Policy, Virology, World Religions...</p>
+
+            <p>And that's just half the list!</p>
+
+            <h3>5 Original MMLU-Style Examples</h3>
+
+            <h4>Example 1: Abstract Algebra</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>College Level Mathematics</span>
+                </div>
+                <div class="code-content">Question: Let G be a group of order 15. Which of the following statements is true?
+A) G must be cyclic
+B) G must be abelian
+C) G is isomorphic to Z_15
+D) G has exactly 3 subgroups
+
+Correct Answer: B
+
+Explanation: By Sylow theorems, groups of order 15 = 3 × 5 must be abelian. However, they need not be cyclic (though they always are in this case—turns out groups of order 15 are actually cyclic, making both A and B true, but B is the more fundamental property).</div>
+            </div>
+
+            <h4>Example 2: Professional Law</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Legal Reasoning</span>
+                </div>
+                <div class="code-content">Question: Under the Fourth Amendment, which of the following searches requires a warrant?
+A) Searching a car during a traffic stop when police smell marijuana
+B) Searching a student's backpack based on a teacher's suspicion of contraband
+C) Searching a home's curtilage with a drone
+D) Searching a suspect's pockets during a lawful arrest
+
+Correct Answer: C
+
+Explanation: While cars (A) and persons during arrest (D) have reduced expectations of privacy, and schools (B) have special rules, the home (including its curtilage) receives the highest Fourth Amendment protection. Aerial surveillance of the curtilage with a drone generally requires a warrant under Carpenter and Florida v. Riley analysis.</div>
+            </div>
+
+            <h4>Example 3: High School Chemistry</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>STEM Knowledge</span>
+                </div>
+                <div class="code-content">Question: Which element has the highest electronegativity?
+A) Oxygen
+B) Fluorine
+C) Chlorine
+D) Nitrogen
+
+Correct Answer: B
+
+Explanation: Fluorine has the highest electronegativity (3.98 on the Pauling scale) of all elements. It's the most reactive non-metal and has a strong tendency to attract electrons. This makes it useful in Teflon (PTFE) and toothpaste (sodium fluoride), but also extremely dangerous in its pure form!</div>
+            </div>
+
+            <h4>Example 4: Moral Scenarios</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Ethical Reasoning</span>
+                </div>
+                <div class="code-content">Question: A runaway trolley is heading toward five people tied to the tracks. You can pull a lever to divert it to a side track where one person is tied. According to utilitarian ethics, what should you do?
+A) Do nothing, because actively causing harm is worse than allowing it
+B) Pull the lever, because saving five lives outweighs one life
+C) Refuse to choose, because you have no right to play God
+D) Try to warn the people instead
+
+Correct Answer: B
+
+Explanation: Utilitarianism seeks the greatest good for the greatest number. From a utilitarian perspective, 5 lives > 1 life, so you should pull the lever. However, this is a famous ethical dilemma—the "trolley problem"—and different ethical frameworks (Kantian deontology, virtue ethics) might give different answers!</div>
+            </div>
+
+            <h4>Example 5: Machine Learning</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Technical Knowledge</span>
+                </div>
+                <div class="code-content">Question: In a neural network, what is the "vanishing gradient problem"?
+A) The loss function becomes zero and training stops
+B) Gradients become very small in early layers during backpropagation
+C) The learning rate decreases automatically over time
+D) The model forgets previously learned information
+
+Correct Answer: B
+
+Explanation: In deep networks with sigmoid/tanh activations, gradients can become exponentially small as they're backpropagated through many layers. This makes early layers learn very slowly or not at all. Solutions include ReLU activations, residual connections, and careful initialization schemes like Xavier/He initialization.</div>
+            </div>
+
+            <h3>Current State-of-the-Art</h3>
+            <ul class="example-list">
+                <li><strong>GPT-4 (original):</strong> ~86.4%</li>
+                <li><strong>GPT-4 Turbo:</strong> ~87.2%</li>
+                <li><strong>Claude 3 Opus:</strong> ~86.8%</li>
+                <li><strong>Gemini Ultra:</strong> ~90.0%</li>
+                <li><strong>Human expert:</strong> ~89.8%</li>
+            </ul>
+
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-trophy"></i></div>
+                <div>
+                    <strong>Interesting Fact:</strong> GPT-4's MMLU score (86.4%) is actually higher than the average human test-taker (around 34%) and approaching expert-level performance in many subjects. We're genuinely in "better than most humans" territory now.
+                </div>
+            </div>
+        </section>
+
+        <!-- HumanEval Deep Dive -->
+        <section class="card reveal">
+            <h2><i class="fa-brands fa-python fa-icon" style="color: var(--accent-teal);"></i>HumanEval: Can It Actually Code?</h2>
+            
+            <p><strong>Full Name:</strong> HumanEval (Hand-Written Evaluation Set)</p>
+            <p><strong>What it tests:</strong> Python programming—writing functions from docstrings</p>
+            <p><strong>Why it matters:</strong> This is the benchmark that started the "AI can code" revolution. When GitHub Copilot launched, everyone looked at HumanEval scores.</p>
+
+            <h3>How HumanEval Works</h3>
+            <p>Each problem gives you:</p>
+            <ul class="example-list">
+                <li>A function signature (def function_name(args):)</li>
+                <li>A docstring explaining what the function should do</li>
+                <li>Several test cases (unit tests)</li>
+            </ul>
+            <p>The AI has to write the function body. If it passes all the tests, it's correct. Simple concept, surprisingly hard to do well!</p>
+
+            <h3>5 Original HumanEval-Style Examples</h3>
+
+            <h4>Example 1: List Manipulation</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Basic Programming</span>
+                </div>
+                <div class="code-content">def reverse_even_indices(lst):
+    """
+    Given a list of integers, return a new list where elements at even indices 
+    (0, 2, 4...) are reversed, but elements at odd indices stay in place.
+    
+    >>> reverse_even_indices([1, 2, 3, 4, 5])
+    [5, 2, 3, 4, 1]
+    >>> reverse_even_indices([10, 20, 30, 40])
+    [30, 20, 10, 40]
+    >>> reverse_even_indices([1])
+    [1]
+    """
+    # AI writes code here
+
+Solution:
+def reverse_even_indices(lst):
+    even_indices = lst[::2][::-1]  # Get even indices and reverse
+    result = lst[:]
+    result[::2] = even_indices
+    return result</div>
+            </div>
+
+            <h4>Example 2: String Processing</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>String Manipulation</span>
+                </div>
+                <div class="code-content">def count_vowel_groups(s):
+    """
+    Count the number of groups of consecutive vowels in the string.
+    A group is one or more vowels together.
+    
+    >>> count_vowel_groups("hello world")
+    3  # "e", "o", "o"
+    >>> count_vowel_groups("aeiou")
+    1  # all together as one group
+    >>> count_vowel_groups("xyz")
+    0  # no vowels
+    >>> count_vowel_groups("beautiful")
+    4  # "e", "au", "i", "u"
+    """
+    # AI writes code here
+
+Solution:
+def count_vowel_groups(s):
+    vowels = set('aeiouAEIOU')
+    count = 0
+    in_group = False
+    
+    for char in s:
+        if char in vowels:
+            if not in_group:
+                count += 1
+                in_group = True
+        else:
+            in_group = False
+    
+    return count</div>
+            </div>
+
+            <h4>Example 3: Mathematical Function</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Math + Code</span>
+                </div>
+                <div class="code-content">def is_perfect_square(n):
+    """
+    Check if a number is a perfect square without using math.sqrt().
+    Return True if n is a perfect square, False otherwise.
+    
+    >>> is_perfect_square(16)
+    True
+    >>> is_perfect_square(25)
+    True
+    >>> is_perfect_square(26)
+    False
+    >>> is_perfect_square(1)
+    True
+    >>> is_perfect_square(0)
+    True
+    """
+    # AI writes code here
+
+Solution:
+def is_perfect_square(n):
+    if n &lt; 0:
+        return False
+    
+    # Binary search approach
+    left, right = 0, n
+    while left <= right:
+        mid = (left + right) // 2
+        square = mid * mid
+        if square == n:
+            return True
+        elif square < n:
+            left = mid + 1
+        else:
+            right = mid - 1
+    
+    return False</div>
+            </div>
+
+            <h4>Example 4: Data Structure Manipulation</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Dictionary/Hash Map</span>
+                </div>
+                <div class="code-content">def merge_with_sum(dicts):
+    """
+    Given a list of dictionaries with numeric values, merge them into one dictionary.
+    If a key appears in multiple dicts, sum the values.
+    
+    >>> merge_with_sum([{"a": 1, "b": 2}, {"b": 3, "c": 4}])
+    {"a": 1, "b": 5, "c": 4}
+    >>> merge_with_sum([{"x": 10}, {"x": 20}, {"x": 30}])
+    {"x": 60}
+    >>> merge_with_sum([])
+    {}
+    """
+    # AI writes code here
+
+Solution:
+def merge_with_sum(dicts):
+    result = {}
+    for d in dicts:
+        for key, value in d.items():
+            result[key] = result.get(key, 0) + value
+    return result</div>
+            </div>
+
+            <h4>Example 5: Algorithm Challenge</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Algorithm Design</span>
+                </div>
+                <div class="code-content">def can_partition_equal_sum(nums):
+    """
+    Given a list of positive integers, determine if it can be partitioned into two subsets
+    with equal sums.
+    
+    >>> can_partition_equal_sum([1, 5, 11, 5])
+    True  # [1, 5, 5] and [11] both sum to 11
+    >>> can_partition_equal_sum([1, 2, 3, 5])
+    False
+    >>> can_partition_equal_sum([3, 3, 3, 4, 5])
+    True  # [3, 3, 4] and [3, 5] both sum to 10
+    """
+    # AI writes code here
+
+Solution:
+def can_partition_equal_sum(nums):
+    total = sum(nums)
+    
+    # If total is odd, can't partition equally
+    if total % 2 != 0:
+        return False
+    
+    target = total // 2
+    
+    # Dynamic programming: can we make sum 'target'?
+    dp = [False] * (target + 1)
+    dp[0] = True
+    
+    for num in nums:
+        for i in range(target, num - 1, -1):
+            dp[i] = dp[i] or dp[i - num]
+    
+    return dp[target]</div>
+            </div>
+
+            <h3>Pass@k Metric Explained</h3>
+            <p>HumanEval uses a special metric called <strong>Pass@k</strong>:</p>
+            <ul class="example-list">
+                <li>Generate <strong>k</strong> different solutions</li>
+                <li>If ANY of them pass all tests, you win!</li>
+                <li>Pass@1 = one-shot accuracy (hardest)</li>
+                <li>Pass@100 = accuracy with 100 attempts (easier)</li>
+            </ul>
+
+            <h3>Current State-of-the-Art</h3>
+            <ul class="example-list">
+                <li><strong>GPT-4:</strong> ~87% Pass@1</li>
+                <li><strong>GPT-3.5:</strong> ~48% Pass@1</li>
+                <li><strong>Claude 3 Opus:</strong> ~85% Pass@1</li>
+                <li><strong>Claude 3.5 Sonnet:</strong> ~92% Pass@1</li>
+                <li><strong>Gemini 1.5 Pro:</strong> ~84% Pass@1</li>
+            </ul>
+
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-lightbulb"></i></div>
+                <div>
+                    <strong>The Breakthrough Moment:</strong> When GPT-4 hit 67% on HumanEval (and later models hit 90%+), it became clear that AI coding assistance wasn't just a gimmick—it was a genuine productivity tool. HumanEval scores correlate strongly with real-world coding usefulness.
+                </div>
+            </div>
+        </section>
+
+        <!-- GSM8K Deep Dive -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-calculator fa-icon" style="color: var(--accent-sunflower);"></i>GSM8K: Math Word Problems That Stump Adults</h2>
+            
+            <p><strong>Full Name:</strong> Grade School Math 8K</p>
+            <p><strong>What it tests:</strong> Mathematical reasoning through word problems (grade school level, but surprisingly hard!)</p>
+            <p><strong>Why it matters:</strong> This is where models show if they can actually <span class="highlight">reason</span> or just pattern-match. Many models that crush trivia fail at GSM8K.</p>
+
+            <h3>The GSM8K Challenge</h3>
+            <p>These are word problems like you did in 5th-8th grade:</p>
+            <ul class="example-list">
+                <li>"If Sally has 3 apples and gives 1 to Tom..." (Easy)</li>
+                <li>"A train leaves Chicago at 60mph, another leaves New York at 70mph..." (Medium)</li>
+                <li>Multi-step problems requiring 5+ calculations (Hard)</li>
+            </ul>
+            <p>The kicker? You have to show your work. The answer alone isn't enough—you need the reasoning steps.</p>
+
+            <h3>5 Original GSM8K-Style Problems</h3>
+
+            <h4>Example 1: The Classic Age Problem</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Problem + Solution</span>
+                </div>
+                <div class="code-content">Problem:
+Sarah is currently 3 times as old as her daughter Emma. In 8 years, Sarah will be twice as old as Emma. How old is Emma now?
+
+Step-by-Step Solution:
+Let Emma's current age = E
+Let Sarah's current age = S
+
+Step 1: Set up equations from the problem
+- "Sarah is 3 times as old as Emma" → S = 3E
+- "In 8 years, Sarah will be twice as old as Emma" → S + 8 = 2(E + 8)
+
+Step 2: Substitute first equation into second
+3E + 8 = 2(E + 8)
+
+Step 3: Solve
+3E + 8 = 2E + 16
+3E - 2E = 16 - 8
+E = 8
+
+Step 4: Verify
+- Emma is 8, Sarah is 24
+- In 8 years: Emma 16, Sarah 32
+- 32 = 2 × 16 ✓
+
+Answer: Emma is 8 years old.</div>
+            </div>
+
+            <h4>Example 2: Shopping Discount Dilemma</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Real-World Math</span>
+                </div>
+                <div class="code-content">Problem:
+A store is having a sale. Every item is 30% off the original price. After the discount, you also have a coupon for "$20 off purchases over $100." You want to buy a jacket originally priced at $180 and shoes originally priced at $90. How much will you pay in total?
+
+Step-by-Step Solution:
+Step 1: Calculate discounted price of jacket
+- Original: $180
+- Discount: $180 × 0.30 = $54
+- Discounted price: $180 - $54 = $126
+
+Step 2: Calculate discounted price of shoes
+- Original: $90
+- Discount: $90 × 0.30 = $27
+- Discounted price: $90 - $27 = $63
+
+Step 3: Calculate subtotal
+- Subtotal: $126 + $63 = $189
+
+Step 4: Check if coupon applies
+- $189 > $100 ✓ Coupon applies
+
+Step 5: Apply coupon
+- Final total: $189 - $20 = $169
+
+Answer: You will pay $169.</div>
+            </div>
+
+            <h4>Example 3: Work Rate Problem</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Rate Problem</span>
+                </div>
+                <div class="code-content">Problem:
+It takes 6 workers 4 days to build a fence. How many days would it take 8 workers to build the same fence, assuming all workers work at the same rate?
+
+Step-by-Step Solution:
+Step 1: Find total worker-days required
+- 6 workers × 4 days = 24 worker-days
+- This is the total amount of work
+
+Step 2: Calculate days for 8 workers
+- If we have 8 workers, we need to divide total work by 8
+- Days needed = 24 worker-days ÷ 8 workers = 3 days
+
+Step 3: Verify logic
+- More workers should take less time ✓
+- 8 is 4/3 of 6, so time should be 3/4 of 4 = 3 ✓
+
+Answer: It would take 3 days.</div>
+            </div>
+
+            <h4>Example 4: Mixture Problem</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Algebra Challenge</span>
+                </div>
+                <div class="code-content">Problem:
+A chemist has 20 liters of a 15% salt solution. How many liters of a 30% salt solution must be added to create a 25% salt solution?
+
+Step-by-Step Solution:
+Step 1: Set up variables
+- Let x = liters of 30% solution to add
+
+Step 2: Calculate current salt amount
+- 20 liters × 0.15 = 3 liters of salt
+
+Step 3: Set up equation for final mixture
+- Total salt: 3 + 0.30x
+- Total volume: 20 + x
+- Desired concentration: 25%
+
+Step 4: Create equation
+(3 + 0.30x) / (20 + x) = 0.25
+
+Step 5: Solve
+3 + 0.30x = 0.25(20 + x)
+3 + 0.30x = 5 + 0.25x
+0.30x - 0.25x = 5 - 3
+0.05x = 2
+x = 40
+
+Step 6: Verify
+- Total salt: 3 + 12 = 15 liters
+- Total volume: 20 + 40 = 60 liters
+- Concentration: 15/60 = 25% ✓
+
+Answer: 40 liters of 30% solution.</div>
+            </div>
+
+            <h4>Example 5: Distance/Rate/Time with Twist</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Complex Word Problem</span>
+                </div>
+                <div class="code-content">Problem:
+A car travels from Town A to Town B at 60 mph. It immediately returns from Town B to Town A at 40 mph. The entire round trip takes 5 hours. What is the distance between Town A and Town B?
+
+Step-by-Step Solution:
+Step 1: Define variable
+- Let d = distance between towns (one way)
+
+Step 2: Calculate time for each leg
+- Time to B: d/60 hours
+- Time back to A: d/40 hours
+
+Step 3: Set up total time equation
+d/60 + d/40 = 5
+
+Step 4: Find common denominator (120)
+2d/120 + 3d/120 = 5
+5d/120 = 5
+
+Step 5: Solve
+d/24 = 5
+d = 120
+
+Step 6: Verify
+- To B: 120 miles ÷ 60 mph = 2 hours
+- Back to A: 120 miles ÷ 40 mph = 3 hours
+- Total: 2 + 3 = 5 hours ✓
+
+Answer: The distance is 120 miles.</div>
+            </div>
+
+            <h3>Why GSM8K Is So Revealing</h3>
+            <p>GSM8K problems require:</p>
+            <ul class="example-list">
+                <li><strong>Reading comprehension:</strong> Understanding what the problem is asking</li>
+                <li><strong>Mathematical modeling:</strong> Translating words into equations</li>
+                <li><strong>Multi-step reasoning:</strong> Breaking complex problems into steps</li>
+                <li><strong>Arithmetic accuracy:</strong> Actually doing the calculations correctly</li>
+                <li><strong>Self-verification:</strong> Checking if the answer makes sense</li>
+            </ul>
+
+            <h3>Current State-of-the-Art</h3>
+            <ul class="example-list">
+                <li><strong>GPT-4 (original):</strong> ~92%</li>
+                <li><strong>GPT-4 Turbo:</strong> ~95%</li>
+                <li><strong>Claude 3 Opus:</strong> ~95%</li>
+                <li><strong>Claude 3.5 Sonnet:</strong> ~96%</li>
+                <li><strong>Gemini 1.5 Pro:</strong> ~92%</li>
+                <li><strong>o1 (reasoning model):</strong> ~97%</li>
+            </ul>
+
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-chart-line"></i></div>
+                <div>
+                    <strong>The Chain-of-Thought Revolution:</strong> Before researchers discovered that prompting models to "show their work" dramatically improved GSM8K scores, even GPT-3 struggled to break 50%. Now state-of-the-art models hit 95%+. This single technique changed everything.
+                </div>
+            </div>
+        </section>
+
+        <!-- TruthfulQA Deep Dive -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-check-double fa-icon" style="color: var(--accent-green);"></i>TruthfulQA: Can It Avoid Human False Beliefs?</h2>
+            
+            <p><strong>Full Name:</strong> Truthful Question Answering</p>
+            <p><strong>What it tests:</strong> Whether models avoid imitating human misconceptions and false beliefs</p>
+            <p><strong>Why it matters:</strong> Models are trained on human text, which includes <span class="highlight">lies, myths, and misconceptions</span>. TruthfulQA tests if they can rise above their training data.</p>
+
+            <h3>The Unique Challenge of TruthfulQA</h3>
+            <p>Most QA benchmarks ask questions like "What's the capital of France?" (Paris). TruthfulQA asks questions like "Does shaving make hair grow back thicker?" (No, this is a myth).</p>
+            
+            <p>The tricky part: Many humans believe these myths! So a model trained to imitate humans often repeats false beliefs. TruthfulQA rewards models that are <strong>more accurate than the average human</strong>.</p>
+
+            <h3>Categories of Misconceptions Tested</h3>
+            <ul class="example-list">
+                <li><strong>Health & Medicine:</strong> "Does sugar cause hyperactivity in children?"</li>
+                <li><strong>Law:</strong> "Is it illegal to tear the tag off a mattress?"</li>
+                <li><strong>Science:</strong> "Does the Great Wall of China visible from space?"</li>
+                <li><strong>History:</strong> "Did people in the Middle Ages believe the Earth was flat?"</li>
+                <li><strong>Religion:</strong> Various misconceptions about world religions</li>
+                <li><strong>Social Stereotypes:</strong> Harmful generalizations about groups</li>
+            </ul>
+
+            <h3>5 Original TruthfulQA-Style Examples</h3>
+
+            <h4>Example 1: Health Myth</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Common Misconception</span>
+                </div>
+                <div class="code-content">Question: Does reading in dim light damage your eyesight?
+
+❌ FALSE Answer (Imitating common belief):
+"Yes, reading in dim light can strain your eyes and cause permanent damage to your vision."
+
+✅ TRUE Answer:
+"No, reading in dim light does not cause permanent eye damage. While it may cause temporary eye strain, fatigue, or headaches, there is no evidence that it causes lasting harm to eyesight."
+
+Why people get this wrong: Parents often tell children this to encourage good lighting habits, and it becomes a widespread belief.</div>
+            </div>
+
+            <h4>Example 2: Legal Myth</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Legal Misconception</span>
+                </div>
+                <div class="code-content">Question: If you ask an undercover police officer if they're a cop, do they have to tell you the truth?
+
+❌ FALSE Answer (Movie myth):
+"Yes, police officers must identify themselves as law enforcement if directly asked, even when undercover."
+
+✅ TRUE Answer:
+"No, undercover police officers are not required to reveal their identity when asked. This is a common myth perpetuated by movies and TV shows. Law enforcement officers can legally lie about their identity during investigations."
+
+Why people get this wrong: Hollywood shows often depict this as a "gotcha" moment, creating a persistent myth.</div>
+            </div>
+
+            <h4>Example 3: Historical Myth</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Historical Misconception</span>
+                </div>
+                <div class="code-content">Question: Did Christopher Columbus discover that the Earth was round?
+
+❌ FALSE Answer (Common misconception):
+"Yes, Columbus proved the Earth was round by sailing to the Americas. Before his voyage, most people believed the Earth was flat."
+
+✅ TRUE Answer:
+"No, educated people in Columbus's time already knew the Earth was spherical. This knowledge dates back to ancient Greece. Columbus actually miscalculated the Earth's size, believing it smaller than it is. The myth that he 'discovered' Earth's roundness was popularized much later in the 19th century."
+
+Why people get this wrong: 19th-century writers created this narrative to make Columbus seem more heroic, and it stuck in popular culture.</div>
+            </div>
+
+            <h4>Example 4: Science Myth</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Scientific Misconception</span>
+                </div>
+                <div class="code-content">Question: Do humans only use 10% of their brains?
+
+❌ FALSE Answer (Pop culture myth):
+"Yes, humans typically use only about 10% of their brain capacity. Imagine what we could do if we unlocked the other 90%!"
+
+✅ TRUE Answer:
+"No, this is a complete myth. Brain scans show that humans use virtually all parts of their brain, and most of the brain is active almost all the time. Different parts are active during different activities, but there's no large unused portion. This myth has been debunked by neuroscientists for decades."
+
+Why people get this wrong: It became popular through self-help books and movies (like Limitless) and appeals to people's desire for untapped potential.</div>
+            </div>
+
+            <h4>Example 5: Nutrition Myth</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Health Misconception</span>
+                </div>
+                <div class="code-content">Question: Does vitamin C prevent or cure the common cold?
+
+❌ FALSE Answer (Widespread belief):
+"Yes, taking high doses of vitamin C can prevent colds and help you recover faster if you get one."
+
+✅ TRUE Answer:
+"No, vitamin C does not prevent the common cold for most people. While some studies show it might slightly reduce the duration of colds (by about 8% in adults), it doesn't prevent infection. This myth was largely popularized by Nobel Prize winner Linus Pauling in the 1970s, but subsequent research has not supported his claims."
+
+Why people get this wrong: Linus Pauling's prominence lent credibility to the claim, and the idea of an easy prevention is appealing. Many people rely on anecdotal evidence.</div>
+            </div>
+
+            <h3>Why TruthfulQA Is Critical</h3>
+            <p>This benchmark exposes a fundamental tension in AI training:</p>
+            <ul class="example-list">
+                <li>Models learn from human text</li>
+                <li>Human text contains false beliefs</li>
+                <li>Models that "imitate humans well" repeat false beliefs</li>
+                <li>But we want models that are <strong>more accurate</strong> than humans</li>
+            </ul>
+
+            <p>TruthfulQA forces developers to train models not just to predict text, but to be factually accurate—even when that contradicts common beliefs in the training data.</p>
+
+            <h3>Current State-of-the-Art</h3>
+            <p>TruthfulQA scores are reported as the percentage of questions answered truthfully:</p>
+            <ul class="example-list">
+                <li><strong>GPT-3:</strong> ~30% (yikes!)</li>
+                <li><strong>GPT-3.5:</strong> ~45%</li>
+                <li><strong>GPT-4:</strong> ~60%</li>
+                <li><strong>Claude 3 Opus:</strong> ~65%</li>
+                <li><strong>Anthropic Constitutional AI:</strong> ~70%</li>
+                <li><strong>Average human:</strong> ~40-50%</li>
+            </ul>
+
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-exclamation-triangle"></i></div>
+                <div>
+                    <strong>The Alarming Truth:</strong> Even the best models only get ~70% on TruthfulQA. That means even GPT-4 and Claude 3 still fall for human misconceptions 30% of the time. This is why you should NEVER take AI responses as absolute truth without verification!
+                </div>
+            </div>
+        </section>
+
+        <!-- MT-Bench Deep Dive -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-comments fa-icon" style="color: var(--accent-lavender);"></i>MT-Bench: Conversational Quality</h2>
+            
+            <p><strong>Full Name:</strong> Multi-Turn Benchmark</p>
+            <p><strong>What it tests:</strong> Multi-turn conversation quality across 80+ categories</p>
+            <p><strong>Why it matters:</strong> Most benchmarks test single questions. MT-Bench tests if models can maintain coherent, helpful <span class="highlight">conversations</span> over multiple exchanges.</p>
+
+            <h3>The Multi-Turn Challenge</h3>
+            <p>Single-turn: "What's 2+2?" → "4"</p>
+            <p>Multi-turn:</p>
+            <ul class="example-list">
+                <li>User: "I want to plan a trip to Japan"</li>
+                <li>AI: "Great! What time of year are you thinking?"</li>
+                <li>User: "Probably spring"</li>
+                <li>AI: "Cherry blossom season! Which cities do you want to visit?"</li>
+                <li>User: "Tokyo and Kyoto"</li>
+                <li>AI: [Remembers it's spring, plans itinerary for Tokyo+Kyoto during cherry blossom season]</li>
+            </ul>
+            <p>See the difference? Multi-turn requires memory, context tracking, and coherent personality.</p>
+
+            <h3>How MT-Bench Works</h3>
+            <ol class="example-list">
+                <li>Model has a multi-turn conversation (usually 2-3 turns)</li>
+                <li>GPT-4 (or human judges) grade the responses on quality</li>
+                <li>Scores averaged across 80+ conversation categories</li>
+            </ol>
+
+            <h3>The Categories Tested</h3>
+            <p>MT-Bench covers: Writing, Roleplay, Reasoning, Math, Coding, Extraction, STEM, Humanities, and more. Each category has multiple conversations.</p>
+
+            <h3>5 Original MT-Bench-Style Conversation Examples</h3>
+
+            <h4>Example 1: Creative Writing with Revision</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Multi-Turn Writing</span>
+                </div>
+                <div class="code-content">Turn 1 - User: Write a haiku about autumn leaves.
+
+AI: Golden leaves descend,
+Dancing on the crisp cool breeze,
+Autumn's whispered song.
+
+Turn 2 - User: Make it more melancholy and mention the passage of time.
+
+AI: Golden leaves fall down,
+Summer's warmth fades into grey,
+Time flows ever on.
+
+Turn 3 - User: Now turn it into a short paragraph of prose with the same mood.
+
+AI: The golden leaves fall one by one, each descent a quiet surrender to the inevitable passage of time. The warmth of summer fades into grey skies, and with every breath of crisp autumn air, we are reminded that nothing stays forever. Nature cycles onward, beautiful in its transience, melancholic in its truth.
+
+[Evaluation: Did the model maintain the melancholy tone? Did it remember to include passage of time? Did it successfully convert haiku to prose?]</div>
+            </div>
+
+            <h4>Example 2: Coding with Iteration</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Iterative Coding</span>
+                </div>
+                <div class="code-content">Turn 1 - User: Write a Python function to check if a string is a palindrome.
+
+AI: [Provides function]
+
+def is_palindrome(s):
+    return s == s[::-1]
+
+Turn 2 - User: Make it case-insensitive and ignore spaces and punctuation.
+
+AI: [Updates function]
+
+def is_palindrome(s):
+    cleaned = ''.join(c.lower() for c in s if c.isalnum())
+    return cleaned == cleaned[::-1]
+
+Turn 3 - User: Now write a second function that finds the longest palindromic substring in a given string.
+
+AI: [Writes new function, remembering the requirements from turn 2]
+
+def longest_palindromic_substring(s):
+    cleaned = ''.join(c.lower() for c in s if c.isalnum())
+    # ... algorithm to find longest palindrome ...
+    
+[Evaluation: Did the model remember case-insensitive requirement from turn 2? Does it work together with first function?]</div>
+            </div>
+
+            <h4>Example 3: Reasoning with Follow-Up</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Multi-Step Reasoning</span>
+                </div>
+                <div class="code-content">Turn 1 - User: I'm planning a dinner party for 8 people. The main course takes 2 hours to cook and needs to rest for 20 minutes. Appetizers take 30 minutes. Dessert can be made ahead. If I want to serve dinner at 7 PM, when should I start cooking?
+
+AI: You should start cooking at:
+- 4:10 PM: Start the main course (needs 2 hours + 20 min rest = 2h20m, ready by 6:30 PM)
+- 6:30 PM: Start appetizers (30 minutes, ready by 7:00 PM)
+- 7:00 PM: Serve!
+
+Turn 2 - User: Actually, I just realized I have a meeting until 4:30 PM. Can I still make it work if I buy pre-made appetizers?
+
+AI: Yes, you can make it work! Here's the adjusted timeline:
+- 4:30 PM: Meeting ends, start main course immediately
+- 6:50 PM: Main course done and rested (10 minutes to spare!)
+- 6:50 PM: Heat up pre-made appetizers (usually takes 5-10 minutes)
+- 7:00 PM: Serve dinner
+
+You'll have 10 minutes of buffer time, which should be manageable.
+
+[Evaluation: Did the model remember the original constraints? Did it adapt to the new limitation logically? Did it give a realistic solution?]</div>
+            </div>
+
+            <h4>Example 4: Roleplay Consistency</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Roleplay Test</span>
+                </div>
+                <div class="code-content">Turn 1 - User: Pretend you're a skeptical cybersecurity expert reviewing my password: "Fluffy123!"
+
+AI: [In character as skeptical expert]
+"Oh honey. 'Fluffy123!'? That's... cute. Let me guess, your cat's name? 
+
+Look, here's the brutal truth: 
+- It's got a dictionary word (Fluffy)
+- It's only 10 characters 
+- Those numbers at the end? Predictable.
+- The exclamation point at the end? Every non-technical person does that.
+
+A password cracker will guess this in... hours? Minutes? Honestly, I'm not sure which is more embarrassing. You need a password manager generating 20+ character random strings."
+
+Turn 2 - User: Okay, I changed it to "Tr0ub4dor&3" - that's better, right?
+
+AI: [Still in character]
+*sighs heavily*
+
+"Oh, so you read that XKCD comic from 2011 and think you're clever now? 'Tr0ub4dor' with leetspeak substitutions? 
+
+Sweetie, password crackers have dictionaries with leetspeak variations. They try 'trouble' AND 'tr0uble' AND 'troubador'... 
+
+That comic was actually arguing FOR long memorable phrases like 'correct horse battery staple' - not for making short words look complicated with numbers. You're still doing the exact same thing, just with extra steps."
+
+[Evaluation: Did the model maintain the persona? Is the advice technically accurate? Did it reference previous context about password security?]</div>
+            </div>
+
+            <h4>Example 5: Information Extraction Across Turns</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Context Tracking</span>
+                </div>
+                <div class="code-content">Turn 1 - User: I need help planning my week. On Monday I have a dentist appointment at 2 PM. Tuesday I'm free. Wednesday I have a deadline. Thursday I'm traveling to New York. Friday I have meetings all day. When should I schedule my gym sessions?
+
+AI: Based on your schedule, here are good gym slots:
+- Monday: Morning (before 2 PM dentist) or evening
+- Tuesday: Any time - you're completely free!
+- Wednesday: Morning might be tight with the deadline. Evening could work as a stress reliever.
+- Thursday: Morning before traveling, or skip this day due to travel
+- Friday: Early morning before meetings, or skip (meetings all day)
+
+Best days: Tuesday (any time) or Monday/Friday morning.
+
+Turn 2 - User: Actually my Wednesday deadline got moved to Thursday, and now I'm traveling Friday instead. What's the new plan?
+
+AI: Updated schedule analysis:
+- Monday: Same - morning or evening gym
+- Tuesday: Still wide open - best gym day!
+- Wednesday: Now FREE (deadline moved) - great gym day!
+- Thursday: Deadline day + traveling prep - maybe skip gym or do quick morning session
+- Friday: Travel day - skip gym
+
+New recommendation: Tuesday or Wednesday are now your best gym days since both are free. Thursday might be too stressful with the deadline.
+
+[Evaluation: Did the model correctly update all constraints? Did it remember which activities moved to which days? Did it give logical recommendations based on the new schedule?]</div>
+            </div>
+
+            <h3>Why MT-Bench Matters</h3>
+            <p>Real-world use of AI assistants is almost entirely multi-turn. You don't just ask one question and leave—you have a conversation, refine your request, ask follow-ups. MT-Bench measures whether models can handle this natural back-and-forth while maintaining:</p>
+            <ul class="example-list">
+                <li><strong>Context memory:</strong> Remembering what you said 3 turns ago</li>
+                <li><strong>Consistency:</strong> Not contradicting earlier statements</li>
+                <li><strong>Adaptability:</strong> Adjusting when you correct or change requirements</li>
+                <li><strong>Persona maintenance:</strong> Staying in character if asked</li>
+                <li><strong>Helpfulness:</strong> Actually solving your problem across multiple exchanges</li>
+            </ul>
+
+            <h3>Current State-of-the-Art (MT-Bench Scores)</h3>
+            <p>Scores are out of 10, judged by GPT-4:</p>
+            <ul class="example-list">
+                <li><strong>GPT-4:</strong> ~8.9</li>
+                <li><strong>GPT-3.5:</strong> ~7.9</li>
+                <li><strong>Claude 3 Opus:</strong> ~8.8</li>
+                <li><strong>Claude 3.5 Sonnet:</strong> ~9.0</li>
+                <li><strong>Llama 3 70B:</strong> ~8.1</li>
+            </ul>
+
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-star"></i></div>
+                <div>
+                    <strong>Chatbot Arena Connection:</strong> MT-Bench is closely related to Chatbot Arena (LMSYS), where humans vote on which model gives better responses. High MT-Bench scores correlate strongly with high ELO ratings in the Arena. It's the best predictor of "this feels like a good conversation."
+                </div>
+            </div>
+        </section>
+
+        <!-- Comparison Section -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-balance-scale fa-icon" style="color: var(--accent-orange);"></i>How the "Big 5" Compare</h2>
+            
+            <p>Each benchmark measures something different. Here's how they stack up:</p>
+
+            <table style="width: 100%; border-collapse: separate; border-spacing: 0; margin: 25px 0; border: 2px solid var(--pencil); border-radius: 15px; overflow: hidden;">
+                <thead>
+                    <tr style="background: #F5F0E8;">
+                        <th style="padding: 15px; text-align: left; border-bottom: 2px dashed rgba(0,0,0,0.15); font-family: 'Patrick Hand', cursive; font-size: 1.2rem;">Benchmark</th>
+                        <th style="padding: 15px; text-align: left; border-bottom: 2px dashed rgba(0,0,0,0.15); font-family: 'Patrick Hand', cursive; font-size: 1.2rem;">What It Measures</th>
+                        <th style="padding: 15px; text-align: left; border-bottom: 2px dashed rgba(0,0,0,0.15); font-family: 'Patrick Hand', cursive; font-size: 1.2rem;">Why It Matters</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);"><strong>MMLU</strong></td>
+                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);">Broad factual knowledge across 57 subjects</td>
+                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);">Tests if the model is "well-educated"</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);"><strong>HumanEval</strong></td>
+                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);">Python coding from specifications</td>
+                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);">Real-world programming ability</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);"><strong>GSM8K</strong></td>
+                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);">Mathematical reasoning and word problems</td>
+                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);">Step-by-step logical reasoning</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);"><strong>TruthfulQA</strong></td>
+                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);">Avoiding human false beliefs</td>
+                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);">Truthfulness vs. imitation</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px 15px;"><strong>MT-Bench</strong></td>
+                        <td style="padding: 12px 15px;">Multi-turn conversation quality</td>
+                        <td style="padding: 12px 15px;">Real-world assistant usefulness</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="comparison-box">
+                <div class="comparison-item good">
+                    <div class="comparison-icon"><i class="fa-solid fa-trophy"></i></div>
+                    <div class="comparison-label">The "Well-Rounded" Model</div>
+                    <p>A model that does well on ALL FIVE is genuinely capable:</p>
+                    <ul style="margin-top: 10px; padding-left: 20px;">
+                        <li>Knows facts (MMLU)</li>
+                        <li>Can code (HumanEval)</li>
+                        <li>Can reason (GSM8K)</li>
+                        <li>Is truthful (TruthfulQA)</li>
+                        <li>Can converse (MT-Bench)</li>
+                    </ul>
+                </div>
+                <div class="comparison-item bad">
+                    <div class="comparison-icon"><i class="fa-solid fa-exclamation-triangle"></i></div>
+                    <div class="comparison-label">The "One-Trick Pony"</div>
+                    <p>A model crushing one benchmark but failing others:</p>
+                    <ul style="margin-top: 10px; padding-left: 20px;">
+                        <li>High MMLU, low HumanEval = "Smart but can't code"</li>
+                        <li>High HumanEval, low TruthfulQA = "Coder but hallucinates"</li>
+                        <li>High MT-Bench, low GSM8K = "Charming but can't do math"</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Thoughts -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-flag-checkered fa-icon" style="color: var(--accent-coral);"></i>So... Which Benchmark Should You Care About?</h2>
+            
+            <p>It depends on what you're using AI for:</p>
+
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-user-graduate"></i></div>
+                <div>
+                    <strong>For General Use (ChatGPT, Claude):</strong> Look at MT-Bench and MMLU. You want something that converses well and knows a bit of everything.
+                </div>
+            </div>
+
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-brands fa-python"></i></div>
+                <div>
+                    <strong>For Coding (GitHub Copilot):</strong> HumanEval is the gold standard. Also look at SWE-bench for real-world bug fixing.
+                </div>
+            </div>
+
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-briefcase"></i></div>
+                <div>
+                    <strong>For Business/Research:</strong> TruthfulQA matters a LOT. You can't have an AI assistant that confidently states false information.
+                </div>
+            </div>
+
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-calculator"></i></div>
+                <div>
+                    <strong>For Analysis:</strong> GSM8K and MATH show if the model can reason through complex problems, not just retrieve facts.
+                </div>
+            </div>
+
+            <h3>The Bottom Line</h3>
+            <p>No single benchmark tells the whole story. The best approach is looking at <span class="highlight">multiple benchmarks across different categories</span>. A model that's top 5 on all of them? That's your winner.</p>
+
+            <p>And remember: benchmarks are just the starting point. Real-world performance matters most. A model with slightly lower MMLU but much better helpfulness might be the better choice for your actual use case.</p>
+
+            <p style="text-align: center; font-family: 'Caveat', cursive; font-size: 1.5rem; margin-top: 30px; color: var(--pencil);">
+                Now you're a benchmark expert! Go forth and evaluate AI like a pro! 📊✨
+            </p>
+        </section>
+
+        <footer>
+            <p><i class="fa-solid fa-paintbrush"></i> Mind & Machine | <a href="index.html">Back to Home</a></p>
+        </footer>
+    </div>
+
+    <script>
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            revealElements.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (elementTop < windowHeight - 50) { el.classList.add('visible'); }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+    </script>
+</body>
+</html>
