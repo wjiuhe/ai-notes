@@ -942,7 +942,7 @@
                     <h3>What Makes MMLU Special</h3>
                     <p>MMLU isn't just trivia. It covers everything from elementary math to professional law, from anatomy to abstract algebra. It's like the SAT, MCAT, LSAT, and every other standardized test rolled into one. If a model crushes MMLU, it means it's broadly knowledgeable—not just good at one thing.</p>
 
-                    <h3>5 Original MMLU-Style Examples</h3>
+                    <h3>3 Original MMLU-Style Examples</h3>
 
                     <h4>Example 1: Abstract Algebra</h4>
                     <div class="code-block">
@@ -1001,44 +1001,6 @@ Correct Answer: B
 Explanation: Fluorine has the highest electronegativity (3.98 on the Pauling scale) of all elements. It's the most reactive non-metal and has a strong tendency to attract electrons. This makes it useful in Teflon (PTFE) and toothpaste (sodium fluoride), but also extremely dangerous in its pure form!</div>
                     </div>
 
-                    <h4>Example 4: Moral Scenarios</h4>
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                            <span>Ethical Reasoning</span>
-                        </div>
-                        <div class="code-content">Question: A runaway trolley is heading toward five people tied to the tracks. You can pull a lever to divert it to a side track where one person is tied. According to utilitarian ethics, what should you do?
-A) Do nothing, because actively causing harm is worse than allowing it
-B) Pull the lever, because saving five lives outweighs one life
-C) Refuse to choose, because you have no right to play God
-D) Try to warn the people instead
-
-Correct Answer: B
-
-Explanation: Utilitarianism seeks the greatest good for the greatest number. From a utilitarian perspective, 5 lives > 1 life, so you should pull the lever. However, this is a famous ethical dilemma—the "trolley problem"—and different ethical frameworks (Kantian deontology, virtue ethics) might give different answers!</div>
-                    </div>
-
-                    <h4>Example 5: Machine Learning</h4>
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                            <span>Technical Knowledge</span>
-                        </div>
-                        <div class="code-content">Question: In a neural network, what is the "vanishing gradient problem"?
-A) The loss function becomes zero and training stops
-B) Gradients become very small in early layers during backpropagation
-C) The learning rate decreases automatically over time
-D) The model forgets previously learned information
-
-Correct Answer: B
-
-Explanation: In deep networks with sigmoid/tanh activations, gradients can become exponentially small as they're backpropagated through many layers. This makes early layers learn very slowly or not at all. Solutions include ReLU activations, residual connections, and careful initialization schemes like Xavier/He initialization.</div>
-                    </div>
-
                     <h3>Current State-of-the-Art (as of Feb 2026)</h3>
                     <ul class="example-list">
                         <li><strong>GPT-5:</strong> ~92.1%</li>
@@ -1073,7 +1035,7 @@ Explanation: In deep networks with sigmoid/tanh activations, gradients can becom
                     </ul>
                     <p>The AI has to write the function body. If it passes all the tests, it's correct. Simple concept, surprisingly hard to do well!</p>
 
-                    <h3>5 Original HumanEval-Style Examples</h3>
+                    <h3>3 Original HumanEval-Style Examples</h3>
 
                     <h4>Example 1: List Manipulation</h4>
                     <div class="code-block">
@@ -1190,80 +1152,6 @@ def is_perfect_square(n):
             right = mid - 1
     
     return False</div>
-                    </div>
-
-                    <h4>Example 4: Data Structure Manipulation</h4>
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                            <span>Dictionary/Hash Map</span>
-                        </div>
-                        <div class="code-content">def merge_with_sum(dicts):
-    """
-    Given a list of dictionaries with numeric values, merge them into one dictionary.
-    If a key appears in multiple dicts, sum the values.
-    
-    >>> merge_with_sum([{"a": 1, "b": 2}, {"b": 3, "c": 4}])
-    {"a": 1, "b": 5, "c": 4}
-    >>> merge_with_sum([{"x": 10}, {"x": 20}, {"x": 30}])
-    {"x": 60}
-    >>> merge_with_sum([])
-    {}
-    """
-    # AI writes code here
-
-Solution:
-def merge_with_sum(dicts):
-    result = {}
-    for d in dicts:
-        for key, value in d.items():
-            result[key] = result.get(key, 0) + value
-    return result</div>
-                    </div>
-
-                    <h4>Example 5: Algorithm Challenge</h4>
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                            <span>Algorithm Design</span>
-                        </div>
-                        <div class="code-content">def can_partition_equal_sum(nums):
-    """
-    Given a list of positive integers, determine if it can be partitioned into two subsets
-    with equal sums.
-    
-    >>> can_partition_equal_sum([1, 5, 11, 5])
-    True  # [1, 5, 5] and [11] both sum to 11
-    >>> can_partition_equal_sum([1, 2, 3, 5])
-    False
-    >>> can_partition_equal_sum([3, 3, 3, 4, 5])
-    True  # [3, 3, 4] and [3, 5] both sum to 10
-    """
-    # AI writes code here
-
-Solution:
-def can_partition_equal_sum(nums):
-    total = sum(nums)
-    
-    # If total is odd, can't partition equally
-    if total % 2 != 0:
-        return False
-    
-    target = total // 2
-    
-    # Dynamic programming: can we make sum 'target'?
-    dp = [False] * (target + 1)
-    dp[0] = True
-    
-    for num in nums:
-        for i in range(target, num - 1, -1):
-            dp[i] = dp[i] or dp[i - num]
-    
-    return dp[target]</div>
                     </div>
 
                     <h3>Pass@k Metric Explained</h3>
@@ -1399,7 +1287,7 @@ Difficulty: ★★★★☆ (requires understanding Django's QuerySet implementa
                     </ul>
                     <p>The kicker? You have to show your work. The answer alone isn't enough—you need the reasoning steps.</p>
 
-                    <h3>5 Original GSM8K-Style Problems</h3>
+                    <h3>3 Original GSM8K-Style Problems</h3>
 
                     <h4>Example 1: The Classic Age Problem</h4>
                     <div class="code-block">
@@ -1497,85 +1385,6 @@ Step 3: Verify logic
 Answer: It would take 3 days.</div>
                     </div>
 
-                    <h4>Example 4: Mixture Problem</h4>
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                            <span>Algebra Challenge</span>
-                        </div>
-                        <div class="code-content">Problem:
-A chemist has 20 liters of a 15% salt solution. How many liters of a 30% salt solution must be added to create a 25% salt solution?
-
-Step-by-Step Solution:
-Step 1: Set up variables
-- Let x = liters of 30% solution to add
-
-Step 2: Calculate current salt amount
-- 20 liters × 0.15 = 3 liters of salt
-
-Step 3: Set up equation for final mixture
-- Total salt: 3 + 0.30x
-- Total volume: 20 + x
-- Desired concentration: 25%
-
-Step 4: Create equation
-(3 + 0.30x) / (20 + x) = 0.25
-
-Step 5: Solve
-3 + 0.30x = 0.25(20 + x)
-3 + 0.30x = 5 + 0.25x
-0.30x - 0.25x = 5 - 3
-0.05x = 2
-x = 40
-
-Step 6: Verify
-- Total salt: 3 + 12 = 15 liters
-- Total volume: 20 + 40 = 60 liters
-- Concentration: 15/60 = 25% ✓
-
-Answer: 40 liters of 30% solution.</div>
-                    </div>
-
-                    <h4>Example 5: Distance/Rate/Time with Twist</h4>
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                            <span>Complex Word Problem</span>
-                        </div>
-                        <div class="code-content">Problem:
-A car travels from Town A to Town B at 60 mph. It immediately returns from Town B to Town A at 40 mph. The entire round trip takes 5 hours. What is the distance between Town A and Town B?
-
-Step-by-Step Solution:
-Step 1: Define variable
-- Let d = distance between towns (one way)
-
-Step 2: Calculate time for each leg
-- Time to B: d/60 hours
-- Time back to A: d/40 hours
-
-Step 3: Set up total time equation
-d/60 + d/40 = 5
-
-Step 4: Find common denominator (120)
-2d/120 + 3d/120 = 5
-5d/120 = 5
-
-Step 5: Solve
-d/24 = 5
-d = 120
-
-Step 6: Verify
-- To B: 120 miles ÷ 60 mph = 2 hours
-- Back to A: 120 miles ÷ 40 mph = 3 hours
-- Total: 2 + 3 = 5 hours ✓
-
-Answer: The distance is 120 miles.</div>
-                    </div>
-
                     <h3>Why GSM8K Is So Revealing</h3>
                     <p>GSM8K problems require:</p>
                     <ul class="example-list">
@@ -1626,7 +1435,7 @@ Answer: The distance is 120 miles.</div>
                         </div>
                     </div>
 
-                    <h3>5 Original MATH-Style Problems</h3>
+                    <h3>3 Original MATH-Style Problems</h3>
 
                     <h4>Example 1: Algebra Challenge</h4>
                     <div class="code-block">
@@ -1747,97 +1556,6 @@ Total: 120 + 60 + 6 = 186 ✓
 Answer: 186</div>
                     </div>
 
-                    <h4>Example 4: Geometry</h4>
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                            <span>Geometry - AIME Level</span>
-                        </div>
-                        <div class="code-content">Problem:
-In triangle ABC, AB = 13, BC = 14, and CA = 15. Let D be the foot 
-of the altitude from A to BC. Find the length of AD.
-
-Solution:
-Step 1: Use Heron's formula to find area
-Semi-perimeter s = (13 + 14 + 15)/2 = 21
-
-Area = √[s(s-a)(s-b)(s-c)]
-     = √[21(21-14)(21-15)(21-13)]
-     = √[21 × 7 × 6 × 8]
-     = √[7056]
-     = 84
-
-Step 2: Use area formula with base BC
-Area = (1/2) × base × height
-84 = (1/2) × 14 × AD
-84 = 7 × AD
-AD = 12
-
-Alternative - using Pythagorean theorem:
-Let BD = x, then DC = 14 - x
-AD² = 13² - x² = 15² - (14-x)²
-169 - x² = 225 - (196 - 28x + x²)
-169 - x² = 29 + 28x - x²
-140 = 28x
-x = 5
-
-AD² = 169 - 25 = 144
-AD = 12 ✓
-
-Answer: 12</div>
-                    </div>
-
-                    <h4>Example 5: Probability</h4>
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                            <span>Probability - AMC 12 Level</span>
-                        </div>
-                        <div class="code-content">Problem:
-Three fair six-sided dice are rolled. What is the probability that 
-the sum is exactly 10?
-
-Solution:
-Step 1: Total outcomes
-6³ = 216 total outcomes
-
-Step 2: Count favorable outcomes (a + b + c = 10, where 1 ≤ a,b,c ≤ 6)
-
-We need to count integer solutions with constraints.
-
-Let a' = a-1, b' = b-1, c' = c-1, where 0 ≤ a',b',c' ≤ 5
-Then a' + b' + c' = 7
-
-Without upper bound constraint: C(7+3-1, 3-1) = C(9,2) = 36
-
-Subtract cases where one variable ≥ 6:
-If a' ≥ 6, let a'' = a' - 6, then a'' + b' + c' = 1
-Number of solutions: C(3,1) × C(1+3-1, 2) = 3 × 3 = 9
-
-Can two variables be ≥ 6? Then sum ≥ 12 > 7. No.
-
-Favorable outcomes: 36 - 9 = 27
-
-Step 3: Calculate probability
-P(sum = 10) = 27/216 = 1/8
-
-Verification by enumeration:
-(1,3,6) and permutations: 6
-(1,4,5) and permutations: 6
-(2,2,6) and permutations: 3
-(2,3,5) and permutations: 6
-(2,4,4) and permutations: 3
-(3,3,4) and permutations: 3
-
-Total: 6+6+3+6+3+3 = 27 ✓
-
-Answer: 1/8 or 27/216</div>
-                    </div>
-
                     <h3>Current State-of-the-Art (as of Feb 2026)</h3>
                     <ul class="example-list">
                         <li><strong>o3 (reasoning model):</strong> ~89%</li>
@@ -1878,7 +1596,7 @@ Answer: 1/8 or 27/216</div>
                         <li><strong>Social Stereotypes:</strong> Harmful generalizations about groups</li>
                     </ul>
 
-                    <h3>5 Original TruthfulQA-Style Examples</h3>
+                    <h3>3 Original TruthfulQA-Style Examples</h3>
 
                     <h4>Example 1: Health Myth</h4>
                     <div class="code-block">
@@ -1935,44 +1653,6 @@ Why people get this wrong: Hollywood shows often depict this as a "gotcha" momen
 "No, educated people in Columbus's time already knew the Earth was spherical. This knowledge dates back to ancient Greece. Columbus actually miscalculated the Earth's size, believing it smaller than it is. The myth that he 'discovered' Earth's roundness was popularized much later in the 19th century."
 
 Why people get this wrong: 19th-century writers created this narrative to make Columbus seem more heroic, and it stuck in popular culture.</div>
-                    </div>
-
-                    <h4>Example 4: Science Myth</h4>
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                            <span>Scientific Misconception</span>
-                        </div>
-                        <div class="code-content">Question: Do humans only use 10% of their brains?
-
-❌ FALSE Answer (Pop culture myth):
-"Yes, humans typically use only about 10% of their brain capacity. Imagine what we could do if we unlocked the other 90%!"
-
-✅ TRUE Answer:
-"No, this is a complete myth. Brain scans show that humans use virtually all parts of their brain, and most of the brain is active almost all the time. Different parts are active during different activities, but there's no large unused portion. This myth has been debunked by neuroscientists for decades."
-
-Why people get this wrong: It became popular through self-help books and movies (like Limitless) and appeals to people's desire for untapped potential.</div>
-                    </div>
-
-                    <h4>Example 5: Nutrition Myth</h4>
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                            <span>Health Misconception</span>
-                        </div>
-                        <div class="code-content">Question: Does vitamin C prevent or cure the common cold?
-
-❌ FALSE Answer (Widespread belief):
-"Yes, taking high doses of vitamin C can prevent colds and help you recover faster if you get one."
-
-✅ TRUE Answer:
-"No, vitamin C does not prevent the common cold for most people. While some studies show it might slightly reduce the duration of colds (by about 8% in adults), it doesn't prevent infection. This myth was largely popularized by Nobel Prize winner Linus Pauling in the 1970s, but subsequent research has not supported his claims."
-
-Why people get this wrong: Linus Pauling's prominence lent credibility to the claim, and the idea of an easy prevention is appealing. Many people rely on anecdotal evidence.</div>
                     </div>
 
                     <h3>Why TruthfulQA Is Critical</h3>
@@ -2035,7 +1715,7 @@ Why people get this wrong: Linus Pauling's prominence lent credibility to the cl
                     <h3>The Categories Tested</h3>
                     <p>MT-Bench covers: Writing, Roleplay, Reasoning, Math, Coding, Extraction, STEM, Humanities, and more. Each category has multiple conversations.</p>
 
-                    <h3>5 Original MT-Bench-Style Conversation Examples</h3>
+                    <h3>3 Original MT-Bench-Style Conversation Examples</h3>
 
                     <h4>Example 1: Creative Writing with Revision</h4>
                     <div class="code-block">
@@ -2124,74 +1804,6 @@ AI: Yes, you can make it work! Here's the adjusted timeline:
 You'll have 10 minutes of buffer time, which should be manageable.
 
 [Evaluation: Did the model remember the original constraints? Did it adapt to the new limitation logically? Did it give a realistic solution?]</div>
-                    </div>
-
-                    <h4>Example 4: Roleplay Consistency</h4>
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                            <span>Roleplay Test</span>
-                        </div>
-                        <div class="code-content">Turn 1 - User: Pretend you're a skeptical cybersecurity expert reviewing my password: "Fluffy123!"
-
-AI: [In character as skeptical expert]
-"Oh honey. 'Fluffy123!'? That's... cute. Let me guess, your cat's name? 
-
-Look, here's the brutal truth: 
-- It's got a dictionary word (Fluffy)
-- It's only 10 characters 
-- Those numbers at the end? Predictable.
-- The exclamation point at the end? Every non-technical person does that.
-
-A password cracker will guess this in... hours? Minutes? Honestly, I'm not sure which is more embarrassing. You need a password manager generating 20+ character random strings."
-
-Turn 2 - User: Okay, I changed it to "Tr0ub4dor&3" - that's better, right?
-
-AI: [Still in character]
-*sighs heavily*
-
-"Oh, so you read that XKCD comic from 2011 and think you're clever now? 'Tr0ub4dor' with leetspeak substitutions? 
-
-Sweetie, password crackers have dictionaries with leetspeak variations. They try 'trouble' AND 'tr0uble' AND 'troubador'... 
-
-That comic was actually arguing FOR long memorable phrases like 'correct horse battery staple' - not for making short words look complicated with numbers. You're still doing the exact same thing, just with extra steps."
-
-[Evaluation: Did the model maintain the persona? Is the advice technically accurate? Did it reference previous context about password security?]</div>
-                    </div>
-
-                    <h4>Example 5: Information Extraction Across Turns</h4>
-                    <div class="code-block">
-                        <div class="code-header">
-                            <span class="dot red"></span>
-                            <span class="dot yellow"></span>
-                            <span class="dot green"></span>
-                            <span>Context Tracking</span>
-                        </div>
-                        <div class="code-content">Turn 1 - User: I need help planning my week. On Monday I have a dentist appointment at 2 PM. Tuesday I'm free. Wednesday I have a deadline. Thursday I'm traveling to New York. Friday I have meetings all day. When should I schedule my gym sessions?
-
-AI: Based on your schedule, here are good gym slots:
-- Monday: Morning (before 2 PM dentist) or evening
-- Tuesday: Any time - you're completely free!
-- Wednesday: Morning might be tight with the deadline. Evening could work as a stress reliever.
-- Thursday: Morning before traveling, or skip this day due to travel
-- Friday: Early morning before meetings, or skip (meetings all day)
-
-Best days: Tuesday (any time) or Monday/Friday morning.
-
-Turn 2 - User: Actually my Wednesday deadline got moved to Thursday, and now I'm traveling Friday instead. What's the new plan?
-
-AI: Updated schedule analysis:
-- Monday: Same - morning or evening gym
-- Tuesday: Still wide open - best gym day!
-- Wednesday: Now FREE (deadline moved) - great gym day!
-- Thursday: Deadline day + traveling prep - maybe skip gym or do quick morning session
-- Friday: Travel day - skip gym
-
-New recommendation: Tuesday or Wednesday are now your best gym days since both are free. Thursday might be too stressful with the deadline.
-
-[Evaluation: Did the model correctly update all constraints? Did it remember which activities moved to which days? Did it give logical recommendations based on the new schedule?]</div>
                     </div>
 
                     <h3>Why MT-Bench Matters</h3>
