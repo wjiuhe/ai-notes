@@ -1,0 +1,27 @@
+# Emoji Prevention Rule
+
+This project uses Font Awesome icons instead of emoji.
+Please DO NOT use emoji characters in any code files.
+
+## Why?
+- Emoji rendering varies across browsers and operating systems
+- Font Awesome provides consistent, professional-looking icons
+- Better control over styling and animations
+
+## How to use Font Awesome?
+Instead of: ⭐ 💤 👑 🏥
+Use:       <i class="fa-solid fa-star"></i> <i class="fa-solid fa-bed"></i> <i class="fa-solid fa-crown"></i> <i class="fa-solid fa-hospital"></i>
+
+## Available icons
+- fa-star, fa-star-half-stroke (ratings)
+- fa-crown (superstar)
+- fa-user-injured, fa-user-md, fa-stethoscope (medical)
+- fa-heart, fa-brain, fa-bone, fa-lungs (specialties)
+- fa-moon (sleep/idle)
+- fa-spider (cobwebs)
+- fa-arrow-right (flow)
+- fa-balance-scale (workload)
+- fa-clock (timing)
+- fa-bolt (speed)
+- fa-puzzle-piece (experts)
+- fa-layer-group (MoE)
