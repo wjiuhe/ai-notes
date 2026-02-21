@@ -8,202 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="static/styles.css">
     <style>
-        :root {
-            --bg-cream: #FDF8F3;
-            --bg-paper: #FFFEF9;
-            --accent-coral: #FF6B6B;
-            --accent-teal: #4ECDC4;
-            --accent-sunflower: #FFE66D;
-            --accent-lavender: #C9B1FF;
-            --accent-sky: #A8E6CF;
-            --accent-red: #E74C3C;
-            --accent-green: #27AE60;
-            --accent-orange: #E67E22;
-            --text-dark: #2D3436;
-            --text-muted: #636E72;
-            --pencil: #2B2B2B;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Nunito', sans-serif;
-            background: var(--bg-cream);
-            color: var(--text-dark);
-            line-height: 1.7;
-            min-height: 100vh;
-        }
-
-        .page-wrapper {
-            display: flex;
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .sidebar {
-            width: 280px;
-            position: fixed;
-            left: 0;
-            top: 0;
-            height: 100vh;
-            background: linear-gradient(180deg, var(--bg-paper) 0%, #F8F4EF 100%);
-            border-right: 3px solid var(--pencil);
-            padding: 30px 20px;
-            overflow-y: auto;
-            z-index: 100;
-            box-shadow: 3px 0 10px rgba(0,0,0,0.1);
-        }
-
-        .sidebar-header {
-            text-align: center;
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 2px dashed rgba(0,0,0,0.15);
-        }
-
-        .sidebar-title {
-            font-family: 'Caveat', cursive;
-            font-size: 1.8rem;
-            color: var(--pencil);
-            margin-bottom: 5px;
-        }
-
-        .sidebar-subtitle {
-            font-family: 'Patrick Hand', cursive;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        .toc-section { margin-bottom: 20px; }
-
-        .toc-title {
-            font-family: 'Patrick Hand', cursive;
-            font-size: 1rem;
-            color: var(--pencil);
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 700;
-        }
-
-        .toc-list {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .toc-list li { margin-bottom: 6px; }
-
-        .toc-list a {
-            display: block;
-            padding: 6px 10px;
-            color: var(--text-dark);
-            text-decoration: none;
-            font-size: 0.9rem;
-            border-radius: 8px;
-            transition: all 0.2s ease;
-            border-left: 3px solid transparent;
-        }
-
-        .toc-list a:hover {
-            background: rgba(78, 205, 196, 0.15);
-            border-left-color: var(--accent-teal);
-            transform: translateX(3px);
-        }
-
-        .toc-list a.active {
-            background: rgba(255, 107, 107, 0.15);
-            border-left-color: var(--accent-coral);
-            font-weight: 600;
-        }
-
-        .main-content {
-            margin-left: 280px;
-            flex: 1;
-            padding: 40px 40px;
-            max-width: calc(100vw - 320px);
-            min-width: 0;
-        }
-
-        .container { max-width: 100%; margin: 0 auto; }
-
-        a { color: var(--accent-teal); text-decoration: none; }
-        a:hover { color: var(--accent-coral); }
-
-        header { text-align: center; margin-bottom: 50px; }
-
-        h1 {
-            font-family: 'Caveat', cursive;
-            font-size: 3rem;
-            color: var(--pencil);
-            position: relative;
-            display: inline-block;
-        }
-
-        h1::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, var(--accent-coral), var(--accent-teal), var(--accent-sunflower));
-            border-radius: 3px;
-            opacity: 0.6;
-        }
-
-        h2 { 
-            font-family: 'Caveat', cursive; 
-            font-size: 2.1rem; 
-            color: var(--pencil); 
-            margin-bottom: 20px;
-            padding-left: 50px;
-            position: relative;
-            min-height: 45px;
-            display: flex;
-            align-items: center;
-        }
-
-        h2 .fa-icon {
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 42px;
-            height: 42px;
-            background: var(--bg-paper);
-            border: 2px solid var(--pencil);
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-        }
-
-        h3 { font-family: 'Patrick Hand', cursive; font-size: 1.5rem; color: var(--text-dark); margin: 30px 0 15px; }
-        h4 { font-family: 'Patrick Hand', cursive; font-size: 1.2rem; color: var(--text-muted); margin: 20px 0 10px; }
-
-        .subtitle { 
-            font-family: 'Patrick Hand', cursive; 
-            font-size: 1.5rem; 
-            color: var(--text-muted); 
-            margin-top: 20px; 
-        }
-
-        .card {
-            background: var(--bg-paper);
-            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
-            padding: 40px;
-            margin-bottom: 28px;
-            box-shadow: 3px 4px 0 rgba(0,0,0,0.1), 6px 8px 0 rgba(0,0,0,0.05);
-            position: relative;
-            transition: transform 0.3s ease;
-            border: 2px solid var(--pencil);
-        }
-
-        .card:hover { transform: translate(-2px, -2px); }
-
+        /* Page-specific styles for AI Security Study Matrix */
+        
         /* Attack Card Styles */
         .attack-card {
             background: var(--bg-paper);
@@ -262,7 +68,7 @@
             border: 1px dashed rgba(0,0,0,0.2);
         }
 
-        /* Technique Grid */
+        /* Technique Grid - specific to this page */
         .technique-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -354,51 +160,6 @@
             display: flex;
             align-items: center;
             gap: 8px;
-        }
-
-        /* Table */
-        .comparison-table { 
-            width: 100%; 
-            border-collapse: separate; 
-            border-spacing: 0; 
-            margin: 22px 0; 
-            font-size: 0.9rem; 
-            border: 2px solid var(--pencil); 
-            border-radius: 15px; 
-            overflow: hidden; 
-        }
-
-        .comparison-table th, .comparison-table td { 
-            padding: 14px 18px; 
-            text-align: left; 
-            border-bottom: 2px dashed rgba(0,0,0,0.15); 
-        }
-
-        .comparison-table th { 
-            font-family: 'Patrick Hand', cursive; 
-            font-size: 1.15rem; 
-            background: #F5F0E8; 
-        }
-
-        /* Feature List */
-        .feature-list {
-            list-style: none;
-            padding: 0;
-            margin: 15px 0;
-        }
-
-        .feature-list li {
-            padding: 8px 0 8px 30px;
-            position: relative;
-        }
-
-        .feature-list li::before {
-            content: '\f00c';
-            font-family: 'Font Awesome 6 Free', sans-serif;
-            font-weight: 900;
-            position: absolute;
-            left: 0;
-            color: var(--accent-teal);
         }
 
         /* Problem Box */
@@ -530,7 +291,7 @@
             font-size: 0.9rem;
         }
 
-        /* Defense Layers - Enhanced */
+        /* Defense Layers */
         .defense-layers {
             display: flex;
             gap: 15px;
@@ -597,15 +358,6 @@
         .defense-layer.process .defense-icon-large { color: #E65100; }
         .defense-layer.output .defense-icon-large { color: #6A1B9A; }
 
-        .defense-icon {
-            font-size: 1.8rem;
-            margin-bottom: 8px;
-        }
-
-        .defense-layer.input .defense-icon { color: #1976D2; }
-        .defense-layer.process .defense-icon { color: #F57C00; }
-        .defense-layer.output .defense-icon { color: #7B1FA2; }
-
         .defense-label {
             font-family: 'Patrick Hand', cursive;
             font-size: 1.1rem;
@@ -618,29 +370,6 @@
             color: var(--text-muted);
             margin-top: 5px;
             line-height: 1.4;
-        }
-
-        /* Quick Action */
-        .quick-action {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            background: linear-gradient(135deg, #E1F5FE, #B3E5FC);
-            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
-            padding: 18px 22px;
-            margin: 18px 0;
-            border: 2px solid #03A9F4;
-        }
-
-        .quick-action-icon {
-            font-size: 1.6rem;
-            color: #0288D1;
-        }
-
-        .quick-action-text {
-            font-family: 'Patrick Hand', cursive;
-            font-size: 1.05rem;
-            color: #01579B;
         }
 
         /* Tool Badge */
@@ -658,50 +387,6 @@
         .tool-badge.garak { background: #80DEEA; color: #0097A7; border-color: #00ACC1; }
         .tool-badge.lakera { background: #CE93D8; color: #7B1FA2; border-color: #8E24AA; }
         .tool-badge.rebuff { background: #A5D6A7; color: #388E3C; border-color: #4CAF50; }
-
-        /* Shield Illustration */
-        .shield-illustration {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin: 30px 0;
-            flex-wrap: wrap;
-        }
-
-        .shield-item {
-            text-align: center;
-            padding: 20px;
-            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
-            border: 3px dashed var(--pencil);
-            transition: all 0.3s;
-            min-width: 120px;
-        }
-
-        .shield-item:hover {
-            transform: scale(1.05);
-            border-style: solid;
-        }
-
-        .shield-item.green { background: linear-gradient(135deg, #E8F5E9, #C8E6C9); }
-        .shield-item.blue { background: linear-gradient(135deg, #E3F2FD, #BBDEFB); }
-        .shield-item.orange { background: linear-gradient(135deg, #FFF3E0, #FFE0B2); }
-        .shield-item.purple { background: linear-gradient(135deg, #F3E5F5, #E1BEE7); }
-
-        .shield-icon {
-            font-size: 2rem;
-            margin-bottom: 8px;
-        }
-
-        .shield-item.green .shield-icon { color: #27AE60; }
-        .shield-item.blue .shield-icon { color: #1976D2; }
-        .shield-item.orange .shield-icon { color: #F57C00; }
-        .shield-item.purple .shield-icon { color: #7B1FA2; }
-
-        .shield-label {
-            font-family: 'Patrick Hand', cursive;
-            font-size: 0.95rem;
-            font-weight: 700;
-        }
 
         /* Tip Box */
         .tip-box {
@@ -777,100 +462,82 @@
             margin-left: 25px;
         }
 
-        /* Footer & Misc */
-        footer {
+        /* Quick Action */
+        .quick-action {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: linear-gradient(135deg, #E1F5FE, #B3E5FC);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            padding: 18px 22px;
+            margin: 18px 0;
+            border: 2px solid #03A9F4;
+        }
+
+        .quick-action-icon {
+            font-size: 1.6rem;
+            color: #0288D1;
+        }
+
+        .quick-action-text {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.05rem;
+            color: #01579B;
+        }
+
+        /* Shield Illustration */
+        .shield-illustration {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .shield-item {
             text-align: center;
-            padding: 30px;
-            color: var(--text-muted);
+            padding: 20px;
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            border: 3px dashed var(--pencil);
+            transition: all 0.3s;
+            min-width: 120px;
+        }
+
+        .shield-item:hover {
+            transform: scale(1.05);
+            border-style: solid;
+        }
+
+        .shield-item.green { background: linear-gradient(135deg, #E8F5E9, #C8E6C9); }
+        .shield-item.blue { background: linear-gradient(135deg, #E3F2FD, #BBDEFB); }
+        .shield-item.orange { background: linear-gradient(135deg, #FFF3E0, #FFE0B2); }
+        .shield-item.purple { background: linear-gradient(135deg, #F3E5F5, #E1BEE7); }
+
+        .shield-icon {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .shield-item.green .shield-icon { color: #27AE60; }
+        .shield-item.blue .shield-icon { color: #1976D2; }
+        .shield-item.orange .shield-icon { color: #F57C00; }
+        .shield-item.purple .shield-icon { color: #7B1FA2; }
+
+        .shield-label {
             font-family: 'Patrick Hand', cursive;
+            font-size: 0.95rem;
+            font-weight: 700;
         }
 
-        .divider { text-align: center; margin: 45px 0; }
-        .divider::before { 
-            content: '~~~~~~~'; 
-            font-family: 'Caveat', cursive;
-            font-size: 1.5rem; 
-            color: var(--accent-lavender); 
-            letter-spacing: 10px; 
-        }
-
-        .highlight { 
-            background: linear-gradient(180deg, transparent 65%, rgba(255, 230, 109, 0.5) 65%); 
-        }
-
-        .back-link {
-            display: inline-block;
-            color: var(--accent-teal);
-            font-family: 'Patrick Hand', cursive;
-            font-size: 1.1rem;
-            text-decoration: none;
-            margin-bottom: 30px;
-            transition: color 0.3s;
-        }
-        .back-link:hover { color: var(--accent-coral); }
-
-        .toc-toggle {
-            display: none;
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 200;
-            background: var(--accent-coral);
-            color: white;
-            border: none;
-            padding: 12px 15px;
-            border-radius: 50%;
-            font-size: 1.2rem;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        /* TOC Active State */
+        .toc-list a.active {
+            background: rgba(255, 107, 107, 0.15);
+            border-left-color: var(--accent-coral);
+            font-weight: 600;
         }
 
         /* Enhanced Mobile Styles */
         @media (max-width: 1200px) {
-            .sidebar {
-                transform: translateX(-100%);
-                transition: transform 0.3s ease;
-                width: 260px;
-            }
-            .sidebar.open { transform: translateX(0); }
-            .sidebar.open .sidebar-header {
-                padding-top: 60px;
-            }
-            .main-content { 
-                margin-left: 0; 
-                padding: 20px 15px;
-                max-width: 100%;
-            }
-            .toc-toggle { 
-                display: block;
-                top: 10px;
-                left: 10px;
-            }
-
-            .back-link {
-                margin-top: 50px;
-            }
-            
-            .card {
-                padding: 25px 20px;
-                border-radius: 20px 10px 20px 10px / 10px 20px 10px 20px;
-            }
-            
-            h1 {
-                font-size: 2.2rem;
-            }
-            
-            h2 {
-                font-size: 1.6rem;
-                padding-left: 45px;
-            }
-            
-            h2 .fa-icon {
-                width: 36px;
-                height: 36px;
-                font-size: 1rem;
-            }
-            
             .technique-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
@@ -905,34 +572,6 @@
         }
 
         @media (max-width: 768px) {
-            .main-content {
-                padding: 15px 12px;
-            }
-            
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            .subtitle {
-                font-size: 1.1rem;
-            }
-            
-            .card {
-                padding: 20px 15px;
-                margin-bottom: 20px;
-            }
-            
-            h2 {
-                font-size: 1.4rem;
-                padding-left: 40px;
-                min-height: 40px;
-            }
-            
-            h2 .fa-icon {
-                width: 32px;
-                height: 32px;
-            }
-            
             .technique-grid { 
                 grid-template-columns: repeat(2, 1fr);
                 gap: 10px;
@@ -1038,54 +677,9 @@
                 margin-top: 8px;
                 text-align: center;
             }
-            
-            h3 {
-                font-size: 1.2rem;
-            }
-            
-            h4 {
-                font-size: 1rem;
-            }
-            
-            .toc-toggle {
-                top: 10px;
-                left: 10px;
-                padding: 10px 12px;
-                font-size: 1rem;
-            }
         }
 
         @media (max-width: 480px) {
-            h1 {
-                font-size: 1.5rem;
-            }
-            
-            .subtitle {
-                font-size: 1rem;
-                margin-top: 15px;
-            }
-            
-            .card {
-                padding: 15px 12px;
-                margin-bottom: 15px;
-            }
-            
-            h2 {
-                font-size: 1.2rem;
-                padding-left: 35px;
-                min-height: 35px;
-            }
-            
-            h2 .fa-icon {
-                width: 28px;
-                height: 28px;
-                font-size: 0.9rem;
-            }
-            
-            h3 {
-                font-size: 1.1rem;
-            }
-            
             .technique-grid {
                 grid-template-columns: repeat(2, 1fr);
                 gap: 8px;
@@ -1134,11 +728,6 @@
                 padding: 2px 8px;
             }
             
-            .feature-list li {
-                padding-left: 25px;
-                font-size: 0.9rem;
-            }
-            
             .mitigation-list li {
                 padding: 6px 0 6px 28px;
                 font-size: 0.9rem;
@@ -1152,11 +741,6 @@
             .defense-icon-large {
                 font-size: 1.8rem;
                 padding: 10px;
-            }
-            
-            .back-link {
-                font-size: 1rem;
-                margin-bottom: 20px;
             }
         }
     </style>
@@ -1174,18 +758,48 @@
             <div class="toc-section">
                 <div class="toc-title"><i class="fa-solid fa-book-open"></i> Overview</div>
                 <ul class="toc-list">
-                    <li><a href="#overview" onclick="scrollToSection('overview')">OWASP Top 10</a></li>
-                    <li><a href="#llm01" onclick="scrollToSection('llm01')">LLM01 Prompt Injection</a></li>
-                    <li><a href="#llm02" onclick="scrollToSection('llm02')">LLM02 Sensitive Info</a></li>
-                    <li><a href="#llm03" onclick="scrollToSection('llm03')">LLM03 Supply Chain</a></li>
-                    <li><a href="#llm04" onclick="scrollToSection('llm04')">LLM04 Poisoning</a></li>
-                    <li><a href="#llm05" onclick="scrollToSection('llm05')">LLM05 Output</a></li>
-                    <li><a href="#llm06" onclick="scrollToSection('llm06')">LLM06 Agency</a></li>
-                    <li><a href="#llm07" onclick="scrollToSection('llm07')">LLM07 Leakage</a></li>
-                    <li><a href="#llm08" onclick="scrollToSection('llm08')">LLM08 Vector</a></li>
-                    <li><a href="#llm09" onclick="scrollToSection('llm09')">LLM09 Misinfo</a></li>
-                    <li><a href="#llm10" onclick="scrollToSection('llm10')">LLM10 Consumption</a></li>
-                    <li><a href="#jailbreak" onclick="scrollToSection('jailbreak')">Harmful Content</a></li>
+                    <li><a href="#overview" onclick="scrollToSection('overview')">OWASP Top 10 Overview</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title"><i class="fa-solid fa-triangle-exclamation"></i> Critical Risks</div>
+                <ul class="toc-list">
+                    <li><a href="#llm01" onclick="scrollToSection('llm01')">LLM01: Prompt Injection</a></li>
+                    <li><a href="#llm02" onclick="scrollToSection('llm02')">LLM02: Sensitive Info Disclosure</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title"><i class="fa-solid fa-shield-virus"></i> High Risks</div>
+                <ul class="toc-list">
+                    <li><a href="#llm03" onclick="scrollToSection('llm03')">LLM03: Supply Chain</a></li>
+                    <li><a href="#llm04" onclick="scrollToSection('llm04')">LLM04: Data Poisoning</a></li>
+                    <li><a href="#llm05" onclick="scrollToSection('llm05')">LLM05: Output Handling</a></li>
+                    <li><a href="#llm06" onclick="scrollToSection('llm06')">LLM06: Excessive Agency</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title"><i class="fa-solid fa-shield-halved"></i> Medium Risks</div>
+                <ul class="toc-list">
+                    <li><a href="#llm07" onclick="scrollToSection('llm07')">LLM07: System Prompt Leakage</a></li>
+                    <li><a href="#llm08" onclick="scrollToSection('llm08')">LLM08: Vector Weaknesses</a></li>
+                    <li><a href="#llm09" onclick="scrollToSection('llm09')">LLM09: Misinformation</a></li>
+                    <li><a href="#llm10" onclick="scrollToSection('llm10')">LLM10: Unbounded Consumption</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title"><i class="fa-solid fa-user-secret"></i> Additional Topics</div>
+                <ul class="toc-list">
+                    <li><a href="#jailbreak" onclick="scrollToSection('jailbreak')">Harmful Content & Jailbreaks</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title"><i class="fa-solid fa-toolbox"></i> Resources</div>
+                <ul class="toc-list">
                     <li><a href="#tools" onclick="scrollToSection('tools')">Red Team Tools</a></li>
                     <li><a href="#references" onclick="scrollToSection('references')">References</a></li>
                 </ul>

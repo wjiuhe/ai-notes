@@ -32,6 +32,49 @@ Include these in the `<head>`:
 <link rel="stylesheet" href="static/styles.css">
 ```
 
+## Hand-Drawn Style System
+
+The Mind & Machine website uses a **custom hand-drawn/sketchy aesthetic** built with CSS, not a pre-made library. This gives the site its distinctive "notebook doodle" look.
+
+### Hand-Drawn Fonts (Google Fonts)
+
+We use three fonts to create the hand-drawn feel:
+
+- **Caveat** - Headings and titles (cursive handwritten style)
+- **Patrick Hand** - Subtitles, labels, and UI text (clean handwritten style)  
+- **Nunito** - Body text (rounded sans-serif for readability)
+
+### Sketchy Border Technique
+
+The signature "wobbly" border effect is achieved with **asymmetric border-radius values**:
+
+```css
+.hand-drawn {
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+}
+```
+
+This creates an organic, slightly irregular shape that mimics hand-drawn lines.
+
+### Visual Style Principles
+
+1. **Sketchy Borders**: Use the asymmetric border-radius on cards, buttons, and containers
+2. **Dashed Lines**: Use `border: 2px dashed` for dividers and secondary elements
+3. **Paper Textures**: Off-white backgrounds (`--bg-cream: #FDF8F3`, `--bg-paper: #FFFEF9`)
+4. **Pencil Colors**: Dark gray (`--pencil: #2B2B2B`) instead of pure black for softer contrast
+5. **Highlighters**: Use gradient underlines to simulate marker highlights
+6. **Shadows**: Slight offsets (`box-shadow: 3px 4px 0`) create depth without looking digital
+
+### No External Drawing Libraries
+
+We don't use libraries like:
+- Rough.js
+- Chart.js sketchy themes
+- Excalidraw components
+- Hand-drawn icon sets
+
+Everything is pure CSS for better performance and consistency.
+
 ## CSS Organization
 
 **Use the shared CSS first!** Unless you need to do something different, use the shared `static/styles.css`. This ensures consistent styling across all pages.

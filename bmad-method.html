@@ -8,128 +8,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="static/styles.css">
     <style>
-        :root {
-            --bg-cream: #FDF8F3;
-            --bg-paper: #FFFEF9;
-            --accent-coral: #FF6B6B;
-            --accent-teal: #4ECDC4;
-            --accent-sunflower: #FFE66D;
-            --accent-lavender: #C9B1FF;
-            --accent-sky: #A8E6CF;
-            --accent-red: #E74C3C;
-            --accent-green: #27AE60;
-            --accent-orange: #E67E22;
-            --text-dark: #2D3436;
-            --text-muted: #636E72;
-            --pencil: #2B2B2B;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Nunito', sans-serif;
-            background: var(--bg-cream);
-            color: var(--text-dark);
-            line-height: 1.7;
-            min-height: 100vh;
-        }
-
-        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
-
-        header { text-align: center; margin-bottom: 50px; }
-
-        h1 {
-            font-family: 'Caveat', cursive;
-            font-size: 3.2rem;
-            color: var(--pencil);
-            position: relative;
-            display: inline-block;
-        }
-
-        h1::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, var(--accent-coral), var(--accent-teal), var(--accent-sunflower));
-            border-radius: 3px;
-            opacity: 0.6;
-        }
-
-        .subtitle { font-family: 'Patrick Hand', cursive; font-size: 1.5rem; color: var(--text-muted); margin-top: 20px; }
-
-        .back-link {
-            display: inline-block;
-            color: var(--accent-teal);
-            font-family: 'Patrick Hand', cursive;
-            font-size: 1.1rem;
-            text-decoration: none;
-            margin-bottom: 30px;
-            transition: color 0.3s;
-        }
-        .back-link:hover { color: var(--accent-coral); }
-
-        .page-meta {
-            font-family: 'Patrick Hand', cursive;
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            margin-bottom: 20px;
-            display: flex;
-            gap: 20px;
-        }
-        .page-meta i { margin-right: 5px; }
-
-        .card {
-            background: var(--bg-paper);
-            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
-            padding: 40px;
-            margin-bottom: 28px;
-            box-shadow: 3px 4px 0 rgba(0,0,0,0.1), 6px 8px 0 rgba(0,0,0,0.05);
-            position: relative;
-            transition: transform 0.3s ease;
-            border: 2px solid var(--pencil);
-        }
-
-        .card:hover { transform: translate(-2px, -2px); }
-
-        h2 { 
-            font-family: 'Caveat', cursive; 
-            font-size: 2.2rem; 
-            color: var(--pencil); 
-            margin-bottom: 20px;
-            padding-left: 50px;
-            position: relative;
-            min-height: 45px;
-            display: flex;
-            align-items: center;
-        }
-
-        h2 .fa-icon {
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 42px;
-            height: 42px;
-            background: var(--bg-paper);
-            border: 2px solid var(--pencil);
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-        }
-
-        h3 { font-family: 'Patrick Hand', cursive; font-size: 1.5rem; color: var(--text-dark); margin: 30px 0 15px; }
-        h4 { font-family: 'Patrick Hand', cursive; font-size: 1.2rem; color: var(--text-muted); margin: 20px 0 10px; }
-        p { margin-bottom: 15px; font-size: 1.08rem; }
-
-        .highlight { background: linear-gradient(180deg, transparent 65%, rgba(255, 230, 109, 0.5) 65%); }
-        .highlight-teal { background: linear-gradient(180deg, transparent 65%, rgba(78, 205, 196, 0.35) 65%); }
-        .highlight-coral { background: linear-gradient(180deg, transparent 65%, rgba(255, 107, 107, 0.35) 65%); }
-
+        /* Page-specific styles for BMAD Method */
+        
         /* SDLC Cycle Diagram */
         .sdlc-cycle {
             background: linear-gradient(135deg, #F0F8FF, #E6F3FF);
@@ -544,166 +424,14 @@
         .module-name { font-family: 'Patrick Hand', cursive; font-size: 1.2rem; font-weight: 700; margin-bottom: 5px; }
         .module-desc { font-size: 0.9rem; color: var(--text-muted); }
 
-        footer {
-            text-align: center;
-            padding: 30px;
-            color: var(--text-muted);
-            font-family: 'Patrick Hand', cursive;
+        .toc-list a.active {
+            background: rgba(255, 107, 107, 0.15);
+            border-left-color: var(--accent-coral);
+            font-weight: 600;
         }
 
-        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; }
-        .reveal.visible { opacity: 1; transform: translateY(0); }
-
-        /* Sidebar TOC Styles */
-        .page-wrapper {
-            display: flex;
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .sidebar {
-            width: 280px;
-            position: fixed;
-            left: 0;
-            top: 0;
-            height: 100vh;
-            background: linear-gradient(180deg, var(--bg-paper) 0%, #F8F4EF 100%);
-            border-right: 3px solid var(--pencil);
-            padding: 30px 20px;
-            overflow-y: auto;
-            z-index: 100;
-            box-shadow: 3px 0 10px rgba(0,0,0,0.1);
-        }
-
-        .sidebar-header {
-            text-align: center;
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 2px dashed rgba(0,0,0,0.15);
-        }
-
-        .sidebar-title {
-            font-family: 'Caveat', cursive;
-            font-size: 1.8rem;
-            color: var(--pencil);
-            margin-bottom: 5px;
-        }
-
-        .sidebar-subtitle {
-            font-family: 'Patrick Hand', cursive;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        .toc-section { margin-bottom: 20px; }
-
-        .toc-title {
-            font-family: 'Patrick Hand', cursive;
-            font-size: 1rem;
-            color: var(--pencil);
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 700;
-        }
-
-        .toc-list {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .toc-list li { margin-bottom: 6px; }
-
-        .toc-list a {
-            display: block;
-            padding: 6px 10px;
-            color: var(--text-dark);
-            text-decoration: none;
-            font-size: 0.9rem;
-            border-radius: 8px;
-            transition: all 0.2s ease;
-            border-left: 3px solid transparent;
-        }
-
-        .toc-list a:hover {
-            background: rgba(78, 205, 196, 0.15);
-            border-left-color: var(--accent-teal);
-            transform: translateX(3px);
-        }
-
-        .main-content {
-            margin-left: 280px;
-            flex: 1;
-            padding: 40px 40px;
-            max-width: calc(100vw - 320px);
-            min-width: 0;
-        }
-
-        .toc-toggle {
-            display: none;
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 200;
-            background: var(--accent-coral);
-            color: white;
-            border: none;
-            padding: 12px 15px;
-            border-radius: 50%;
-            font-size: 1.2rem;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-
-        @media (max-width: 1200px) {
-            .sidebar {
-                transform: translateX(-100%);
-                transition: transform 0.3s ease;
-            }
-            .sidebar.open { transform: translateX(0); }
-            .sidebar.open .sidebar-header { padding-top: 60px; }
-            .main-content { 
-                margin-left: 0; 
-                padding: 40px 20px;
-                max-width: 100%;
-            }
-            .toc-toggle { display: block; }
-            .back-link { margin-top: 50px; }
-        }
-
-        /* Enhanced Mobile Styles */
+        /* Page-specific mobile adjustments */
         @media (max-width: 768px) {
-            body {
-                padding: 20px 15px;
-            }
-            
-            h1 {
-                font-size: 1.8rem;
-            }
-            
-            .subtitle {
-                font-size: 1.1rem;
-            }
-            
-            .card {
-                padding: 20px 15px;
-                margin-bottom: 20px;
-                border-radius: 20px 10px 20px 10px / 10px 20px 10px 20px;
-            }
-            
-            h2 {
-                font-size: 1.3rem;
-                padding-left: 40px;
-            }
-            
-            h2 .fa-icon {
-                width: 32px;
-                height: 32px;
-                font-size: 1rem;
-            }
-            
             .sdlc-cycle {
                 padding: 20px 15px;
             }
@@ -717,56 +445,9 @@
             .phase-icon {
                 font-size: 1.5rem;
             }
-            
-            .agent-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-            
-            .agent-card {
-                padding: 18px;
-            }
-            
-            .quote-box {
-                padding: 18px;
-                font-size: 0.95rem;
-            }
-            
-            .code-content {
-                padding: 12px 15px;
-                font-size: 0.8rem;
-                overflow-x: auto;
-            }
-            
-            .workflow-diagram {
-                padding: 20px;
-            }
         }
         
         @media (max-width: 480px) {
-            h1 {
-                font-size: 1.6rem;
-            }
-            
-            .subtitle {
-                font-size: 1rem;
-            }
-            
-            .card {
-                padding: 15px 12px;
-            }
-            
-            h2 {
-                font-size: 1.1rem;
-                padding-left: 35px;
-            }
-            
-            h2 .fa-icon {
-                width: 28px;
-                height: 28px;
-                font-size: 0.9rem;
-            }
-            
             .sdlc-phase {
                 width: 85px;
                 padding: 10px 6px;
@@ -781,11 +462,6 @@
                 width: 45px;
                 height: 45px;
                 font-size: 1.5rem;
-            }
-            
-            .page-meta {
-                flex-direction: column;
-                gap: 8px;
             }
         }
     </style>
@@ -802,23 +478,41 @@
             </div>
 
             <div class="toc-section">
-                <div class="toc-title"><i class="fa-solid fa-book-open"></i> Contents</div>
+                <div class="toc-title"><i class="fa-solid fa-book-open"></i> Overview</div>
                 <ul class="toc-list">
                     <li><a href="#what-is-bmad" onclick="scrollToSection('what-is-bmad')">What is BMAD?</a></li>
                     <li><a href="#bmad-in-sdlc" onclick="scrollToSection('bmad-in-sdlc')">BMAD in the SDLC</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title"><i class="fa-solid fa-users"></i> Core Concepts</div>
+                <ul class="toc-list">
                     <li><a href="#meet-your-ai-team" onclick="scrollToSection('meet-your-ai-team')">Meet Your AI Team</a></li>
                     <li><a href="#choose-your-path" onclick="scrollToSection('choose-your-path')">Choose Your Path</a></li>
                     <li><a href="#party-mode" onclick="scrollToSection('party-mode')">Party Mode</a></li>
                     <li><a href="#specialized-modules" onclick="scrollToSection('specialized-modules')">Specialized Modules</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title"><i class="fa-solid fa-rocket"></i> Getting Started</div>
+                <ul class="toc-list">
                     <li><a href="#get-started" onclick="scrollToSection('get-started')">Get Started in 30 Seconds</a></li>
                     <li><a href="#how-workflow-works" onclick="scrollToSection('how-workflow-works')">How the Workflow Works</a></li>
                     <li><a href="#ready-to-try-bmad" onclick="scrollToSection('ready-to-try-bmad')">Ready to Try BMAD?</a></li>
-                    <li><a href="#story-implementing-feature" onclick="scrollToSection('story-implementing-feature')">Story: Implementing a New Feature</a></li>
-                    <li><a href="#story-requirements" onclick="scrollToSection('story-requirements')">Story: Requirements Analysis</a></li>
-                    <li><a href="#story-architecture" onclick="scrollToSection('story-architecture')">Story: Architecture Design</a></li>
-                    <li><a href="#story-implementation" onclick="scrollToSection('story-implementation')">Story: Implementation</a></li>
-                    <li><a href="#story-testing" onclick="scrollToSection('story-testing')">Story: Testing</a></li>
-                    <li><a href="#story-delivery" onclick="scrollToSection('story-delivery')">Story: Delivery</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title"><i class="fa-solid fa-book-open-reader"></i> Feature Story</div>
+                <ul class="toc-list">
+                    <li><a href="#story-implementing-feature" onclick="scrollToSection('story-implementing-feature')">The Idea</a></li>
+                    <li><a href="#story-requirements" onclick="scrollToSection('story-requirements')">Requirements Analysis</a></li>
+                    <li><a href="#story-architecture" onclick="scrollToSection('story-architecture')">Architecture Design</a></li>
+                    <li><a href="#story-implementation" onclick="scrollToSection('story-implementation')">Implementation</a></li>
+                    <li><a href="#story-testing" onclick="scrollToSection('story-testing')">Testing</a></li>
+                    <li><a href="#story-delivery" onclick="scrollToSection('story-delivery')">Delivery</a></li>
                 </ul>
             </div>
 
@@ -1545,6 +1239,31 @@
         };
         window.addEventListener('scroll', revealOnScroll);
         window.addEventListener('load', revealOnScroll);
+
+        // Active section highlighting in TOC
+        const sections = document.querySelectorAll('section[id]');
+        const tocLinks = document.querySelectorAll('.toc-list a');
+
+        const highlightTOC = () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', highlightTOC);
+        window.addEventListener('load', highlightTOC);
     </script>
 </body>
 </html>

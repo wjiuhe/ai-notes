@@ -394,6 +394,18 @@
             font-family: 'Patrick Hand', cursive;
         }
 
+        .toc-list a:hover {
+            background: rgba(78, 205, 196, 0.15);
+            border-left-color: var(--accent-teal);
+            transform: translateX(3px);
+        }
+        
+        .toc-list a.active {
+            background: rgba(78, 205, 196, 0.25);
+            border-left-color: var(--accent-teal);
+            font-weight: 600;
+        }
+
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; }
         .reveal.visible { opacity: 1; transform: translateY(0); }
 
@@ -507,7 +519,46 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <button class="toc-toggle" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
+
+    <div class="page-wrapper">
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-title">Multiple Choice</div>
+                <div class="sidebar-subtitle">Interaction Study</div>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title"><i class="fa-solid fa-book-open"></i> Overview</div>
+                <ul class="toc-list">
+                    <li><a href="#big-picture" onclick="scrollToSection('big-picture')">The Big Picture</a></li>
+                    <li><a href="#two-ways" onclick="scrollToSection('two-ways')">Two Ways the Agent Asks</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title"><i class="fa-solid fa-code"></i> Implementation</div>
+                <ul class="toc-list">
+                    <li><a href="#agent-asks" onclick="scrollToSection('agent-asks')">When the Agent Asks</a></li>
+                    <li><a href="#under-the-hood" onclick="scrollToSection('under-the-hood')">How It Works</a></li>
+                    <li><a href="#key-pieces" onclick="scrollToSection('key-pieces')">Key Pieces</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title"><i class="fa-solid fa-star"></i> Summary</div>
+                <ul class="toc-list">
+                    <li><a href="#why-elegant" onclick="scrollToSection('why-elegant')">Why It's Elegant</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section" style="margin-top: 30px; padding-top: 20px; border-top: 2px dashed rgba(0,0,0,0.1);">
+                <a href="index.html" class="back-link" style="margin-bottom: 10px;"><i class="fa-solid fa-arrow-left"></i> Back to Home</a>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <div class="container">
         <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Mind & Machine</a>
         
         <div class="page-meta">
@@ -746,7 +797,24 @@ POST <span class="string">/question/question_abc/reply</span>
         </footer>
     </div>
 
+        </main>
+    </div>
+
     <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            if (window.innerWidth <= 1200) {
+                document.getElementById('sidebar').classList.remove('open');
+            }
+        }
+
         const revealElements = document.querySelectorAll('.reveal');
         const revealOnScroll = () => {
             revealElements.forEach(el => {

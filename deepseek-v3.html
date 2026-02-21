@@ -9,32 +9,8 @@
     <link rel="stylesheet" href="static/styles.css">
     <script src="https://unpkg.com/roughjs@4.6.6/bundled/rough.js"></script>
     <style>
-        :root {
-            --bg-cream: #FDF8F3;
-            --bg-paper: #FFFEF9;
-            --accent-coral: #FF6B6B;
-            --accent-teal: #4ECDC4;
-            --accent-sunflower: #FFE66D;
-            --accent-lavender: #C9B1FF;
-            --accent-sky: #A8E6CF;
-            --accent-red: #E74C3C;
-            --accent-green: #27AE60;
-            --accent-orange: #E67E22;
-            --text-dark: #2D3436;
-            --text-muted: #636E72;
-            --pencil: #2B2B2B;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Nunito', sans-serif;
-            background: var(--bg-cream);
-            color: var(--text-dark);
-            line-height: 1.7;
-            min-height: 100vh;
-        }
-
+        /* Page-specific styles for DeepSeek-V3 */
+        
         .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
 
         header { text-align: center; margin-bottom: 40px; }
@@ -901,6 +877,12 @@
             transform: translateX(3px);
         }
 
+        .toc-list a.active {
+            background: rgba(255, 107, 107, 0.15);
+            border-left-color: var(--accent-coral);
+            font-weight: 600;
+        }
+
         .main-content {
             margin-left: 280px;
             flex: 1;
@@ -1007,14 +989,32 @@
             </div>
 
             <div class="toc-section">
-                <div class="toc-title"><i class="fa-solid fa-book-open"></i> Contents</div>
+                <div class="toc-title"><i class="fa-solid fa-book-open"></i> Overview</div>
                 <ul class="toc-list">
                     <li><a href="#the-big-idea" onclick="scrollToSection('the-big-idea')">The Big Idea</a></li>
-                    <li><a href="#problem-superstar" onclick="scrollToSection('problem-superstar')">Problem 1: The "Superstar" Problem</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title"><i class="fa-solid fa-triangle-exclamation"></i> The Problems</div>
+                <ul class="toc-list">
+                    <li><a href="#problem-superstar" onclick="scrollToSection('problem-superstar')">Problem 1: The "Superstar"</a></li>
                     <li><a href="#problem-jack-of-all-trades" onclick="scrollToSection('problem-jack-of-all-trades')">Problem 2: The "Jack of All Trades"</a></li>
                     <li><a href="#problem-overworked-doctor" onclick="scrollToSection('problem-overworked-doctor')">Problem 3: The Overworked Doctor</a></li>
                     <li><a href="#problem-multi-building-hospital" onclick="scrollToSection('problem-multi-building-hospital')">Problem 4: The Multi-Building Hospital</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title"><i class="fa-solid fa-microchip"></i> Technical Deep Dive</div>
+                <ul class="toc-list">
                     <li><a href="#why-exactly-8" onclick="scrollToSection('why-exactly-8')">Why Exactly 8? Hardware Limits!</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title"><i class="fa-solid fa-clipboard-check"></i> Summary</div>
+                <ul class="toc-list">
                     <li><a href="#the-summary" onclick="scrollToSection('the-summary')">The Summary</a></li>
                 </ul>
             </div>
@@ -1596,6 +1596,31 @@
         };
         window.addEventListener('scroll', revealOnScroll);
         window.addEventListener('load', revealOnScroll);
+
+        // Highlight TOC on scroll
+        function highlightTOC() {
+            const sections = document.querySelectorAll('section[id]');
+            const tocLinks = document.querySelectorAll('.toc-list a');
+            
+            let currentSection = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= sectionTop - 200) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        }
+        
+        window.addEventListener('scroll', highlightTOC);
+        window.addEventListener('load', highlightTOC);
     </script>
 </body>
 </html>
