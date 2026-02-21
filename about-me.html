@@ -39,121 +39,246 @@
         }
         h1 {
             font-family: 'Caveat', cursive;
-            font-size: 3rem;
+            font-size: 3.5rem;
             color: var(--pencil);
             margin-bottom: 10px;
             display: inline-block;
+            transform: rotate(-2deg);
         }
         h1::after {
             content: '';
             display: block;
             width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, var(--accent-coral), var(--accent-teal), var(--accent-sunflower));
+            height: 6px;
+            background: linear-gradient(90deg, var(--accent-coral), var(--accent-teal), var(--accent-sunflower), var(--accent-lavender));
             border-radius: 3px;
-            opacity: 0.6;
+            opacity: 0.7;
             margin-top: 5px;
+            transform: rotate(1deg);
         }
         .subtitle {
             font-family: 'Patrick Hand', cursive;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             color: var(--text-muted);
             margin-bottom: 30px;
+            transform: rotate(1deg);
         }
+        
+        /* Hand-drawn card styles */
         .content-card {
             background: var(--bg-paper);
-            border-radius: 15px;
             padding: 30px;
-            margin-bottom: 20px;
-            border: 2px solid var(--pencil);
-            box-shadow: 3px 4px 0 rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+            border: 3px solid var(--pencil);
+            box-shadow: 4px 5px 0 rgba(0,0,0,0.15);
+            position: relative;
+            transition: transform 0.3s;
         }
+        .content-card:hover {
+            transform: translateY(-3px) rotate(0.5deg);
+        }
+        
+        /* Varied border radii for organic feel */
+        .content-card:nth-child(2) {
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+        }
+        .content-card:nth-child(3) {
+            border-radius: 15px 255px 15px 225px / 225px 15px 255px 15px;
+        }
+        .content-card:nth-child(4) {
+            border-radius: 225px 15px 255px 15px / 15px 225px 15px 255px;
+        }
+        .content-card:nth-child(5) {
+            border-radius: 15px 15px 225px 225px / 225px 225px 15px 15px;
+        }
+        .content-card:nth-child(6) {
+            border-radius: 255px 225px 15px 15px / 15px 15px 225px 255px;
+        }
+        .content-card:nth-child(7) {
+            border-radius: 15px 255px 15px 15px / 255px 15px 15px 255px;
+        }
+        
         .content-card h2 {
             font-family: 'Patrick Hand', cursive;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             color: var(--accent-teal);
             margin-bottom: 15px;
             display: flex;
             align-items: center;
             gap: 10px;
+            border-bottom: 2px dashed var(--accent-lavender);
+            padding-bottom: 10px;
+        }
+        .content-card h2 i {
+            color: var(--accent-coral);
+        }
+        .content-card h3 {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.2rem;
+            margin: 20px 0 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .content-card h3::before {
+            content: '✏️';
+            font-size: 1rem;
         }
         .content-card p {
             color: var(--text-muted);
             line-height: 1.8;
             margin-bottom: 15px;
+            font-size: 1rem;
         }
         .content-card ul {
             list-style: none;
             padding-left: 0;
         }
         .content-card ul li {
-            padding: 8px 0 8px 30px;
+            padding: 10px 0 10px 35px;
             position: relative;
             color: var(--text-muted);
             line-height: 1.6;
+            font-size: 0.95rem;
         }
         .content-card ul li::before {
-            content: '→';
+            content: '✎';
             position: absolute;
             left: 0;
             color: var(--accent-coral);
+            font-size: 1.1rem;
+            top: 10px;
         }
+        
         .quote {
             background: var(--bg-cream);
-            border-left: 4px solid var(--accent-lavender);
+            border: 2px solid var(--pencil);
+            border-radius: 15px 255px 15px 225px / 225px 15px 255px 15px;
             padding: 20px;
             margin: 20px 0;
             font-style: italic;
             color: var(--text-muted);
+            position: relative;
+        }
+        .quote::before {
+            content: '💬';
+            position: absolute;
+            top: -15px;
+            left: 20px;
+            background: var(--bg-paper);
+            padding: 0 10px;
+            font-size: 1.2rem;
         }
         .quote-author {
             color: var(--accent-orange);
             font-size: 0.9rem;
-            margin-top: 10px;
+            margin-top: 12px;
             font-style: normal;
+            font-family: 'Patrick Hand', cursive;
         }
+        
         .skills-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 10px;
             margin: 15px 0;
         }
         .skill-tag {
-            background: var(--accent-lavender);
+            background: var(--bg-cream);
             color: var(--text-dark);
-            padding: 5px 12px;
-            border-radius: 20px;
+            padding: 8px 14px;
+            border: 2px solid var(--pencil);
             font-family: 'Patrick Hand', cursive;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
+            position: relative;
+            transition: all 0.3s;
         }
+        .skill-tag:hover {
+            transform: translateY(-3px) rotate(-2deg);
+            box-shadow: 3px 4px 0 rgba(0,0,0,0.1);
+        }
+        .skill-tag:nth-child(odd) {
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+        }
+        .skill-tag:nth-child(even) {
+            border-radius: 15px 255px 15px 225px / 225px 15px 255px 15px;
+        }
+        .skill-tag:nth-child(3n) {
+            background: var(--accent-lavender);
+        }
+        .skill-tag:nth-child(3n+1) {
+            background: var(--accent-sky);
+        }
+        .skill-tag:nth-child(3n+2) {
+            background: var(--accent-sunflower);
+        }
+        
         .emoji-row {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             margin: 15px 0;
-            letter-spacing: 8px;
+            letter-spacing: 10px;
+            text-align: center;
         }
+        
         .back-link {
             display: inline-block;
             margin-top: 30px;
+            margin-bottom: 20px;
             color: var(--accent-coral);
             text-decoration: none;
             font-family: 'Patrick Hand', cursive;
-            font-size: 1.1rem;
-            transition: color 0.3s;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+            padding: 10px 20px;
+            border: 2px solid var(--pencil);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
         }
         .back-link:hover {
-            color: var(--accent-teal);
+            background: var(--accent-coral);
+            color: white;
+            transform: translateY(-2px) rotate(-1deg);
         }
+        
         footer {
             text-align: center;
             font-family: 'Patrick Hand', cursive;
             color: var(--text-muted);
             margin-top: 40px;
-            padding-top: 20px;
-            border-top: 2px dashed var(--pencil);
+            padding-top: 25px;
+            border-top: 3px dashed var(--pencil);
+            position: relative;
         }
+        footer::before {
+            content: '✂️';
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-cream);
+            padding: 0 15px;
+            font-size: 1.3rem;
+        }
+        
+        /* Decorative doodles */
+        .doodle {
+            position: fixed;
+            font-size: 2rem;
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: -1;
+        }
+        .doodle-1 { top: 10%; left: 5%; transform: rotate(-15deg); }
+        .doodle-2 { top: 30%; right: 8%; transform: rotate(10deg); }
+        .doodle-3 { bottom: 20%; left: 10%; transform: rotate(-5deg); }
+        .doodle-4 { bottom: 40%; right: 5%; transform: rotate(15deg); }
     </style>
 </head>
 <body>
+    <div class="doodle doodle-1">🌀</div>
+    <div class="doodle doodle-2">📝</div>
+    <div class="doodle doodle-3">⚡</div>
+    <div class="doodle doodle-4">🎯</div>
+
     <div class="container">
         <header>
             <h1>About Me</h1>
@@ -164,8 +289,8 @@
             <h2><i class="fa-solid fa-user"></i> Who is this person?</h2>
             <div class="emoji-row">🎯 → 💻 → ☕ → 🔁</div>
             <p>
-                Hi! I'm <strong>Jiuhe</strong>. I spend most of my time convincing AI models to do useful things while occasionally reminding them who's boss. 
-                Some people talk to their plants; I debug production issues at 2am and call it "quality time" with my code.
+                Hi! I'm <strong style="color: var(--accent-coral);">Jiuhe</strong>. I spend most of my time convincing AI models to do useful things while occasionally reminding them who's boss. 
+                Some people talk to their plants; I leave random print statements in production code and call it "enhanced logging."
             </p>
             <p>
                 I've been doing this "shipping code that doesn't explode" thing for over 11 years now. 
@@ -177,7 +302,7 @@
         <div class="content-card">
             <h2><i class="fa-solid fa-briefcase"></i> What do you actually do?</h2>
             
-            <h3 style="font-family: 'Patrick Hand', cursive; color: var(--accent-coral); margin-bottom: 10px;"># The Managerial Stuff</h3>
+            <h3 style="color: var(--accent-coral);"># The Managerial Stuff</h3>
             <ul>
                 <li>Lead teams that build AI systems — you know, the kind that pretend to be smart but occasionally need human intervention</li>
                 <li>Make sure our data infrastructure doesn't become an archaeological dig site of legacy systems</li>
@@ -185,7 +310,7 @@
                 <li>Coordinate between tech and business folks — essentially translating "it's complex" into "it'll be done Q2"</li>
             </ul>
             
-            <h3 style="font-family: 'Patrick Hand', cursive; color: var(--accent-teal); margin: 20px 0 10px;"># The Technical Stuff</h3>
+            <h3 style="color: var(--accent-teal);"># The Technical Stuff</h3>
             <ul>
                 <li>Build AI agents that actually work in production (not just cool demos that crash on edge cases)</li>
                 <li>Wrangle LLMs, vector databases, and guardrails like a digital shepherd</li>
@@ -207,6 +332,15 @@
                 <span class="skill-tag">System Design</span>
                 <span class="skill-tag">Team Leadership</span>
                 <span class="skill-tag">Explaining Tech Things</span>
+                <span class="skill-tag">Event-Driven Architecture</span>
+                <span class="skill-tag">API Design</span>
+                <span class="skill-tag">Apache Pulsar</span>
+                <span class="skill-tag">Kafka</span>
+                <span class="skill-tag">Message Queues</span>
+                <span class="skill-tag">CDC</span>
+                <span class="skill-tag">Debezium</span>
+                <span class="skill-tag">Integration Patterns</span>
+                <span class="skill-tag">Microservices</span>
             </div>
         </div>
 
@@ -231,7 +365,7 @@
             <ul>
                 <li>Staring at logs trying to understand why production hates me</li>
                 <li>Explaining to management why "just add AI to it" is more complicated than it sounds</li>
-                <li>Updating Kubernetes configs at 3am because reasons</li>
+                <li>Updating Kubernetes configs because reasons</li>
                 <li>Attending meetings that could have been emails</li>
             </ul>
             <p style="margin-top: 15px;">I apparently also:</p>
@@ -239,25 +373,25 @@
                 <li>Exist (technically)</li>
                 <li>Sleep occasionally (controversial)</li>
                 <li>Drink coffee (essential)</li>
-                <li>Contribute to open source (when I'm brave enough)</li>
             </ul>
         </div>
 
         <div class="content-card">
             <h2><i class="fa-solid fa-paper-plane"></i> Let's Connect</h2>
             <p>
-                Want to chat about AI, systems design, or why dogs are better than cats (just kidding, cats are fine too)? 
-                Find me on LinkedIn or GitHub — I'm usually somewhere in the digital void.
+                Want to chat about AI, systems design, or why dogs are better than cats (just kidding, cats are fine too)?
             </p>
-            <p style="color: var(--accent-teal); font-size: 1.1rem;">
+            <p style="color: var(--accent-teal); font-size: 1.1rem; font-family: 'Patrick Hand', cursive;">
                 Thanks for reading this far! You deserve a cookie. 🍪
             </p>
         </div>
 
-        <a href="index.html" class="back-link">← Back to Mind & Machine</a>
+        <div style="text-align: center;">
+            <a href="index.html" class="back-link">← Back to Mind & Machine</a>
+        </div>
 
         <footer>
-            <p><i class="fa-solid fa-paintbrush"></i> Mind & Machine | End of file</p>
+            <p>✂️ Mind & Machine | End of file</p>
         </footer>
     </div>
 </body>
