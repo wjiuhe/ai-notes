@@ -17,6 +17,8 @@
             --accent-lavender: #C9B1FF;
             --accent-sky: #A8E6CF;
             --accent-orange: #E67E22;
+            --accent-red: #E74C3C;
+            --accent-green: #27AE60;
             --text-dark: #2D3436;
             --text-muted: #636E72;
             --pencil: #2B2B2B;
@@ -28,15 +30,20 @@
             color: var(--text-dark);
             min-height: 100vh;
             padding: 40px 20px;
+            line-height: 1.7;
         }
+        
         .container {
-            max-width: 800px;
+            max-width: 850px;
             margin: 0 auto;
         }
+        
         header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
+            position: relative;
         }
+        
         h1 {
             font-family: 'Caveat', cursive;
             font-size: 3.5rem;
@@ -44,253 +51,408 @@
             margin-bottom: 10px;
             display: inline-block;
             transform: rotate(-2deg);
+            position: relative;
         }
+        
         h1::after {
             content: '';
-            display: block;
+            position: absolute;
+            bottom: -8px;
+            left: 0;
             width: 100%;
             height: 6px;
             background: linear-gradient(90deg, var(--accent-coral), var(--accent-teal), var(--accent-sunflower), var(--accent-lavender));
             border-radius: 3px;
             opacity: 0.7;
-            margin-top: 5px;
-            transform: rotate(1deg);
         }
+        
         .subtitle {
-            font-family: 'Patrick Hand', cursive;
-            font-size: 1.4rem;
+            font-family: 'Patrick Hand', cursive, sans-serif;
+            font-size: 1.5rem;
             color: var(--text-muted);
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             transform: rotate(1deg);
         }
         
         /* Hand-drawn card styles */
-        .content-card {
+        .card {
             background: var(--bg-paper);
-            padding: 30px;
-            margin-bottom: 25px;
+            padding: 35px;
+            margin-bottom: 28px;
             border: 3px solid var(--pencil);
             box-shadow: 4px 5px 0 rgba(0,0,0,0.15);
             position: relative;
-            transition: transform 0.3s;
+            transition: transform 0.3s ease;
+            scroll-margin-top: 30px;
         }
-        .content-card:hover {
-            transform: translateY(-3px) rotate(0.5deg);
+        
+        .card:hover {
+            transform: translate(-2px, -2px);
         }
         
         /* Varied border radii for organic feel */
-        .content-card:nth-child(2) {
+        .card:nth-child(2) {
             border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
         }
-        .content-card:nth-child(3) {
+        .card:nth-child(3) {
             border-radius: 15px 255px 15px 225px / 225px 15px 255px 15px;
         }
-        .content-card:nth-child(4) {
+        .card:nth-child(4) {
             border-radius: 225px 15px 255px 15px / 15px 225px 15px 255px;
         }
-        .content-card:nth-child(5) {
+        .card:nth-child(5) {
             border-radius: 15px 15px 225px 225px / 225px 225px 15px 15px;
         }
-        .content-card:nth-child(6) {
+        .card:nth-child(6) {
             border-radius: 255px 225px 15px 15px / 15px 15px 225px 255px;
         }
-        .content-card:nth-child(7) {
+        .card:nth-child(7) {
             border-radius: 15px 255px 15px 15px / 255px 15px 15px 255px;
         }
         
-        .content-card h2 {
-            font-family: 'Patrick Hand', cursive;
-            font-size: 1.5rem;
-            color: var(--accent-teal);
-            margin-bottom: 15px;
+        .card h2 {
+            font-family: 'Patrick Hand', cursive, sans-serif;
+            font-size: 1.6rem;
+            color: var(--pencil);
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 3px dashed var(--accent-lavender);
             display: flex;
             align-items: center;
-            gap: 10px;
-            border-bottom: 2px dashed var(--accent-lavender);
-            padding-bottom: 10px;
+            gap: 12px;
+            position: relative;
         }
-        .content-card h2 i {
-            color: var(--accent-coral);
+        
+        .card h2::before {
+            content: '';
+            position: absolute;
+            left: -15px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 8px;
+            height: 8px;
+            background: var(--accent-coral);
+            border-radius: 50%;
         }
-        .content-card h3 {
-            font-family: 'Patrick Hand', cursive;
-            font-size: 1.2rem;
-            margin: 20px 0 12px;
+        
+        .card h2 i {
+            color: var(--accent-teal);
+            font-size: 1.3rem;
+        }
+        
+        .card h3 {
+            font-family: 'Patrick Hand', cursive, sans-serif;
+            font-size: 1.3rem;
+            margin: 25px 0 15px;
             display: flex;
             align-items: center;
             gap: 8px;
+            color: var(--text-dark);
         }
-        .content-card h3::before {
-            content: '✏️';
-            font-size: 1rem;
+        
+        .card h3::before {
+            content: '//';
+            color: var(--accent-coral);
+            font-size: 0.9rem;
+            font-weight: bold;
         }
-        .content-card p {
+        
+        .card p {
             color: var(--text-muted);
             line-height: 1.8;
             margin-bottom: 15px;
-            font-size: 1rem;
+            font-size: 1.05rem;
         }
-        .content-card ul {
+        
+        .highlight {
+            background: linear-gradient(180deg, transparent 70%, rgba(255, 230, 109, 0.4) 70%);
+        }
+        
+        .highlight-coral {
+            background: linear-gradient(180deg, transparent 70%, rgba(255, 107, 107, 0.25) 70%);
+        }
+        
+        .highlight-teal {
+            background: linear-gradient(180deg, transparent 70%, rgba(78, 205, 196, 0.25) 70%);
+        }
+        
+        .card ul {
             list-style: none;
             padding-left: 0;
         }
-        .content-card ul li {
-            padding: 10px 0 10px 35px;
+        
+        .card ul li {
+            padding: 12px 0 12px 38px;
             position: relative;
             color: var(--text-muted);
             line-height: 1.6;
-            font-size: 0.95rem;
+            font-size: 1rem;
+            border-bottom: 1px dashed rgba(0,0,0,0.1);
         }
-        .content-card ul li::before {
-            content: '✎';
+        
+        .card ul li:last-child {
+            border-bottom: none;
+        }
+        
+        .card ul li::before {
+            content: '\f040';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
             position: absolute;
             left: 0;
             color: var(--accent-coral);
-            font-size: 1.1rem;
-            top: 10px;
-        }
-        
-        .quote {
-            background: var(--bg-cream);
-            border: 2px solid var(--pencil);
-            border-radius: 15px 255px 15px 225px / 225px 15px 255px 15px;
-            padding: 20px;
-            margin: 20px 0;
-            font-style: italic;
-            color: var(--text-muted);
-            position: relative;
-        }
-        .quote::before {
-            content: '💬';
-            position: absolute;
-            top: -15px;
-            left: 20px;
-            background: var(--bg-paper);
-            padding: 0 10px;
-            font-size: 1.2rem;
-        }
-        .quote-author {
-            color: var(--accent-orange);
             font-size: 0.9rem;
-            margin-top: 12px;
-            font-style: normal;
-            font-family: 'Patrick Hand', cursive;
+            top: 14px;
         }
         
-        .skills-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 15px 0;
-        }
-        .skill-tag {
-            background: var(--bg-cream);
-            color: var(--text-dark);
-            padding: 8px 14px;
-            border: 2px solid var(--pencil);
-            font-family: 'Patrick Hand', cursive;
-            font-size: 0.95rem;
-            position: relative;
-            transition: all 0.3s;
-        }
-        .skill-tag:hover {
-            transform: translateY(-3px) rotate(-2deg);
-            box-shadow: 3px 4px 0 rgba(0,0,0,0.1);
-        }
-        .skill-tag:nth-child(odd) {
-            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
-        }
-        .skill-tag:nth-child(even) {
+        /* Quote/Insight Box */
+        .quote-box {
+            background: linear-gradient(135deg, #FFFDE7, #FFF9C4);
+            border: 3px solid var(--accent-sunflower);
             border-radius: 15px 255px 15px 225px / 225px 15px 255px 15px;
-        }
-        .skill-tag:nth-child(3n) {
-            background: var(--accent-lavender);
-        }
-        .skill-tag:nth-child(3n+1) {
-            background: var(--accent-sky);
-        }
-        .skill-tag:nth-child(3n+2) {
-            background: var(--accent-sunflower);
-        }
-        
-        .emoji-row {
-            font-size: 1.6rem;
-            margin: 15px 0;
-            letter-spacing: 10px;
-            text-align: center;
-        }
-        
-        .back-link {
-            display: inline-block;
-            margin-top: 30px;
-            margin-bottom: 20px;
-            color: var(--accent-coral);
-            text-decoration: none;
-            font-family: 'Patrick Hand', cursive;
-            font-size: 1.2rem;
-            transition: all 0.3s;
-            padding: 10px 20px;
-            border: 2px solid var(--pencil);
-            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
-        }
-        .back-link:hover {
-            background: var(--accent-coral);
-            color: white;
-            transform: translateY(-2px) rotate(-1deg);
-        }
-        
-        footer {
-            text-align: center;
-            font-family: 'Patrick Hand', cursive;
-            color: var(--text-muted);
-            margin-top: 40px;
-            padding-top: 25px;
-            border-top: 3px dashed var(--pencil);
+            padding: 25px;
+            margin: 25px 0;
             position: relative;
         }
-        footer::before {
-            content: '✂️';
+        
+        .quote-box::before {
+            content: '\f10d';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
             position: absolute;
             top: -18px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--bg-cream);
-            padding: 0 15px;
+            left: 25px;
+            background: var(--bg-paper);
+            padding: 5px 15px;
+            color: var(--accent-lavender);
             font-size: 1.3rem;
+        }
+        
+        .quote-text {
+            font-style: italic;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+        
+        .quote-author {
+            color: var(--accent-orange);
+            font-size: 0.95rem;
+            margin-top: 15px;
+            font-family: 'Patrick Hand', cursive, sans-serif;
+        }
+        
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+        
+        .skill-tag {
+            background: var(--bg-paper);
+            color: var(--text-dark);
+            padding: 10px 14px;
+            border: 2px solid var(--pencil);
+            font-family: 'Patrick Hand', cursive, sans-serif;
+            font-size: 0.95rem;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .skill-tag:hover {
+            transform: translateY(-4px) rotate(-2deg);
+            box-shadow: 3px 4px 0 rgba(0,0,0,0.15);
+        }
+        
+        /* Varied skill tag styles */
+        .skill-tag:nth-child(6n+1) {
+            background: linear-gradient(135deg, #FFE4E4, #FFCDCD);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+        }
+        .skill-tag:nth-child(6n+2) {
+            background: linear-gradient(135deg, #E4F4F3, #C8E6E3);
+            border-radius: 15px 255px 15px 225px / 225px 15px 255px 15px;
+        }
+        .skill-tag:nth-child(6n+3) {
+            background: linear-gradient(135deg, #FFF4E0, #FFE4C4);
+            border-radius: 225px 15px 255px 15px / 15px 225px 15px 255px;
+        }
+        .skill-tag:nth-child(6n+4) {
+            background: linear-gradient(135deg, #F0E4FF, #E0D4FF);
+            border-radius: 15px 15px 225px 225px / 225px 225px 15px 15px;
+        }
+        .skill-tag:nth-child(6n+5) {
+            background: linear-gradient(135deg, #E4F7F0, #C8EFE3);
+            border-radius: 255px 225px 15px 15px / 15px 15px 225px 255px;
+        }
+        .skill-tag:nth-child(6n) {
+            background: linear-gradient(135deg, #E4F4FF, #C8E4FF);
+            border-radius: 15px 255px 15px 15px / 255px 15px 15px 255px;
+        }
+        
+        /* Emoji row */
+        .emoji-row {
+            font-size: 1.8rem;
+            margin: 20px 0;
+            letter-spacing: 12px;
+            text-align: center;
         }
         
         /* Decorative doodles */
         .doodle {
             position: fixed;
-            font-size: 2rem;
-            opacity: 0.15;
+            font-size: 2.5rem;
+            opacity: 0.12;
             pointer-events: none;
             z-index: -1;
         }
-        .doodle-1 { top: 10%; left: 5%; transform: rotate(-15deg); }
-        .doodle-2 { top: 30%; right: 8%; transform: rotate(10deg); }
-        .doodle-3 { bottom: 20%; left: 10%; transform: rotate(-5deg); }
-        .doodle-4 { bottom: 40%; right: 5%; transform: rotate(15deg); }
+        .doodle-1 { top: 8%; left: 3%; transform: rotate(-20deg); }
+        .doodle-2 { top: 25%; right: 5%; transform: rotate(15deg); }
+        .doodle-3 { bottom: 25%; left: 8%; transform: rotate(-8deg); }
+        .doodle-4 { bottom: 10%; right: 8%; transform: rotate(20deg); }
+        .doodle-5 { top: 50%; left: 2%; transform: rotate(-12deg); }
+        
+        /* Back link */
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            margin-bottom: 30px;
+            color: var(--accent-teal);
+            text-decoration: none;
+            font-family: 'Patrick Hand', cursive, sans-serif;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            padding: 12px 24px;
+            border: 3px solid var(--pencil);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            background: var(--bg-paper);
+        }
+        
+        .back-link:hover {
+            background: var(--accent-teal);
+            color: white;
+            transform: translateY(-3px) rotate(-1deg);
+            box-shadow: 4px 5px 0 rgba(0,0,0,0.15);
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            font-family: 'Patrick Hand', cursive, sans-serif;
+            color: var(--text-muted);
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 3px dashed var(--pencil);
+            position: relative;
+            font-size: 1.1rem;
+        }
+        
+        footer::before {
+            content: '\f0c4';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-cream);
+            padding: 0 20px;
+            font-size: 1.4rem;
+            color: var(--accent-lavender);
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 25px 15px;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .card {
+                padding: 25px 20px;
+                margin-bottom: 20px;
+            }
+            
+            .card h2 {
+                font-size: 1.4rem;
+            }
+            
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .skill-tag {
+                padding: 8px 10px;
+                font-size: 0.85rem;
+            }
+            
+            .emoji-row {
+                font-size: 1.4rem;
+                letter-spacing: 8px;
+            }
+            
+            .back-link {
+                width: 100%;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .card {
+                padding: 20px 15px;
+            }
+            
+            .skills-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        /* Scroll reveal animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.7s ease;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 <body>
-    <div class="doodle doodle-1">🌀</div>
-    <div class="doodle doodle-2">📝</div>
-    <div class="doodle doodle-3">⚡</div>
-    <div class="doodle doodle-4">🎯</div>
+    <div class="doodle doodle-1"><i class="fa-solid fa-code"></i></div>
+    <div class="doodle doodle-2"><i class="fa-solid fa-robot"></i></div>
+    <div class="doodle doodle-3"><i class="fa-solid fa-network-wired"></i></div>
+    <div class="doodle doodle-4"><i class="fa-solid fa-bolt"></i></div>
+    <div class="doodle doodle-5"><i class="fa-solid fa-brain"></i></div>
 
     <div class="container">
         <header>
             <h1>About Me</h1>
-            <p class="subtitle">Wait, there's more? 👀</p>
+            <p class="subtitle">Wait, there's more?</p>
         </header>
 
-        <div class="content-card">
+        <div class="card reveal">
             <h2><i class="fa-solid fa-user"></i> Who is this person?</h2>
-            <div class="emoji-row">🎯 → 💻 → ☕ → 🔁</div>
+            <div class="emoji-row">&#127919; &#128187; &#9749; &#128260;</div>
             <p>
-                Hi! I'm <strong style="color: var(--accent-coral);">Jiuhe</strong>. I spend most of my time convincing AI models to do useful things while occasionally reminding them who's boss. 
-                Some people talk to their plants; I leave random print statements in production code and call it "enhanced logging."
+                Hi! I'm <strong style="color: var(--accent-coral);">Jiuhe</strong> (you can call me William if you prefer). I spend most of my time convincing AI models to do useful things while occasionally reminding them who's boss. 
+                Some people talk to their plants; I leave random print statements in production code and call it <span class="highlight">"enhanced logging."</span>
             </p>
             <p>
                 I've been doing this "shipping code that doesn't explode" thing for over 11 years now. 
@@ -299,27 +461,27 @@
             </p>
         </div>
 
-        <div class="content-card">
+        <div class="card reveal">
             <h2><i class="fa-solid fa-briefcase"></i> What do you actually do?</h2>
             
-            <h3 style="color: var(--accent-coral);"># The Managerial Stuff</h3>
+            <h3 style="color: var(--accent-coral);">The Managerial Stuff</h3>
             <ul>
-                <li>Lead teams that build AI systems — you know, the kind that pretend to be smart but occasionally need human intervention</li>
-                <li>Make sure our data infrastructure doesn't become an archaeological dig site of legacy systems</li>
+                <li>Lead teams that build AI systems -- you know, the kind that pretend to be smart but occasionally need human intervention</li>
+                <li>Make sure our data infrastructure doesn't become an <span class="highlight-coral">archaeological dig site</span> of legacy systems</li>
                 <li>Talk to regulators so our AI doesn't accidentally violate laws (boring but necessary)</li>
-                <li>Coordinate between tech and business folks — essentially translating "it's complex" into "it'll be done Q2"</li>
+                <li>Coordinate between tech and business folks -- essentially translating "it's complex" into "it'll be done Q2"</li>
             </ul>
             
-            <h3 style="color: var(--accent-teal);"># The Technical Stuff</h3>
+            <h3 style="color: var(--accent-teal);">The Technical Stuff</h3>
             <ul>
                 <li>Build AI agents that actually work in production (not just cool demos that crash on edge cases)</li>
                 <li>Wrangle LLMs, vector databases, and guardrails like a digital shepherd</li>
                 <li>Design data pipelines that don't make our ops team cry</li>
-                <li>Implement MLOps practices because "it works on my machine" is not a deployment strategy</li>
+                <li>Implement MLOps practices because <span class="highlight-teal">"it works on my machine"</span> is not a deployment strategy</li>
             </ul>
         </div>
 
-        <div class="content-card">
+        <div class="card reveal">
             <h2><i class="fa-solid fa-wand-magic-sparkles"></i> Superpowers</h2>
             <div class="skills-grid">
                 <span class="skill-tag">Python</span>
@@ -331,8 +493,8 @@
                 <span class="skill-tag">Data Engineering</span>
                 <span class="skill-tag">System Design</span>
                 <span class="skill-tag">Team Leadership</span>
-                <span class="skill-tag">Explaining Tech Things</span>
-                <span class="skill-tag">Event-Driven Architecture</span>
+                <span class="skill-tag">Explaining Tech</span>
+                <span class="skill-tag">Event-Driven</span>
                 <span class="skill-tag">API Design</span>
                 <span class="skill-tag">Apache Pulsar</span>
                 <span class="skill-tag">Kafka</span>
@@ -344,22 +506,24 @@
             </div>
         </div>
 
-        <div class="content-card">
+        <div class="card reveal">
             <h2><i class="fa-solid fa-star"></i> Random Facts</h2>
-            <div class="quote">
-                "He once fixed a production bug during his own birthday party. 
-                The cake was had, the bug was fixed, the guests were confused but impressed."
-                <div class="quote-author">— Legend (slightly exaggerated)</div>
+            <div class="quote-box">
+                <div class="quote-text">
+                    "He once fixed a production bug during his own birthday party. 
+                    The cake was had, the bug was fixed, the guests were confused but impressed."
+                </div>
+                <div class="quote-author">-- Legend (slightly exaggerated)</div>
             </div>
             <ul>
                 <li>Master's in Quantitative Analysis, Bachelor's in Applied Physics (First Class Honors)</li>
-                <li>Won some awards along the way — but honestly, the real reward is when production stays up</li>
-                <li>Actually enjoy explaining complex technical concepts to non-technical stakeholders (rare, I know)</li>
+                <li>Won some awards along the way -- but honestly, the real reward is when production stays up</li>
+                <li>Actually enjoy explaining complex technical concepts to non-technical stakeholders (<span class="highlight">rare, I know</span>)</li>
                 <li>Favorite debugging tool is still print statements. Don't judge me.</li>
             </ul>
         </div>
 
-        <div class="content-card">
+        <div class="card reveal">
             <h2><i class="fa-solid fa-gamepad"></i> Fun Mode</h2>
             <p>When I'm not:</p>
             <ul>
@@ -376,23 +540,39 @@
             </ul>
         </div>
 
-        <div class="content-card">
+        <div class="card reveal">
             <h2><i class="fa-solid fa-paper-plane"></i> Let's Connect</h2>
             <p>
                 Want to chat about AI, systems design, or why dogs are better than cats (just kidding, cats are fine too)?
             </p>
-            <p style="color: var(--accent-teal); font-size: 1.1rem; font-family: 'Patrick Hand', cursive;">
-                Thanks for reading this far! You deserve a cookie. 🍪
+            <p style="color: var(--accent-teal); font-size: 1.15rem; font-family: 'Patrick Hand', cursive, sans-serif;">
+                Thanks for reading this far! You deserve a cookie.
             </p>
         </div>
 
         <div style="text-align: center;">
-            <a href="index.html" class="back-link">← Back to Mind & Machine</a>
+            <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Mind & Machine</a>
         </div>
 
         <footer>
-            <p>✂️ Mind & Machine | End of file</p>
+            <p>Mind & Machine | End of file</p>
         </footer>
     </div>
+
+    <script>
+        // Scroll reveal animation
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            revealElements.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (elementTop < windowHeight - 80) {
+                    el.classList.add('visible');
+                }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+    </script>
 </body>
 </html>
