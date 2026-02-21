@@ -448,7 +448,7 @@
             </div>
         </div>
 
-        <div class="results-count" id="resultsCount">Showing 3 topics</div>
+        <div class="results-count" id="resultsCount">Showing all topics</div>
         
         <div class="links" id="linksContainer">
             <a href="agentic-ai-explained.html" class="link-card" data-tags="ai" data-date="2025-02-15" data-title="What Makes a Real AI Agent?">
@@ -605,6 +605,9 @@
             // Update count
             resultsCount.textContent = `Showing ${visibleCards.length} topic${visibleCards.length !== 1 ? 's' : ''}`;
         }
+
+        // Initialize count on page load
+        applyFilterAndSort();
     </script>
 </body>
 </html>
