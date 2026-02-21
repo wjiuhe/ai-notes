@@ -562,8 +562,17 @@
     <script>
         // Scroll reveal animation
         const revealElements = document.querySelectorAll('.reveal');
+        
+        // Show first card immediately
+        if (revealElements.length > 0) {
+            revealElements[0].classList.add('visible');
+        }
+        
         const revealOnScroll = () => {
-            revealElements.forEach(el => {
+            revealElements.forEach((el, index) => {
+                // Skip first element (already visible)
+                if (index === 0) return;
+                
                 const elementTop = el.getBoundingClientRect().top;
                 const windowHeight = window.innerHeight;
                 if (elementTop < windowHeight - 80) {
@@ -572,7 +581,6 @@
             });
         };
         window.addEventListener('scroll', revealOnScroll);
-        window.addEventListener('load', revealOnScroll);
     </script>
 </body>
 </html>
