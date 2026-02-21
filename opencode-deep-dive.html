@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenCode Deep Dive: Architecture, Agents & Skills</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Nunito:wght@400;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-cream: #FDF8F3;
+            --bg-paper: #FFFEF9;
+            --accent-coral: #FF6B6B;
+            --accent-teal: #4ECDC4;
+            --accent-sunflower: #FFE66D;
+            --accent-lavender: #C9B1FF;
+            --accent-sky: #A8E6CF;
+            --accent-red: #E74C3C;
+            --accent-green: #27AE60;
+            --accent-orange: #E67E22;
+            --text-dark: #2D3436;
+            --text-muted: #636E72;
+            --pencil: #2B2B2B;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg-cream);
+            color: var(--text-dark);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+
+        header { text-align: center; margin-bottom: 50px; }
+
+        h1 {
+            font-family: 'Caveat', cursive;
+            font-size: 3.2rem;
+            color: var(--pencil);
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent-coral), var(--accent-teal), var(--accent-sunflower));
+            border-radius: 3px;
+            opacity: 0.6;
+        }
+
+        .subtitle { font-family: 'Patrick Hand', cursive; font-size: 1.5rem; color: var(--text-muted); margin-top: 20px; }
+
+        .back-link {
+            display: inline-block;
+            color: var(--accent-teal);
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.1rem;
+            text-decoration: none;
+            margin-bottom: 30px;
+            transition: color 0.3s;
+        }
+        .back-link:hover { color: var(--accent-coral); }
+
+        .card {
+            background: var(--bg-paper);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            padding: 40px;
+            margin-bottom: 28px;
+            box-shadow: 3px 4px 0 rgba(0,0,0,0.1), 6px 8px 0 rgba(0,0,0,0.05);
+            position: relative;
+            transition: transform 0.3s ease;
+            border: 2px solid var(--pencil);
+        }
+
+        .card:hover { transform: translate(-2px, -2px); }
+
+        h2 { 
+            font-family: 'Caveat', cursive; 
+            font-size: 2.2rem; 
+            color: var(--pencil); 
+            margin-bottom: 20px;
+            padding-left: 50px;
+            position: relative;
+            min-height: 45px;
+            display: flex;
+            align-items: center;
+        }
+
+        h2 .fa-icon {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 42px;
+            height: 42px;
+            background: var(--bg-paper);
+            border: 2px solid var(--pencil);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        h3 { font-family: 'Patrick Hand', cursive; font-size: 1.5rem; color: var(--text-dark); margin: 30px 0 15px; }
+        h4 { font-family: 'Patrick Hand', cursive; font-size: 1.2rem; color: var(--text-muted); margin: 20px 0 10px; }
+        p { margin-bottom: 15px; font-size: 1.08rem; }
+
+        .highlight { background: linear-gradient(180deg, transparent 65%, rgba(255, 230, 109, 0.5) 65%); }
+        .highlight-teal { background: linear-gradient(180deg, transparent 65%, rgba(78, 205, 196, 0.35) 65%); }
+        .highlight-coral { background: linear-gradient(180deg, transparent 65%, rgba(255, 107, 107, 0.35) 65%); }
+
+        /* Architecture Diagram */
+        .arch-diagram {
+            background: linear-gradient(135deg, #F8F4FF, #E8F8F5);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            padding: 30px;
+            margin: 25px 0;
+            border: 2px dashed var(--accent-lavender);
+        }
+
+        .arch-layer {
+            background: var(--bg-paper);
+            border: 3px solid var(--pencil);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            padding: 18px 25px;
+            margin: 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: transform 0.3s;
+        }
+
+        .arch-layer:hover { transform: scale(1.02) rotate(-1deg); }
+
+        .arch-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+            border: 2px solid var(--pencil);
+        }
+
+        .arch-icon.client { background: var(--accent-coral); color: white; }
+        .arch-icon.server { background: var(--accent-teal); color: white; }
+        .arch-icon.agent { background: var(--accent-lavender); color: white; }
+        .arch-icon.tool { background: var(--accent-orange); color: white; }
+
+        /* Agent Types */
+        .agent-types {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .agent-box {
+            flex: 1;
+            min-width: 200px;
+            background: var(--bg-paper);
+            border: 3px solid var(--pencil);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .agent-box:hover { transform: scale(1.03) rotate(1deg); }
+
+        .agent-box.primary { border-color: var(--accent-green); background: linear-gradient(145deg, #E8F8F5, #D1F2EB); }
+        .agent-box.subagent { border-color: var(--accent-teal); background: linear-gradient(145deg, #E3F2FD, #BBDEFB); }
+        .agent-box.system { border-color: var(--accent-lavender); background: linear-gradient(145deg, #E8EAF6, #C5CAE9); }
+
+        .agent-icon { font-size: 2.5rem; margin-bottom: 12px; }
+        .agent-title { font-family: 'Patrick Hand', cursive; font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; }
+        .agent-desc { font-size: 0.9rem; color: var(--text-muted); }
+
+        /* Code Blocks */
+        .code-block {
+            background: #1E272E;
+            color: #C8D6E5;
+            padding: 20px 25px;
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin: 20px 0;
+            overflow-x: auto;
+            border: 2px solid #343D46;
+        }
+
+        .code-block .comment { color: #7F8C8D; }
+        .code-block .key { color: #E74C3C; }
+        .code-block .string { color: #2ECC71; }
+
+        /* Feature List */
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 18px 0;
+        }
+
+        .feature-list li {
+            padding: 12px 0 12px 38px;
+            position: relative;
+            border-bottom: 2px dashed rgba(0,0,0,0.1);
+        }
+
+        .feature-list li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free', sans-serif;
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            font-size: 1.1rem;
+            color: var(--accent-teal);
+        }
+
+        /* Quote Box */
+        .quote-box {
+            background: linear-gradient(135deg, #FFF9E6, #FFF5D6);
+            border-left: 5px solid var(--accent-sunflower);
+            padding: 20px 25px;
+            margin: 20px 0;
+            border-radius: 0 16px 16px 0;
+            font-size: 1.12rem;
+            font-style: italic;
+            border: 2px dashed var(--accent-sunflower);
+        }
+
+        /* Insight Box */
+        .insight-box {
+            background: linear-gradient(135deg, #FFFDE7, #FFF9C4);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            padding: 22px;
+            margin: 22px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            border: 3px solid var(--accent-sunflower);
+        }
+
+        .insight-icon { font-size: 1.8rem; color: var(--accent-sunflower); }
+
+        /* Table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 22px 0;
+            font-size: 0.95rem;
+            border: 2px solid var(--pencil);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .comparison-table th, .comparison-table td {
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 2px dashed rgba(0,0,0,0.15);
+        }
+
+        .comparison-table th {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.15rem;
+            background: #F5F0E8;
+        }
+
+        /* Skill Path Visualization */
+        .skill-paths {
+            background: linear-gradient(135deg, #F0F8FF, #E6F3FF);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            padding: 25px;
+            margin: 20px 0;
+            border: 2px dashed var(--accent-teal);
+        }
+
+        .path-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+
+        .path-icon { color: var(--accent-teal); font-size: 1.2rem; }
+        .path-scope { font-weight: bold; min-width: 80px; }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            font-family: 'Patrick Hand', cursive;
+        }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.6rem; }
+            .card { padding: 26px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Mind & Machine</a>
+        
+        <header>
+            <h1>OpenCode Deep Dive</h1>
+            <p class="subtitle">Architecture, Agents &amp; Skills</p>
+        </header>
+
+        <!-- Executive Summary -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-rocket fa-icon"></i>Executive Summary</h2>
+            
+            <p><span class="highlight">OpenCode</span> is an open-source AI coding agent with a modular architecture that separates concerns into <strong>agents</strong>, <strong>tools</strong>, <strong>skills</strong>, and <strong>permissions</strong>. It uses a client/server design where the TUI is just one possible frontend.</p>
+
+            <div class="insight-box">
+                <i class="fa-solid fa-lightbulb insight-icon"></i>
+                <div><strong>Key Insight:</strong> Unlike Claude Code which is coupled to Anthropic, OpenCode is provider-agnostic and can work with Claude, OpenAI, Google, or even local models.</div>
+            </div>
+        </section>
+
+        <!-- System Architecture -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-layer-group fa-icon"></i>System Architecture</h2>
+            
+            <div class="arch-diagram">
+                <div style="text-align: center; font-family: 'Patrick Hand', cursive; font-size: 1.2rem; margin-bottom: 15px;">Client/Server Design</div>
+                
+                <div class="arch-layer">
+                    <div class="arch-icon client"><i class="fa-solid fa-desktop"></i></div>
+                    <div><strong>Client Layer</strong> — TUI, Desktop App, VS Code Extension</div>
+                </div>
+                
+                <div style="text-align: center; color: var(--text-muted); font-size: 1.5rem;">↓ WebSocket/IPC</div>
+                
+                <div class="arch-layer">
+                    <div class="arch-icon server"><i class="fa-solid fa-server"></i></div>
+                    <div><strong>Server Layer</strong> — Agent Engine, Tool Registry, Skill Registry</div>
+                </div>
+                
+                <div class="arch-layer">
+                    <div class="arch-icon agent"><i class="fa-solid fa-robot"></i></div>
+                    <div><strong>Agents</strong> — Primary, Subagents, System</div>
+                </div>
+                
+                <div class="arch-layer">
+                    <div class="arch-icon tool"><i class="fa-solid fa-toolbox"></i></div>
+                    <div><strong>Tools</strong> — bash, read, edit, grep, glob, skill...</div>
+                </div>
+            </div>
+
+            <h3>Key Design Principles</h3>
+            <ul class="feature-list">
+                <li><strong>Provider Agnostic:</strong> Not tied to any specific LLM provider</li>
+                <li><strong>Modular Tools:</strong> Plugin-based tool system with built-in and custom tools</li>
+                <li><strong>Skill System:</strong> Reusable instruction sets loaded on-demand</li>
+                <li><strong>Permission-First:</strong> Fine-grained access control for all operations</li>
+                <li><strong>Client/Server:</strong> Can run headless and be driven remotely</li>
+            </ul>
+        </section>
+
+        <!-- How Agents Work -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-users fa-icon"></i>How Agents Work</h2>
+            
+            <h3>Agent Types</h3>
+            
+            <div class="agent-types">
+                <div class="agent-box primary">
+                    <div class="agent-icon"><i class="fa-solid fa-hammer"></i></div>
+                    <div class="agent-title">Primary Agents</div>
+                    <div class="agent-desc">Switched with Tab key. User-facing main assistants.</div>
+                    <div style="margin-top: 10px; font-size: 0.85rem;"><strong>Examples:</strong> build, plan</div>
+                </div>
+                
+                <div class="agent-box subagent">
+                    <div class="agent-icon"><i class="fa-solid fa-user-group"></i></div>
+                    <div class="agent-title">Subagents</div>
+                    <div class="agent-desc">Invoked via @mention. Specialized task agents.</div>
+                    <div style="margin-top: 10px; font-size: 0.85rem;"><strong>Examples:</strong> general, explore, custom</div>
+                </div>
+                
+                <div class="agent-box system">
+                    <div class="agent-icon"><i class="fa-solid fa-gear"></i></div>
+                    <div class="agent-title">System Agents</div>
+                    <div class="agent-desc">Hidden, automatic. Run in background.</div>
+                    <div style="margin-top: 10px; font-size: 0.85rem;"><strong>Examples:</strong> compaction, title, summary</div>
+                </div>
+            </div>
+
+            <h3>Agent Schema</h3>
+            
+            <div class="code-block">
+{
+  <span class="key">name</span>: <span class="string">"security-audit"</span>,
+  <span class="key">description</span>: <span class="string">"Security-focused code reviewer"</span>,
+  <span class="key">mode</span>: <span class="string">"subagent"</span>,  <span class="comment">// primary | subagent | all</span>
+  <span class="key">model</span>: { providerID: <span class="string">"anthropic"</span>, modelID: <span class="string">"claude-sonnet"</span> },
+  <span class="key">temperature</span>: <span class="string">0.1</span>,  <span class="comment">// 0.0-1.0 creativity</span>
+  <span class="key">color</span>: <span class="string">"#FF6B6B"</span>,
+  <span class="key">tools</span>: { read: <span class="string">true</span>, write: <span class="string">false</span> },
+  <span class="key">permission</span>: [...]  <span class="comment">// Access control rules</span>
+}
+            </div>
+
+            <h3>Agent Loading Order</h3>
+            <ol style="margin: 15px 0; padding-left: 25px;">
+                <li><strong>Built-in agents</strong> loaded first (build, plan, general, explore)</li>
+                <li><strong>Config file agents</strong> (opencode.json) override or extend</li>
+                <li><strong>Markdown agents</strong> (.opencode/agents/*.md) loaded last</li>
+                <li><strong>Permissions merged</strong> with defaults</li>
+            </ol>
+        </section>
+
+        <!-- Creating Custom Agents -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-user-plus fa-icon"></i>Creating Custom Agents</h2>
+            
+            <h3>Method 1: Markdown (Recommended)</h3>
+            
+            <p>Create a file in <span class="highlight-teal">.opencode/agents/</span>:</p>
+            
+            <div class="code-block">
+<span class="comment"># .opencode/agents/security-audit.md</span>
+<span class="comment">---</span>
+<span class="key">description</span>: Security-focused code reviewer
+<span class="key">mode</span>: subagent
+<span class="key">model</span>: anthropic/claude-sonnet-4-20250514
+<span class="key">temperature</span>: 0.1
+<span class="key">tools</span>:
+  read: true
+  write: false
+  bash: ask
+<span class="key">color</span>: "#FF6B6B"
+<span class="comment">---</span>
+
+You are a security auditor. Focus on:
+1. Injection vulnerabilities (SQL, command, XSS)
+2. Authentication issues
+3. Data exposure risks
+4. Dependency vulnerabilities
+
+Provide severity ratings and remediation steps.
+            </div>
+
+            <div class="quote-box">
+                <strong>Why Markdown?</strong> Version controlled with project, easier to read and maintain, supports long-form prompts, team can collaborate via PRs.
+            </div>
+
+            <h3>Method 2: JSON Configuration</h3>
+            
+            <div class="code-block">
+<span class="comment">// opencode.json</span>
+{
+  <span class="key">"agent"</span>: {
+    <span class="key">"security-audit"</span>: {
+      <span class="key">"description"</span>: <span class="string">"Security-focused code reviewer"</span>,
+      <span class="key">"mode"</span>: <span class="string">"subagent"</span>,
+      <span class="key">"prompt"</span>: <span class="string">"You are a security auditor..."</span>,
+      <span class="key">"temperature"</span>: 0.1
+    }
+  }
+}
+            </div>
+
+            <h3>Best Practices</h3>
+            
+            <ul class="feature-list">
+                <li><strong>Specific descriptions</strong> — Helps LLM choose correct agent</li>
+                <li><strong>Restricted permissions</strong> — Principle of least privilege</li>
+                <li><strong>Lower temperature</strong> (0.1-0.3) for analysis tasks</li>
+                <li><strong>Color coding</strong> — Visual distinction in UI</li>
+                <li>Use <strong>primary</strong> for user-facing, <strong>subagent</strong> for specialized tasks</li>
+            </ul>
+        </section>
+
+        <!-- Skills System -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-book fa-icon"></i>The Skills System</h2>
+            
+            <p>Skills are <span class="highlight">reusable instruction documents</span> that agents can load on-demand. Unlike agents (full configurations), skills provide specific domain knowledge or workflows.</p>
+
+            <h3>Skill Discovery Locations</h3>
+            
+            <div class="skill-paths">
+                <div style="font-family: 'Patrick Hand', cursive; font-size: 1.2rem; margin-bottom: 15px;">Search Order (Project → Global)</div>
+                
+                <div class="path-item">
+                    <span class="path-icon"><i class="fa-solid fa-folder"></i></span>
+                    <span class="path-scope">Project:</span>
+                    <code>.opencode/skills/&lt;name&gt;/SKILL.md</code>
+                </div>
+                
+                <div class="path-item">
+                    <span class="path-icon"><i class="fa-solid fa-folder"></i></span>
+                    <span class="path-scope">Global:</span>
+                    <code>~/.config/opencode/skills/&lt;name&gt;/SKILL.md</code>
+                </div>
+                
+                <div class="path-item">
+                    <span class="path-icon"><i class="fa-solid fa-folder"></i></span>
+                    <span class="path-scope">Claude:</span>
+                    <code>.claude/skills/&lt;name&gt;/SKILL.md</code>
+                </div>
+                
+                <div class="path-item">
+                    <span class="path-icon"><i class="fa-solid fa-cloud"></i></span>
+                    <span class="path-scope">Remote:</span>
+                    <code>https://example.com/skills-index.json</code>
+                </div>
+            </div>
+
+            <h3>Skill File Format</h3>
+            
+            <div class="code-block">
+<span class="comment"># .opencode/skills/git-release/SKILL.md</span>
+<span class="comment">---</span>
+<span class="key">name</span>: git-release
+<span class="key">description</span>: Create consistent releases and changelogs
+<span class="key">license</span>: MIT
+<span class="key">compatibility</span>: opencode
+<span class="key">metadata</span>:
+  audience: maintainers
+  workflow: github
+<span class="comment">---</span>
+
+## What I do
+
+- Draft release notes from merged PRs
+- Propose a version bump
+- Provide copy-pasteable `gh release create` command
+
+## When to use me
+
+Use this when preparing a tagged release.
+Ask clarifying questions if versioning is unclear.
+            </div>
+
+            <h3>How Skills Are Loaded</h3>
+            
+            <p>At runtime, OpenCode exposes available skills to agents via the <span class="highlight-coral">skill</span> tool. The agent can then load a skill on-demand:</p>
+            
+            <div class="code-block">
+<span class="comment">// Agent sees available skills in tool description</span>
+&lt;available_skills&gt;
+  &lt;skill&gt;
+    &lt;name&gt;git-release&lt;/name&gt;
+    &lt;description&gt;Create consistent releases...&lt;/description&gt;
+  &lt;/skill&gt;
+&lt;/available_skills&gt;
+
+<span class="comment">// Agent loads skill when needed</span>
+skill({ name: <span class="string">"git-release"</span> })
+<span class="comment">// Returns full SKILL.md content</span>
+            </div>
+
+            <h3>Skill Permissions</h3>
+            
+            <div class="code-block">
+<span class="comment">// Global permission in opencode.json</span>
+{
+  <span class="key">"permission"</span>: {
+    <span class="key">"skill"</span>: {
+      <span class="key">"*"</span>: <span class="string">"allow"</span>,           <span class="comment">// Allow all</span>
+      <span class="key">"internal-*"</span>: <span class="string">"deny"</span>,    <span class="comment">// Block internal skills</span>
+      <span class="key">"experimental-*"</span>: <span class="string">"ask"</span>  <span class="comment">// Prompt user</span>
+    }
+  }
+}
+            </div>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Permission</th>
+                        <th>Behavior</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>allow</strong></td>
+                        <td>Skill loads immediately</td>
+                    </tr>
+                    <tr>
+                        <td><strong>deny</strong></td>
+                        <td>Skill hidden from agent, access rejected</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ask</strong></td>
+                        <td>User prompted for approval before loading</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Best Practices for Skills</h3>
+            
+            
+            <ol style="margin: 15px 0; padding-left: 25px;">
+                <li><strong>Keep focused</strong> — One domain per skill</li>
+                <li><strong>Write good descriptions</strong> — Helps agent choose correctly</li>
+                <li><strong>Include examples</strong> — Step-by-step instructions work best</li>
+                <li><strong>Version control</strong> — Project-specific skills with code</li>
+                <li><strong>Share via URLs</strong> — Team-wide standards via remote index</li>
+            </ol>
+        </section>
+
+        <!-- Key Takeaways -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-star fa-icon"></i>Key Takeaways</h2>
+            
+            <div class="agent-types">
+                <div class="agent-box" style="background: linear-gradient(145deg, #E8F8F5, #D1F2EB); border-color: var(--accent-green);">
+                    <div class="agent-icon" style="color: var(--accent-green);"><i class="fa-solid fa-robot"></i></div>
+                    <div class="agent-title">Agents</div>
+                    <div class="agent-desc">Specialized AI assistants with custom prompts, models, and permissions</div>
+                </div>
+                
+                <div class="agent-box" style="background: linear-gradient(145deg, #E3F2FD, #BBDEFB); border-color: #2196F3;">
+                    <div class="agent-icon" style="color: #2196F3;"><i class="fa-solid fa-book"></i></div>
+                    <div class="agent-title">Skills</div>
+                    <div class="agent-desc">Reusable instruction documents loaded on-demand via the skill tool</div>
+                </div>
+                
+                <div class="agent-box" style="background: linear-gradient(145deg, #FFF3E0, #FFE0B2); border-color: var(--accent-orange);">
+                    <div class="agent-icon" style="color: var(--accent-orange);"><i class="fa-solid fa-toolbox"></i></div>
+                    <div class="agent-title">Tools</div>
+                    <div class="agent-desc">Capabilities (bash, edit, read, etc.) controlled by permissions</div>
+                </div>
+                
+                <div class="agent-box" style="background: linear-gradient(145deg, #E8EAF6, #C5CAE9); border-color: var(--accent-lavender);">
+                    <div class="agent-icon" style="color: var(--accent-lavender);"><i class="fa-solid fa-shield-halved"></i></div>
+                    <div class="agent-title">Permissions</div>
+                    <div class="agent-desc">Hierarchical pattern system for fine-grained access control</div>
+                </div>
+            </div>
+
+            <div class="insight-box" style="background: linear-gradient(135deg, #E8F5E9, #C8E6C9); border-color: var(--accent-green);">
+                <i class="fa-solid fa-check-circle insight-icon" style="color: var(--accent-green);"></i>
+                <div>
+                    <strong>Remember:</strong> Markdown files are the best way to define project-specific agents and skills. Everything is configurable via JSON, Markdown, or environment variables. OpenCode is provider-agnostic!
+                </div>
+            </div>
+        </section>
+
+        <!-- File Structure -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-folder-tree fa-icon"></i>Project File Structure</h2>
+            
+            <div class="code-block">
+project/
+├── .opencode/
+│   ├── opencode.json          <span class="comment"># Project config</span>
+│   ├── agents/                <span class="comment"># Custom agents</span>
+│   │   ├── reviewer.md
+│   │   └── security-audit.md
+│   ├── skills/                <span class="comment"># Custom skills</span>
+│   │   ├── react-patterns/
+│   │   │   └── SKILL.md
+│   │   └── deployment/
+│   │       └── SKILL.md
+│   └── tools/                 <span class="comment"># Custom tools</span>
+│       └── my-tool.ts
+└── src/
+    └── ...
+
+<span class="comment"># Global config in home directory:</span>
+~/.config/opencode/
+├── opencode.json              <span class="comment"># Global config</span>
+├── agents/                    <span class="comment"># Global agents</span>
+└── skills/                    <span class="comment"># Global skills</span>
+    ├── python/SKILL.md
+    └── security/SKILL.md
+            </div>
+        </section>
+
+        <footer>
+            <p><i class="fa-solid fa-paintbrush"></i> Mind & Machine | <a href="index.html" style="color: var(--accent-teal);">Back to Home</a></p>
+        </footer>
+    </div>
+
+    <script>
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            revealElements.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (elementTop < windowHeight - 80) {
+                    el.classList.add('visible');
+                }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+    </script>
+</body>
+</html>
