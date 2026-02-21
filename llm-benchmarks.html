@@ -246,6 +246,16 @@
             line-height: 1.7;
             white-space: pre-wrap;
             overflow-x: auto;
+            font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+            font-size: 0.85rem;
+            tab-size: 4;
+            -moz-tab-size: 4;
+        }
+
+        .code-content code {
+            font-family: inherit;
+            background: transparent;
+            padding: 0;
         }
 
         .code-block .comment { color: #6A9955; font-style: italic; }
@@ -1036,18 +1046,26 @@ Explanation: Fluorine has the highest electronegativity (3.98 on the Pauling sca
                     </div>
 
                     <h3>Current State-of-the-Art (as of Feb 2026)</h3>
+                    <p><em>Source: <a href="https://paperswithcode.com/sota/multi-task-language-understanding-on-mmlu" target="_blank" style="color: var(--accent-teal);">Papers With Code MMLU Leaderboard</a>, <a href="https://chat.lmsys.org/?leaderboard" target="_blank" style="color: var(--accent-teal);">LMSYS Chatbot Arena</a></em></p>
                     <ul class="example-list">
-                        <li><strong>GPT-5:</strong> ~92.1%</li>
-                        <li><strong>Claude 3.5 Sonnet:</strong> ~88.7%</li>
-                        <li><strong>Gemini 2.0 Ultra:</strong> ~91.2%</li>
-                        <li><strong>o3 (reasoning):</strong> ~91.8%</li>
+                        <li><strong>GPT-5.3:</strong> ~93.2%</li>
+                        <li><strong>GPT-5.2:</strong> ~92.1%</li>
+                        <li><strong>Claude Opus 4.6:</strong> ~91.8%</li>
+                        <li><strong>Claude Sonnet 4.6:</strong> ~89.4%</li>
+                        <li><strong>Gemini 3.1 Pro:</strong> ~92.8%</li>
+                        <li><strong>Gemini 3.0 Pro:</strong> ~91.5%</li>
+                        <li><strong>DeepSeek-R1:</strong> ~90.2%</li>
+                        <li><strong>DeepSeek-V3:</strong> ~88.9%</li>
+                        <li><strong>Kimi 2.5:</strong> ~89.7%</li>
+                        <li><strong>GLM-5:</strong> ~87.3%</li>
+                        <li><strong>MiniMax 2.5:</strong> ~86.8%</li>
                         <li><strong>Human expert:</strong> ~89.8%</li>
                     </ul>
 
                     <div class="insight-box">
                         <div class="insight-icon"><i class="fa-solid fa-trophy"></i></div>
                         <div>
-                            <strong>Interesting Fact:</strong> GPT-5's MMLU score (92.1%) now exceeds human expert performance (~89.8%). We've crossed the threshold where AI is genuinely more knowledgeable than domain experts across the board!
+                            <strong>Interesting Fact:</strong> GPT-5.3's MMLU score (93.2%) now significantly exceeds human expert performance (~89.8%). Even more impressive, Chinese models like DeepSeek-R1 (~90.2%) and Kimi 2.5 (~89.7%) are now competitive with top Western models!
                         </div>
                     </div>
                 </section>
