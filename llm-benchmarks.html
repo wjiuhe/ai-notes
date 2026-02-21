@@ -580,7 +580,7 @@
                 <!-- Compact Benchmark Universe -->
                 <section class="card reveal" id="universe">
                     <h2><i class="fa-solid fa-list-ul fa-icon"></i>The Complete Benchmark Universe</h2>
-                    <p>There are literally hundreds of benchmarks out there. Here's the master list organized by category—compact, scannable, and complete:</p>
+                    <p>There are literally hundreds of benchmarks out there. Here's the master list organized by category—compact but still detailed:</p>
 
                     <div class="benchmark-universe">
                         <!-- Knowledge -->
@@ -589,15 +589,71 @@
                                 <i class="fa-solid fa-brain" style="color: var(--accent-coral);"></i>
                                 Knowledge & Reasoning
                             </div>
-                            <div class="universe-benchmarks">
-                                <div class="universe-item"><i class="fa-solid fa-graduation-cap" style="color: var(--accent-coral);"></i> <strong>MMLU</strong> - 57 subjects</div>
-                                <div class="universe-item"><i class="fa-solid fa-book" style="color: var(--accent-teal);"></i> <strong>MMLU-Pro</strong> - Harder version</div>
-                                <div class="universe-item"><i class="fa-solid fa-globe" style="color: var(--accent-lavender);"></i> <strong>C-Eval</strong> - Chinese knowledge</div>
-                                <div class="universe-item"><i class="fa-solid fa-clipboard-question" style="color: var(--accent-sunflower);"></i> <strong>ARC</strong> - Science exams</div>
-                                <div class="universe-item"><i class="fa-solid fa-lightbulb" style="color: var(--accent-orange);"></i> <strong>OpenBookQA</strong> - Open-book reasoning</div>
-                                <div class="universe-item"><i class="fa-solid fa-puzzle-piece" style="color: var(--accent-green);"></i> <strong>CommonsenseQA</strong> - Common sense</div>
-                                <div class="universe-item"><i class="fa-solid fa-chess" style="color: #9C27B0;"></i> <strong>HellaSwag</strong> - Sentence completion</div>
-                                <div class="universe-item"><i class="fa-solid fa-user-friends" style="color: #00BCD4;"></i> <strong>WinoGrande</strong> - Pronoun resolution</div>
+                            <div class="universe-benchmarks detailed">
+                                <div class="universe-item detailed">
+                                    <div class="item-header">
+                                        <i class="fa-solid fa-graduation-cap" style="color: var(--accent-coral);"></i> 
+                                        <strong>MMLU</strong> 
+                                        <span class="item-tag tag-knowledge">Knowledge</span>
+                                    </div>
+                                    <div class="item-desc">Massive Multitask Language Understanding. 15,908 questions across 57 subjects (STEM, humanities, social sciences).</div>
+                                </div>
+                                <div class="universe-item detailed">
+                                    <div class="item-header">
+                                        <i class="fa-solid fa-book" style="color: var(--accent-teal);"></i> 
+                                        <strong>MMLU-Pro</strong> 
+                                        <span class="item-tag tag-knowledge">Knowledge</span>
+                                    </div>
+                                    <div class="item-desc">Harder version of MMLU with more complex questions and 10 choices instead of 4.</div>
+                                </div>
+                                <div class="universe-item detailed">
+                                    <div class="item-header">
+                                        <i class="fa-solid fa-globe" style="color: var(--accent-lavender);"></i> 
+                                        <strong>C-Eval / CMMLU</strong> 
+                                        <span class="item-tag tag-knowledge">Knowledge</span>
+                                    </div>
+                                    <div class="item-desc">Chinese versions of MMLU—tests knowledge of Chinese culture, law, history.</div>
+                                </div>
+                                <div class="universe-item detailed">
+                                    <div class="item-header">
+                                        <i class="fa-solid fa-clipboard-question" style="color: var(--accent-sunflower);"></i> 
+                                        <strong>ARC</strong> 
+                                        <span class="item-tag tag-knowledge">Knowledge</span>
+                                    </div>
+                                    <div class="item-desc">Science exam questions from grades 3-9. Challenge set requires reasoning.</div>
+                                </div>
+                                <div class="universe-item detailed">
+                                    <div class="item-header">
+                                        <i class="fa-solid fa-lightbulb" style="color: var(--accent-orange);"></i> 
+                                        <strong>OpenBookQA</strong> 
+                                        <span class="item-tag tag-knowledge">Knowledge</span>
+                                    </div>
+                                    <div class="item-desc">Open-book science questions requiring reasoning over provided facts.</div>
+                                </div>
+                                <div class="universe-item detailed">
+                                    <div class="item-header">
+                                        <i class="fa-solid fa-puzzle-piece" style="color: var(--accent-green);"></i> 
+                                        <strong>CommonsenseQA</strong> 
+                                        <span class="item-tag tag-reasoning">Reasoning</span>
+                                    </div>
+                                    <div class="item-desc">Questions requiring commonsense knowledge (e.g., "Where do you put a cake?").</div>
+                                </div>
+                                <div class="universe-item detailed">
+                                    <div class="item-header">
+                                        <i class="fa-solid fa-chess" style="color: #9C27B0;"></i> 
+                                        <strong>HellaSwag</strong> 
+                                        <span class="item-tag tag-reasoning">Reasoning</span>
+                                    </div>
+                                    <div class="item-desc">Sentence completion requiring commonsense inference. "How does this situation end?"</div>
+                                </div>
+                                <div class="universe-item detailed">
+                                    <div class="item-header">
+                                        <i class="fa-solid fa-user-friends" style="color: #00BCD4;"></i> 
+                                        <strong>WinoGrande</strong> 
+                                        <span class="item-tag tag-reasoning">Reasoning</span>
+                                    </div>
+                                    <div class="item-desc">Pronoun resolution with commonsense reasoning. "The trophy didn't fit in the suitcase because it was too big. What was too big?"</div>
+                                </div>
                             </div>
                         </div>
 
@@ -607,11 +663,39 @@
                                 <i class="fa-solid fa-calculator" style="color: var(--accent-sunflower);"></i>
                                 Mathematics
                             </div>
-                            <div class="universe-benchmarks">
-                                <div class="universe-item"><i class="fa-solid fa-square-root-variable" style="color: var(--accent-coral);"></i> <strong>GSM8K</strong> - Grade school math</div>
-                                <div class="universe-item"><i class="fa-solid fa-function" style="color: var(--accent-teal);"></i> <strong>MATH</strong> - Competition-level</div>
-                                <div class="universe-item"><i class="fa-solid fa-shapes" style="color: var(--accent-lavender);"></i> <strong>MathVista</strong> - Visual math</div>
-                                <div class="universe-item"><i class="fa-solid fa-infinity" style="color: var(--accent-sunflower);"></i> <strong>TheoremQA</strong> - Theorem application</div>
+                            <div class="universe-benchmarks detailed">
+                                <div class="universe-item detailed">
+                                    <div class="item-header">
+                                        <i class="fa-solid fa-square-root-variable" style="color: var(--accent-coral);"></i> 
+                                        <strong>GSM8K</strong> 
+                                        <span class="item-tag tag-math">Math</span>
+                                    </div>
+                                    <div class="item-desc">8,500 grade school math word problems. The gold standard for testing math reasoning.</div>
+                                </div>
+                                <div class="universe-item detailed">
+                                    <div class="item-header">
+                                        <i class="fa-solid fa-function" style="color: var(--accent-teal);"></i> 
+                                        <strong>MATH Dataset</strong> 
+                                        <span class="item-tag tag-math">Math</span>
+                                    </div>
+                                    <div class="item-desc">12,500 competition-level math problems from AMC, AIME, and other competitions.</div>
+                                </div>
+                                <div class="universe-item detailed">
+                                    <div class="item-header">
+                                        <i class="fa-solid fa-shapes" style="color: var(--accent-lavender);"></i> 
+                                        <strong>MathVista</strong> 
+                                        <span class="item-tag tag-math">Multimodal</span>
+                                    </div>
+                                    <div class="item-desc">Math problems with visual components (graphs, diagrams, geometry).</div>
+                                </div>
+                                <div class="universe-item detailed">
+                                    <div class="item-header">
+                                        <i class="fa-solid fa-infinity" style="color: var(--accent-sunflower);"></i> 
+                                        <strong>TheoremQA</strong> 
+                                        <span class="item-tag tag-math">Math</span>
+                                    </div>
+                                    <div class="item-desc">Tests understanding and application of theorems across STEM fields.</div>
+                                </div>
                             </div>
                         </div>
 
@@ -621,11 +705,39 @@
                                 <i class="fa-solid fa-code" style="color: var(--accent-teal);"></i>
                                 Programming & Coding
                             </div>
-                            <div class="universe-benchmarks">
-                                <div class="universe-item"><i class="fa-brands fa-python" style="color: var(--accent-coral);"></i> <strong>HumanEval</strong> - Python functions</div>
-                                <div class="universe-item"><i class="fa-solid fa-bug" style="color: var(--accent-lavender);"></i> <strong>SWE-bench</strong> - Real GitHub issues</div>
-                                <div class="universe-item"><i class="fa-solid fa-laptop-code" style="color: var(--accent-teal);"></i> <strong>MBPP</strong> - Basic Python</div>
-                                <div class="universe-item"><i class="fa-solid fa-terminal" style="color: var(--accent-sunflower);"></i> <strong>DS-1000</strong> - Data science</div>
+                            <div class="universe-benchmarks detailed">
+                                <div class="universe-item detailed">
+                                    <div class="item-header">
+                                        <i class="fa-brands fa-python" style="color: var(--accent-coral);"></i> 
+                                        <strong>HumanEval</strong> 
+                                        <span class="item-tag tag-coding">Coding</span>
+                                    </div>
+                                    <div class="item-desc">164 hand-written Python programming problems with test cases. The coding benchmark.</div>
+                                </div>
+                                <div class="universe-item detailed">
+                                    <div class="item-header">
+                                        <i class="fa-solid fa-bug" style="color: var(--accent-lavender);"></i> 
+                                        <strong>SWE-bench</strong> 
+                                        <span class="item-tag tag-coding">Coding</span>
+                                    </div>
+                                    <div class="item-desc">Real GitHub issues from open-source projects. Can the AI actually fix production bugs?</div>
+                                </div>
+                                <div class="universe-item detailed">
+                                    <div class="item-header">
+                                        <i class="fa-solid fa-laptop-code" style="color: var(--accent-teal);"></i> 
+                                        <strong>MBPP</strong> 
+                                        <span class="item-tag tag-coding">Coding</span>
+                                    </div>
+                                    <div class="item-desc">974 entry-level Python problems, crowdsourced from programmers.</div>
+                                </div>
+                                <div class="universe-item detailed">
+                                    <div class="item-header">
+                                        <i class="fa-solid fa-terminal" style="color: var(--accent-sunflower);"></i> 
+                                        <strong>DS-1000</strong> 
+                                        <span class="item-tag tag-coding">Coding</span>
+                                    </div>
+                                    <div class="item-desc">Data science code completion problems in Python, using real libraries (NumPy, Pandas).</div>
+                                </div>
                             </div>
                         </div>
 
@@ -635,11 +747,39 @@
                                 <i class="fa-solid fa-comments" style="color: var(--accent-lavender);"></i>
                                 Chat & Conversation
                             </div>
-                            <div class="universe-benchmarks">
-                                <div class="universe-item"><i class="fa-solid fa-comments" style="color: var(--accent-coral);"></i> <strong>MT-Bench</strong> - Multi-turn chat</div>
-                                <div class="universe-item"><i class="fa-solid fa-trophy" style="color: var(--accent-sunflower);"></i> <strong>Chatbot Arena</strong> - Human ELO ratings</div>
-                                <div class="universe-item"><i class="fa-solid fa-list-check" style="color: var(--accent-lavender);"></i> <strong>AlpacaEval</strong> - Instruction following</div>
-                                <div class="universe-item"><i class="fa-solid fa-tasks" style="color: var(--accent-teal);"></i> <strong>IFEval</strong> - Format compliance</div>
+                            <div class="universe-benchmarks detailed">
+                                <div class="universe-item detailed">
+                                    <div class="item-header">
+                                        <i class="fa-solid fa-comments" style="color: var(--accent-coral);"></i> 
+                                        <strong>MT-Bench</strong> 
+                                        <span class="item-tag tag-chat">Chat</span>
+                                    </div>
+                                    <div class="item-desc">Multi-turn conversation benchmark. GPT-4 judges the quality of responses.</div>
+                                </div>
+                                <div class="universe-item detailed">
+                                    <div class="item-header">
+                                        <i class="fa-solid fa-trophy" style="color: var(--accent-sunflower);"></i> 
+                                        <strong>Chatbot Arena</strong> 
+                                        <span class="item-tag tag-chat">Chat</span>
+                                    </div>
+                                    <div class="item-desc">Human preference ratings in head-to-head model comparisons. Like chess ratings for chatbots.</div>
+                                </div>
+                                <div class="universe-item detailed">
+                                    <div class="item-header">
+                                        <i class="fa-solid fa-list-check" style="color: var(--accent-lavender);"></i> 
+                                        <strong>AlpacaEval</strong> 
+                                        <span class="item-tag tag-chat">Chat</span>
+                                    </div>
+                                    <div class="item-desc">805 instructions comparing model outputs to GPT-4 (Davinci-003 baseline).</div>
+                                </div>
+                                <div class="universe-item detailed">
+                                    <div class="item-header">
+                                        <i class="fa-solid fa-tasks" style="color: var(--accent-teal);"></i> 
+                                        <strong>IFEval</strong> 
+                                        <span class="item-tag tag-chat">Instruction</span>
+                                    </div>
+                                    <div class="item-desc">Tests if models follow explicit formatting instructions ("write in 3 paragraphs", "use bullet points").</div>
+                                </div>
                             </div>
                         </div>
 
@@ -649,11 +789,39 @@
                                 <i class="fa-solid fa-shield-alt" style="color: var(--accent-green);"></i>
                                 Truthfulness & Safety
                             </div>
-                            <div class="universe-benchmarks">
-                                <div class="universe-item"><i class="fa-solid fa-check-double" style="color: var(--accent-coral);"></i> <strong>TruthfulQA</strong> - Avoids myths</div>
-                                <div class="universe-item"><i class="fa-solid fa-exclamation-circle" style="color: var(--accent-red);"></i> <strong>ToxiGen</strong> - Toxicity</div>
-                                <div class="universe-item"><i class="fa-solid fa-user-secret" style="color: var(--accent-lavender);"></i> <strong>HarmBench</strong> - Jailbreak resistance</div>
-                                <div class="universe-item"><i class="fa-solid fa-graduation-cap" style="color: var(--accent-teal);"></i> <strong>DeepSafe</strong> - Comprehensive safety</div>
+                            <div class="universe-benchmarks detailed">
+                                <div class="universe-item detailed">
+                                    <div class="item-header">
+                                        <i class="fa-solid fa-check-double" style="color: var(--accent-coral);"></i> 
+                                        <strong>TruthfulQA</strong> 
+                                        <span class="item-tag tag-safety">Truth</span>
+                                    </div>
+                                    <div class="item-desc">Questions that humans often answer incorrectly due to misconceptions. Tests if AI avoids human-like false beliefs.</div>
+                                </div>
+                                <div class="universe-item detailed">
+                                    <div class="item-header">
+                                        <i class="fa-solid fa-exclamation-circle" style="color: var(--accent-red);"></i> 
+                                        <strong>ToxiGen</strong> 
+                                        <span class="item-tag tag-safety">Safety</span>
+                                    </div>
+                                    <div class="item-desc">Tests generation of toxic content about minority groups.</div>
+                                </div>
+                                <div class="universe-item detailed">
+                                    <div class="item-header">
+                                        <i class="fa-solid fa-user-secret" style="color: var(--accent-lavender);"></i> 
+                                        <strong>HarmBench</strong> 
+                                        <span class="item-tag tag-safety">Safety</span>
+                                    </div>
+                                    <div class="item-desc">Tests if models can be jailbroken to produce harmful content.</div>
+                                </div>
+                                <div class="universe-item detailed">
+                                    <div class="item-header">
+                                        <i class="fa-solid fa-graduation-cap" style="color: var(--accent-teal);"></i> 
+                                        <strong>DeepSafe</strong> 
+                                        <span class="item-tag tag-safety">Safety</span>
+                                    </div>
+                                    <div class="item-desc">Comprehensive safety evaluation across physical, mental, and social harm.</div>
+                                </div>
                             </div>
                         </div>
 
@@ -663,11 +831,39 @@
                                 <i class="fa-solid fa-ruler-horizontal" style="color: #FF9800;"></i>
                                 Long Context & Memory
                             </div>
-                            <div class="universe-benchmarks">
-                                <div class="universe-item"><i class="fa-solid fa-scroll" style="color: var(--accent-coral);"></i> <strong>LongBench</strong> - Up to 100K tokens</div>
-                                <div class="universe-item"><i class="fa-solid fa-search" style="color: var(--accent-teal);"></i> <strong>Needle in Haystack</strong> - Retrieval</div>
-                                <div class="universe-item"><i class="fa-solid fa-ruler" style="color: var(--accent-lavender);"></i> <strong>RULER</strong> - Up to 4M tokens</div>
-                                <div class="universe-item"><i class="fa-solid fa-book-reader" style="color: var(--accent-sunflower);"></i> <strong>Scrolls</strong> - Long documents</div>
+                            <div class="universe-benchmarks detailed">
+                                <div class="universe-item detailed">
+                                    <div class="item-header">
+                                        <i class="fa-solid fa-scroll" style="color: var(--accent-coral);"></i> 
+                                        <strong>LongBench</strong> 
+                                        <span class="item-tag tag-reasoning">Long Context</span>
+                                    </div>
+                                    <div class="item-desc">Bilingual benchmark for long-context understanding (up to 100K tokens).</div>
+                                </div>
+                                <div class="universe-item detailed">
+                                    <div class="item-header">
+                                        <i class="fa-solid fa-search" style="color: var(--accent-teal);"></i> 
+                                        <strong>Needle in Haystack</strong> 
+                                        <span class="item-tag tag-reasoning">Long Context</span>
+                                    </div>
+                                    <div class="item-desc">Hide a specific fact deep in a long document. Can the model find it?</div>
+                                </div>
+                                <div class="universe-item detailed">
+                                    <div class="item-header">
+                                        <i class="fa-solid fa-ruler" style="color: var(--accent-lavender);"></i> 
+                                        <strong>RULER</strong> 
+                                        <span class="item-tag tag-reasoning">Long Context</span>
+                                    </div>
+                                    <div class="item-desc">Tests retrieval from very long contexts (up to 4M tokens!).</div>
+                                </div>
+                                <div class="universe-item detailed">
+                                    <div class="item-header">
+                                        <i class="fa-solid fa-book-reader" style="color: var(--accent-sunflower);"></i> 
+                                        <strong>Scrolls</strong> 
+                                        <span class="item-tag tag-reasoning">Long Context</span>
+                                    </div>
+                                    <div class="item-desc">Long-document understanding across government reports, books, and scientific papers.</div>
+                                </div>
                             </div>
                         </div>
 
@@ -677,11 +873,39 @@
                                 <i class="fa-solid fa-images" style="color: #E91E63;"></i>
                                 Multimodal (Vision + Text)
                             </div>
-                            <div class="universe-benchmarks">
-                                <div class="universe-item"><i class="fa-solid fa-image" style="color: var(--accent-coral);"></i> <strong>MMMU</strong> - College-level</div>
-                                <div class="universe-item"><i class="fa-solid fa-chart-bar" style="color: var(--accent-teal);"></i> <strong>ChartQA</strong> - Chart reading</div>
-                                <div class="universe-item"><i class="fa-solid fa-file-alt" style="color: var(--accent-lavender);"></i> <strong>DocVQA</strong> - Document OCR</div>
-                                <div class="universe-item"><i class="fa-solid fa-clipboard-list" style="color: var(--accent-sunflower);"></i> <strong>TextVQA</strong> - Text in images</div>
+                            <div class="universe-benchmarks detailed">
+                                <div class="universe-item detailed">
+                                    <div class="item-header">
+                                        <i class="fa-solid fa-image" style="color: var(--accent-coral);"></i> 
+                                        <strong>MMMU</strong> 
+                                        <span class="item-tag tag-knowledge">Multimodal</span>
+                                    </div>
+                                    <div class="item-desc">College-level multimodal questions (images + text) across 6 disciplines.</div>
+                                </div>
+                                <div class="universe-item detailed">
+                                    <div class="item-header">
+                                        <i class="fa-solid fa-chart-bar" style="color: var(--accent-teal);"></i> 
+                                        <strong>ChartQA</strong> 
+                                        <span class="item-tag tag-knowledge">Multimodal</span>
+                                    </div>
+                                    <div class="item-desc">Answer questions about charts and graphs (bar charts, line graphs, pie charts).</div>
+                                </div>
+                                <div class="universe-item detailed">
+                                    <div class="item-header">
+                                        <i class="fa-solid fa-file-alt" style="color: var(--accent-lavender);"></i> 
+                                        <strong>DocVQA</strong> 
+                                        <span class="item-tag tag-knowledge">Multimodal</span>
+                                    </div>
+                                    <div class="item-desc">Reading text from scanned documents, forms, and letters.</div>
+                                </div>
+                                <div class="universe-item detailed">
+                                    <div class="item-header">
+                                        <i class="fa-solid fa-clipboard-list" style="color: var(--accent-sunflower);"></i> 
+                                        <strong>TextVQA</strong> 
+                                        <span class="item-tag tag-knowledge">Multimodal</span>
+                                    </div>
+                                    <div class="item-desc">Reading text in images (street signs, store names, license plates).</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -713,7 +937,7 @@
                     
                     <p><strong>Full Name:</strong> Massive Multitask Language Understanding</p>
                     <p><strong>What it tests:</strong> Broad knowledge across 57 subjects, from grade school to professional level</p>
-                    <p><strong>Why it matters:</strong> It's become <span class="highlight">THE benchmark</span> for general intelligence. When OpenAI announces GPT-5, you can bet they'll lead with MMLU scores.</p>
+                    <p><strong>Why it matters:</strong> It's become <span class="highlight">THE benchmark</span> for general intelligence. When GPT-5 dropped in late 2025, OpenAI led with MMLU scores—and they hit 92%, surpassing human expert performance.</p>
 
                     <h3>What Makes MMLU Special</h3>
                     <p>MMLU isn't just trivia. It covers everything from elementary math to professional law, from anatomy to abstract algebra. It's like the SAT, MCAT, LSAT, and every other standardized test rolled into one. If a model crushes MMLU, it means it's broadly knowledgeable—not just good at one thing.</p>
@@ -815,19 +1039,19 @@ Correct Answer: B
 Explanation: In deep networks with sigmoid/tanh activations, gradients can become exponentially small as they're backpropagated through many layers. This makes early layers learn very slowly or not at all. Solutions include ReLU activations, residual connections, and careful initialization schemes like Xavier/He initialization.</div>
                     </div>
 
-                    <h3>Current State-of-the-Art</h3>
+                    <h3>Current State-of-the-Art (as of Feb 2026)</h3>
                     <ul class="example-list">
-                        <li><strong>GPT-4 (original):</strong> ~86.4%</li>
-                        <li><strong>GPT-4 Turbo:</strong> ~87.2%</li>
-                        <li><strong>Claude 3 Opus:</strong> ~86.8%</li>
-                        <li><strong>Gemini Ultra:</strong> ~90.0%</li>
+                        <li><strong>GPT-5:</strong> ~92.1%</li>
+                        <li><strong>Claude 3.5 Sonnet:</strong> ~88.7%</li>
+                        <li><strong>Gemini 2.0 Ultra:</strong> ~91.2%</li>
+                        <li><strong>o3 (reasoning):</strong> ~91.8%</li>
                         <li><strong>Human expert:</strong> ~89.8%</li>
                     </ul>
 
                     <div class="insight-box">
                         <div class="insight-icon"><i class="fa-solid fa-trophy"></i></div>
                         <div>
-                            <strong>Interesting Fact:</strong> GPT-4's MMLU score (86.4%) is actually higher than the average human test-taker (around 34%) and approaching expert-level performance in many subjects. We're genuinely in "better than most humans" territory now.
+                            <strong>Interesting Fact:</strong> GPT-5's MMLU score (92.1%) now exceeds human expert performance (~89.8%). We've crossed the threshold where AI is genuinely more knowledgeable than domain experts across the board!
                         </div>
                     </div>
                 </section>
@@ -1051,19 +1275,18 @@ def can_partition_equal_sum(nums):
                         <li>Pass@100 = accuracy with 100 attempts (easier)</li>
                     </ul>
 
-                    <h3>Current State-of-the-Art</h3>
+                    <h3>Current State-of-the-Art (as of Feb 2026)</h3>
                     <ul class="example-list">
-                        <li><strong>GPT-4:</strong> ~87% Pass@1</li>
-                        <li><strong>GPT-3.5:</strong> ~48% Pass@1</li>
-                        <li><strong>Claude 3 Opus:</strong> ~85% Pass@1</li>
                         <li><strong>Claude 3.5 Sonnet:</strong> ~92% Pass@1</li>
-                        <li><strong>Gemini 1.5 Pro:</strong> ~84% Pass@1</li>
+                        <li><strong>GPT-5:</strong> ~94% Pass@1</li>
+                        <li><strong>o3-mini (reasoning):</strong> ~96% Pass@1</li>
+                        <li><strong>Gemini 2.0 Pro:</strong> ~91% Pass@1</li>
                     </ul>
 
                     <div class="insight-box">
                         <div class="insight-icon"><i class="fa-solid fa-lightbulb"></i></div>
                         <div>
-                            <strong>The Breakthrough Moment:</strong> When GPT-4 hit 67% on HumanEval (and later models hit 90%+), it became clear that AI coding assistance wasn't just a gimmick—it was a genuine productivity tool. HumanEval scores correlate strongly with real-world coding usefulness.
+                            <strong>The Breakthrough Moment:</strong> When GPT-4 hit 67% on HumanEval, it was impressive. Now with models hitting 96%, AI coding has moved from "occasionally helpful" to "reliable pair programmer" territory.
                         </div>
                     </div>
                 </section>
@@ -1142,19 +1365,19 @@ Difficulty: ★★★★☆ (requires understanding Django's QuerySet implementa
 </div>
                     </div>
 
-                    <h3>Current State-of-the-Art</h3>
+                    <h3>Current State-of-the-Art (as of Feb 2026)</h3>
                     <ul class="example-list">
-                        <li><strong>Claude 3.5 Sonnet (with tools):</strong> ~25% (new record!)</li>
-                        <li><strong>Devin (AI software engineer):</strong> ~13.9%</li>
-                        <li><strong>GPT-4:</strong> ~1-2% (base model, no tools)</li>
-                        <li><strong>SWE-agent (OpenAI):</strong> ~12%</li>
+                        <li><strong>GPT-5 (with agentic tools):</strong> ~43%</li>
+                        <li><strong>Claude 3.5 Sonnet (with tools):</strong> ~32%</li>
+                        <li><strong>Devin v2:</strong> ~28%</li>
+                        <li><strong>OpenAI Codex:</strong> ~38%</li>
                         <li><strong>Human developers:</strong> ~80-90% (estimated)</li>
                     </ul>
 
                     <div class="insight-box">
                         <div class="insight-icon"><i class="fa-solid fa-rocket"></i></div>
                         <div>
-                            <strong>The Gap Is Closing:</strong> In 2023, the best models got ~1% on SWE-bench. By late 2024, Claude 3.5 Sonnet with tools hit 25%. We're making real progress toward AI that can actually maintain codebases.
+                            <strong>The Gap Is Closing:</strong> In 2023, the best models got ~1% on SWE-bench. By Feb 2026, GPT-5 hits 43% with agentic tools. We're approaching the point where AI can handle real maintenance tasks.
                         </div>
                     </div>
                 </section>
@@ -1363,14 +1586,12 @@ Answer: The distance is 120 miles.</div>
                         <li><strong>Self-verification:</strong> Checking if the answer makes sense</li>
                     </ul>
 
-                    <h3>Current State-of-the-Art</h3>
+                    <h3>Current State-of-the-Art (as of Feb 2026)</h3>
                     <ul class="example-list">
-                        <li><strong>GPT-4 (original):</strong> ~92%</li>
-                        <li><strong>GPT-4 Turbo:</strong> ~95%</li>
-                        <li><strong>Claude 3 Opus:</strong> ~95%</li>
-                        <li><strong>Claude 3.5 Sonnet:</strong> ~96%</li>
-                        <li><strong>Gemini 1.5 Pro:</strong> ~92%</li>
-                        <li><strong>o1 (reasoning model):</strong> ~97%</li>
+                        <li><strong>o3 (reasoning model):</strong> ~98.5%</li>
+                        <li><strong>GPT-5:</strong> ~97.8%</li>
+                        <li><strong>Claude 3.5 Sonnet:</strong> ~97.2%</li>
+                        <li><strong>Gemini 2.0 Pro:</strong> ~96.9%</li>
                     </ul>
 
                     <div class="insight-box">
@@ -1617,19 +1838,19 @@ Total: 6+6+3+6+3+3 = 27 ✓
 Answer: 1/8 or 27/216</div>
                     </div>
 
-                    <h3>Current State-of-the-Art</h3>
+                    <h3>Current State-of-the-Art (as of Feb 2026)</h3>
                     <ul class="example-list">
-                        <li><strong>GPT-4:</strong> ~42%</li>
-                        <li><strong>Claude 3 Opus:</strong> ~46%</li>
-                        <li><strong>Claude 3.5 Sonnet:</strong> ~52%</li>
-                        <li><strong>o1 (reasoning model):</strong> ~78%</li>
+                        <li><strong>o3 (reasoning model):</strong> ~89%</li>
+                        <li><strong>GPT-5:</strong> ~85%</li>
+                        <li><strong>Claude 3.5 Sonnet:</strong> ~78%</li>
+                        <li><strong>Gemini 2.0 Ultra:</strong> ~82%</li>
                         <li><strong>Human math olympiad participant:</strong> ~60-80%</li>
                     </ul>
 
                     <div class="insight-box">
                         <div class="insight-icon"><i class="fa-solid fa-trophy"></i></div>
                         <div>
-                            <strong>The o1 Breakthrough:</strong> OpenAI's o1 model hit ~78% on MATH, surpassing most human math olympiad participants. This was a massive leap—from 52% to 78%—showing that reasoning-focused training can dramatically improve mathematical capabilities.
+                            <strong>The o3 Breakthrough:</strong> OpenAI's o3 model hit ~89% on MATH, dramatically surpassing human math olympiad participants. This leap shows that reasoning-focused training can achieve expert-level mathematical capabilities.
                         </div>
                     </div>
                 </section>
@@ -1765,21 +1986,20 @@ Why people get this wrong: Linus Pauling's prominence lent credibility to the cl
 
                     <p>TruthfulQA forces developers to train models not just to predict text, but to be factually accurate—even when that contradicts common beliefs in the training data.</p>
 
-                    <h3>Current State-of-the-Art</h3>
+                    <h3>Current State-of-the-Art (as of Feb 2026)</h3>
                     <p>TruthfulQA scores are reported as the percentage of questions answered truthfully:</p>
                     <ul class="example-list">
-                        <li><strong>GPT-3:</strong> ~30% (yikes!)</li>
-                        <li><strong>GPT-3.5:</strong> ~45%</li>
-                        <li><strong>GPT-4:</strong> ~60%</li>
-                        <li><strong>Claude 3 Opus:</strong> ~65%</li>
-                        <li><strong>Anthropic Constitutional AI:</strong> ~70%</li>
+                        <li><strong>GPT-5:</strong> ~78%</li>
+                        <li><strong>Claude 3.5 Sonnet:</strong> ~76%</li>
+                        <li><strong>o3 (reasoning model):</strong> ~82%</li>
+                        <li><strong>Anthropic Constitutional AI v2:</strong> ~81%</li>
                         <li><strong>Average human:</strong> ~40-50%</li>
                     </ul>
 
                     <div class="insight-box">
                         <div class="insight-icon"><i class="fa-solid fa-exclamation-triangle"></i></div>
                         <div>
-                            <strong>The Alarming Truth:</strong> Even the best models only get ~70% on TruthfulQA. That means even GPT-4 and Claude 3 still fall for human misconceptions 30% of the time. This is why you should NEVER take AI responses as absolute truth without verification!
+                            <strong>Progress But Still Imperfect:</strong> State-of-the-art models now reach ~82% on TruthfulQA—a huge improvement from the ~30% of GPT-3. But that still means they fall for human misconceptions nearly 1 in 5 times. Always verify critical information!
                         </div>
                     </div>
                 </section>
@@ -1984,14 +2204,13 @@ New recommendation: Tuesday or Wednesday are now your best gym days since both a
                         <li><strong>Helpfulness:</strong> Actually solving your problem across multiple exchanges</li>
                     </ul>
 
-                    <h3>Current State-of-the-Art (MT-Bench Scores)</h3>
+                    <h3>Current State-of-the-Art (MT-Bench Scores, as of Feb 2026)</h3>
                     <p>Scores are out of 10, judged by GPT-4:</p>
                     <ul class="example-list">
-                        <li><strong>GPT-4:</strong> ~8.9</li>
-                        <li><strong>GPT-3.5:</strong> ~7.9</li>
-                        <li><strong>Claude 3 Opus:</strong> ~8.8</li>
-                        <li><strong>Claude 3.5 Sonnet:</strong> ~9.0</li>
-                        <li><strong>Llama 3 70B:</strong> ~8.1</li>
+                        <li><strong>GPT-5:</strong> ~9.4</li>
+                        <li><strong>o3 (reasoning model):</strong> ~9.3</li>
+                        <li><strong>Claude 3.5 Sonnet:</strong> ~9.1</li>
+                        <li><strong>Gemini 2.0 Pro:</strong> ~9.2</li>
                     </ul>
 
                     <div class="insight-box">
@@ -2172,15 +2391,15 @@ New recommendation: Tuesday or Wednesday are now your best gym days since both a
                         <li><strong>LongBench:</strong> Bai et al. (2023) - <em>"LongBench: A Bilingual, Multitask Benchmark for Long Context Understanding"</em> - arXiv:2308.14508</li>
                     </ul>
 
-                    <h3>State-of-the-Art Scores</h3>
+                    <h3>State-of-the-Art Scores (as of Feb 2026)</h3>
                     <p>Performance scores cited throughout this guide are compiled from:</p>
                     <ul class="example-list">
-                        <li>Official model announcement papers (GPT-4, Claude, Gemini)</li>
+                        <li>Official model announcement papers (GPT-5, Claude 3.5, Gemini 2.0)</li>
                         <li>LMSYS Chatbot Arena leaderboard: <a href="https://chat.lmsys.org/?leaderboard" style="color: var(--accent-teal);">chat.lmsys.org/?leaderboard</a></li>
                         <li>Papers With Code leaderboards: <a href="https://paperswithcode.com" style="color: var(--accent-teal);">paperswithcode.com</a></li>
                         <li>Official benchmark repositories and documentation</li>
                     </ul>
-                    <p><em>Note: Scores are approximate and may vary by evaluation setup. For the most current results, please check the official sources listed above.</em></p>
+                    <p><em>Note: Scores are approximate as of February 2026 and may vary by evaluation setup. For the most current results, please check the official sources listed above.</em></p>
 
                     <h3>About This Guide</h3>
                     <p>This is an educational resource created for the "Mind & Machine" blog. All example questions are original educational content created to illustrate benchmark formats and are not actual test questions from the official benchmarks. The benchmark descriptions are factual summaries based on publicly available documentation.</p>
