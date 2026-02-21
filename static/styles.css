@@ -437,6 +437,30 @@ footer {
     }
 }
 
+/* Decorative background doodles */
+.bg-doodle {
+    position: fixed;
+    font-size: 2.5rem;
+    opacity: 0.08;
+    pointer-events: none;
+    z-index: 0;
+    color: var(--pencil);
+}
+.bg-doodle-1 { top: 10%; left: 5%; transform: rotate(-15deg); }
+.bg-doodle-2 { top: 30%; right: 8%; transform: rotate(10deg); }
+.bg-doodle-3 { bottom: 30%; left: 10%; transform: rotate(-5deg); }
+.bg-doodle-4 { bottom: 15%; right: 6%; transform: rotate(15deg); }
+.bg-doodle-5 { top: 60%; left: 3%; transform: rotate(-10deg); }
+
+@media (max-width: 768px) {
+    .bg-doodle { font-size: 2rem; opacity: 0.05; }
+    .bg-doodle-1 { top: 5%; left: 3%; }
+    .bg-doodle-2 { top: 20%; right: 5%; }
+    .bg-doodle-3 { bottom: 20%; left: 5%; }
+    .bg-doodle-4 { bottom: 10%; right: 3%; }
+    .bg-doodle-5 { display: none; }
+}
+
 @media (max-width: 480px) {
     h1 { font-size: 1.6rem; }
     .subtitle { font-size: 1rem; }
