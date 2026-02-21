@@ -952,3 +952,56 @@ Add a new `<a>` element inside the `<div class="links">` container in `index.htm
 - [ ] Appropriate icon selected
 - [ ] Title and description written
 - [ ] "New" tag added for recent pages
+
+## Committing Changes
+
+**IMPORTANT:** Commit each change immediately after it's completed.
+
+### Why?
+- Keeps the git history clean and granular
+- Makes it easy to revert specific changes
+- Provides clear documentation of what was done
+- Prevents losing work
+
+### Commit Process
+
+1. **After completing any task**, immediately commit the changes:
+
+```bash
+# Check what files changed
+git status
+
+# Stage and commit
+git add -A
+git commit -m "Descriptive commit message explaining the change"
+```
+
+2. **Write good commit messages**:
+   - Use present tense ("Add feature" not "Added feature")
+   - Be descriptive but concise
+   - Reference what was changed and why
+   - For complex changes, use multi-line commits:
+
+```bash
+git commit -m "Add isolation hierarchy visualization to sandbox page
+
+- Add stepped pyramid showing 5 isolation levels
+- Include architecture diagrams for all 5 solutions
+- Add security strength meters with color coding
+- Use visual hierarchy to show VM > Kernel > Container > Process > Language"
+```
+
+3. **Commit message examples**:
+   - ✅ "Remove spider web decorations from idle doctors"
+   - ✅ "Add new page: sandbox-solutions.html with security comparisons"
+   - ✅ "Update index.html with date filtering and tag system"
+   - ❌ "Fix stuff"
+   - ❌ "Update"
+   - ❌ "Changes"
+
+### Commit Checklist
+
+- [ ] Changes are complete and tested
+- [ ] Commit message describes what was done
+- [ ] Files are properly staged
+- [ ] Commit succeeded without errors
