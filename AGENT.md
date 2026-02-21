@@ -181,6 +181,83 @@ Usage:
 }
 ```
 
+### Enhanced Code Block
+
+Use this format for code snippets with syntax highlighting and a macOS-style header:
+
+```css
+/* Code Block Container */
+.code-block {
+    background: linear-gradient(135deg, #1E272E 0%, #252F38 100%);
+    color: #E8F4F8;
+    padding: 0;
+    border-radius: 20px;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+    font-size: 0.9rem;
+    margin: 25px 0;
+    overflow-x: auto;
+    border: 3px solid var(--pencil);
+    box-shadow: 4px 6px 0 rgba(0,0,0,0.2);
+}
+
+/* Code Header with macOS dots */
+.code-header {
+    background: linear-gradient(135deg, #2D3A47 0%, #384554 100%);
+    padding: 12px 20px;
+    border-bottom: 2px solid #343D46;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 0.95rem;
+    color: #8FA5B5;
+}
+
+.code-header .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.code-header .dot.red { background: #FF5F56; }
+.code-header .dot.yellow { background: #FFBD2E; }
+.code-header .dot.green { background: #27CA40; }
+
+/* Code Content */
+.code-content {
+    padding: 20px 25px;
+    line-height: 1.7;
+    white-space: pre;
+    overflow-x: auto;
+}
+
+/* Syntax Highlighting */
+.code-block .comment { color: #6A9955; font-style: italic; }
+.code-block .key { color: #9CDCFE; font-weight: 600; }
+.code-block .string { color: #CE9178; }
+.code-block .number { color: #B5CEA8; }
+.code-block .boolean { color: #569CD6; }
+.code-block .keyword { color: #C586C0; }
+.code-block .tag { color: #4EC9B0; }
+.code-block .attr { color: #9CDCFE; }
+.code-block .operator { color: #D4D4D4; }
+.code-block .punctuation { color: #D4D4D4; }
+```
+
+HTML structure:
+```html
+<div class="code-block">
+    <div class="code-header">
+        <span class="dot red"></span>
+        <span class="dot yellow"></span>
+        <span class="dot green"></span>
+        <span>filename.json</span>
+    </div>
+    <div class="code-content"><span class="key">"name"</span><span class="operator">:</span> <span class="string">"value"</span></div>
+</div>
+```
+
 ### Solution Box
 
 ```css

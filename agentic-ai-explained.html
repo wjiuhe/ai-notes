@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mind & Machine</title>
+    <title>What Makes a Real AI Agent?</title>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Nunito:wght@400;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
@@ -314,6 +314,61 @@
             border: 2px solid #343D46;
         }
 
+        /* Enhanced Code Block */
+        .code-block {
+            background: linear-gradient(135deg, #1E272E 0%, #252F38 100%);
+            color: #E8F4F8;
+            padding: 0;
+            border-radius: 20px;
+            font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin: 25px 0;
+            overflow-x: auto;
+            border: 3px solid var(--pencil);
+            box-shadow: 4px 6px 0 rgba(0,0,0,0.2);
+        }
+
+        .code-header {
+            background: linear-gradient(135deg, #2D3A47 0%, #384554 100%);
+            padding: 12px 20px;
+            border-bottom: 2px solid #343D46;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 0.95rem;
+            color: #8FA5B5;
+        }
+
+        .code-header .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .code-header .dot.red { background: #FF5F56; }
+        .code-header .dot.yellow { background: #FFBD2E; }
+        .code-header .dot.green { background: #27CA40; }
+
+        .code-content {
+            padding: 20px 25px;
+            line-height: 1.7;
+            white-space: pre;
+            overflow-x: auto;
+        }
+
+        .code-block .comment { color: #6A9955; font-style: italic; }
+        .code-block .key { color: #9CDCFE; font-weight: 600; }
+        .code-block .string { color: #CE9178; }
+        .code-block .number { color: #B5CEA8; }
+        .code-block .boolean { color: #569CD6; }
+        .code-block .keyword { color: #C586C0; }
+        .code-block .tag { color: #4EC9B0; }
+        .code-block .attr { color: #9CDCFE; }
+        .code-block .operator { color: #D4D4D4; }
+        .code-block .punctuation { color: #D4D4D4; }
+
         .real-world-example {
             background: linear-gradient(135deg, #FFF0F5, #F0F8FF);
             border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
@@ -341,7 +396,7 @@
         .checklist li { padding: 12px 0; padding-left: 38px; position: relative; border-bottom: 2px dashed rgba(0,0,0,0.1); }
         .checklist li::before { 
             content: '\f00c'; 
-            font-family: 'Font Awesome 6 Free'; 
+            font-family: 'Font Awesome 6 Free', sans-serif; 
             font-weight: 900; 
             position: absolute; 
             left: 0; 
@@ -406,12 +461,40 @@
             color: var(--accent-lavender); 
             letter-spacing: 10px; 
         }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 25px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+        .back-link:hover { color: var(--accent-coral); }
+
+        .page-meta {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            display: flex;
+            gap: 20px;
+        }
+        .page-meta i { margin-right: 5px; }
     </style>
 </head>
 <body>
     <div class="container">
+        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Mind & Machine</a>
+        
+        <div class="page-meta">
+            <span><i class="fa-solid fa-user"></i> Jiuhe Wang</span>
+            <span><i class="fa-regular fa-calendar"></i> Feb 15, 2025</span>
+        </div>
+
         <header>
-            <h1>Mind & Machine</h1>
+            <h1>What Makes a Real AI Agent?</h1>
             <p class="subtitle">Notes on AI, Agents, and Beyond</p>
         </header>
 
@@ -422,37 +505,33 @@
         </section>
 
         <section class="card reveal">
-            <h2><i class="fa-solid fa-puzzle-piece fa-icon"></i>Your Original Framework</h2>
-            <p>You mentioned three pillars: <strong>knowledge</strong>, <strong>skills</strong>, and <strong>past experience</strong>. Let me critique this:</p>
+            <h2><i class="fa-solid fa-puzzle-piece fa-icon"></i>The Three Pillars of Intelligence</h2>
+            <p>Any intelligent system — human or artificial — needs three core components:</p>
 
             <div class="three-components">
                 <div class="component-box">
-                    <i class="fa-solid fa-book component-icon"></i>
-                    <div class="component-title">Knowledge</div>
-                    <div class="component-desc">Facts, concepts, understanding the world</div>
+                    <i class="fa-solid fa-database component-icon"></i>
+                    <div class="component-title">Information</div>
+                    <div class="component-desc">Knowledge, facts, logic — the raw material to work with</div>
                 </div>
                 <div class="component-box">
                     <i class="fa-solid fa-wrench component-icon"></i>
-                    <div class="component-title">Skills</div>
-                    <div class="component-desc">Abilities to take action, use tools</div>
+                    <div class="component-title">Capability</div>
+                    <div class="component-desc">Actions, summarization, pattern recognition, structural thinking</div>
                 </div>
                 <div class="component-box">
-                    <i class="fa-solid fa-clock-rotate-left component-icon"></i>
-                    <div class="component-title">Past Experience</div>
-                    <div class="component-desc">What worked/failed before</div>
+                    <i class="fa-solid fa-chess-knight component-icon"></i>
+                    <div class="component-title">Mastery</div>
+                    <div class="component-desc">Knowing when to use what — scheduling, prioritization, control</div>
                 </div>
             </div>
 
-            <div class="critique-box">
-                <div class="critique-title"><i class="fa-solid fa-magnifying-glass"></i>Critique of Your Framework</div>
-                <p><strong>The issue:</strong> These three overlap significantly:</p>
-                <ul style="margin: 10px 0; padding-left: 20px;">
-                    <li><strong>Knowledge</strong> includes both learned facts AND distilled experience</li>
-                    <li><strong>Past experience</strong> is really a type of knowledge about what happened</li>
-                    <li><strong>Skills</strong> can be both declarative ("how it works") and procedural ("how to do it")</li>
-                </ul>
-                <p style="margin-top: 10px;"><strong>Better framing:</strong> Think of it as <em>what you know</em> (knowledge), <em>how you know what you know</em> (memory systems), and <em>what you can do</em> (capabilities).</p>
-            </div>
+            <p style="margin-top: 20px; color: var(--text-muted);">This mirrors how philosophers and cognitive scientists think about intelligence:</p>
+            <ul style="margin: 15px 0; padding-left: 24px; color: var(--text-muted);">
+                <li style="margin-bottom: 8px;"><strong>Information</strong> is what the system knows — facts, concepts, relationships stored in memory</li>
+                <li style="margin-bottom: 8px;"><strong>Capability</strong> is what the system can do — like System 1 (fast intuition) and System 2 (slow reasoning) in dual-process theory</li>
+                <li><strong>Mastery</strong> is the <em>executive function</em> — deciding <em>how</em> to allocate attention and choose capabilities. This is what Herbert Simon called <span class="tooltip" data-tip="Making 'good enough' decisions with limited information">bounded rationality</span>: optimizing within constraints, not searching endlessly for the "perfect" answer</li>
+            </ul>
         </section>
 
         <section class="card reveal">
@@ -510,20 +589,12 @@
         </section>
 
         <section class="card reveal">
-            <h2><i class="fa-solid fa-layer-group fa-icon"></i>A Better Framework: What a Real Agent Needs</h2>
+            <h2><i class="fa-solid fa-layer-group fa-icon"></i>What a Real Agent Needs</h2>
             
-            <p>Instead of overlapping pillars, here's a clearer mental model:</p>
+            <p>Building on the three pillars, here's how it works in practice:</p>
 
-            <h3>1. A Reasoning Engine (The Brain)</h3>
-            <p>Not just pattern matching, but:</p>
-            <ul class="checklist">
-                <li><strong>Hybrid reasoning</strong> -- symbolic + analogical + causal + deductive</li>
-                <li><strong>Uncertainty handling</strong> -- hold probabilistic beliefs, not binary know/don't know</li>
-                <li><strong>Self-reflection</strong> -- "Am I going in circles? Should I verify this?"</li>
-            </ul>
-
-            <h3>2. Memory Systems (Not Just Storage)</h3>
-            <p>Four distinct types that work together:</p>
+            <h3>1. Information Layer (What to Work With)</h3>
+            <p>Four memory types that work together:</p>
 
             <div class="memory-circles">
                 <div class="memory-circle working">
@@ -547,44 +618,48 @@
                 </div>
             </div>
 
-            <p style="font-size: 0.9rem; color: var(--text-muted); text-align: center;">These aren't separate silos -- they constantly exchange information</p>
+            <p style="font-size: 0.9rem; color: var(--text-muted); text-align: center;">These aren't separate silos — they constantly exchange information</p>
 
             <div class="real-world-example">
-                <div class="example-label"><i class="fa-solid fa-bicycle"></i> Example: Learning to Ride a Bike</div>
-                <p><strong>Working:</strong> "Balance, pedals moving, eyes forward"</p>
-                <p><strong>Episodic:</strong> "Fell last time braking hard on turns"</p>
-                <p><strong>Semantic:</strong> "Leaning counterbalances centrifugal force"</p>
-                <p><strong>Procedural:</strong> (Just <em>knows how</em> -- can't explain!)</p>
+                <div class="example-label"><i class="fa-solid fa-brain"></i> Four Memories in Action: Planning a Vacation</div>
+                <p><strong>Working:</strong> "Need to book flights, check weather, pack sunscreen"</p>
+                <p><strong>Episodic:</strong> "Last trip to Japan — forgot adapter, nearly missed flight"</p>
+                <p><strong>Semantic:</strong> "Japan uses 100V, adapter needed. Summer = typhoon season"</p>
+                <p><strong>Procedural:</strong> (Just <em>knows how</em> to book — can't explain the steps!)</p>
             </div>
 
-            <h3>3. Action System (More Than Tool Calling)</h3>
+            <div class="real-world-example">
+                <div class="example-label"><i class="fa-solid fa-code"></i> Debugging a Crash</div>
+                <p><strong>Working:</strong> "Error in function X, stack trace shows Y"</p>
+                <p><strong>Episodic:</strong> "Last time this error = memory leak in v2.3"</p>
+                <p><strong>Semantic:</strong> "Memory leaks caused by unclosed connections"</p>
+                <p><strong>Procedural:</strong> (Just <em>knows how</em> to debug — can't explain the intuition!)</p>
+            </div>
+
+            <h3>2. Capability Layer (What You Can Do)</h3>
+            <p>Like <span class="tooltip" data-tip="Fast, automatic, intuitive thinking">System 1</span> and <span class="tooltip" data-tip="Slow, deliberate, analytical thinking">System 2</span> in dual-process theory:</p>
             <ul class="checklist">
-                <li><strong>Tool mastery</strong> -- Understands HOW tools work, not just WHAT they do</li>
-                <li><strong>Failure awareness</strong> -- Knows what can go wrong, has workarounds</li>
-                <li><strong>Dynamic planning</strong> -- Can improvise, not just follow scripts</li>
-                <li><strong>Learning from outcomes</strong> -- Updates itself based on what happened</li>
+                <li><strong>Pattern recognition</strong> -- fast intuition, matching against past experiences</li>
+                <li><strong>Structural thinking</strong> -- causal reasoning, building mental models</li>
+                <li><strong>Deliberation</strong> -- slow reasoning, checking for errors</li>
+                <li><strong>Abstraction</strong> -- summarization, extracting key insights</li>
             </ul>
 
-            <div class="critique-box">
-                <div class="critique-title"><i class="fa-solid fa-magnifying-glass"></i>Why "Three Layers" Can Be Confusing</div>
-                <p>Some frameworks list: Executive / Memory / Cognitive</p>
-                <p><strong>Problem:</strong> Memory isn't a "layer" on top of cognition -- memory is USED BY cognition. It's like saying "the brain has a layer for files and a layer for thinking."</p>
-                <p style="margin-top: 10px;"><strong>Better:</strong> Think of components that work TOGETHER, not stacked layers:</p>
-                <div class="flow-row">
-                    <div class="flow-item">Input/Perception</div>
-                    <div class="flow-arrow">→</div>
-                    <div class="flow-item">Reasoning + Memory Access</div>
-                    <div class="flow-arrow">→</div>
-                    <div class="flow-item">Action/Output</div>
-                    <div class="flow-arrow">→</div>
-                    <div class="flow-item">Learn</div>
-                </div>
-            </div>
+            <h3>3. Mastery Layer (The Executive)</h3>
+            <p>This is the missing piece in most "agents" — the control system that decides:</p>
+            <ul class="checklist">
+                <li><strong>When to use which capability</strong> — like bounded rationality, satisficing not optimizing</li>
+                <li><strong>What to pay attention to</strong> — attention allocation, priority setting</li>
+                <li><strong>When to stop and verify</strong> -- metacognition, self-reflection</li>
+                <li><strong>How to allocate resources</strong> -- time, compute, which reasoning mode</li>
+            </ul>
+
+            <p style="margin-top: 20px; color: var(--text-muted);">Think of these as components that work <em>together</em>, not stacked: Information → Capability + Mastery → Action → Learn.</p>
         </section>
 
         <section class="card reveal">
-            <h2><i class="fa-solid fa-cloud fa-icon"></i>The "Unverified Knowledge" Insight</h2>
-            <p>Your point about "unverified but useful memory" is brilliant and often overlooked!</p>
+            <h2><i class="fa-solid fa-cloud fa-icon"></i>Embracing Uncertainty</h2>
+            <p>Real intelligence holds "unverified but useful" beliefs — something current AI largely lacks.</p>
 
             <div class="visual-metaphor">
                 <div class="metaphor-visual">
@@ -620,10 +695,9 @@
                     <tr><th>Dimension</th><th>Mainstream "Agent"</th><th>True Agent</th></tr>
                 </thead>
                 <tbody>
-                    <tr><td><strong>Knowledge</strong></td><td><span class="badge badge-red">RAG</span> External retrieval</td><td><span class="badge badge-green">Internal</span> Associative</td></tr>
-                    <tr><td><strong>Memory</strong></td><td><span class="badge badge-red">Vector DB</span> Dumb storage</td><td><span class="badge badge-green">4-Types</span> + consolidation</td></tr>
-                    <tr><td><strong>Decisions</strong></td><td><span class="badge badge-red">Plan-Execute</span> Fixed loop</td><td><span class="badge badge-green">Hybrid</span> Intuition + Logic</td></tr>
-                    <tr><td><strong>Identity</strong></td><td><span class="badge badge-red">Stateless</span> Blank each time</td><td><span class="badge badge-green">Persistent</span> Growing self</td></tr>
+                    <tr><td><strong>Information</strong></td><td><span class="badge badge-red">RAG</span> External retrieval</td><td><span class="badge badge-green">Internal</span> Associative</td></tr>
+                    <tr><td><strong>Capability</strong></td><td><span class="badge badge-red">Tool Call</span> Fixed APIs</td><td><span class="badge badge-green">Multi-mode</span> Pattern + Structure</td></tr>
+                    <tr><td><strong>Mastery</strong></td><td><span class="badge badge-red">Hard-coded</span> No control</td><td><span class="badge badge-green">Executive</span> Bounded rationality</td></tr>
                     <tr><td><strong>Uncertainty</strong></td><td><span class="badge badge-red">Binary</span> Know or don't</td><td><span class="badge badge-green">Probabilistic</span> Confidence levels</td></tr>
                 </tbody>
             </table>
@@ -636,24 +710,36 @@
             <div class="action-card">
                 <div class="action-title"><span class="action-number">1</span> Add Episodic Memory</div>
                 <p>Log what actually happened:</p>
-                <div class="code-snippet">
-{
-  "event": "api_call_failed",
-  "failure_reason": "rate_limit_exceeded",
-  "lesson": "check_rate_limits_before_calling"
-}
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                        <span>episodic_memory.json</span>
+                    </div>
+                    <div class="code-content"><span class="punctuation">{</span>
+  <span class="key">"event"</span><span class="operator">:</span> <span class="string">"api_call_failed"</span><span class="punctuation">,</span>
+  <span class="key">"failure_reason"</span><span class="operator">:</span> <span class="string">"rate_limit_exceeded"</span><span class="punctuation">,</span>
+  <span class="key">"lesson"</span><span class="operator">:</span> <span class="string">"check_rate_limits_before_calling"</span>
+<span class="punctuation">}</span></div>
                 </div>
                 <p><em>Now it REMEMBERS: "Last time... failed." Next time, checks automatically!</em></p>
             </div>
 
             <div class="action-card">
                 <div class="action-title"><span class="action-number">2</span> Add Confidence Scores</div>
-                <div class="code-snippet">
-{
-  "belief": "user_prefers_short_answers",
-  "confidence": 0.75,
-  "evidence": ["asked_for_summary_twice"]
-}
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                        <span>belief_state.json</span>
+                    </div>
+                    <div class="code-content"><span class="punctuation">{</span>
+  <span class="key">"belief"</span><span class="operator">:</span> <span class="string">"user_prefers_short_answers"</span><span class="punctuation">,</span>
+  <span class="key">"confidence"</span><span class="operator">:</span> <span class="number">0.75</span><span class="punctuation">,</span>
+  <span class="key">"evidence"</span><span class="operator">:</span> <span class="punctuation">[</span><span class="string">"asked_for_summary_twice"</span><span class="punctuation">]</span>
+<span class="punctuation">}</span></div>
                 </div>
                 <p><em>Says "75% confident" instead of binary "I know / I don't"</em></p>
             </div>
@@ -666,11 +752,17 @@
 
             <div class="action-card">
                 <div class="action-title"><span class="action-number">4</span> Build Skills Registry with Failure Modes</div>
-                <div class="code-snippet">
-"search_api": {
-  "failure_modes": ["outdated_info", "max_10_results"],
-  "workaround": "verify_with_second_source"
-}
+                <div class="code-block">
+                    <div class="code-header">
+                        <span class="dot red"></span>
+                        <span class="dot yellow"></span>
+                        <span class="dot green"></span>
+                        <span>skills_registry.json</span>
+                    </div>
+                    <div class="code-content"><span class="string">"search_api"</span><span class="operator">:</span> <span class="punctuation">{</span>
+  <span class="key">"failure_modes"</span><span class="operator">:</span> <span class="punctuation">[</span><span class="string">"outdated_info"</span><span class="punctuation">,</span> <span class="string">"max_10_results"</span><span class="punctuation">]</span><span class="punctuation">,</span>
+  <span class="key">"workaround"</span><span class="operator">:</span> <span class="string">"verify_with_second_source"</span>
+<span class="punctuation">}</span></div>
                 </div>
                 <p><em>Tries search → suspicious date → "might be wrong per registry" → verifies!</em></p>
             </div>
@@ -701,7 +793,7 @@
         </section>
 
         <footer>
-            <p><i class="fa-solid fa-paintbrush"></i> Made with hand-drawn thoughts | Mind & Machine</p>
+            <p><i class="fa-solid fa-paintbrush"></i> Mind & Machine | <a href="index.html" style="color: var(--accent-teal);">Back to Home</a></p>
             <p style="font-size: 0.9rem; margin-top: 12px; color: var(--text-muted);">Remember: A script that calls itself an agent is still a script.</p>
         </footer>
     </div>

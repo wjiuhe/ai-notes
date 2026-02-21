@@ -70,6 +70,16 @@
         }
         .back-link:hover { color: var(--accent-coral); }
 
+        .page-meta {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            display: flex;
+            gap: 20px;
+        }
+        .page-meta i { margin-right: 5px; }
+
         .card {
             background: var(--bg-paper);
             border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
@@ -381,6 +391,11 @@
     <div class="container">
         <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Mind & Machine</a>
         
+        <div class="page-meta">
+            <span><i class="fa-solid fa-user"></i> Jiuhe Wang</span>
+            <span><i class="fa-regular fa-calendar"></i> Feb 21, 2025</span>
+        </div>
+
         <header>
             <h1>OpenCode Architecture Overview</h1>
             <p class="subtitle">Understanding Agents &amp; Skills</p>
