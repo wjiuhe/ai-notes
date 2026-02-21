@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Nunito:wght@400;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="static/styles.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/rough.js/4.6.6/rough.min.js"></script>
+    <script src="https://unpkg.com/roughjs@4.6.6/bundled/rough.js"></script>
     <style>
         /* Page-specific styles for AI Security Study Matrix */
         
@@ -1591,10 +1591,10 @@
                         <!-- Rough.js Version -->
                         <div style="flex: 1; min-width: 300px;">
                             <h3 style="color: #E65100;"><i class="fa-solid fa-pencil"></i> Rough.js Generated</h3>
-                            <div style="display: flex; gap: 15px; justify-content: center; margin: 20px 0;">
-                                <canvas id="rough-shield-1" width="120" height="140"></canvas>
-                                <canvas id="rough-shield-2" width="120" height="140"></canvas>
-                                <canvas id="rough-shield-3" width="120" height="140"></canvas>
+                            <div style="display: flex; gap: 15px; justify-content: center; margin: 20px 0; padding: 10px; background: #f5f5f5; border-radius: 10px; border: 1px dashed #ccc;">
+                                <canvas id="rough-shield-1" width="120" height="140" style="background: white; border-radius: 8px; box-shadow: 2px 2px 4px rgba(0,0,0,0.1);"></canvas>
+                                <canvas id="rough-shield-2" width="120" height="140" style="background: white; border-radius: 8px; box-shadow: 2px 2px 4px rgba(0,0,0,0.1);"></canvas>
+                                <canvas id="rough-shield-3" width="120" height="140" style="background: white; border-radius: 8px; box-shadow: 2px 2px 4px rgba(0,0,0,0.1);"></canvas>
                             </div>
                         </div>
                     </div>
@@ -1683,66 +1683,78 @@
         highlightToc();
 
         // Rough.js experiment - render hand-drawn shields
-        document.addEventListener('DOMContentLoaded', function() {
-            if (typeof rough !== 'undefined') {
-                // Shield 1 - Green Protection
-                const rc1 = rough.canvas(document.getElementById('rough-shield-1'));
-                rc1.rectangle(10, 10, 100, 120, {
-                    roughness: 2,
-                    bowing: 1.5,
-                    stroke: '#27AE60',
-                    strokeWidth: 3,
-                    fill: '#E8F5E9',
-                    fillStyle: 'hachure',
-                    fillWeight: 1
-                });
-                // Shield icon approximation
-                rc1.circle(60, 55, 40, {
-                    roughness: 1.5,
-                    stroke: '#27AE60',
-                    strokeWidth: 2,
-                    fill: '#C8E6C9',
-                    fillStyle: 'solid'
-                });
-
-                // Shield 2 - Blue Security
-                const rc2 = rough.canvas(document.getElementById('rough-shield-2'));
-                rc2.rectangle(10, 10, 100, 120, {
-                    roughness: 2,
-                    bowing: 1.5,
-                    stroke: '#1976D2',
-                    strokeWidth: 3,
-                    fill: '#E3F2FD',
-                    fillStyle: 'hachure',
-                    fillWeight: 1
-                });
-                rc2.circle(60, 55, 40, {
-                    roughness: 1.5,
-                    stroke: '#1976D2',
-                    strokeWidth: 2,
-                    fill: '#BBDEFB',
-                    fillStyle: 'solid'
-                });
-
-                // Shield 3 - Orange Defense
-                const rc3 = rough.canvas(document.getElementById('rough-shield-3'));
-                rc3.rectangle(10, 10, 100, 120, {
-                    roughness: 2,
-                    bowing: 1.5,
-                    stroke: '#FF9800',
-                    strokeWidth: 3,
-                    fill: '#FFF3E0',
-                    fillStyle: 'hachure',
-                    fillWeight: 1
-                });
-                rc3.circle(60, 55, 40, {
-                    roughness: 1.5,
-                    stroke: '#F57C00',
-                    strokeWidth: 2,
-                    fill: '#FFE0B2',
-                    fillStyle: 'solid'
-                });
+        window.addEventListener('load', function() {
+            console.log('Rough.js experiment starting...');
+            if (typeof rough === 'undefined') {
+                console.error('Rough.js library not loaded!');
+                document.getElementById('rough-experiment').innerHTML += '<p style="color: red;"><i class="fa-solid fa-triangle-exclamation"></i> Error: Rough.js library failed to load. Check internet connection.</p>';
+                return;
             }
+            console.log('Rough.js loaded successfully');
+            
+            // Helper function to render a shield
+            function renderShield(canvasId, colors) {
+                const canvas = document.getElementById(canvasId);
+                if (!canvas) {
+                    console.error('Canvas not found:', canvasId);
+                    return;
+                }
+                
+                const rc = rough.canvas(canvas);
+                
+                // Shield rectangle (hand-drawn)
+                rc.rectangle(10, 10, 100, 120, {
+                    roughness: 2,
+                    bowing: 2,
+                    stroke: colors.stroke,
+                    strokeWidth: 3,
+                    fill: colors.fillLight,
+                    fillStyle: 'hachure',
+                    fillWeight: 1.5,
+                    hachureGap: 4
+                });
+                
+                // Shield icon (circle)
+                rc.circle(60, 70, 50, {
+                    roughness: 1.5,
+                    bowing: 1,
+                    stroke: colors.stroke,
+                    strokeWidth: 2,
+                    fill: colors.fillDark,
+                    fillStyle: 'solid'
+                });
+                
+                // Label text (use standard text since rough.js doesn't do text well)
+                const ctx = canvas.getContext('2d');
+                ctx.font = 'bold 14px "Patrick Hand", cursive';
+                ctx.fillStyle = colors.stroke;
+                ctx.textAlign = 'center';
+                ctx.fillText(colors.label, 60, 115);
+            }
+            
+            // Render three shields
+            renderShield('rough-shield-1', {
+                stroke: '#27AE60',
+                fillLight: '#E8F5E9',
+                fillDark: '#C8E6C9',
+                label: 'Protection'
+            });
+            
+            renderShield('rough-shield-2', {
+                stroke: '#1976D2',
+                fillLight: '#E3F2FD',
+                fillDark: '#BBDEFB',
+                label: 'Security'
+            });
+            
+            renderShield('rough-shield-3', {
+                stroke: '#FF9800',
+                fillLight: '#FFF3E0',
+                fillDark: '#FFE0B2',
+                label: 'Defense'
+            });
+            
+            console.log('Rough.js experiment completed!');
         });
     </script>
 </body>
