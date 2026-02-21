@@ -99,6 +99,56 @@ h4 { font-family: 'Patrick Hand', cursive; font-size: 1.15rem; color: var(--text
 }
 ```
 
+### Page Header (Title, Author, Date)
+
+For all content pages, use a centered header with title, subtitle, and author/date info:
+
+```css
+header { 
+    text-align: center; 
+    margin-bottom: 50px; 
+}
+
+h1 {
+    font-family: 'Caveat', cursive;
+    font-size: 2.8rem;
+    color: var(--pencil);
+    position: relative;
+    display: inline-block;
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, var(--accent-coral), var(--accent-teal), var(--accent-sunflower));
+    border-radius: 3px;
+    opacity: 0.6;
+}
+```
+
+HTML structure:
+```html
+<header>
+    <h1>Page Title</h1>
+    <p class="subtitle">Subtitle describing the page</p>
+    <p style="margin-top: 20px; font-size: 0.9rem; color: var(--text-muted);">
+        <i class="fa-solid fa-user"></i> Jiuhe Wang &nbsp;&nbsp;|&nbsp;&nbsp; 
+        <i class="fa-regular fa-calendar"></i> Created: Feb 21, 2026
+    </p>
+</header>
+```
+
+Key points:
+- Center the header with `text-align: center`
+- Use 50px bottom margin for spacing before content
+- Author name: "Jiuhe Wang"
+- Date format: "Created: MMM DD, YYYY"
+- Use `&nbsp;&nbsp;|&nbsp;&nbsp;` for separator spacing
+
 ## Components
 
 ### Card
@@ -776,6 +826,48 @@ Apply this border-radius for the hand-drawn/sketchy look:
 .back-link:hover { color: var(--accent-coral); }
 ```
 
+### TOC Auto-Highlight (Scroll Spy)
+
+For pages with sidebar navigation, add this CSS and JavaScript to highlight the current section:
+
+```css
+.toc-list a.active {
+    background: rgba(255, 107, 107, 0.15);
+    border-left-color: var(--accent-coral);
+    font-weight: 600;
+}
+```
+
+JavaScript:
+```html
+<script>
+    const sections = document.querySelectorAll('section[id]');
+    const tocLinks = document.querySelectorAll('.toc-list a');
+
+    function highlightToc() {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            if (window.scrollY >= sectionTop - 150) {
+                current = section.getAttribute('id');
+            }
+        });
+
+        tocLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + current) {
+                link.classList.add('active');
+            }
+        });
+    }
+
+    window.addEventListener('scroll', highlightToc);
+    highlightToc();
+</script>
+```
+
+Note: Each section must have an `id` attribute (e.g., `<section id="overview">`)
+
 ### Feature List with Checkmarks
 
 ```css
@@ -892,6 +984,10 @@ Add `class="reveal"` to sections you want to animate:
         <header>
             <h1>Page Title</h1>
             <p class="subtitle">Subtitle goes here</p>
+            <p style="margin-top: 20px; font-size: 0.9rem; color: var(--text-muted);">
+                <i class="fa-solid fa-user"></i> Jiuhe Wang &nbsp;&nbsp;|&nbsp;&nbsp; 
+                <i class="fa-regular fa-calendar"></i> Created: Feb 21, 2026
+            </p>
         </header>
 
         <section class="card reveal">

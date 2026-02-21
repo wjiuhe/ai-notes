@@ -33,7 +33,140 @@
             min-height: 100vh;
         }
 
-        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+        .page-wrapper {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* Sidebar TOC Styles */
+        .sidebar {
+            width: 280px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            background: linear-gradient(180deg, var(--bg-paper) 0%, #F8F4EF 100%);
+            border-right: 3px solid var(--pencil);
+            padding: 30px 20px;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: 3px 0 10px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px dashed rgba(0,0,0,0.15);
+        }
+
+        .sidebar-title {
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            color: var(--pencil);
+            margin-bottom: 5px;
+        }
+
+        .sidebar-subtitle {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .toc-section {
+            margin-bottom: 20px;
+        }
+
+        .toc-title {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1rem;
+            color: var(--pencil);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc-list li {
+            margin-bottom: 6px;
+        }
+
+        .toc-list a {
+            display: block;
+            padding: 6px 10px;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 0.9rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .toc-list a:hover {
+            background: rgba(78, 205, 196, 0.15);
+            border-left-color: var(--accent-teal);
+            transform: translateX(3px);
+        }
+
+        .toc-list a.active {
+            background: rgba(255, 107, 107, 0.15);
+            border-left-color: var(--accent-coral);
+            font-weight: 600;
+        }
+
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 40px 30px;
+            max-width: 900px;
+        }
+
+        .container { max-width: 100%; margin: 0 auto; }
+
+        /* Mobile TOC Toggle */
+        .toc-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 200;
+            background: var(--accent-coral);
+            color: white;
+            border: none;
+            padding: 12px 15px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 1200px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 40px 20px;
+            }
+
+            .toc-toggle {
+                display: block;
+            }
+        }
 
         header { text-align: center; margin-bottom: 50px; }
 
@@ -156,6 +289,79 @@
         .code-block .string { color: #CE9178; }
         .code-block .number { color: #B5CEA8; }
 
+        /* Example formatting improvements */
+        .example-question {
+            color: #FFD700;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .example-options {
+            color: #B0C4DE;
+            margin: 10px 0;
+            display: block;
+        }
+
+        .example-answer {
+            color: #90EE90;
+            font-weight: 600;
+            margin: 15px 0 10px 0;
+            display: block;
+        }
+
+        .example-explanation {
+            color: #DDA0DD;
+            font-style: italic;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .example-label {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-right: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .label-question { background: rgba(255, 215, 0, 0.2); color: #FFD700; }
+        .label-answer { background: rgba(144, 238, 144, 0.2); color: #90EE90; }
+        .label-explanation { background: rgba(221, 160, 221, 0.2); color: #DDA0DD; }
+        .label-context { background: rgba(135, 206, 235, 0.2); color: #87CEEB; }
+        .label-system { background: rgba(255, 165, 0, 0.2); color: #FFA500; }
+        .label-user { background: rgba(255, 215, 0, 0.2); color: #FFD700; }
+        .label-ai { background: rgba(144, 238, 144, 0.2); color: #90EE90; }
+        .label-instruction { background: rgba(255, 182, 193, 0.2); color: #FFB6C1; }
+
+        .code-content .divider {
+            border-top: 2px solid rgba(255,255,255,0.3);
+            margin: 15px 0;
+        }
+
+        .code-content .example-section {
+            margin: 12px 0;
+        }
+
+        .code-content .prompt-input {
+            color: #FFD700;
+            font-weight: 500;
+        }
+
+        .code-content .ai-response {
+            color: #90EE90;
+            font-weight: 500;
+        }
+
+        .code-content .system-prompt {
+            color: #FFA500;
+            font-style: italic;
+        }
+
         .insight-box {
             background: linear-gradient(135deg, #FFFDE7, #FFF9C4);
             border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
@@ -233,7 +439,17 @@
             align-items: center;
             gap: 15px;
             width: 100%;
-            max-width: 600px;
+            max-width: 100%;
+            flex-wrap: wrap;
+            justify-content: center;
+            overflow-x: auto;
+            padding: 10px 0;
+        }
+
+        .flow-step .flow-box {
+            min-width: 150px;
+            max-width: 200px;
+            flex: 0 1 auto;
         }
 
         .flow-box {
@@ -299,20 +515,91 @@
         @media (max-width: 768px) {
             .technique-grid { grid-template-columns: 1fr; }
             .comparison-box { flex-direction: column; }
+            .flow-step { flex-direction: column; }
+            .flow-step .flow-box { max-width: 100%; width: 100%; }
+            .flow-arrow { transform: rotate(90deg); }
         }
     </style>
 </head>
 <body>
-    <div class="container">
+    <button class="toc-toggle" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
+
+    <div class="page-wrapper">
+        <!-- Sidebar Table of Contents -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-title">Prompt Engineering</div>
+                <div class="sidebar-subtitle">Navigation Guide</div>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title"><i class="fa-solid fa-book-open"></i> Overview</div>
+                <ul class="toc-list">
+                    <li><a href="#introduction" onclick="scrollToSection('introduction')">Why Bother Learning This Stuff?</a></li>
+                    <li><a href="#navigator" onclick="scrollToSection('navigator')">Technique Navigator</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title"><i class="fa-solid fa-seedling"></i> Basic Techniques</div>
+                <ul class="toc-list">
+                    <li><a href="#zero-shot" onclick="scrollToSection('zero-shot')">Zero-Shot: The "Just Ask" Method</a></li>
+                    <li><a href="#few-shot" onclick="scrollToSection('few-shot')">Few-Shot: Show, Don't Just Tell</a></li>
+                    <li><a href="#role-assignment" onclick="scrollToSection('role-assignment')">Role Assignment: Wear the Costume</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title"><i class="fa-solid fa-layer-group"></i> Intermediate Techniques</div>
+                <ul class="toc-list">
+                    <li><a href="#chain-of-thought" onclick="scrollToSection('chain-of-thought')">Chain-of-Thought: Show Your Work!</a></li>
+                    <li><a href="#self-consistency" onclick="scrollToSection('self-consistency')">Self-Consistency: Ask Three Times</a></li>
+                    <li><a href="#prompt-chaining" onclick="scrollToSection('prompt-chaining')">Prompt Chaining: Assembly Line</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title"><i class="fa-solid fa-rocket"></i> Advanced Techniques</div>
+                <ul class="toc-list">
+                    <li><a href="#tree-of-thoughts" onclick="scrollToSection('tree-of-thoughts')">Tree of Thoughts: Explore All Paths</a></li>
+                    <li><a href="#rag" onclick="scrollToSection('rag')">RAG: Bring Your Own Facts</a></li>
+                    <li><a href="#react" onclick="scrollToSection('react')">ReAct: Think, Act, Observe</a></li>
+                    <li><a href="#meta-prompting" onclick="scrollToSection('meta-prompting')">Meta Prompting: Teach the Recipe</a></li>
+                    <li><a href="#reflexion" onclick="scrollToSection('reflexion')">Reflexion: Learn From Mistakes</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title"><i class="fa-solid fa-clipboard-check"></i> Summary</div>
+                <ul class="toc-list">
+                    <li><a href="#cheat-sheet" onclick="scrollToSection('cheat-sheet')">Cheat Sheet</a></li>
+                    <li><a href="#conclusion" onclick="scrollToSection('conclusion')">Go Forth and Prompt!</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section" style="margin-top: 30px; padding-top: 20px; border-top: 2px dashed rgba(0,0,0,0.1);">
+                <a href="index.html" style="display: flex; align-items: center; gap: 8px; color: var(--accent-teal); text-decoration: none; font-weight: 600;">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Home
+                </a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="container">
         <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Mind & Machine</a>
         
         <header>
             <h1>Prompt Engineering Techniques</h1>
             <p class="subtitle">How to Talk to AI So It Actually Listens (And Doesn't Hallucinate)</p>
+            <p style="margin-top: 15px; font-size: 0.9rem; color: var(--text-muted);">
+                <i class="fa-solid fa-user"></i> Jiuhe Wang &nbsp;|&nbsp; 
+                <i class="fa-regular fa-calendar"></i> Created: Feb 21, 2026
+            </p>
         </header>
 
         <!-- Introduction -->
-        <section class="card reveal">
+        <section class="card reveal" id="introduction">
             <h2><i class="fa-solid fa-comments fa-icon"></i>Why Bother Learning This Stuff?</h2>
             <p>Ever asked ChatGPT something and got back word salad that sounds smart but means nothing? Yeah, we've all been there. <span class="highlight">The problem isn't the AI—it's how we're asking.</span></p>
             
@@ -327,7 +614,7 @@
         </section>
 
         <!-- Technique Navigator -->
-        <section class="card reveal">
+        <section class="card reveal" id="navigator">
             <h2><i class="fa-solid fa-map fa-icon"></i>Your Prompt Engineering Menu</h2>
             <p>Here's everything we're cooking up today. Each technique is like a different spice—use the right one for the right dish:</p>
             
@@ -391,7 +678,7 @@
         </section>
 
         <!-- ZERO-SHOT SECTION -->
-        <section class="card reveal">
+        <section class="card reveal" id="zero-shot">
             <h2><i class="fa-solid fa-0 fa-icon" style="color: var(--accent-coral);"></i>Zero-Shot: The "Just Ask" Method</h2>
             
             <p><strong>What it is:</strong> You ask the AI to do something <span class="highlight">without giving it any examples first</span>. Like asking your friend to pass the salt without demonstrating how salt-passing works.</p>
@@ -417,15 +704,25 @@
                     <span class="dot green"></span>
                     <span>Email Triaging</span>
                 </div>
-                <div class="code-content">Sort this email into one of these categories: URGENT, ROUTINE, SPAM, or NEWSLETTER
+                <div class="code-content"><span class="example-label label-system">System Instruction</span>
+<span class="system-prompt">Sort this email into one of these categories: URGENT, ROUTINE, SPAM, or NEWSLETTER</span>
 
-Email Subject: "Your Amazon order #12345 has shipped"
+<div class="divider"></div>
 
-Category:</div>
-            </div>
-            <div class="insight-box">
-                <div class="insight-icon"><i class="fa-solid fa-check-circle"></i></div>
-                <div><strong>AI Says:</strong> "ROUTINE" (Because it's just a shipping notification, not your house burning down)</div>
+<span class="example-label label-user">User Input</span>
+<span class="prompt-input">Email Subject: "Your Amazon order #12345 has shipped"
+
+Category:</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-ai">AI Output</span>
+<span class="ai-response">ROUTINE</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-explanation">Explanation</span>
+<span class="example-explanation">This is a shipping notification (routine update), not an urgent matter requiring immediate attention.</span></div>
             </div>
 
             <h4>Example 2: Movie Genre Detection</h4>
@@ -436,15 +733,25 @@ Category:</div>
                     <span class="dot green"></span>
                     <span>Genre Guessing Game</span>
                 </div>
-                <div class="code-content">What genre is this movie description?
+                <div class="code-content"><span class="example-label label-system">System Instruction</span>
+<span class="system-prompt">What genre is this movie description?</span>
 
-"A group of astronauts discovers a mysterious monolith near Jupiter that seems to be affecting human evolution. Their AI system starts acting strangely, and soon the crew must fight for survival against their own computer."
+<div class="divider"></div>
 
-Genre:</div>
-            </div>
-            <div class="insight-box">
-                <div class="insight-icon"><i class="fa-solid fa-check-circle"></i></div>
-                <div><strong>AI Says:</strong> "Science Fiction / Psychological Thriller" (Recognizes 2001: A Space Odyssey vibes)</div>
+<span class="example-label label-user">User Input</span>
+<span class="prompt-input">"A group of astronauts discovers a mysterious monolith near Jupiter that seems to be affecting human evolution. Their AI system starts acting strangely, and soon the crew must fight for survival against their own computer."
+
+Genre:</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-ai">AI Output</span>
+<span class="ai-response">Science Fiction / Psychological Thriller</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-explanation">Explanation</span>
+<span class="example-explanation">Recognizes 2001: A Space Odyssey vibes—space exploration, AI themes, and psychological tension.</span></div>
             </div>
 
             <h4>Example 3: Cooking Time Estimator</h4>
@@ -455,17 +762,30 @@ Genre:</div>
                     <span class="dot green"></span>
                     <span>Kitchen Helper</span>
                 </div>
-                <div class="code-content">Estimate the total cooking time for this meal:
-- Marinate chicken: 30 minutes
+                <div class="code-content"><span class="example-label label-system">System Instruction</span>
+<span class="system-prompt">Estimate the total cooking time for this meal. What can be done in parallel? What's the minimum total time needed?</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-user">User Input</span>
+<span class="prompt-input">- Marinate chicken: 30 minutes
 - Cook rice: 20 minutes  
 - Stir-fry vegetables: 10 minutes
-- Make sauce: 5 minutes
+- Make sauce: 5 minutes</span>
 
-What can be done in parallel? What's the minimum total time needed?</div>
-            </div>
-            <div class="insight-box">
-                <div class="insight-icon"><i class="fa-solid fa-check-circle"></i></div>
-                <div><strong>AI Says:</strong> "35 minutes total. Start marinating chicken first (30 min). During last 20 minutes: start rice. During last 10 minutes: stir-fry veggies and make sauce simultaneously."</div>
+<div class="divider"></div>
+
+<span class="example-label label-ai">AI Output</span>
+<span class="ai-response">35 minutes total.
+
+Step 1: Start marinating chicken first (30 min)
+Step 2: During last 20 minutes: start rice
+Step 3: During last 10 minutes: stir-fry veggies and make sauce simultaneously</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-explanation">Explanation</span>
+<span class="example-explanation">The AI schedules tasks in parallel where possible, optimizing the critical path to minimize total time.</span></div>
             </div>
 
             <h4>Example 4: Tone Analyzer</h4>
@@ -476,15 +796,25 @@ What can be done in parallel? What's the minimum total time needed?</div>
                     <span class="dot green"></span>
                     <span>Vibe Check</span>
                 </div>
-                <div class="code-content">Analyze the tone of this Slack message from my boss:
+                <div class="code-content"><span class="example-label label-system">System Instruction</span>
+<span class="system-prompt">Analyze the tone of this Slack message. Choose from: ANXIOUS, CASUAL, URGENT, PASSIVE-AGGRESSIVE, FRIENDLY</span>
 
-"Hey, quick question - do you have 5 mins to chat about the project? No rush, whenever you're free."
+<div class="divider"></div>
 
-Tone (choose: ANXIOUS, CASUAL, URGENT, PASSIVE-AGGRESSIVE, FRIENDLY):</div>
-            </div>
-            <div class="insight-box">
-                <div class="insight-icon"><i class="fa-solid fa-check-circle"></i></div>
-                <div><strong>AI Says:</strong> "CASUAL / FRIENDLY" (Notes the "no rush" and casual language suggests low pressure)</div>
+<span class="example-label label-user">User Input</span>
+<span class="prompt-input">Message from boss: "Hey, quick question - do you have 5 mins to chat about the project? No rush, whenever you're free."
+
+Tone:</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-ai">AI Output</span>
+<span class="ai-response">CASUAL / FRIENDLY</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-explanation">Explanation</span>
+<span class="example-explanation">The "no rush" qualifier and casual language (&quot;Hey&quot;, &quot;quick question&quot;) indicate low pressure and genuine flexibility.</span></div>
             </div>
 
             <h4>Example 5: Code Language Detector</h4>
@@ -495,21 +825,31 @@ Tone (choose: ANXIOUS, CASUAL, URGENT, PASSIVE-AGGRESSIVE, FRIENDLY):</div>
                     <span class="dot green"></span>
                     <span>Code Detective</span>
                 </div>
-                <div class="code-content">What programming language is this code written in?
+                <div class="code-content"><span class="example-label label-system">System Instruction</span>
+<span class="system-prompt">What programming language is this code written in?</span>
 
-def greet_user(name):
+<div class="divider"></div>
+
+<span class="example-label label-user">User Input</span>
+<span class="prompt-input">def greet_user(name):
     return f"Hello, {name}! Welcome aboard."
 
-print(greet_user("Alice"))</div>
-            </div>
-            <div class="insight-box">
-                <div class="insight-icon"><i class="fa-solid fa-check-circle"></i></div>
-                <div><strong>AI Says:</strong> "Python" (Recognizes f-strings and function syntax)</div>
+print(greet_user("Alice"))</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-ai">AI Output</span>
+<span class="ai-response">Python</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-explanation">Explanation</span>
+<span class="example-explanation">Recognizes Python-specific features: f-strings, function syntax with colons, and print statement without semicolons.</span></div>
             </div>
         </section>
 
         <!-- FEW-SHOT SECTION -->
-        <section class="card reveal">
+        <section class="card reveal" id="few-shot">
             <h2><i class="fa-solid fa-1 fa-icon" style="color: var(--accent-teal);"></i>Few-Shot: Show, Don't Just Tell</h2>
             
             <p><strong>What it is:</strong> Give the AI <span class="highlight">2-4 examples</span> of exactly what you want, then ask it to continue the pattern. It's like teaching someone a card game by playing a few rounds before they play for real.</p>
@@ -526,19 +866,29 @@ print(greet_user("Alice"))</div>
                     <span class="dot green"></span>
                     <span>Slang Generator</span>
                 </div>
-                <div class="code-content">Here are some examples of modern slang and their definitions:
+                <div class="code-content"><span class="example-label label-context">Context / Examples</span>
+<span class="system-prompt">Here are some examples of modern slang and their definitions:</span>
 
-"Glow up" = A personal transformation for the better, usually in appearance or confidence
+<span class="example-options">"Glow up" = A personal transformation for the better, usually in appearance or confidence
 "Spill the tea" = Share the gossip or juicy details
-"Living rent-free" = Something you can't stop thinking about
+"Living rent-free" = Something you can't stop thinking about</span>
 
-Now define this made-up slang term:
+<div class="divider"></div>
 
-"Keyboard warrioring" =</div>
-            </div>
-            <div class="insight-box">
-                <div class="insight-icon"><i class="fa-solid fa-magic"></i></div>
-                <div><strong>AI Pattern-Matches To:</strong> "Being overly aggressive or argumentative online while being passive in real life" (Follows the pattern: slang term = detailed definition)</div>
+<span class="example-label label-user">User Query</span>
+<span class="prompt-input">Now define this made-up slang term:
+
+"Keyboard warrioring" =</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-ai">AI Output</span>
+<span class="ai-response">Being overly aggressive or argumentative online while being passive in real life</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-explanation">Pattern Recognition</span>
+<span class="example-explanation">The AI follows the pattern: slang term = detailed definition. Uses conversational style matching the examples.</span></div>
             </div>
 
             <h4>Example 2: Pet Name Generator</h4>
@@ -549,17 +899,28 @@ Now define this made-up slang term:
                     <span class="dot green"></span>
                     <span>Dog Name Factory</span>
                 </div>
-                <div class="code-content">Generate a punny dog name based on the dog's characteristics:
+                <div class="code-content"><span class="example-label label-system">System Instruction</span>
+<span class="system-prompt">Generate a punny dog name based on the dog's characteristics:</span>
 
-A small poodle that loves to dance → "Poochini"
+<span class="example-label label-context">Few-Shot Examples</span>
+<span class="example-options">A small poodle that loves to dance → "Poochini"
 A golden retriever who's always hungry → "Snackson"
-A bulldog who snores loudly → "Sir Snores-a-Lot"
+A bulldog who snores loudly → "Sir Snores-a-Lot"</span>
 
-A beagle who's great at finding hidden treats →</div>
-            </div>
-            <div class="insight-box">
-                <div class="insight-icon"><i class="fa-solid fa-magic"></i></div>
-                <div><strong>AI Says:</strong> "Detective Beagle" or "Sherlock Hound" (Recognizes the pun/wordplay pattern)</div>
+<div class="divider"></div>
+
+<span class="example-label label-user">User Query</span>
+<span class="prompt-input">A beagle who's great at finding hidden treats →</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-ai">AI Output</span>
+<span class="ai-response">"Detective Beagle" or "Sherlock Hound"</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-explanation">Pattern Recognition</span>
+<span class="example-explanation">The AI recognizes the pun/wordplay pattern combining breed characteristics with clever names.</span></div>
             </div>
 
             <h4>Example 3: Converting Casual to Formal</h4>
@@ -570,20 +931,33 @@ A beagle who's great at finding hidden treats →</div>
                     <span class="dot green"></span>
                     <span>Professional Translator</span>
                 </div>
-                <div class="code-content">Convert casual text to professional business email format:
+                <div class="code-content"><span class="example-label label-system">System Instruction</span>
+<span class="system-prompt">Convert casual text to professional business email format:</span>
 
+<span class="example-label label-context">Few-Shot Examples</span>
+<span class="example-options"><strong>Example 1:</strong>
 Casual: "Hey, can you send me that file? I need it ASAP. Thanks!"
 Formal: "Dear [Name], I hope this message finds you well. Could you please send me the file at your earliest convenience? I require it urgently for an upcoming deadline. Thank you in advance for your assistance."
 
+<strong>Example 2:</strong>
 Casual: "Just a heads up - the meeting got moved to 3pm. See you there!"
-Formal: "Dear [Name], I am writing to inform you that the meeting has been rescheduled to 3:00 PM. I look forward to seeing you at the revised time."
+Formal: "Dear [Name], I am writing to inform you that the meeting has been rescheduled to 3:00 PM. I look forward to seeing you at the revised time."</span>
 
-Casual: "Yo, the server crashed again. Can you fix it? This is the third time this week."
-Formal:</div>
-            </div>
-            <div class="insight-box">
-                <div class="insight-icon"><i class="fa-solid fa-magic"></i></div>
-                <div><strong>AI Says:</strong> "Dear [Name], I am writing to report that the server has experienced another outage. This marks the third occurrence this week. Could you please address this issue at your earliest convenience? Thank you for your attention to this matter."</div>
+<div class="divider"></div>
+
+<span class="example-label label-user">User Query</span>
+<span class="prompt-input">Casual: "Yo, the server crashed again. Can you fix it? This is the third time this week."
+Formal:</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-ai">AI Output</span>
+<span class="ai-response">"Dear [Name], I am writing to report that the server has experienced another outage. This marks the third occurrence this week. Could you please address this issue at your earliest convenience? Thank you for your attention to this matter."</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-explanation">Pattern Recognition</span>
+<span class="example-explanation">Maintains professional structure while preserving the urgency and key information from the casual message.</span></div>
             </div>
 
             <h4>Example 4: Emoji Translator</h4>
@@ -594,19 +968,30 @@ Formal:</div>
                     <span class="dot green"></span>
                     <span>Emoji Decoder</span>
                 </div>
-                <div class="code-content">Translate these emoji sequences into English sentences:
+                <div class="code-content"><span class="example-label label-system">System Instruction</span>
+<span class="system-prompt">Translate these emoji sequences into English sentences:</span>
 
-👨‍💻 ☕ 🐛 🔨 ✅ = "The programmer drank coffee while debugging and finally fixed the issue"
+<span class="example-label label-context">Few-Shot Examples</span>
+<span class="example-options">👨‍💻 ☕ 🐛 🔨 ✅ = "The programmer drank coffee while debugging and finally fixed the issue"
 
 🏃‍♂️ 🚌 ❌ 😰 🚕 💸 = "I missed the bus, got stressed, and had to take an expensive taxi"
 
-🍕 📺 🛋️ 😴 = "I ate pizza, watched TV on the couch, and fell asleep"  
+🍕 📺 🛋️ 😴 = "I ate pizza, watched TV on the couch, and fell asleep"</span>
 
-📱 🔋 1️⃣ 😱 🔌 =</div>
-            </div>
-            <div class="insight-box">
-                <div class="insight-icon"><i class="fa-solid fa-magic"></i></div>
-                <div><strong>AI Says:</strong> "My phone battery dropped to 1%, I panicked, and plugged it in to charge"</div>
+<div class="divider"></div>
+
+<span class="example-label label-user">User Query</span>
+<span class="prompt-input">📱 🔋 1️⃣ 😱 🔌 =</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-ai">AI Output</span>
+<span class="ai-response">"My phone battery dropped to 1%, I panicked, and plugged it in to charge"</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-explanation">Pattern Recognition</span>
+<span class="example-explanation">The AI learns to create narratives from emoji sequences, interpreting each symbol as part of a chronological story.</span></div>
             </div>
 
             <h4>Example 5: Recipe Scaler</h4>
@@ -617,25 +1002,38 @@ Formal:</div>
                     <span class="dot green"></span>
                     <span>Portion Calculator</span>
                 </div>
-                <div class="code-content">Scale these recipes by adjusting ingredient amounts:
+                <div class="code-content"><span class="example-label label-system">System Instruction</span>
+<span class="system-prompt">Scale these recipes by adjusting ingredient amounts proportionally:</span>
 
+<span class="example-label label-context">Few-Shot Examples</span>
+<span class="example-options"><strong>Example 1 (3x scale):</strong>
 Original (serves 2): 2 eggs, 1 cup flour, 1/2 cup milk
 Scaled (serves 6): 6 eggs, 3 cups flour, 1.5 cups milk
 
+<strong>Example 2 (2.5x scale):</strong>
 Original (serves 4): 1 lb chicken, 2 tbsp soy sauce, 1 tsp ginger
-Scaled (serves 10): 2.5 lbs chicken, 5 tbsp soy sauce, 2.5 tsp ginger
+Scaled (serves 10): 2.5 lbs chicken, 5 tbsp soy sauce, 2.5 tsp ginger</span>
 
-Original (serves 3): 12 oz pasta, 3 cloves garlic, 1/4 cup olive oil
-Scaled (serves 9):</div>
-            </div>
-            <div class="insight-box">
-                <div class="insight-icon"><i class="fa-solid fa-magic"></i></div>
-                <div><strong>AI Says:</strong> "36 oz pasta, 9 cloves garlic, 3/4 cup olive oil" (Multiplied all by 3)</div>
+<div class="divider"></div>
+
+<span class="example-label label-user">User Query</span>
+<span class="prompt-input">Original (serves 3): 12 oz pasta, 3 cloves garlic, 1/4 cup olive oil
+Scaled (serves 9):</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-ai">AI Output</span>
+<span class="ai-response">36 oz pasta, 9 cloves garlic, 3/4 cup olive oil</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-explanation">Pattern Recognition</span>
+<span class="example-explanation">Multiplied all ingredients by 3 (9÷3=3). The AI maintains the mathematical relationship demonstrated in examples.</span></div>
             </div>
         </section>
 
         <!-- ROLE ASSIGNMENT SECTION -->
-        <section class="card reveal">
+        <section class="card reveal" id="role-assignment">
             <h2><i class="fa-solid fa-user-tie fa-icon" style="color: var(--accent-sunflower);"></i>Role Assignment: Wear the Costume</h2>
             
             <p><strong>What it is:</strong> Tell the AI to pretend it's someone specific. It's like playing dress-up, but the AI commits to the bit <span class="highlight">hard.</span></p>
@@ -652,18 +1050,28 @@ Scaled (serves 9):</div>
                     <span class="dot green"></span>
                     <span>Paranoid Protector Mode</span>
                 </div>
-                <div class="code-content">You are a paranoid cybersecurity expert who trusts nothing and nobody. You've seen every hack, every breach, every "it'll never happen to us" disaster. Nothing gets past you.
+                <div class="code-content"><span class="example-label label-system">Role Definition</span>
+<span class="system-prompt">You are a paranoid cybersecurity expert who trusts nothing and nobody. You've seen every hack, every breach, every "it'll never happen to us" disaster. Nothing gets past you.</span>
 
-Now review this password policy for a company:
+<div class="divider"></div>
+
+<span class="example-label label-user">User Query</span>
+<span class="prompt-input">Review this password policy for a company:
 - Passwords must be at least 8 characters
 - Must include one number
 - Changed every 90 days
 
-Give me your brutally honest assessment.</div>
-            </div>
-            <div class="insight-box">
-                <div class="insight-icon"><i class="fa-solid fa-shield-halved"></i></div>
-                <div><strong>AI (In Character):</strong> "Oh honey. Eight characters? In 2025? My grandmother's cat could crack that. And 90-day rotations? That's how you get 'Password123!', 'Password124!', 'Password125!' on sticky notes under keyboards. This isn't security, this is security theater. Here's what you're ACTUALLY going to do..."</div>
+Give me your brutally honest assessment.</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-ai">AI Response (In Character)</span>
+<span class="ai-response">"Oh honey. Eight characters? In 2025? My grandmother's cat could crack that. And 90-day rotations? That's how you get 'Password123!', 'Password124!', 'Password125!' on sticky notes under keyboards. This isn't security, this is security theater. Here's what you're ACTUALLY going to do..."</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-explanation">Why This Works</span>
+<span class="example-explanation">The persona creates authentic voice and perspective. The AI adopts the skepticism and industry knowledge of a security veteran, delivering more impactful criticism.</span></div>
             </div>
 
             <h4>Example 2: The Enthusiastic Kindergartner</h4>
@@ -674,13 +1082,23 @@ Give me your brutally honest assessment.</div>
                     <span class="dot green"></span>
                     <span>Excitable 5-Year-Old Mode</span>
                 </div>
-                <div class="code-content">You are a super enthusiastic 5-year-old who just learned something AMAZING and you CAN'T WAIT to tell everyone about it! You use words like "cool" and "awesome" and you get excited about EVERYTHING!
+                <div class="code-content"><span class="example-label label-system">Role Definition</span>
+<span class="system-prompt">You are a super enthusiastic 5-year-old who just learned something AMAZING and you CAN'T WAIT to tell everyone about it! You use words like "cool" and "awesome" and you get excited about EVERYTHING!</span>
 
-Explain how rainbows work!</div>
-            </div>
-            <div class="insight-box">
-                <div class="insight-icon"><i class="fa-solid fa-child"></i></div>
-                <div><strong>AI (In Character):</strong> "OH MY GOSH RAINBOWS ARE THE COOLEST!! So like, when the sun comes out but it's still raining a little bit, the sunlight goes through the raindrops and the raindrops are like PRISMS and they SPLIT the light into all the different colors!! And there's RED and ORANGE and YELLOW and it's SO PRETTY and..."</div>
+<div class="divider"></div>
+
+<span class="example-label label-user">User Query</span>
+<span class="prompt-input">Explain how rainbows work!</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-ai">AI Response (In Character)</span>
+<span class="ai-response">"OH MY GOSH RAINBOWS ARE THE COOLEST!! So like, when the sun comes out but it's still raining a little bit, the sunlight goes through the raindrops and the raindrops are like PRISMS and they SPLIT the light into all the different colors!! And there's RED and ORANGE and YELLOW and it's SO PRETTY and..."</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-explanation">Why This Works</span>
+<span class="example-explanation">The enthusiastic persona makes complex scientific concepts accessible and engaging. The excitement is contagious and the explanation feels authentic to a child's wonder.</span></div>
             </div>
 
             <h4>Example 3: The Cynical Film Critic</h4>
@@ -691,15 +1109,25 @@ Explain how rainbows work!</div>
                     <span class="dot green"></span>
                     <span>Jaded Critic Mode</span>
                 </div>
-                <div class="code-content">You are a world-weary film critic who's seen every trope, every cliché, every "subversive" twist that's actually been done a thousand times. You've been reviewing movies for 30 years and nothing impresses you anymore. You're snarky, eloquent, and brutally honest.
+                <div class="code-content"><span class="example-label label-system">Role Definition</span>
+<span class="system-prompt">You are a world-weary film critic who's seen every trope, every cliché, every "subversive" twist that's actually been done a thousand times. You've been reviewing movies for 30 years and nothing impresses you anymore. You're snarky, eloquent, and brutally honest.</span>
 
-Review this plot synopsis: "A young farm boy discovers he's the chosen one and must defeat the dark lord with the help of a wise old mentor and a ragtag group of rebels."
+<div class="divider"></div>
 
-Go ahead, rip it apart.</div>
-            </div>
-            <div class="insight-box">
-                <div class="insight-icon"><i class="fa-solid fa-film"></i></div>
-                <div><strong>AI (In Character):</strong> "Ah yes, the 'Hero's Journey'—or as I like to call it, 'Joseph Campbell's Greatest Hits Vol. 47.' We've got the farm boy (because cities are apparently devoid of protagonists), the chosen one trope (destiny as a substitute for character development), and of course, the dark lord (must wear black, obviously evil, probably has asthma). Yawn. I've seen this story when it was called Star Wars. And Harry Potter. And The Matrix. And..."</div>
+<span class="example-label label-user">User Query</span>
+<span class="prompt-input">Review this plot synopsis: "A young farm boy discovers he's the chosen one and must defeat the dark lord with the help of a wise old mentor and a ragtag group of rebels."
+
+Go ahead, rip it apart.</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-ai">AI Response (In Character)</span>
+<span class="ai-response">"Ah yes, the 'Hero's Journey'—or as I like to call it, 'Joseph Campbell's Greatest Hits Vol. 47.' We've got the farm boy (because cities are apparently devoid of protagonists), the chosen one trope (destiny as a substitute for character development), and of course, the dark lord (must wear black, obviously evil, probably has asthma). Yawn. I've seen this story when it was called Star Wars. And Harry Potter. And The Matrix. And..."</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-explanation">Why This Works</span>
+<span class="example-explanation">The persona taps into decades of cinema knowledge and critical perspective. The snarky tone makes the critique entertaining while the substance reveals genuine storytelling issues.</span></div>
             </div>
 
             <h4>Example 4: The Patient Grandma Teaching Life Skills</h4>
@@ -710,13 +1138,23 @@ Go ahead, rip it apart.</div>
                     <span class="dot green"></span>
                     <span>Wise Elder Mode</span>
                 </div>
-                <div class="code-content">You are a patient, loving grandmother who's teaching your grandchild how to do something for the first time. You're gentle, encouraging, and you share little stories from your own life. You never make them feel dumb for not knowing something.
+                <div class="code-content"><span class="example-label label-system">Role Definition</span>
+<span class="system-prompt">You are a patient, loving grandmother who's teaching your grandchild how to do something for the first time. You're gentle, encouraging, and you share little stories from your own life. You never make them feel dumb for not knowing something.</span>
 
-Teach me how to make your famous chocolate chip cookies.</div>
-            </div>
-            <div class="insight-box">
-                <div class="insight-icon"><i class="fa-solid fa-cookie-bite"></i></div>
-                <div><strong>AI (In Character):</strong> "Oh sweetie, come here and let's get your hands a little floury. Now, the secret is—don't tell anyone I told you this—we use cold butter. See, my mother taught me that trick back in '62. She said..." [continues with warm, patient instructions and personal anecdotes]</div>
+<div class="divider"></div>
+
+<span class="example-label label-user">User Query</span>
+<span class="prompt-input">Teach me how to make your famous chocolate chip cookies.</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-ai">AI Response (In Character)</span>
+<span class="ai-response">"Oh sweetie, come here and let's get your hands a little floury. Now, the secret is—don't tell anyone I told you this—we use cold butter. See, my mother taught me that trick back in '62. She said..." [continues with warm, patient instructions and personal anecdotes]</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-explanation">Why This Works</span>
+<span class="example-explanation">The nurturing persona creates a safe learning environment. The personal stories and gentle guidance make instructions feel warm and memorable rather than clinical.</span></div>
             </div>
 
             <h4>Example 5: The Aggressive Drill Sergeant</h4>
@@ -727,18 +1165,28 @@ Teach me how to make your famous chocolate chip cookies.</div>
                     <span class="dot green"></span>
                     <span>Boot Camp Mode</span>
                 </div>
-                <div class="code-content">You are a no-nonsense drill sergeant who yells everything. You want results, you want them NOW, and you have ZERO patience for excuses. You call everyone "maggot" or "recruit" and everything is URGENT!
+                <div class="code-content"><span class="example-label label-system">Role Definition</span>
+<span class="system-prompt">You are a no-nonsense drill sergeant who yells everything. You want results, you want them NOW, and you have ZERO patience for excuses. You call everyone "maggot" or "recruit" and everything is URGENT!</span>
 
-Motivate me to clean my apartment which has become a complete disaster.</div>
-            </div>
-            <div class="insight-box">
-                <div class="insight-icon"><i class="fa-solid fa-bullhorn"></i></div>
-                <div><strong>AI (In Character):</strong> "WHAT IS THAT SMELL, RECRUIT?! Is that... is that LAST WEEK'S PIZZA?! GET ON YOUR FEET! I WANT THIS FLOOR SO CLEAN I CAN SEE MY REFLECTION IN IT! MOVE MOVE MOVE! YOU CALL THAT A VACUUM?! MY GRANDMOTHER COULD CLEAN BETTER THAN THAT AND SHE'S 85! DO YOU WANT TO LIVE IN FILTH, MAGGOT?! NO?! THEN START SCRUBBING!"</div>
+<div class="divider"></div>
+
+<span class="example-label label-user">User Query</span>
+<span class="prompt-input">Motivate me to clean my apartment which has become a complete disaster.</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-ai">AI Response (In Character)</span>
+<span class="ai-response">"WHAT IS THAT SMELL, RECRUIT?! Is that... is that LAST WEEK'S PIZZA?! GET ON YOUR FEET! I WANT THIS FLOOR SO CLEAN I CAN SEE MY REFLECTION IN IT! MOVE MOVE MOVE! YOU CALL THAT A VACUUM?! MY GRANDMOTHER COULD CLEAN BETTER THAN THAT AND SHE'S 85! DO YOU WANT TO LIVE IN FILTH, MAGGOT?! NO?! THEN START SCRUBBING!"</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-explanation">Why This Works</span>
+<span class="example-explanation">The intense persona creates urgency and motivation through theatrical confrontation. The exaggerated yelling and insults are motivating rather than offensive because of the clearly defined character.</span></div>
             </div>
         </section>
 
         <!-- CHAIN-OF-THOUGHT SECTION -->
-        <section class="card reveal">
+        <section class="card reveal" id="chain-of-thought">
             <h2><i class="fa-solid fa-link fa-icon" style="color: var(--accent-lavender);"></i>Chain-of-Thought: Show Your Work!</h2>
             
             <p><strong>What it is:</strong> Make the AI <span class="highlight">think out loud step by step</span> before giving the final answer. Like when your math teacher made you show your work—turns out, it actually helps!</p>
@@ -754,7 +1202,13 @@ Motivate me to clean my apartment which has become a complete disaster.</div>
                     <span class="dot green"></span>
                     <span>The Magic Words</span>
                 </div>
-                <div class="code-content"><span class="key">Let's think through this step by step.</span></div>
+                <div class="code-content"><span class="example-label label-instruction">Add This to Any Complex Prompt</span>
+<span class="key">Let's think through this step by step.</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-explanation">Why It Works</span>
+<span class="example-explanation">This phrase forces the AI to externalize its reasoning process before giving an answer. By "showing its work," the AI catches its own mistakes and produces more accurate results. It's like the difference between guessing and actually solving the problem.</span></div>
             </div>
 
             <p>That's it. Those 7 words can turn a wrong answer into a right one. Wild, right?</p>
@@ -769,19 +1223,31 @@ Motivate me to clean my apartment which has become a complete disaster.</div>
                     <span class="dot green"></span>
                     <span>Family Math Drama</span>
                 </div>
-                <div class="code-content">Sarah is twice as old as her brother Mike. Five years ago, Sarah was three times as old as Mike. How old are they now?
+                <div class="code-content"><span class="example-label label-user">Problem</span>
+<span class="prompt-input">Sarah is twice as old as her brother Mike. Five years ago, Sarah was three times as old as Mike. How old are they now?</span>
 
-Let's think through this step by step.</div>
-            </div>
-            <div class="insight-box">
-                <div class="insight-icon"><i class="fa-solid fa-brain"></i></div>
-                <div><strong>AI's Internal Monologue:</strong> "Step 1: Let's say Mike's current age is M. Then Sarah's age is 2M.<br>
-                Step 2: Five years ago, Mike was M-5 and Sarah was 2M-5.<br>
-                Step 3: The problem says five years ago Sarah was 3 times as old as Mike.<br>
-                Step 4: So 2M - 5 = 3(M - 5)<br>
-                Step 5: 2M - 5 = 3M - 15<br>
-                Step 6: M = 10<br>
-                <strong>Answer: Mike is 10, Sarah is 20.</strong>"</div>
+<span class="example-label label-instruction">Chain-of-Thought Trigger</span>
+<span class="system-prompt">Let's think through this step by step.</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-ai">AI Reasoning Process</span>
+<span class="ai-response">Step 1: Let's say Mike's current age is M. Then Sarah's age is 2M.
+Step 2: Five years ago, Mike was M-5 and Sarah was 2M-5.
+Step 3: The problem says five years ago Sarah was 3 times as old as Mike.
+Step 4: So 2M - 5 = 3(M - 5)
+Step 5: 2M - 5 = 3M - 15
+Step 6: M = 10</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-answer">Final Answer</span>
+<span class="example-answer">Mike is 10, Sarah is 20.</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-explanation">Why This Works</span>
+<span class="example-explanation">By working through each step explicitly, the AI catches any algebraic errors and arrives at the correct solution. The step-by-step approach prevents the AI from jumping to incorrect conclusions.</span></div>
             </div>
 
             <h4>Example 2: Logic Puzzle</h4>
@@ -792,31 +1258,50 @@ Let's think through this step by step.</div>
                     <span class="dot green"></span>
                     <span>Who Owns the Fish?</span>
                 </div>
-                <div class="code-content">There are five houses in a row, each painted a different color. In each house lives a person of different nationality. These five owners drink different beverages, smoke different brands of cigarettes, and keep different pets. 
+                <div class="code-content"><span class="example-label label-user">Problem</span>
+<span class="prompt-input">There are five houses in a row, each painted a different color. In each house lives a person of different nationality. These five owners drink different beverages, smoke different brands of cigarettes, and keep different pets.</span>
 
-The Brit lives in the red house.
-The Swede keeps dogs as pets.
-The Dane drinks tea.
-The green house is on the left of the white house.
-The green house's owner drinks coffee.
-The person who smokes Pall Mall rears birds.
-The owner of the yellow house smokes Dunhill.
-The man living in the center house drinks milk.
-The Norwegian lives in the first house.
-The man who smokes Blends lives next to the one who keeps cats.
-The man who keeps horses lives next to the man who smokes Dunhill.
-The owner who smokes Bluemaster drinks beer.
-The German smokes Prince.
-The Norwegian lives next to the blue house.
-The man who smokes Blends has a neighbor who drinks water.
+<span class="example-label label-context">Given Clues</span>
+<span class="example-options">• The Brit lives in the red house
+• The Swede keeps dogs as pets
+• The Dane drinks tea
+• The green house is on the left of the white house
+• The green house's owner drinks coffee
+• The person who smokes Pall Mall rears birds
+• The owner of the yellow house smokes Dunhill
+• The man living in the center house drinks milk
+• The Norwegian lives in the first house
+• The man who smokes Blends lives next to the one who keeps cats
+• The man who keeps horses lives next to the man who smokes Dunhill
+• The owner who smokes Bluemaster drinks beer
+• The German smokes Prince
+• The Norwegian lives next to the blue house
+• The man who smokes Blends has a neighbor who drinks water</span>
 
-Who owns the fish?
+<span class="prompt-input">Who owns the fish?</span>
 
-Walk me through the deduction process.</div>
-            </div>
-            <div class="insight-box">
-                <div class="insight-icon"><i class="fa-solid fa-puzzle-piece"></i></div>
-                <div><strong>AI's Step-by-Step:</strong> "Step 1: Norwegian is in House 1 (given). Step 2: House 2 is blue (next to Norwegian). Step 3: Center house (3) drinks milk. Step 4: Green is left of white, so they're houses 4 and 5 or 3 and 4. But house 3 drinks milk, not coffee, so green is 4, white is 5. Step 5: Green drinks coffee, so house 4 drinks coffee... [continues logical deduction] <strong>The German owns the fish!</strong>"</div>
+<span class="example-label label-instruction">Chain-of-Thought Trigger</span>
+<span class="system-prompt">Walk me through the deduction process.</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-ai">AI Reasoning Process</span>
+<span class="ai-response">Step 1: Norwegian is in House 1 (given)
+Step 2: House 2 is blue (next to Norwegian)
+Step 3: Center house (3) drinks milk
+Step 4: Green is left of white → houses 4 and 5 (house 3 has milk, not coffee)
+Step 5: House 4 drinks coffee (green house rule)
+... [continues logical deduction] ...</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-answer">Final Answer</span>
+<span class="example-answer">The German owns the fish!</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-explanation">Why This Works</span>
+<span class="example-explanation">The step-by-step approach forces the AI to build the solution incrementally, ensuring no contradictions and maintaining all constraints from the clues.</span></div>
             </div>
 
             <h4>Example 3: Budget Word Problem</h4>
@@ -827,19 +1312,31 @@ Walk me through the deduction process.</div>
                     <span class="dot green"></span>
                     <span>Real Life Math</span>
                 </div>
-                <div class="code-content">I'm planning a road trip. Gas costs $3.50/gallon. My car gets 28 miles per gallon. The trip is 420 miles each way. I need to pay $45/night for a hotel for 2 nights. Food will be $60/day for 3 days. I have $500 budgeted. Do I have enough? If yes, how much left over? If no, how much more do I need?
+                <div class="code-content"><span class="example-label label-user">Problem</span>
+<span class="prompt-input">I'm planning a road trip. Gas costs $3.50/gallon. My car gets 28 miles per gallon. The trip is 420 miles each way. I need to pay $45/night for a hotel for 2 nights. Food will be $60/day for 3 days. I have $500 budgeted. Do I have enough? If yes, how much left over? If no, how much more do I need?</span>
 
-Let's work through this systematically.</div>
-            </div>
-            <div class="insight-box">
-                <div class="insight-icon"><i class="fa-solid fa-calculator"></i></div>
-                <div><strong>AI's Breakdown:</strong> "Step 1: Calculate total miles: 420 × 2 = 840 miles round trip.<br>
-                Step 2: Gas needed: 840 ÷ 28 = 30 gallons.<br>
-                Step 3: Gas cost: 30 × $3.50 = $105.<br>
-                Step 4: Hotel: 2 nights × $45 = $90.<br>
-                Step 5: Food: 3 days × $60 = $180.<br>
-                Step 6: Total cost: $105 + $90 + $180 = $375.<br>
-                <strong>Step 7: $500 - $375 = $125 left over! Road trip is a go!</strong>"</div>
+<span class="example-label label-instruction">Chain-of-Thought Trigger</span>
+<span class="system-prompt">Let's work through this systematically.</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-ai">AI Reasoning Process</span>
+<span class="ai-response">Step 1: Calculate total miles: 420 × 2 = 840 miles round trip
+Step 2: Gas needed: 840 ÷ 28 = 30 gallons
+Step 3: Gas cost: 30 × $3.50 = $105
+Step 4: Hotel: 2 nights × $45 = $90
+Step 5: Food: 3 days × $60 = $180
+Step 6: Total cost: $105 + $90 + $180 = $375</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-answer">Final Answer</span>
+<span class="example-answer">$500 - $375 = $125 left over! Road trip is a go!</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-explanation">Why This Works</span>
+<span class="example-explanation">Breaking down the calculation into discrete steps prevents arithmetic errors and makes the budget analysis transparent. Each category is calculated independently before summing.</span></div>
             </div>
 
             <h4>Example 4: Pattern Recognition</h4>
@@ -850,18 +1347,32 @@ Let's work through this systematically.</div>
                     <span class="dot green"></span>
                     <span>Find the Next Number</span>
                 </div>
-                <div class="code-content">What comes next in this sequence? Explain your reasoning.
+                <div class="code-content"><span class="example-label label-user">Problem</span>
+<span class="prompt-input">What comes next in this sequence? Explain your reasoning.
 
-2, 6, 12, 20, 30, 42, ?</div>
-            </div>
-            <div class="insight-box">
-                <div class="insight-icon"><i class="fa-solid fa-arrow-trend-up"></i></div>
-                <div><strong>AI's Analysis:</strong> "Step 1: Look at differences between numbers.<br>
-                6-2=4, 12-6=6, 20-12=8, 30-20=10, 42-30=12<br>
-                Step 2: The differences are increasing by 2 each time: 4, 6, 8, 10, 12...<br>
-                Step 3: Next difference should be 14.<br>
-                Step 4: 42 + 14 = 56.<br>
-                <strong>Next number: 56</strong> (Also note: these are n×(n+1) for n=1,2,3...)"</div>
+2, 6, 12, 20, 30, 42, ?</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-ai">AI Reasoning Process</span>
+<span class="ai-response">Step 1: Look at differences between numbers
+  6-2=4, 12-6=6, 20-12=8, 30-20=10, 42-30=12
+Step 2: The differences are increasing by 2 each time: 4, 6, 8, 10, 12...
+Step 3: Next difference should be 14
+Step 4: 42 + 14 = 56
+
+Alternative pattern: These are n×(n+1) for n=1,2,3,4,5,6...
+  1×2=2, 2×3=6, 3×4=12... 7×8=56 ✓</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-answer">Final Answer</span>
+<span class="example-answer">56</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-explanation">Why This Works</span>
+<span class="example-explanation">The AI identifies the pattern through difference analysis and verifies with an alternative approach (n×(n+1)), ensuring high confidence in the answer.</span></div>
             </div>
 
             <h4>Example 5: Reading Comprehension</h4>
@@ -872,24 +1383,35 @@ Let's work through this systematically.</div>
                     <span class="dot green"></span>
                     <span>Text Analysis</span>
                 </div>
-                <div class="code-content">Read this passage and determine the author's tone and main argument:
+                <div class="code-content"><span class="example-label label-user">Passage to Analyze</span>
+<span class="prompt-input">"The proliferation of smartphone usage has fundamentally altered human interaction. Where once we engaged in face-to-face conversations, we now stare at glowing rectangles. Family dinners have become silent affairs punctuated only by notification chimes. We have traded genuine connection for the illusion of connectivity."</span>
 
-"The proliferation of smartphone usage has fundamentally altered human interaction. Where once we engaged in face-to-face conversations, we now stare at glowing rectangles. Family dinners have become silent affairs punctuated only by notification chimes. We have traded genuine connection for the illusion of connectivity."
+<span class="example-label label-instruction">Chain-of-Thought Trigger</span>
+<span class="system-prompt">Determine the author's tone and main argument. Analyze this step by step.</span>
 
-Analyze this step by step.</div>
-            </div>
-            <div class="insight-box">
-                <div class="insight-icon"><i class="fa-solid fa-book-open"></i></div>
-                <div><strong>AI's Analysis:</strong> "Step 1: Word choice analysis—'fundamentally altered' suggests negative change.<br>
-                Step 2: 'Stare at glowing rectangles' is derogatory/dismissive language about phones.<br>
-                Step 3: 'Silent affairs' and 'notification chimes' paint a sad picture.<br>
-                Step 4: Final sentence contrasts 'genuine connection' vs 'illusion of connectivity'.<br>
-                <strong>Conclusion: Critical/pessimistic tone. Main argument: Smartphones have damaged authentic human relationships.</strong>"</div>
+<div class="divider"></div>
+
+<span class="example-label label-ai">AI Reasoning Process</span>
+<span class="ai-response">Step 1: Word choice analysis—'fundamentally altered' suggests negative change
+Step 2: 'Stare at glowing rectangles' is derogatory/dismissive language about phones
+Step 3: 'Silent affairs' and 'notification chimes' paint a sad picture
+Step 4: Final sentence contrasts 'genuine connection' vs 'illusion of connectivity'</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-answer">Final Answer</span>
+<span class="example-answer">Tone: Critical/pessimistic
+Main argument: Smartphones have damaged authentic human relationships</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-explanation">Why This Works</span>
+<span class="example-explanation">The step-by-step analysis identifies specific rhetorical choices that reveal the author's perspective. This prevents superficial readings and ensures the interpretation is grounded in textual evidence.</span></div>
             </div>
         </section>
 
         <!-- SELF-CONSISTENCY SECTION -->
-        <section class="card reveal">
+        <section class="card reveal" id="self-consistency">
             <h2><i class="fa-solid fa-list-check fa-icon" style="color: var(--accent-coral);"></i>Self-Consistency: Ask Three Times, Trust the Majority</h2>
             
             <p><strong>What it is:</strong> Generate <span class="highlight">multiple answers to the same question</span> and pick the one that shows up most often. It's like democracy, but for AI reasoning.</p>
@@ -919,16 +1441,35 @@ Analyze this step by step.</div>
                     <span class="dot green"></span>
                     <span>The Classic Trap</span>
                 </div>
-                <div class="code-content">When I was 8 years old, my brother was half my age. Now I am 50 years old. How old is my brother?
+                <div class="code-content"><span class="example-label label-user">Problem</span>
+<span class="prompt-input">When I was 8 years old, my brother was half my age. Now I am 50 years old. How old is my brother?</span>
 
-Generate 3 different ways to solve this and see if they agree.</div>
-            </div>
-            <div class="insight-box">
-                <div class="insight-icon"><i class="fa-solid fa-vote-yea"></i></div>
-                <div><strong>Attempt 1:</strong> "Half of 8 is 4, so brother was 4. Now I'm 50, brother is 25." ❌ WRONG<br>
-                <strong>Attempt 2:</strong> "Age difference is always 4 years (8-4=4). So 50-4=46." ✓ RIGHT<br>
-                <strong>Attempt 3:</strong> "Brother is 4 years younger. 50-4=46." ✓ RIGHT<br>
-                <strong>Self-Consensus: 46 years old</strong> (2 out of 3 got it right!)</div>
+<span class="example-label label-instruction">Self-Consistency Trigger</span>
+<span class="system-prompt">Generate 3 different ways to solve this and see if they agree.</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-ai">Attempt 1 (Direct Approach)</span>
+<span class="ai-response">"Half of 8 is 4, so brother was 4. Now I'm 50, brother is 25."</span>
+<span class="example-label label-answer" style="color: #FF6B6B;">❌ WRONG</span>
+
+<span class="example-label label-ai">Attempt 2 (Age Difference Method)</span>
+<span class="ai-response">"Age difference is always 4 years (8-4=4). So 50-4=46."</span>
+<span class="example-label label-answer" style="color: #27AE60;">✓ RIGHT</span>
+
+<span class="example-label label-ai">Attempt 3 (Algebraic Approach)</span>
+<span class="ai-response">"Brother is 4 years younger. 50-4=46."</span>
+<span class="example-label label-answer" style="color: #27AE60;">✓ RIGHT</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-answer">Self-Consensus</span>
+<span class="example-answer">46 years old (2 out of 3 methods agree!)</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-explanation">Why This Works</span>
+<span class="example-explanation">Multiple independent reasoning paths lead to the same answer, filtering out the incorrect approach (Attempt 1) which misinterpreted "half my age" as a persistent ratio rather than a fixed age difference.</span></div>
             </div>
 
             <h4>Example 2: Logic Grid Puzzle</h4>
@@ -939,24 +1480,40 @@ Generate 3 different ways to solve this and see if they agree.</div>
                     <span class="dot green"></span>
                     <span>Who Did It?</span>
                 </div>
-                <div class="code-content">Three friends (Alice, Bob, Charlie) each have different favorite colors (red, blue, green) and different pets (dog, cat, bird).
+                <div class="code-content"><span class="example-label label-user">Problem</span>
+<span class="prompt-input">Three friends (Alice, Bob, Charlie) each have different favorite colors (red, blue, green) and different pets (dog, cat, bird).</span>
 
-Clues:
-1. Alice doesn't like red
+<span class="example-label label-context">Given Clues</span>
+<span class="example-options">1. Alice doesn't like red
 2. The person with the dog likes blue
 3. Bob has a cat
-4. Charlie doesn't like green
+4. Charlie doesn't like green</span>
 
-What color does each person like and what pet do they have?
+<span class="prompt-input">What color does each person like and what pet do they have?</span>
 
-Solve this 3 different ways and see if you get the same answer.</div>
-            </div>
-            <div class="insight-box">
-                <div class="insight-icon"><i class="fa-solid fa-vote-yea"></i></div>
-                <div><strong>Path 1:</strong> Start with Bob having cat. Person with dog likes blue, so that's not Bob. Alice doesn't like red... [deduction] → Alice: green+bird, Bob: red+cat, Charlie: blue+dog ✓<br>
-                <strong>Path 2:</strong> Start with clue 4. Charlie doesn't like green. Could be red or blue. If Charlie likes blue, he has dog... [deduction] → Same answer ✓<br>
-                <strong>Path 3:</strong> Start with Alice. She doesn't like red, so green or blue. If blue, she'd have dog... leads to contradiction. So Alice has green... [deduction] → Same answer ✓<br>
-                <strong>High confidence: All paths agree!</strong></div>
+<span class="example-label label-instruction">Self-Consistency Trigger</span>
+<span class="system-prompt">Solve this 3 different ways and see if you get the same answer.</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-ai">Path 1 (Start with Bob)</span>
+<span class="ai-response">Start with Bob having cat. Person with dog likes blue, so that's not Bob. Alice doesn't like red... [deduction] → Alice: green+bird, Bob: red+cat, Charlie: blue+dog ✓</span>
+
+<span class="example-label label-ai">Path 2 (Start with Charlie)</span>
+<span class="ai-response">Start with clue 4. Charlie doesn't like green. Could be red or blue. If Charlie likes blue, he has dog... [deduction] → Same answer ✓</span>
+
+<span class="example-label label-ai">Path 3 (Start with Alice)</span>
+<span class="ai-response">Start with Alice. She doesn't like red, so green or blue. If blue, she'd have dog... leads to contradiction. So Alice has green... [deduction] → Same answer ✓</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-answer">Self-Consensus</span>
+<span class="example-answer">All 3 independent paths converge to the same solution!</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-explanation">Why This Works</span>
+<span class="example-explanation">Each path starts from a different clue and uses different reasoning, yet all arrive at the same conclusion. This dramatically increases confidence that the solution is correct.</span></div>
             </div>
 
             <h4>Example 3: Probability Problem</h4>
@@ -967,16 +1524,35 @@ Solve this 3 different ways and see if you get the same answer.</div>
                     <span class="dot green"></span>
                     <span>Monty Hall-ish</span>
                 </div>
-                <div class="code-content">I have two children. At least one is a boy. What's the probability both are boys?
+                <div class="code-content"><span class="example-label label-user">Problem</span>
+<span class="prompt-input">I have two children. At least one is a boy. What's the probability both are boys?</span>
 
-Solve this using 3 different approaches (e.g., sample space, conditional probability formula, enumeration).</div>
-            </div>
-            <div class="insight-box">
-                <div class="insight-icon"><i class="fa-solid fa-vote-yea"></i></div>
-                <div><strong>Approach 1 (Sample Space):</strong> Possible combinations with at least one boy: BB, BG, GB. Only 1 has two boys. Answer: 1/3 ✓<br>
-                <strong>Approach 2 (Conditional Formula):</strong> P(BB | at least one B) = P(BB) / P(at least one B) = (1/4) / (3/4) = 1/3 ✓<br>
-                <strong>Approach 3 (Tree Diagram):</strong> Draw tree of possibilities, eliminate branches without at least one boy, count remaining... 1/3 ✓<br>
-                <strong>Consensus: 1/3 (About 33.3%)</strong></div>
+<span class="example-label label-instruction">Self-Consistency Trigger</span>
+<span class="system-prompt">Solve this using 3 different approaches (e.g., sample space, conditional probability formula, enumeration).</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-ai">Approach 1 (Sample Space)</span>
+<span class="ai-response">Possible combinations with at least one boy: BB, BG, GB. Only 1 has two boys.</span>
+<span class="example-label label-answer" style="color: #27AE60;">Answer: 1/3 ✓</span>
+
+<span class="example-label label-ai">Approach 2 (Conditional Formula)</span>
+<span class="ai-response">P(BB | at least one B) = P(BB) / P(at least one B) = (1/4) / (3/4)</span>
+<span class="example-label label-answer" style="color: #27AE60;">Answer: 1/3 ✓</span>
+
+<span class="example-label label-ai">Approach 3 (Tree Diagram)</span>
+<span class="ai-response">Draw tree of possibilities, eliminate branches without at least one boy, count remaining...</span>
+<span class="example-label label-answer" style="color: #27AE60;">Answer: 1/3 ✓</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-answer">Self-Consensus</span>
+<span class="example-answer">1/3 (About 33.3%)</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-explanation">Why This Works</span>
+<span class="example-explanation">Three independent mathematical approaches all converge on the same answer. This is the famous "boy or girl paradox" where intuition often suggests 1/2, but rigorous analysis shows 1/3.</span></div>
             </div>
 
             <h4>Example 4: Pattern Completion</h4>
@@ -987,18 +1563,41 @@ Solve this using 3 different approaches (e.g., sample space, conditional probabi
                     <span class="dot green"></span>
                     <span>What's the Rule?</span>
                 </div>
-                <div class="code-content">Find the rule and the next item in this sequence:
+                <div class="code-content"><span class="example-label label-user">Problem</span>
+<span class="prompt-input">Find the rule and the next item in this sequence:
 
-1, 11, 21, 1211, 111221, ?
+1, 11, 21, 1211, 111221, ?</span>
 
-Try to figure this out 3 different ways.</div>
+<span class="example-label label-instruction">Self-Consistency Trigger</span>
+<span class="system-prompt">Try to figure this out 3 different ways.</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-ai">Method 1 (Read Aloud)</span>
+<span class="ai-response">Try reading aloud... "one 1", "two 1s", "one 2 one 1" → It's describing the previous number!</span>
+<span class="example-label label-answer" style="color: #27AE60;">Next: 312211 ✓</span>
+
+<span class="example-label label-ai">Method 2 (Count Digits)</span>
+<span class="ai-response">Count consecutive digits... 111221 has "three 1s, two 2s, one 1"</span>
+<span class="example-label label-answer" style="color: #27AE60;">Next: 312211 ✓</span>
+
+<span class="example-label label-ai">Method 3 (Pattern Recognition)</span>
+<span class="ai-response">This looks like Conway's Look-and-Say sequence, a famous mathematical sequence...</span>
+<span class="example-label label-answer" style="color: #27AE60;">Next: 312211 ✓</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-answer">Self-Consensus</span>
+<span class="example-answer">All 3 methods agree: Next is 312211!</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-explanation">Why This Works</span>
+<span class="example-explanation">Three different approaches—verbal interpretation, digit counting, and pattern identification—all converge on the same answer. This is Conway's famous "Look-and-Say" sequence.</span></div>
             </div>
             <div class="insight-box">
                 <div class="insight-icon"><i class="fa-solid fa-vote-yea"></i></div>
-                <div><strong>Method 1 (Look at it differently):</strong> Try reading aloud... "one 1", "two 1s", "one 2 one 1" → It's describing the previous number! ✓<br>
-                <strong>Method 2 (Count digits):</strong> Count consecutive digits... 111221 has "three 1s, two 2s, one 1" → 312211 ✓<br>
-                <strong>Method 3 (Research pattern):</strong> This looks like Conway's Look-and-Say sequence... ✓<br>
-                <strong>All agree: Next is 312211!</strong></div>
+                <div><strong>All methods agree!</strong> The pattern is Conway's Look-and-Say sequence. Each term describes the previous term.</div>
             </div>
 
             <h4>Example 5: Analogy Completion</h4>
@@ -1009,23 +1608,39 @@ Try to figure this out 3 different ways.</div>
                     <span class="dot green"></span>
                     <span>Word Relationships</span>
                 </div>
-                <div class="code-content">Complete this analogy from different angles:
+                <div class="code-content"><span class="example-label label-user">Problem</span>
+<span class="prompt-input">Complete this analogy from different angles:
 
-Painting is to canvas as ______ is to code.
+Painting is to canvas as ______ is to code.</span>
 
-Approach this from multiple perspectives: functional relationship, creative process, medium of expression, etc.</div>
-            </div>
-            <div class="insight-box">
-                <div class="insight-icon"><i class="fa-solid fa-vote-yea"></i></div>
-                <div><strong>Angle 1 (Creation):</strong> Artist creates on canvas, programmer creates with code → <strong>Program</strong><br>
-                <strong>Angle 2 (Medium):</strong> Canvas is the medium for paint, ___ is medium for code → <strong>Software</strong><br>
-                <strong>Angle 3 (Art form):</strong> Painting is art on canvas, ___ is art made with code → <strong>Program/Software</strong><br>
-                <strong>Most common answers: "Program" or "Software"</strong> (Both work, consensus on the relationship)</div>
+<span class="example-label label-instruction">Self-Consistency Trigger</span>
+<span class="system-prompt">Approach this from multiple perspectives: functional relationship, creative process, medium of expression, etc.</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-ai">Angle 1 (Creation)</span>
+<span class="ai-response">Artist creates on canvas, programmer creates with code → <strong>Program</strong></span>
+
+<span class="example-label label-ai">Angle 2 (Medium)</span>
+<span class="ai-response">Canvas is the medium for paint, ___ is medium for code → <strong>Software</strong></span>
+
+<span class="example-label label-ai">Angle 3 (Art form)</span>
+<span class="ai-response">Painting is art on canvas, ___ is art made with code → <strong>Program/Software</strong></span>
+
+<div class="divider"></div>
+
+<span class="example-label label-answer">Self-Consensus</span>
+<span class="example-answer">Most common answers: "Program" or "Software" (Both work, consensus on the relationship)</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-explanation">Why This Works</span>
+<span class="example-explanation">Three different perspectives all point to similar answers. The relationship between painter:canvas and programmer:code has multiple valid interpretations that converge on "Program" or "Software" as the most natural completions.</span></div>
             </div>
         </section>
 
         <!-- PROMPT CHAINING SECTION -->
-        <section class="card reveal">
+        <section class="card reveal" id="prompt-chaining">
             <h2><i class="fa-solid fa-chain fa-icon" style="color: var(--accent-teal);"></i>Prompt Chaining: Assembly Line Style</h2>
             
             <p><strong>What it is:</strong> Break a big task into <span class="highlight">smaller steps</span> where each step feeds into the next. Like a factory assembly line, but for AI prompts.</p>
@@ -1060,17 +1675,21 @@ Approach this from multiple perspectives: functional relationship, creative proc
                     <span class="dot green"></span>
                     <span>Chain 1: Analyze</span>
                 </div>
-                <div class="code-content">Analyze this angry customer email and extract:
+                <div class="code-content"><span class="example-label label-system">Step 1 - Analyze</span>
+<span class="system-prompt">Analyze this angry customer email and extract:
 1. The specific problem
 2. Customer's emotional state (1-10 scale)
-3. What they want as resolution
+3. What they want as resolution</span>
 
-Email: "I ordered your product 2 weeks ago and it still hasn't arrived. This is completely unacceptable. I needed this for a presentation yesterday and now I look incompetent. I want a full refund AND an explanation."
+<span class="example-label label-user">Customer Email</span>
+<span class="prompt-input">"I ordered your product 2 weeks ago and it still hasn't arrived. This is completely unacceptable. I needed this for a presentation yesterday and now I look incompetent. I want a full refund AND an explanation."</span>
 
-[OUTPUT]
-Problem: Late delivery (2 weeks overdue)
+<div class="divider"></div>
+
+<span class="example-label label-ai">Step 1 Output</span>
+<span class="ai-response">Problem: Late delivery (2 weeks overdue)
 Emotion: 9/10 (very angry)
-Wants: Refund + explanation</div>
+Wants: Refund + explanation</span></div>
             </div>
             <div class="code-block">
                 <div class="code-header">
@@ -1079,15 +1698,21 @@ Wants: Refund + explanation</div>
                     <span class="dot green"></span>
                     <span>Chain 2: Draft Response</span>
                 </div>
-                <div class="code-content">Draft an email response to a customer with these details:
-- Problem: Late delivery (2 weeks overdue)  
-- Emotion level: 9/10 (very angry)
-- Wants: Refund + explanation
+                <div class="code-content"><span class="example-label label-system">Step 2 - Draft Response</span>
+<span class="system-prompt">Draft an email response using the analysis from Step 1:</span>
 
-Tone: Empathetic but professional. Acknowledge their frustration. Offer refund. Explain what happened (shipping partner delay). Offer discount on future order.
+<span class="example-label label-context">Context from Previous Step</span>
+<span class="example-options">• Problem: Late delivery (2 weeks overdue)
+• Emotion level: 9/10 (very angry)
+• Wants: Refund + explanation</span>
 
-[OUTPUT]
-[Drafted response...]</div>
+<span class="example-label label-instruction">Requirements</span>
+<span class="system-prompt">Tone: Empathetic but professional. Acknowledge frustration. Offer refund. Explain cause (shipping partner delay). Offer discount on future order.</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-ai">Step 2 Output</span>
+<span class="ai-response">[Drafted professional response addressing all points...]</span></div>
             </div>
 
             <h4>Example 3: Data Analysis Pipeline</h4>
@@ -1116,21 +1741,26 @@ Tone: Empathetic but professional. Acknowledge their frustration. Offer refund. 
                     <span class="dot green"></span>
                     <span>Multi-Step Code Review</span>
                 </div>
-                <div class="code-content">Step 1 - Syntax Check:
-"Review this Python code for syntax errors and obvious bugs: [code]"
-→ Output: Fixed syntax version
+                <div class="code-content"><span class="example-label label-instruction">Step 1 - Syntax Check</span>
+<span class="system-prompt">"Review this Python code for syntax errors and obvious bugs: [code]"</span>
+<span class="ai-response">→ Output: Fixed syntax version</span>
 
-Step 2 - Logic Review:
-"Review this code for logical errors and edge cases: [fixed code from step 1]"
-→ Output: Logic-improved version  
+<span class="example-label label-instruction">Step 2 - Logic Review</span>
+<span class="system-prompt">"Review this code for logical errors and edge cases: [fixed code from step 1]"</span>
+<span class="ai-response">→ Output: Logic-improved version</span>
 
-Step 3 - Style Check:
-"Review this code for PEP 8 compliance and best practices: [code from step 2]"
-→ Output: Polished final version
+<span class="example-label label-instruction">Step 3 - Style Check</span>
+<span class="system-prompt">"Review this code for PEP 8 compliance and best practices: [code from step 2]"</span>
+<span class="ai-response">→ Output: Polished final version</span>
 
-Step 4 - Documentation:
-"Add docstrings and comments to this code: [code from step 3]"
-→ Output: Production-ready code!</div>
+<span class="example-label label-instruction">Step 4 - Documentation</span>
+<span class="system-prompt">"Add docstrings and comments to this code: [code from step 3]"</span>
+<span class="ai-response">→ Output: Production-ready code!</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-explanation">Why This Works</span>
+<span class="example-explanation">Breaking the review into focused phases prevents overwhelm. Each step refines the output, catching different categories of issues at the appropriate level of detail.</span></div>
             </div>
 
             <h4>Example 5: Recipe Creator</h4>
@@ -1141,22 +1771,31 @@ Step 4 - Documentation:
                     <span class="dot green"></span>
                     <span>Recipe Chain</span>
                 </div>
-                <div class="code-content">Prompt 1: "Suggest 3 dessert ideas using chocolate and strawberries"
-→ Output: Chocolate strawberry tart, chocolate-covered strawberries, strawberry chocolate cake
+                <div class="code-content"><span class="example-label label-instruction">Step 1 - Ideation</span>
+<span class="system-prompt">"Suggest 3 dessert ideas using chocolate and strawberries"</span>
+<span class="ai-response">→ Output: Chocolate strawberry tart, chocolate-covered strawberries, strawberry chocolate cake</span>
 
-Prompt 2: "Create a detailed ingredient list for a chocolate strawberry tart for 8 people"
-→ Output: [List of ingredients with quantities]
+<span class="example-label label-instruction">Step 2 - Ingredients</span>
+<span class="system-prompt">"Create a detailed ingredient list for a chocolate strawberry tart for 8 people"</span>
+<span class="ai-response">→ Output: [List of ingredients with quantities]</span>
 
-Prompt 3: "Write step-by-step instructions for making chocolate strawberry tart using these ingredients: [list from step 2]"
-→ Output: [Detailed cooking instructions]
+<span class="example-label label-instruction">Step 3 - Instructions</span>
+<span class="system-prompt">"Write step-by-step instructions for making chocolate strawberry tart using these ingredients: [list from step 2]"</span>
+<span class="ai-response">→ Output: [Detailed cooking instructions]</span>
 
-Prompt 4: "Suggest wine pairings and plating ideas for chocolate strawberry tart"
-→ Output: [Final presentation touches]</div>
+<span class="example-label label-instruction">Step 4 - Presentation</span>
+<span class="system-prompt">"Suggest wine pairings and plating ideas for chocolate strawberry tart"</span>
+<span class="ai-response">→ Output: [Final presentation touches]</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-explanation">Why This Works</span>
+<span class="example-explanation">Chaining allows the recipe to evolve naturally from concept to execution. Each step builds on previous outputs, ensuring consistency and completeness without overwhelming the AI with all requirements at once.</span></div>
             </div>
         </section>
 
         <!-- TREE OF THOUGHTS SECTION -->
-        <section class="card reveal">
+        <section class="card reveal" id="tree-of-thoughts">
             <h2><i class="fa-solid fa-sitemap fa-icon" style="color: var(--accent-orange);"></i>Tree of Thoughts: Explore All the Paths!</h2>
             
             <p><strong>What it is:</strong> Instead of one straight line of thinking, you <span class="highlight">branch out and explore multiple possibilities</span> at each step. Like a choose-your-own-adventure book, but for problem-solving.</p>
@@ -1182,22 +1821,40 @@ Prompt 4: "Suggest wine pairings and plating ideas for chocolate strawberry tart
                     <span class="dot green"></span>
                     <span>Story Decision Tree</span>
                 </div>
-                <div class="code-content">I'm writing a mystery novel. My detective has cornered the suspect in an abandoned warehouse. The suspect is holding a gun but seems nervous.
+                <div class="code-content"><span class="example-label label-user">Scenario</span>
+<span class="prompt-input">I'm writing a mystery novel. My detective has cornered the suspect in an abandoned warehouse. The suspect is holding a gun but seems nervous.</span>
 
-Generate 3 different ways this scene could play out:
+<span class="example-label label-instruction">Tree of Thoughts Prompt</span>
+<span class="system-prompt">Generate 3 different ways this scene could play out, then evaluate each:</span>
 
-Branch A (Tension/Escalation): The suspect panics and fires...
-Branch B (Psychological): The detective talks them down using psychology...
-Branch C (Action): A secondary character bursts in and changes everything...
+<span class="example-label label-context">Branch Options</span>
+<span class="example-options"><strong>Branch A (Tension/Escalation):</strong> The suspect panics and fires...
+<strong>Branch B (Psychological):</strong> The detective talks them down using psychology...
+<strong>Branch C (Action):</strong> A secondary character bursts in and changes everything...</span>
 
-Evaluate each branch for: dramatic tension, character development, plot advancement. Which works best?</div>
-            </div>
-            <div class="insight-box">
-                <div class="insight-icon"><i class="fa-solid fa-code-branch"></i></div>
-                <div><strong>Branch A Analysis:</strong> High tension, but might make detective seem incompetent. Risk of cliché shootout.<br>
-                <strong>Branch B Analysis:</strong> Great character moment, shows detective's skill. Lower action but higher emotional payoff.<br>
-                <strong>Branch C Analysis:</strong> Surprise twist potential, but could feel deus ex machina if not set up.<br>
-                <strong>Recommendation:</strong> Combine B + C - detective talks them down partially, THEN secondary character arrives with crucial evidence!</div>
+<span class="example-label label-instruction">Evaluation Criteria</span>
+<span class="system-prompt">Evaluate each branch for: dramatic tension, character development, plot advancement.</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-ai">Branch A Analysis</span>
+<span class="ai-response">High tension, but might make detective seem incompetent. Risk of cliché shootout.</span>
+
+<span class="example-label label-ai">Branch B Analysis</span>
+<span class="ai-response">Great character moment, shows detective's skill. Lower action but higher emotional payoff.</span>
+
+<span class="example-label label-ai">Branch C Analysis</span>
+<span class="ai-response">Surprise twist potential, but could feel deus ex machina if not set up.</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-answer">Recommended Solution</span>
+<span class="example-answer">Combine B + C - detective talks them down partially, THEN secondary character arrives with crucial evidence!</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-explanation">Why This Works</span>
+<span class="example-explanation">Tree of Thoughts explores multiple narrative possibilities systematically. By evaluating each branch against criteria, the AI identifies the optimal hybrid approach that combines strengths from different paths.</span></div>
             </div>
 
             <h4>Example 2: Business Strategy Options</h4>
@@ -1319,7 +1976,7 @@ Evaluate each hypothesis probability and suggest where to start.</div>
         </section>
 
         <!-- RAG SECTION -->
-        <section class="card reveal">
+        <section class="card reveal" id="rag">
             <h2><i class="fa-solid fa-database fa-icon" style="color: var(--accent-green);"></i>RAG: Bring Your Own Facts</h2>
             
             <p><strong>What it is:</strong> <span class="highlight">Retrieval-Augmented Generation</span> - fancy way of saying "give the AI some documents to read before it answers." Like letting an open-book student use their textbook during the exam.</p>
@@ -1462,7 +2119,7 @@ Question: Why are coffee farmers moving to higher ground, and how much coffee pr
         </section>
 
         <!-- REACT SECTION -->
-        <section class="card reveal">
+        <section class="card reveal" id="react">
             <h2><i class="fa-solid fa-arrows-rotate fa-icon" style="color: var(--accent-coral);"></i>ReAct: Think, Act, Observe, Repeat</h2>
             
             <p><strong>What it is:</strong> <span class="highlight">Re</span>asoning + <span class="highlight">Act</span>ing - the AI thinks about what to do, does it, sees what happened, and repeats. Like a robot scientist conducting experiments!</p>
@@ -1612,7 +2269,7 @@ Action 4: Finish[Ada Lovelace wrote the first computer PROGRAM in 1843 (theoreti
         </section>
 
         <!-- META PROMPTING SECTION -->
-        <section class="card reveal">
+        <section class="card reveal" id="meta-prompting">
             <h2><i class="fa-solid fa-cubes fa-icon" style="color: var(--accent-teal);"></i>Meta Prompting: Teach the Recipe, Not Just the Dish</h2>
             
             <p><strong>What it is:</strong> Instead of giving examples of the answer, you give the AI a <span class="highlight">template or structure</span> for HOW to think about the problem. You're teaching it the recipe, not just showing finished dishes.</p>
@@ -1758,7 +2415,7 @@ Argument to analyze: "Social media is making teenagers more anxious and depresse
         </section>
 
         <!-- REFLEXION SECTION -->
-        <section class="card reveal">
+        <section class="card reveal" id="reflexion">
             <h2><i class="fa-solid fa-rotate-right fa-icon" style="color: var(--accent-lavender);"></i>Reflexion: Learn From Your Mistakes</h2>
             
             <p><strong>What it is:</strong> After the AI does something, you ask it to <span class="highlight">critique its own work</span>, identify what went wrong, and try again with improvements. It's like having the AI grade its own homework and then redo it!</p>
@@ -1923,7 +2580,7 @@ Write an improved version addressing these issues.</div>
         </section>
 
         <!-- Best Practices Summary -->
-        <section class="card reveal">
+        <section class="card reveal" id="cheat-sheet">
             <h2><i class="fa-solid fa-trophy fa-icon" style="color: var(--accent-sunflower);"></i>The Greatest Hits: Your Prompt Engineering Cheat Sheet</h2>
             
             <p>Look, I just threw a LOT at you. Here's the TL;DR - the stuff that'll give you 80% of the benefits with 20% of the effort:</p>
@@ -2014,7 +2671,7 @@ Write an improved version addressing these issues.</div>
         </section>
 
         <!-- Final Words -->
-        <section class="card reveal">
+        <section class="card reveal" id="conclusion">
             <h2><i class="fa-solid fa-flag-checkered fa-icon" style="color: var(--accent-coral);"></i>Go Forth and Prompt!</h2>
             
             <p>Congratulations! You now know more about prompting than 99% of people using AI. Seriously.</p>
@@ -2047,9 +2704,12 @@ Write an improved version addressing these issues.</div>
         <footer>
             <p><i class="fa-solid fa-paintbrush"></i> Mind & Machine | <a href="index.html">Back to Home</a></p>
         </footer>
+            </div>
+        </main>
     </div>
 
     <script>
+        // Scroll reveal animation
         const revealElements = document.querySelectorAll('.reveal');
         const revealOnScroll = () => {
             revealElements.forEach(el => {
@@ -2060,6 +2720,49 @@ Write an improved version addressing these issues.</div>
         };
         window.addEventListener('scroll', revealOnScroll);
         window.addEventListener('load', revealOnScroll);
+
+        // Sidebar toggle for mobile
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        // Smooth scroll to section
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+                // Close sidebar on mobile after clicking
+                if (window.innerWidth <= 1200) {
+                    document.getElementById('sidebar').classList.remove('open');
+                }
+            }
+        }
+
+        // Active section highlighting in TOC
+        const sections = document.querySelectorAll('section[id]');
+        const tocLinks = document.querySelectorAll('.toc-list a');
+
+        const highlightTOC = () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', highlightTOC);
+        window.addEventListener('load', highlightTOC);
     </script>
 </body>
 </html>
