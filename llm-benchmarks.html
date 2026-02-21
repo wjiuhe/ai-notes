@@ -327,6 +327,40 @@
             text-align: center;
         }
 
+        /* Detailed benchmark cards - vertical layout */
+        .universe-item.detailed {
+            display: block;
+            padding: 12px 15px;
+        }
+
+        .item-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+            font-size: 0.95rem;
+        }
+
+        .item-header i {
+            flex-shrink: 0;
+        }
+
+        .item-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+            padding-left: 28px;
+        }
+
+        .item-tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-left: auto;
+        }
+
         .benchmark-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
