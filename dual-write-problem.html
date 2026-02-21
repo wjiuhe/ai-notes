@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dual Write Problem - Solutions & Illustrations</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Nunito:wght@400;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/styles.css">
+    <style>
+        :root {
+            --bg-cream: #FDF8F3;
+            --bg-paper: #FFFEF9;
+            --accent-coral: #FF6B6B;
+            --accent-teal: #4ECDC4;
+            --accent-sunflower: #FFE66D;
+            --accent-lavender: #C9B1FF;
+            --accent-sky: #A8E6CF;
+            --accent-orange: #E67E22;
+            --text-dark: #2D3436;
+            --text-muted: #636E72;
+            --pencil: #2B2B2B;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg-cream);
+            color: var(--text-dark);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.2rem;
+            color: var(--accent-coral);
+            text-decoration: none;
+            margin-bottom: 20px;
+            transition: transform 0.3s;
+        }
+        .back-link:hover {
+            transform: translateX(-5px);
+        }
+        
+        h1 {
+            font-family: 'Caveat', cursive;
+            font-size: 3.5rem;
+            color: var(--pencil);
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+        h1::after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent-coral), var(--accent-teal), var(--accent-sunflower));
+            border-radius: 3px;
+            opacity: 0.6;
+            margin-top: 5px;
+        }
+        
+        .subtitle {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .section {
+            background: var(--bg-paper);
+            border-radius: 15px;
+            border: 2px solid var(--pencil);
+            padding: 30px;
+            margin-bottom: 25px;
+            box-shadow: 4px 5px 0 rgba(0,0,0,0.1);
+        }
+        
+        .section h2 {
+            font-family: 'Caveat', cursive;
+            font-size: 2rem;
+            color: var(--pencil);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .section h2 .icon {
+            font-size: 1.5rem;
+        }
+        
+        .section p {
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-size: 1.05rem;
+        }
+        
+        /* Hand-drawn diagram styles */
+        .diagram {
+            background: #fff;
+            border: 3px solid var(--pencil);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .diagram::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255,107,107,0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(78,205,196,0.05) 0%, transparent 50%);
+            pointer-events: none;
+        }
+        
+        .diagram-title {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .diagram-grid {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .diagram-box {
+            background: var(--bg-paper);
+            border: 3px solid var(--pencil);
+            border-radius: 15px;
+            padding: 20px;
+            min-width: 140px;
+            text-align: center;
+            position: relative;
+            transition: transform 0.3s;
+        }
+        
+        .diagram-box:hover {
+            transform: translateY(-5px);
+        }
+        
+        .diagram-box .box-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .diagram-box .box-label {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+        }
+        
+        .diagram-arrow {
+            font-size: 2rem;
+            color: var(--pencil);
+            position: relative;
+        }
+        
+        .arrow-label {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Patrick Hand', cursive;
+            font-size: 0.85rem;
+            color: var(--accent-coral);
+            white-space: nowrap;
+        }
+        
+        .arrow-label.error {
+            color: var(--accent-coral);
+            font-weight: bold;
+        }
+        
+        .diagram-arrow.error {
+            color: var(--accent-coral);
+        }
+        
+        /* Problem Scenario */
+        .scenario {
+            background: #FFF5F5;
+            border-left: 5px solid var(--accent-coral);
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 10px 10px 0;
+        }
+        
+        .scenario-title {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.2rem;
+            color: var(--accent-coral);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        /* Solutions */
+        .solution {
+            background: linear-gradient(135deg, #f8fffe 0%, #fffef9 100%);
+            border: 2px solid var(--accent-teal);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        
+        .solution-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .solution-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--accent-teal);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .solution h3 {
+            font-family: 'Caveat', cursive;
+            font-size: 1.6rem;
+            color: var(--pencil);
+        }
+        
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .pros, .cons {
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .pros {
+            background: rgba(78,205,196,0.1);
+            border: 2px solid var(--accent-teal);
+        }
+        
+        .cons {
+            background: rgba(255,107,107,0.1);
+            border: 2px solid var(--accent-coral);
+        }
+        
+        .pros h4, .cons h4 {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+        
+        .pros h4 { color: var(--accent-teal); }
+        .cons h4 { color: var(--accent-coral); }
+        
+        .pros ul, .cons ul {
+            list-style: none;
+            font-size: 0.95rem;
+        }
+        
+        .pros li, .cons li {
+            padding: 4px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .pros li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent-teal);
+        }
+        
+        .cons li::before {
+            content: '✗';
+            position: absolute;
+            left: 0;
+            color: var(--accent-coral);
+        }
+        
+        /* Step by step */
+        .steps {
+            counter-reset: step;
+        }
+        
+        .step {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 45px;
+            bottom: -20px;
+            width: 3px;
+            background: var(--accent-lavender);
+            border-radius: 2px;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--accent-lavender);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.2rem;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex: 1;
+            padding-top: 8px;
+        }
+        
+        .step-content h4 {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        
+        /* Comparison Table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .comparison-table th, .comparison-table td {
+            border: 2px solid var(--pencil);
+            padding: 12px;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+        
+        .comparison-table th {
+            background: var(--pencil);
+            color: white;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1rem;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: rgba(0,0,0,0.02);
+        }
+        
+        .check { color: var(--accent-teal); font-weight: bold; }
+        .cross { color: var(--accent-coral); font-weight: bold; }
+        
+        /* Hand-drawn highlight */
+        .highlight-box {
+            background: linear-gradient(135deg, var(--accent-sunflower) 0%, #fff5cc 100%);
+            border: 3px dashed var(--pencil);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .highlight-box p {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.2rem;
+            color: var(--text-dark);
+        }
+        
+        /* Code example */
+        .code-example {
+            background: #2d3436;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        
+        .code-example pre {
+            color: #dfe6e9;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        .code-example .comment { color: #6c5ce7; }
+        .code-example .keyword { color: #00b894; }
+        .code-example .string { color: #fdcb6e; }
+        .code-example .function { color: #74b9ff; }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            .section { padding: 20px; }
+            .diagram-grid { flex-direction: column; }
+            .diagram-arrow { transform: rotate(90deg); }
+            .pros-cons { grid-template-columns: 1fr; }
+            .comparison-table { font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">
+            <span>←</span> Back to Mind & Machine
+        </a>
+        
+        <h1>The Dual Write Problem 🔄</h1>
+        <p class="subtitle">Understanding and Solving the Atomic Write Challenge in Microservices</p>
+        
+        <!-- Problem Definition -->
+        <div class="section">
+            <h2><span class="icon">⚠️</span> What is the Dual Write Problem?</h2>
+            <p>The <strong>Dual Write Problem</strong> occurs when a microservice needs to write to two external systems (like a database AND Apache Kafka) in an atomic fashion, but these systems cannot be wrapped in a single transaction.</p>
+            
+            <div class="scenario">
+                <div class="scenario-title">💸 Real-World Example: Banking Transaction</div>
+                <p>When a user pays a bill, the system must:</p>
+                <p>1. <strong>Write to database:</strong> Update the account balance (money deducted)</p>
+                <p>2. <strong>Emit event to Kafka:</strong> Trigger the payment processing</p>
+                <p><strong>The problem:</strong> If the database write succeeds but Kafka fails → money is gone but payment never happens!</p>
+            </div>
+        </div>
+        
+        <!-- Problem Diagram -->
+        <div class="section">
+            <div class="diagram">
+                <div class="diagram-title">🚫 The Problem: Two Systems, No Transaction</div>
+                <div class="diagram-grid">
+                    <div class="diagram-box" style="border-color: var(--accent-teal);">
+                        <div class="box-icon">💾</div>
+                        <div class="box-label">Database</div>
+                    </div>
+                    <div class="diagram-arrow error">
+                        <span class="arrow-label error">⚠️ FAILURE POINT</span>
+                        →
+                    </div>
+                    <div class="diagram-box" style="border-color: var(--accent-coral);">
+                        <div class="box-icon">📨</div>
+                        <div class="box-label">Kafka</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Invalid Solutions -->
+        <div class="section">
+            <h2><span class="icon">❌</span> Why Simple Solutions Don't Work</h2>
+            
+            <div class="solution" style="border-color: var(--accent-coral);">
+                <div class="solution-header">
+                    <div class="solution-icon" style="background: var(--accent-coral);">1</div>
+                    <h3>Emit Event First, Then Write Database</h3>
+                </div>
+                <p><strong>Still has the problem!</strong> If database write fails after event is emitted, you have an event for a transaction that never happened.</p>
+                <div class="diagram" style="padding: 15px;">
+                    <div class="diagram-grid">
+                        <div class="diagram-box" style="border-color: var(--accent-coral); min-width: 100px;">
+                            <div class="box-icon">📨</div>
+                            <div class="box-label">Kafka</div>
+                        </div>
+                        <div class="diagram-arrow error">→</div>
+                        <div class="diagram-box" style="border-color: var(--accent-coral); min-width: 100px;">
+                            <div class="box-icon">💾</div>
+                            <div class="box-label">DB (fails)</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="solution" style="border-color: var(--accent-coral);">
+                <div class="solution-header">
+                    <div class="solution-icon" style="background: var(--accent-coral);">2</div>
+                    <h3>Use a Database Transaction</h3>
+                </div>
+                <p><strong>Still doesn't work!</strong> There's no transaction spanning both database AND Kafka. If event is published but transaction isn't committed → event goes out but state rolls back!</p>
+            </div>
+        </div>
+        
+        <!-- Solutions -->
+        <div class="section">
+            <h2><span class="icon">✅</span> Solutions to the Dual Write Problem</h2>
+            
+            <!-- Solution 1: Transactional Outbox -->
+            <div class="solution">
+                <div class="solution-header">
+                    <div class="solution-icon">📬</div>
+                    <h3>1. Transactional Outbox Pattern</h3>
+                </div>
+                <p>Use a database transaction to write BOTH your data AND an "outbox" table. A separate process then reads the outbox and publishes to Kafka.</p>
+                
+                <div class="diagram">
+                    <div class="diagram-title">📬 Transactional Outbox Pattern</div>
+                    <div class="diagram-grid">
+                        <div class="diagram-box" style="border-color: var(--accent-teal);">
+                            <div class="box-icon">👤</div>
+                            <div class="box-label">User Request</div>
+                        </div>
+                        <div class="diagram-arrow">→</div>
+                        <div class="diagram-box" style="border-color: var(--accent-teal);">
+                            <div class="box-icon">⚡</div>
+                            <div class="box-label">1 Transaction</div>
+                        </div>
+                        <div class="diagram-arrow">→</div>
+                        <div class="diagram-box" style="border-color: var(--accent-teal);">
+                            <div class="box-icon">📊</div>
+                            <div class="box-label">Data + Outbox</div>
+                        </div>
+                        <div class="diagram-arrow" style="color: var(--accent-teal);">↓</div>
+                    </div>
+                    <div class="diagram-grid" style="margin-top: 15px;">
+                        <div class="diagram-box" style="border-color: var(--accent-lavender); background: #f8f0ff;">
+                            <div class="box-icon">🔄</div>
+                            <div class="box-label">CDC/Worker</div>
+                        </div>
+                        <div class="diagram-arrow" style="color: var(--accent-lavender);">→</div>
+                        <div class="diagram-box" style="border-color: var(--accent-lavender); background: #f8f0ff;">
+                            <div class="box-icon">📨</div>
+                            <div class="box-label">Kafka</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Write to Database + Outbox in Single Transaction</h4>
+                            <p>Both the business data AND the event are written atomically in one database transaction.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Respond to User</h4>
+                            <p>Transaction committed! User gets success response. No waiting for Kafka.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Separate Process Reads Outbox</h4>
+                            <p>CDC (Debezium) or custom worker polls the outbox table for unpublished events.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>Publish to Kafka</h4>
+                            <p>Events are published to Kafka with at-least-once guarantee. Mark as processed.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>✓ Pros</h4>
+                        <ul>
+                            <li>Guaranteed consistency</li>
+                            <li>Simple to understand</li>
+                            <li>Works with any SQL database</li>
+                            <li>Resilient to failures</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>✗ Cons</h4>
+                        <ul>
+                            <li>Additional database write</li>
+                            <li>At-least-once delivery (needs idempotency)</li>
+                            <li>Potential performance overhead</li>
+                            <li>Outbox table can grow large</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Solution 2: Event Sourcing -->
+            <div class="solution">
+                <div class="solution-header">
+                    <div class="solution-icon" style="background: var(--accent-sunflower);">📜</div>
+                    <h3>2. Event Sourcing</h3>
+                </div>
+                <p>Don't store current state - store ONLY the sequence of events. The state is reconstructed by replaying events. Kafka IS your database!</p>
+                
+                <div class="diagram">
+                    <div class="diagram-title">📜 Event Sourcing - Events as Source of Truth</div>
+                    <div class="diagram-grid">
+                        <div class="diagram-box" style="border-color: var(--accent-sunflower); background: #fffbf0;">
+                            <div class="box-icon">💰</div>
+                            <div class="box-label">$100</div>
+                        </div>
+                        <div class="diagram-arrow">+</div>
+                        <div class="diagram-box" style="border-color: var(--accent-sunflower); background: #fffbf0;">
+                            <div class="box-icon">💸</div>
+                            <div class="box-label">-$50</div>
+                        </div>
+                        <div class="diagram-arrow">=</div>
+                        <div class="diagram-box" style="border-color: var(--accent-sunflower); background: #fffbf0;">
+                            <div class="box-icon">💵</div>
+                            <div class="box-label">$50</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="diagram">
+                    <div class="diagram-title">🔄 Reconstructing State</div>
+                    <div class="diagram-grid">
+                        <div class="diagram-box" style="border-color: var(--accent-sunflower);">
+                            <div class="box-icon">📜</div>
+                            <div class="box-label">Event Log</div>
+                        </div>
+                        <div class="diagram-arrow" style="color: var(--accent-sunflower);">→</div>
+                        <div class="diagram-box" style="border-color: var(--accent-sunflower);">
+                            <div class="box-icon">⚙️</div>
+                            <div class="box-label">Replay</div>
+                        </div>
+                        <div class="diagram-arrow" style="color: var(--accent-sunflower);">→</div>
+                        <div class="diagram-box" style="border-color: var(--accent-sunflower);">
+                            <div class="box-icon">💾</div>
+                            <div class="box-label">Current State</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Store Events Only</h4>
+                            <p>Instead of updating state, append events to an event store (Kafka topic or database table).</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Kafka as Event Store</h4>
+                            <p>Use Kafka topics as the permanent event log. It's already durable and ordered!</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Reconstruct on Read</h4>
+                            <p>When needed, replay events to reconstruct the current state (or use snapshots).</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="highlight-box">
+                    <p>🏦 <strong>Banks use this!</strong> They don't store your balance - they store all transactions!</p>
+                </div>
+                
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>✓ Pros</h4>
+                        <ul>
+                            <li>Complete audit trail</li>
+                            <li>Natural fit for Kafka</li>
+                            <li>Time-travel debugging</li>
+                            <li>Easy event replay</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>✗ Cons</h4>
+                        <ul>
+                            <li>Complex queries (use CQRS)</li>
+                            <li>Event schema evolution needed</li>
+                            <li>Replay can be slow</li>
+                            <li>Learning curve</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Solution 3: Listen to Yourself -->
+            <div class="solution">
+                <div class="solution-header">
+                    <div class="solution-icon" style="background: var(--accent-lavender);">👂</div>
+                    <h3>3. Listen to Yourself Pattern</h3>
+                </div>
+                <p>Write to Kafka FIRST, then have your own service consume that event to update the database. You're both producer AND consumer!</p>
+                
+                <div class="diagram">
+                    <div class="diagram-title">👂 Listen to Yourself - Reverse the Flow</div>
+                    <div class="diagram-grid">
+                        <div class="diagram-box" style="border-color: var(--accent-lavender);">
+                            <div class="box-icon">👤</div>
+                            <div class="box-label">Request</div>
+                        </div>
+                        <div class="diagram-arrow">→</div>
+                        <div class="diagram-box" style="border-color: var(--accent-lavender);">
+                            <div class="box-icon">📨</div>
+                            <div class="box-label">Kafka Only</div>
+                        </div>
+                        <div class="diagram-arrow" style="color: var(--accent-lavender);">↓</div>
+                    </div>
+                    <div class="diagram-grid" style="margin-top: 15px;">
+                        <div class="diagram-box" style="border-color: var(--accent-lavender); background: #f8f0ff;">
+                            <div class="box-icon">👂</div>
+                            <div class="box-label">Consume Event</div>
+                        </div>
+                        <div class="diagram-arrow" style="color: var(--accent-lavender);">→</div>
+                        <div class="diagram-box" style="border-color: var(--accent-lavender); background: #f8f0ff;">
+                            <div class="box-icon">💾</div>
+                            <div class="box-label">Update DB</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Write Only to Kafka</h4>
+                            <p>Convert command to event and write ONLY to Kafka. Return immediately - no database write!</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Respond to User</h4>
+                            <p>Fast response! Event is safely in Kafka.</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Consume Your Own Events</h4>
+                            <p>Your service listens to its own Kafka topic and processes events to update the database.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="highlight-box">
+                    <p>⚡ <strong>Great for fast responses!</strong> User gets immediate acknowledgment, processing happens async.</p>
+                </div>
+                
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>✓ Pros</h4>
+                        <ul>
+                            <li>Fast user response</li>
+                            <li>No dual write!</li>
+                            <li>Decouples processing</li>
+                            <li>Simple logic flow</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>✗ Cons</h4>
+                        <ul>
+                            <li>Eventual consistency</li>
+                            <li>Validation after response</li>
+                            <li>Need to handle errors</li>
+                            <li>Race conditions possible</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Solution 4: Change Data Capture -->
+            <div class="solution">
+                <div class="solution-header">
+                    <div class="solution-icon" style="background: var(--accent-orange);">🔭</div>
+                    <h3>4. Change Data Capture (CDC)</h3>
+                </div>
+                <p>Let a CDC tool (like Debezium) monitor your database and automatically stream changes to Kafka. No code changes needed!</p>
+                
+                <div class="diagram">
+                    <div class="diagram-title">🔭 CDC - Database Watching</div>
+                    <div class="diagram-grid">
+                        <div class="diagram-box" style="border-color: var(--accent-orange);">
+                            <div class="box-icon">💾</div>
+                            <div class="box-label">Database</div>
+                        </div>
+                        <div class="diagram-arrow" style="color: var(--accent-orange);">→</div>
+                        <div class="diagram-box" style="border-color: var(--accent-orange); background: #fff5f0;">
+                            <div class="box-icon">🔭</div>
+                            <div class="box-label">CDC Tool</div>
+                        </div>
+                        <div class="diagram-arrow" style="color: var(--accent-orange);">→</div>
+                        <div class="diagram-box" style="border-color: var(--accent-orange); background: #fff5f0;">
+                            <div class="box-icon">📨</div>
+                            <div class="box-label">Kafka</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>✓ Pros</h4>
+                        <ul>
+                            <li>No application code needed</li>
+                            <li>Works with existing apps</li>
+                            <li>Captures all changes</li>
+                            <li>Low latency</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>✗ Cons</h4>
+                        <ul>
+                            <li>Additional infrastructure</li>
+                            <li>Database-specific</li>
+                            <li>Setup complexity</li>
+                            <li>May miss edge cases</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Comparison -->
+        <div class="section">
+            <h2><span class="icon">📊</span> Solution Comparison</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Pattern</th>
+                        <th>Consistency</th>
+                        <th>Complexity</th>
+                        <th>Latency</th>
+                        <th>Audit Trail</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Transactional Outbox</td>
+                        <td class="check">✓ Strong</td>
+                        <td>Medium</td>
+                        <td>Low</td>
+                        <td class="cross">✗</td>
+                    </tr>
+                    <tr>
+                        <td>Event Sourcing</td>
+                        <td class="check">✓ Strong</td>
+                        <td>High</td>
+                        <td>Medium</td>
+                        <td class="check">✓ Complete</td>
+                    </tr>
+                    <tr>
+                        <td>Listen to Yourself</td>
+                        <td class="cross">✗ Eventual</td>
+                        <td>Low</td>
+                        <td>Very Low</td>
+                        <td class="check">✓</td>
+                    </tr>
+                    <tr>
+                        <td>CDC</td>
+                        <td class="check">✓ Strong</td>
+                        <td>Medium</td>
+                        <td>Low</td>
+                        <td class="cross">✗</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- When to Use What -->
+        <div class="section">
+            <h2><span class="icon">🎯</span> Which Pattern Should You Use?</h2>
+            
+            <div class="solution" style="border-color: var(--accent-teal);">
+                <h3>Use Transactional Outbox when:</h3>
+                <ul style="list-style: none; padding: 10px 0;">
+                    <li>✓ You have a transactional database</li>
+                    <li>✓ You need strong consistency</li>
+                    <li>✓ You want a simple, well-understood pattern</li>
+                    <li>✓ Regulatory compliance requires atomicity</li>
+                </ul>
+            </div>
+            
+            <div class="solution" style="border-color: var(--accent-sunflower);">
+                <h3>Use Event Sourcing when:</h3>
+                <ul style="list-style: none; padding: 10px 0;">
+                    <li>✓ Complete audit trail is required (banking, healthcare)</li>
+                    <li>✓ You need to replay events for debugging</li>
+                    <li>✓ Business domain naturally fits event model</li>
+                    <li>✓ You need temporal queries ("state at time X")</li>
+                </ul>
+            </div>
+            
+            <div class="solution" style="border-color: var(--accent-lavender);">
+                <h3>Use Listen to Yourself when:</h3>
+                <ul style="list-style: none; padding: 10px 0;">
+                    <li>✓ Fast response time is critical</li>
+                    <li>✓ Complex processing can be deferred</li>
+                    <li>✓ Eventual consistency is acceptable</li>
+                    <li>✓ Processing can happen async</li>
+                </ul>
+            </div>
+            
+            <div class="solution" style="border-color: var(--accent-orange);">
+                <h3>Use CDC when:</h3>
+                <ul style="list-style: none; padding: 10px 0;">
+                    <li>✓ You can't modify existing application code</li>
+                    <li>✓ You need to capture legacy system changes</li>
+                    <li>✓ Real-time change notification needed</li>
+                    <li>✓ Existing app already writes to database</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Summary -->
+        <div class="section">
+            <h2><span class="icon">💡</span> Key Takeaways</h2>
+            <div class="highlight-box">
+                <p>1. The dual write problem is real and dangerous - don't ignore it!</p>
+                <p>2. Never assume both writes will succeed - plan for failure</p>
+                <p>3. Choose the pattern that fits your consistency requirements</p>
+                <p>4. At-least-once delivery is common - build idempotent consumers</p>
+                <p>5. Test your failure scenarios!</p>
+            </div>
+        </div>
+        
+        <footer style="text-align: center; font-family: 'Patrick Hand', cursive; color: var(--text-muted); margin-top: 40px; padding-top: 20px; border-top: 2px dashed var(--pencil);">
+            <p>📝 Study notes based on Confluent Developer Courses</p>
+            <p>Dual Write Problem | Transactional Outbox | Event Sourcing | CDC</p>
+        </footer>
+    </div>
+</body>
+</html>
