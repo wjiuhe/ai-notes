@@ -36,6 +36,56 @@
             text-align: center;
             margin-bottom: 30px;
         }
+
+        .author-intro {
+            background: var(--bg-paper);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            padding: 25px 30px;
+            margin: 20px auto 30px;
+            max-width: 700px;
+            border: 2px solid var(--pencil);
+            box-shadow: 3px 4px 0 rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .author-name {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.3rem;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+        }
+
+        .author-title {
+            font-family: 'Caveat', cursive;
+            font-size: 1.1rem;
+            color: var(--accent-teal);
+            margin-bottom: 12px;
+        }
+
+        .author-bio {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .author-links {
+            margin-top: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .author-links a {
+            color: var(--accent-coral);
+            text-decoration: none;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .author-links a:hover {
+            color: var(--accent-teal);
+        }
         h1 {
             font-family: 'Caveat', cursive;
             font-size: 4rem;
@@ -367,7 +417,21 @@
             <h1>Mind & Machine</h1>
             <p class="subtitle">Notes on AI, Agents, and Beyond</p>
         </header>
-        
+
+        <div class="author-intro">
+            <div class="author-name">William Jiuhe Wang</div>
+            <div class="author-title">Bot Shepherd // Model Wrangler</div>
+            <div class="author-bio">
+                11+ years shipping code that matters. Production-grade AI systems, real-time data pipelines,
+                and scalable infrastructure. Currently hacking on LLMs and distributed systems in fintech.
+            </div>
+            <div class="author-links">
+                <a href="https://wjiuhe.com" target="_blank"><i class="fa-solid fa-globe"></i> Website</a>
+                <a href="https://github.com/jiuhewang" target="_blank"><i class="fa-brands fa-github"></i> GitHub</a>
+                <a href="https://linkedin.com/in/jiuhewang" target="_blank"><i class="fa-brands fa-linkedin"></i> LinkedIn</a>
+            </div>
+        </div>
+
         <div class="controls">
             <div class="filter-section">
                 <span class="filter-label"><i class="fa-solid fa-filter"></i> Filter:</span>
