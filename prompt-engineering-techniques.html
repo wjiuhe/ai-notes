@@ -281,6 +281,21 @@
             font-family: 'Patrick Hand', cursive;
         }
 
+        .example-list {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        .example-list li {
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .example-list li::marker {
+            color: var(--accent-teal);
+            font-weight: bold;
+        }
+
         @media (max-width: 768px) {
             .technique-grid { grid-template-columns: 1fr; }
             .comparison-box { flex-direction: column; }
@@ -293,732 +308,1740 @@
         
         <header>
             <h1>Prompt Engineering Techniques</h1>
-            <p class="subtitle">A Visual Guide to Getting Better Results from LLMs</p>
+            <p class="subtitle">How to Talk to AI So It Actually Listens (And Doesn't Hallucinate)</p>
         </header>
 
-        <!-- Overview Section -->
+        <!-- Introduction -->
         <section class="card reveal">
-            <h2><i class="fa-solid fa-book-open fa-icon"></i>What is Prompt Engineering?</h2>
-            <p>Prompt engineering is the art and science of designing effective prompts to get better results from Large Language Models (LLMs). Think of it like <span class="highlight">learning to ask better questions</span> to get better answers.</p>
+            <h2><i class="fa-solid fa-comments fa-icon"></i>Why Bother Learning This Stuff?</h2>
+            <p>Ever asked ChatGPT something and got back word salad that sounds smart but means nothing? Yeah, we've all been there. <span class="highlight">The problem isn't the AI—it's how we're asking.</span></p>
             
+            <p>Think of prompt engineering like learning to order coffee at that fancy hipster café. You could just say "coffee" and hope for the best (spoiler: you'll get something weird). Or you could say "medium oat milk latte with one pump vanilla, extra hot, in a mug not a paper cup." See the difference?</p>
+
             <div class="insight-box">
                 <div class="insight-icon"><i class="fa-solid fa-lightbulb"></i></div>
                 <div>
-                    <strong>Key Insight:</strong> The same LLM can give dramatically different outputs based on how you phrase your prompt. Good prompt engineering can turn a mediocre response into an excellent one without changing the model!
+                    <strong>The Secret Sauce:</strong> Most people treat AI like a magic 8-ball. Shake it, ask a vague question, get a vague answer. But AI is more like a very literal intern who's read the entire internet—give clear instructions, and it'll blow your mind with what it can do.
                 </div>
             </div>
-
-            <p>We'll cover techniques ranging from <strong>basic to advanced</strong>, with practical examples you can use immediately. Let's start with the fundamentals.</p>
         </section>
 
         <!-- Technique Navigator -->
         <section class="card reveal">
-            <h2><i class="fa-solid fa-compass fa-icon"></i>Technique Navigator</h2>
-            <p>Here are all the techniques we'll cover, organized by difficulty level:</p>
+            <h2><i class="fa-solid fa-map fa-icon"></i>Your Prompt Engineering Menu</h2>
+            <p>Here's everything we're cooking up today. Each technique is like a different spice—use the right one for the right dish:</p>
             
             <div class="technique-grid">
                 <div class="technique-card beginner">
                     <div class="technique-icon"><i class="fa-solid fa-0"></i></div>
                     <div class="technique-name">Zero-Shot</div>
-                    <div class="technique-level">Beginner</div>
+                    <div class="technique-level">"Just Ask" Level</div>
                 </div>
                 <div class="technique-card beginner">
                     <div class="technique-icon"><i class="fa-solid fa-1"></i></div>
                     <div class="technique-name">Few-Shot</div>
-                    <div class="technique-level">Beginner</div>
+                    <div class="technique-level">"Show Don't Tell" Level</div>
                 </div>
                 <div class="technique-card beginner">
                     <div class="technique-icon"><i class="fa-solid fa-user-tie"></i></div>
-                    <div class="technique-name">Role Assignment</div>
-                    <div class="technique-level">Beginner</div>
+                    <div class="technique-name">Role Play</div>
+                    <div class="technique-level">"Wear a Costume" Level</div>
                 </div>
                 <div class="technique-card intermediate">
                     <div class="technique-icon"><i class="fa-solid fa-link"></i></div>
                     <div class="technique-name">Chain-of-Thought</div>
-                    <div class="technique-level">Intermediate</div>
+                    <div class="technique-level">"Show Your Work" Level</div>
                 </div>
                 <div class="technique-card intermediate">
                     <div class="technique-icon"><i class="fa-solid fa-list-check"></i></div>
                     <div class="technique-name">Self-Consistency</div>
-                    <div class="technique-level">Intermediate</div>
+                    <div class="technique-level">"Ask Three Times" Level</div>
                 </div>
                 <div class="technique-card intermediate">
                     <div class="technique-icon"><i class="fa-solid fa-chain"></i></div>
                     <div class="technique-name">Prompt Chaining</div>
-                    <div class="technique-level">Intermediate</div>
+                    <div class="technique-level">"Assembly Line" Level</div>
                 </div>
                 <div class="technique-card advanced">
                     <div class="technique-icon"><i class="fa-solid fa-sitemap"></i></div>
                     <div class="technique-name">Tree of Thoughts</div>
-                    <div class="technique-level">Advanced</div>
+                    <div class="technique-level">"Explore All Paths" Level</div>
                 </div>
                 <div class="technique-card advanced">
                     <div class="technique-icon"><i class="fa-solid fa-database"></i></div>
                     <div class="technique-name">RAG</div>
-                    <div class="technique-level">Advanced</div>
+                    <div class="technique-level">"Bring Your Own Facts" Level</div>
                 </div>
                 <div class="technique-card advanced">
                     <div class="technique-icon"><i class="fa-solid fa-arrows-rotate"></i></div>
                     <div class="technique-name">ReAct</div>
-                    <div class="technique-level">Advanced</div>
+                    <div class="technique-level">"Think, Do, Observe" Level</div>
+                </div>
+                <div class="technique-card advanced">
+                    <div class="technique-icon"><i class="fa-solid fa-cubes"></i></div>
+                    <div class="technique-name">Meta Prompting</div>
+                    <div class="technique-level">"Teach the Recipe" Level</div>
+                </div>
+                <div class="technique-card advanced">
+                    <div class="technique-icon"><i class="fa-solid fa-mirror"></i></div>
+                    <div class="technique-name">Reflexion</div>
+                    <div class="technique-level">"Learn From Mistakes" Level</div>
                 </div>
             </div>
         </section>
 
-        <!-- Section 1: Beginner Techniques -->
+        <!-- ZERO-SHOT SECTION -->
         <section class="card reveal">
-            <h2><i class="fa-solid fa-seedling fa-icon" style="color: var(--accent-green);"></i>Beginner Techniques</h2>
-            <p>These foundational techniques form the basis of all prompt engineering. Master these first!</p>
-        </section>
+            <h2><i class="fa-solid fa-0 fa-icon" style="color: var(--accent-coral);"></i>Zero-Shot: The "Just Ask" Method</h2>
+            
+            <p><strong>What it is:</strong> You ask the AI to do something <span class="highlight">without giving it any examples first</span>. Like asking your friend to pass the salt without demonstrating how salt-passing works.</p>
 
-        <!-- Zero-Shot Prompting -->
-        <section class="card reveal">
-            <h2><i class="fa-solid fa-0 fa-icon" style="color: var(--accent-coral);"></i>Zero-Shot Prompting</h2>
-            <p><strong>Concept:</strong> Ask the AI to perform a task <span class="highlight">without giving any examples</span>. Modern LLMs like GPT-4, Claude, and Gemini are trained on vast amounts of data, so they often understand what you want just from a clear instruction.</p>
+            <p>Modern AI models (GPT-4, Claude, Gemini) have basically read the entire internet. So for common tasks, they often know exactly what you want. It's like having a friend who's seen every cooking show ever—you don't need to teach them what "dice an onion" means.</p>
 
-            <h3>The Magic of Zero-Shot</h3>
-            <p>Think of zero-shot prompting like asking a well-read friend for help. You don't need to teach them how to do something—they already know!</p>
-
-            <div class="code-block">
-                <div class="code-header">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                    <span>Zero-Shot Example</span>
-                </div>
-                <div class="code-content"><span class="comment">// Simply describe what you want</span>
-Classify the text into neutral, negative or positive.
-
-Text: I think the vacation is okay.
-Sentiment:</div>
-            </div>
-
-            <div class="insight-box">
-                <div class="insight-icon"><i class="fa-solid fa-check-circle"></i></div>
-                <div>
-                    <strong>Output:</strong> "Neutral"
-                </div>
-            </div>
-
-            <h3>When to Use Zero-Shot</h3>
-            <ul style="margin: 15px 0; padding-left: 30px;">
-                <li>Simple, well-defined tasks (classification, summarization)</li>
-                <li>When you don't have examples handy</li>
-                <li>Quick experimentation and prototyping</li>
-                <li>Tasks the model is clearly trained on</li>
+            <h3>When Zero-Shot Works Great</h3>
+            <ul class="example-list">
+                <li>Simple classification (sorting things into categories)</li>
+                <li>Summarizing text</li>
+                <li>Translating languages</li>
+                <li>Basic creative writing</li>
+                <li>Formatting conversions</li>
             </ul>
 
-            <h3>Real-World Example</h3>
+            <h3>5 Original Zero-Shot Examples</h3>
+            
+            <h4>Example 1: Sorting Emails</h4>
             <div class="code-block">
                 <div class="code-header">
                     <span class="dot red"></span>
                     <span class="dot yellow"></span>
                     <span class="dot green"></span>
-                    <span>Customer Email Classification</span>
+                    <span>Email Triaging</span>
                 </div>
-                <div class="code-content">Categorize this customer email into: Billing, Technical Support, Sales, or General Inquiry.
+                <div class="code-content">Sort this email into one of these categories: URGENT, ROUTINE, SPAM, or NEWSLETTER
 
-Email: "Hi, I was charged twice for my subscription this month. Can you help?"
+Email Subject: "Your Amazon order #12345 has shipped"
+
 Category:</div>
             </div>
-        </section>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-check-circle"></i></div>
+                <div><strong>AI Says:</strong> "ROUTINE" (Because it's just a shipping notification, not your house burning down)</div>
+            </div>
 
-        <!-- Few-Shot Prompting -->
-        <section class="card reveal">
-            <h2><i class="fa-solid fa-1 fa-icon" style="color: var(--accent-teal);"></i>Few-Shot Prompting</h2>
-            <p><strong>Concept:</strong> Provide <span class="highlight">a few examples (demonstrations)</span> of the task before asking the AI to perform it. This is like "show, don't just tell."</p>
-
-            <h3>Why Few-Shot Works</h3>
-            <p>Humans learn by example, and so do LLMs! By showing the pattern, you condition the model to follow that same pattern.</p>
-
+            <h4>Example 2: Movie Genre Detection</h4>
             <div class="code-block">
                 <div class="code-header">
                     <span class="dot red"></span>
                     <span class="dot yellow"></span>
                     <span class="dot green"></span>
-                    <span>Few-Shot Example</span>
+                    <span>Genre Guessing Game</span>
                 </div>
-                <div class="code-content"><span class="comment">// Example 1 - Show the pattern</span>
-A "whatpu" is a small, furry animal native to Tanzania. An example of a sentence that uses the word whatpu is:
-We were traveling in Africa and we saw these very cute whatpus.
+                <div class="code-content">What genre is this movie description?
 
-<span class="comment">// Example 2 - Same pattern, different word</span>
-To do a "farduddle" means to jump up and down really fast. An example of a sentence that uses the word farduddle is:</div>
+"A group of astronauts discovers a mysterious monolith near Jupiter that seems to be affecting human evolution. Their AI system starts acting strangely, and soon the crew must fight for survival against their own computer."
+
+Genre:</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-check-circle"></i></div>
+                <div><strong>AI Says:</strong> "Science Fiction / Psychological Thriller" (Recognizes 2001: A Space Odyssey vibes)</div>
             </div>
 
+            <h4>Example 3: Cooking Time Estimator</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Kitchen Helper</span>
+                </div>
+                <div class="code-content">Estimate the total cooking time for this meal:
+- Marinate chicken: 30 minutes
+- Cook rice: 20 minutes  
+- Stir-fry vegetables: 10 minutes
+- Make sauce: 5 minutes
+
+What can be done in parallel? What's the minimum total time needed?</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-check-circle"></i></div>
+                <div><strong>AI Says:</strong> "35 minutes total. Start marinating chicken first (30 min). During last 20 minutes: start rice. During last 10 minutes: stir-fry veggies and make sauce simultaneously."</div>
+            </div>
+
+            <h4>Example 4: Tone Analyzer</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Vibe Check</span>
+                </div>
+                <div class="code-content">Analyze the tone of this Slack message from my boss:
+
+"Hey, quick question - do you have 5 mins to chat about the project? No rush, whenever you're free."
+
+Tone (choose: ANXIOUS, CASUAL, URGENT, PASSIVE-AGGRESSIVE, FRIENDLY):</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-check-circle"></i></div>
+                <div><strong>AI Says:</strong> "CASUAL / FRIENDLY" (Notes the "no rush" and casual language suggests low pressure)</div>
+            </div>
+
+            <h4>Example 5: Code Language Detector</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Code Detective</span>
+                </div>
+                <div class="code-content">What programming language is this code written in?
+
+def greet_user(name):
+    return f"Hello, {name}! Welcome aboard."
+
+print(greet_user("Alice"))</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-check-circle"></i></div>
+                <div><strong>AI Says:</strong> "Python" (Recognizes f-strings and function syntax)</div>
+            </div>
+        </section>
+
+        <!-- FEW-SHOT SECTION -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-1 fa-icon" style="color: var(--accent-teal);"></i>Few-Shot: Show, Don't Just Tell</h2>
+            
+            <p><strong>What it is:</strong> Give the AI <span class="highlight">2-4 examples</span> of exactly what you want, then ask it to continue the pattern. It's like teaching someone a card game by playing a few rounds before they play for real.</p>
+
+            <p>Think about it: if you asked someone to "write like Shakespeare" without ever showing them Shakespeare, they'd probably just use a bunch of "thees" and "thous" and call it a day. But show them 3 actual Shakespearean sonnets first? Now they're cooking with gas.</p>
+
+            <h3>5 Original Few-Shot Examples</h3>
+
+            <h4>Example 1: Inventing New Slang</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Slang Generator</span>
+                </div>
+                <div class="code-content">Here are some examples of modern slang and their definitions:
+
+"Glow up" = A personal transformation for the better, usually in appearance or confidence
+"Spill the tea" = Share the gossip or juicy details
+"Living rent-free" = Something you can't stop thinking about
+
+Now define this made-up slang term:
+
+"Keyboard warrioring" =</div>
+            </div>
             <div class="insight-box">
                 <div class="insight-icon"><i class="fa-solid fa-magic"></i></div>
-                <div>
-                    <strong>Output:</strong> "When we won the game, we all started to farduddle in celebration."
-                </div>
+                <div><strong>AI Pattern-Matches To:</strong> "Being overly aggressive or argumentative online while being passive in real life" (Follows the pattern: slang term = detailed definition)</div>
             </div>
 
-            <h3>The Power of Examples</h3>
-            <div class="comparison-box">
-                <div class="comparison-item bad">
-                    <div class="comparison-icon"><i class="fa-solid fa-thumbs-down"></i></div>
-                    <div class="comparison-label">Zero-Shot (Unclear)</div>
-                    <p><strong>Prompt:</strong> "Write a haiku about coding."</p>
-                    <p style="margin-top: 10px; color: var(--accent-red);"><strong>Result:</strong> Might not follow 5-7-5 structure correctly</p>
-                </div>
-                <div class="comparison-item good">
-                    <div class="comparison-icon"><i class="fa-solid fa-thumbs-up"></i></div>
-                    <div class="comparison-label">Few-Shot (Clear)</div>
-                    <p><strong>Prompt:</strong> "Here are haikus:</p>
-                    <p>Lines of code dance bright (5)<br>
-                    Logic flows like gentle streams (7)<br>
-                    Bugs hide in the dark (5)</p>
-                    <p style="margin-top: 10px; color: var(--accent-green);"><strong>Result:</strong> Model follows the 5-7-5 pattern!</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Role Assignment -->
-        <section class="card reveal">
-            <h2><i class="fa-solid fa-user-tie fa-icon" style="color: var(--accent-sunflower);"></i>Role Assignment</h2>
-            <p><strong>Concept:</strong> Tell the AI to adopt a specific persona or role. This dramatically changes the tone, expertise level, and perspective of responses.</p>
-
-            <h3>The Power of Roles</h3>
-            <p>Think of it like consulting different experts for the same question. A financial advisor, a philosopher, and a comedian will all answer "How should I invest?" very differently!</p>
-
+            <h4>Example 2: Pet Name Generator</h4>
             <div class="code-block">
                 <div class="code-header">
                     <span class="dot red"></span>
                     <span class="dot yellow"></span>
                     <span class="dot green"></span>
-                    <span>Role Assignment Examples</span>
+                    <span>Dog Name Factory</span>
                 </div>
-                <div class="code-content"><span class="comment">// Act as an expert...</span>
-Act as an experienced Python developer with 10 years of experience.
-Review this code and suggest improvements:
+                <div class="code-content">Generate a punny dog name based on the dog's characteristics:
 
-<span class="comment">// Act as a teacher...</span>
-You are a patient 5th-grade science teacher. Explain how photosynthesis works to a curious 10-year-old.
+A small poodle that loves to dance → "Poochini"
+A golden retriever who's always hungry → "Snackson"
+A bulldog who snores loudly → "Sir Snores-a-Lot"
 
-<span class="comment">// Act as a critic...</span>
-You are a skeptical cybersecurity expert. Analyze this system design for potential vulnerabilities.</div>
+A beagle who's great at finding hidden treats →</div>
             </div>
-
-            <h3>Popular Role Patterns</h3>
-            <div class="visual-metaphor">
-                <div class="flow-diagram">
-                    <div class="flow-step">
-                        <div class="flow-box" style="background: linear-gradient(135deg, #E3F2FD, #BBDEFB);"><i class="fa-solid fa-chalkboard-user"></i> Expert/Professional</div>
-                        <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                        <div style="flex: 2; padding: 10px;">Provides authoritative, technical responses</div>
-                    </div>
-                    <div class="flow-step">
-                        <div class="flow-box" style="background: linear-gradient(135deg, #F3E5F5, #E1BEE7);"><i class="fa-solid fa-graduation-cap"></i> Teacher/Mentor</div>
-                        <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                        <div style="flex: 2; padding: 10px;">Breaks down complex topics simply</div>
-                    </div>
-                    <div class="flow-step">
-                        <div class="flow-box" style="background: linear-gradient(135deg, #E8F5E9, #C8E6C9);"><i class="fa-solid fa-magnifying-glass"></i> Critic/Reviewer</div>
-                        <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                        <div style="flex: 2; padding: 10px;">Identifies flaws and suggests improvements</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Section 2: Intermediate Techniques -->
-        <section class="card reveal">
-            <h2><i class="fa-solid fa-layer-group fa-icon" style="color: var(--accent-sunflower);"></i>Intermediate Techniques</h2>
-            <p>Ready to level up? These techniques handle more complex tasks and improve reliability.</p>
-        </section>
-
-        <!-- Chain-of-Thought -->
-        <section class="card reveal">
-            <h2><i class="fa-solid fa-link fa-icon" style="color: var(--accent-lavender);"></i>Chain-of-Thought (CoT)</h2>
-            <p><strong>Concept:</strong> Prompt the AI to <span class="highlight">show its reasoning step-by-step</span> before giving the final answer. This is crucial for complex problems!</p>
-
-            <h3>Why CoT is Revolutionary</h3>
-            <p>Without reasoning steps, LLMs often make arithmetic and logic errors. By forcing them to "think out loud," they catch their own mistakes!</p>
-
-            <div class="comparison-box">
-                <div class="comparison-item bad">
-                    <div class="comparison-icon"><i class="fa-solid fa-calculator"></i></div>
-                    <div class="comparison-label">Without CoT (Wrong!)</div>
-                    <p><strong>Q:</strong> The odd numbers in this group add up to an even number: 15, 32, 5, 13, 82, 7, 1.</p>
-                    <p><strong>A:</strong> The answer is True.</p>
-                    <p style="margin-top: 10px; color: var(--accent-red);"><strong>Incorrect!</strong> (15+5+13+7+1 = 41, which is odd)</p>
-                </div>
-                <div class="comparison-item good">
-                    <div class="comparison-icon"><i class="fa-solid fa-check-double"></i></div>
-                    <div class="comparison-label">With CoT (Correct!)</div>
-                    <p><strong>Q:</strong> Same question, but show your work</p>
-                    <p><strong>A:</strong> Adding all the odd numbers (15, 5, 13, 7, 1) gives 41. The answer is False.</p>
-                    <p style="margin-top: 10px; color: var(--accent-green);"><strong>Correct!</strong></p>
-                </div>
-            </div>
-
-            <h3>Triggering CoT: Two Methods</h3>
-            
-            <h4>Method 1: Few-Shot CoT (Show examples with reasoning)</h4>
-            <div class="code-block">
-                <div class="code-header">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                    <span>Few-Shot CoT</span>
-                </div>
-                <div class="code-content">Q: There are 15 trees. Workers plant more and now there are 21 trees. How many were planted?
-A: We start with 15 trees. Later we have 21 trees. The difference is 21 - 15 = 6 trees planted.
-
-Q: Jason had 20 lollipops. He gave some away and now has 12. How many did he give?
-A:</div>
-            </div>
-
-            <h4>Method 2: Zero-Shot CoT (Just add "Let's think step by step")</h4>
-            <div class="code-block">
-                <div class="code-header">
-                    <span class="dot red"></span>
-                    <span class="dot yellow"></span>
-                    <span class="dot green"></span>
-                    <span>Zero-Shot CoT Magic Phrase</span>
-                </div>
-                <div class="code-content">I went to the market and bought 10 apples. I gave 2 to the neighbor and 2 to the repairman.
-I then bought 5 more and ate 1. How many apples do I have left?
-
-<span class="key">Let's think step by step.</span></div>
-            </div>
-
             <div class="insight-box">
-                <div class="insight-icon"><i class="fa-solid fa-bolt"></i></div>
-                <div>
-                    <strong>Amazing Fact:</strong> Simply adding "Let's think step by step" to the end of a prompt can increase accuracy on math problems from ~17% to ~79%!
+                <div class="insight-icon"><i class="fa-solid fa-magic"></i></div>
+                <div><strong>AI Says:</strong> "Detective Beagle" or "Sherlock Hound" (Recognizes the pun/wordplay pattern)</div>
+            </div>
+
+            <h4>Example 3: Converting Casual to Formal</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Professional Translator</span>
                 </div>
+                <div class="code-content">Convert casual text to professional business email format:
+
+Casual: "Hey, can you send me that file? I need it ASAP. Thanks!"
+Formal: "Dear [Name], I hope this message finds you well. Could you please send me the file at your earliest convenience? I require it urgently for an upcoming deadline. Thank you in advance for your assistance."
+
+Casual: "Just a heads up - the meeting got moved to 3pm. See you there!"
+Formal: "Dear [Name], I am writing to inform you that the meeting has been rescheduled to 3:00 PM. I look forward to seeing you at the revised time."
+
+Casual: "Yo, the server crashed again. Can you fix it? This is the third time this week."
+Formal:</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-magic"></i></div>
+                <div><strong>AI Says:</strong> "Dear [Name], I am writing to report that the server has experienced another outage. This marks the third occurrence this week. Could you please address this issue at your earliest convenience? Thank you for your attention to this matter."</div>
+            </div>
+
+            <h4>Example 4: Emoji Translator</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Emoji Decoder</span>
+                </div>
+                <div class="code-content">Translate these emoji sequences into English sentences:
+
+👨‍💻 ☕ 🐛 🔨 ✅ = "The programmer drank coffee while debugging and finally fixed the issue"
+
+🏃‍♂️ 🚌 ❌ 😰 🚕 💸 = "I missed the bus, got stressed, and had to take an expensive taxi"
+
+🍕 📺 🛋️ 😴 = "I ate pizza, watched TV on the couch, and fell asleep"  
+
+📱 🔋 1️⃣ 😱 🔌 =</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-magic"></i></div>
+                <div><strong>AI Says:</strong> "My phone battery dropped to 1%, I panicked, and plugged it in to charge"</div>
+            </div>
+
+            <h4>Example 5: Recipe Scaler</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Portion Calculator</span>
+                </div>
+                <div class="code-content">Scale these recipes by adjusting ingredient amounts:
+
+Original (serves 2): 2 eggs, 1 cup flour, 1/2 cup milk
+Scaled (serves 6): 6 eggs, 3 cups flour, 1.5 cups milk
+
+Original (serves 4): 1 lb chicken, 2 tbsp soy sauce, 1 tsp ginger
+Scaled (serves 10): 2.5 lbs chicken, 5 tbsp soy sauce, 2.5 tsp ginger
+
+Original (serves 3): 12 oz pasta, 3 cloves garlic, 1/4 cup olive oil
+Scaled (serves 9):</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-magic"></i></div>
+                <div><strong>AI Says:</strong> "36 oz pasta, 9 cloves garlic, 3/4 cup olive oil" (Multiplied all by 3)</div>
             </div>
         </section>
 
-        <!-- Self-Consistency -->
+        <!-- ROLE ASSIGNMENT SECTION -->
         <section class="card reveal">
-            <h2><i class="fa-solid fa-list-check fa-icon" style="color: var(--accent-coral);"></i>Self-Consistency</h2>
-            <p><strong>Concept:</strong> Generate <span class="highlight">multiple answers</span> and pick the most consistent one. This is like asking several experts and going with the majority opinion.</p>
+            <h2><i class="fa-solid fa-user-tie fa-icon" style="color: var(--accent-sunflower);"></i>Role Assignment: Wear the Costume</h2>
+            
+            <p><strong>What it is:</strong> Tell the AI to pretend it's someone specific. It's like playing dress-up, but the AI commits to the bit <span class="highlight">hard.</span></p>
 
-            <h3>How It Works</h3>
+            <p>This is hands-down one of the most powerful tricks. Ask an AI "explain quantum physics" and you get textbook word-vomit. But ask it to "explain quantum physics like you're a chill surf instructor who's trying to explain why the ocean has waves" and suddenly you're actually learning something.</p>
+
+            <h3>5 Original Role Assignment Examples</h3>
+
+            <h4>Example 1: The Skeptical Security Guard</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Paranoid Protector Mode</span>
+                </div>
+                <div class="code-content">You are a paranoid cybersecurity expert who trusts nothing and nobody. You've seen every hack, every breach, every "it'll never happen to us" disaster. Nothing gets past you.
+
+Now review this password policy for a company:
+- Passwords must be at least 8 characters
+- Must include one number
+- Changed every 90 days
+
+Give me your brutally honest assessment.</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                <div><strong>AI (In Character):</strong> "Oh honey. Eight characters? In 2025? My grandmother's cat could crack that. And 90-day rotations? That's how you get 'Password123!', 'Password124!', 'Password125!' on sticky notes under keyboards. This isn't security, this is security theater. Here's what you're ACTUALLY going to do..."</div>
+            </div>
+
+            <h4>Example 2: The Enthusiastic Kindergartner</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Excitable 5-Year-Old Mode</span>
+                </div>
+                <div class="code-content">You are a super enthusiastic 5-year-old who just learned something AMAZING and you CAN'T WAIT to tell everyone about it! You use words like "cool" and "awesome" and you get excited about EVERYTHING!
+
+Explain how rainbows work!</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-child"></i></div>
+                <div><strong>AI (In Character):</strong> "OH MY GOSH RAINBOWS ARE THE COOLEST!! So like, when the sun comes out but it's still raining a little bit, the sunlight goes through the raindrops and the raindrops are like PRISMS and they SPLIT the light into all the different colors!! And there's RED and ORANGE and YELLOW and it's SO PRETTY and..."</div>
+            </div>
+
+            <h4>Example 3: The Cynical Film Critic</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Jaded Critic Mode</span>
+                </div>
+                <div class="code-content">You are a world-weary film critic who's seen every trope, every cliché, every "subversive" twist that's actually been done a thousand times. You've been reviewing movies for 30 years and nothing impresses you anymore. You're snarky, eloquent, and brutally honest.
+
+Review this plot synopsis: "A young farm boy discovers he's the chosen one and must defeat the dark lord with the help of a wise old mentor and a ragtag group of rebels."
+
+Go ahead, rip it apart.</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-film"></i></div>
+                <div><strong>AI (In Character):</strong> "Ah yes, the 'Hero's Journey'—or as I like to call it, 'Joseph Campbell's Greatest Hits Vol. 47.' We've got the farm boy (because cities are apparently devoid of protagonists), the chosen one trope (destiny as a substitute for character development), and of course, the dark lord (must wear black, obviously evil, probably has asthma). Yawn. I've seen this story when it was called Star Wars. And Harry Potter. And The Matrix. And..."</div>
+            </div>
+
+            <h4>Example 4: The Patient Grandma Teaching Life Skills</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Wise Elder Mode</span>
+                </div>
+                <div class="code-content">You are a patient, loving grandmother who's teaching your grandchild how to do something for the first time. You're gentle, encouraging, and you share little stories from your own life. You never make them feel dumb for not knowing something.
+
+Teach me how to make your famous chocolate chip cookies.</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-cookie-bite"></i></div>
+                <div><strong>AI (In Character):</strong> "Oh sweetie, come here and let's get your hands a little floury. Now, the secret is—don't tell anyone I told you this—we use cold butter. See, my mother taught me that trick back in '62. She said..." [continues with warm, patient instructions and personal anecdotes]</div>
+            </div>
+
+            <h4>Example 5: The Aggressive Drill Sergeant</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Boot Camp Mode</span>
+                </div>
+                <div class="code-content">You are a no-nonsense drill sergeant who yells everything. You want results, you want them NOW, and you have ZERO patience for excuses. You call everyone "maggot" or "recruit" and everything is URGENT!
+
+Motivate me to clean my apartment which has become a complete disaster.</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-bullhorn"></i></div>
+                <div><strong>AI (In Character):</strong> "WHAT IS THAT SMELL, RECRUIT?! Is that... is that LAST WEEK'S PIZZA?! GET ON YOUR FEET! I WANT THIS FLOOR SO CLEAN I CAN SEE MY REFLECTION IN IT! MOVE MOVE MOVE! YOU CALL THAT A VACUUM?! MY GRANDMOTHER COULD CLEAN BETTER THAN THAT AND SHE'S 85! DO YOU WANT TO LIVE IN FILTH, MAGGOT?! NO?! THEN START SCRUBBING!"</div>
+            </div>
+        </section>
+
+        <!-- CHAIN-OF-THOUGHT SECTION -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-link fa-icon" style="color: var(--accent-lavender);"></i>Chain-of-Thought: Show Your Work!</h2>
+            
+            <p><strong>What it is:</strong> Make the AI <span class="highlight">think out loud step by step</span> before giving the final answer. Like when your math teacher made you show your work—turns out, it actually helps!</p>
+
+            <p>Here's the wild thing: when you force an AI to walk through its reasoning, it catches its own mistakes. It's like the difference between blurting out an answer vs. actually thinking through the problem. The AI becomes significantly smarter just by talking to itself.</p>
+
+            <h3>The Magic Phrase That Changes Everything</h3>
+            <p>Just add this to the end of your prompt:</p>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>The Magic Words</span>
+                </div>
+                <div class="code-content"><span class="key">Let's think through this step by step.</span></div>
+            </div>
+
+            <p>That's it. Those 7 words can turn a wrong answer into a right one. Wild, right?</p>
+
+            <h3>5 Original Chain-of-Thought Examples</h3>
+
+            <h4>Example 1: The Classic Age Word Problem</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Family Math Drama</span>
+                </div>
+                <div class="code-content">Sarah is twice as old as her brother Mike. Five years ago, Sarah was three times as old as Mike. How old are they now?
+
+Let's think through this step by step.</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-brain"></i></div>
+                <div><strong>AI's Internal Monologue:</strong> "Step 1: Let's say Mike's current age is M. Then Sarah's age is 2M.<br>
+                Step 2: Five years ago, Mike was M-5 and Sarah was 2M-5.<br>
+                Step 3: The problem says five years ago Sarah was 3 times as old as Mike.<br>
+                Step 4: So 2M - 5 = 3(M - 5)<br>
+                Step 5: 2M - 5 = 3M - 15<br>
+                Step 6: M = 10<br>
+                <strong>Answer: Mike is 10, Sarah is 20.</strong>"</div>
+            </div>
+
+            <h4>Example 2: Logic Puzzle</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Who Owns the Fish?</span>
+                </div>
+                <div class="code-content">There are five houses in a row, each painted a different color. In each house lives a person of different nationality. These five owners drink different beverages, smoke different brands of cigarettes, and keep different pets. 
+
+The Brit lives in the red house.
+The Swede keeps dogs as pets.
+The Dane drinks tea.
+The green house is on the left of the white house.
+The green house's owner drinks coffee.
+The person who smokes Pall Mall rears birds.
+The owner of the yellow house smokes Dunhill.
+The man living in the center house drinks milk.
+The Norwegian lives in the first house.
+The man who smokes Blends lives next to the one who keeps cats.
+The man who keeps horses lives next to the man who smokes Dunhill.
+The owner who smokes Bluemaster drinks beer.
+The German smokes Prince.
+The Norwegian lives next to the blue house.
+The man who smokes Blends has a neighbor who drinks water.
+
+Who owns the fish?
+
+Walk me through the deduction process.</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-puzzle-piece"></i></div>
+                <div><strong>AI's Step-by-Step:</strong> "Step 1: Norwegian is in House 1 (given). Step 2: House 2 is blue (next to Norwegian). Step 3: Center house (3) drinks milk. Step 4: Green is left of white, so they're houses 4 and 5 or 3 and 4. But house 3 drinks milk, not coffee, so green is 4, white is 5. Step 5: Green drinks coffee, so house 4 drinks coffee... [continues logical deduction] <strong>The German owns the fish!</strong>"</div>
+            </div>
+
+            <h4>Example 3: Budget Word Problem</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Real Life Math</span>
+                </div>
+                <div class="code-content">I'm planning a road trip. Gas costs $3.50/gallon. My car gets 28 miles per gallon. The trip is 420 miles each way. I need to pay $45/night for a hotel for 2 nights. Food will be $60/day for 3 days. I have $500 budgeted. Do I have enough? If yes, how much left over? If no, how much more do I need?
+
+Let's work through this systematically.</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-calculator"></i></div>
+                <div><strong>AI's Breakdown:</strong> "Step 1: Calculate total miles: 420 × 2 = 840 miles round trip.<br>
+                Step 2: Gas needed: 840 ÷ 28 = 30 gallons.<br>
+                Step 3: Gas cost: 30 × $3.50 = $105.<br>
+                Step 4: Hotel: 2 nights × $45 = $90.<br>
+                Step 5: Food: 3 days × $60 = $180.<br>
+                Step 6: Total cost: $105 + $90 + $180 = $375.<br>
+                <strong>Step 7: $500 - $375 = $125 left over! Road trip is a go!</strong>"</div>
+            </div>
+
+            <h4>Example 4: Pattern Recognition</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Find the Next Number</span>
+                </div>
+                <div class="code-content">What comes next in this sequence? Explain your reasoning.
+
+2, 6, 12, 20, 30, 42, ?</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-arrow-trend-up"></i></div>
+                <div><strong>AI's Analysis:</strong> "Step 1: Look at differences between numbers.<br>
+                6-2=4, 12-6=6, 20-12=8, 30-20=10, 42-30=12<br>
+                Step 2: The differences are increasing by 2 each time: 4, 6, 8, 10, 12...<br>
+                Step 3: Next difference should be 14.<br>
+                Step 4: 42 + 14 = 56.<br>
+                <strong>Next number: 56</strong> (Also note: these are n×(n+1) for n=1,2,3...)"</div>
+            </div>
+
+            <h4>Example 5: Reading Comprehension</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Text Analysis</span>
+                </div>
+                <div class="code-content">Read this passage and determine the author's tone and main argument:
+
+"The proliferation of smartphone usage has fundamentally altered human interaction. Where once we engaged in face-to-face conversations, we now stare at glowing rectangles. Family dinners have become silent affairs punctuated only by notification chimes. We have traded genuine connection for the illusion of connectivity."
+
+Analyze this step by step.</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-book-open"></i></div>
+                <div><strong>AI's Analysis:</strong> "Step 1: Word choice analysis—'fundamentally altered' suggests negative change.<br>
+                Step 2: 'Stare at glowing rectangles' is derogatory/dismissive language about phones.<br>
+                Step 3: 'Silent affairs' and 'notification chimes' paint a sad picture.<br>
+                Step 4: Final sentence contrasts 'genuine connection' vs 'illusion of connectivity'.<br>
+                <strong>Conclusion: Critical/pessimistic tone. Main argument: Smartphones have damaged authentic human relationships.</strong>"</div>
+            </div>
+        </section>
+
+        <!-- SELF-CONSISTENCY SECTION -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-list-check fa-icon" style="color: var(--accent-coral);"></i>Self-Consistency: Ask Three Times, Trust the Majority</h2>
+            
+            <p><strong>What it is:</strong> Generate <span class="highlight">multiple answers to the same question</span> and pick the one that shows up most often. It's like democracy, but for AI reasoning.</p>
+
+            <p>Think of it this way: if you asked one person a hard math question, they might get it wrong. But if you ask 5 people and 4 give you the same answer? That's probably the right one. AI works the same way—sometimes it gets lucky, sometimes it derails. Asking multiple times and voting filters out the weird outlier answers.</p>
+
+            <h3>How It Works (The Simple Version)</h3>
             <div class="flow-diagram">
                 <div class="flow-step">
-                    <div class="flow-box" style="background: linear-gradient(135deg, #FFF3E0, #FFE0B2);">Generate Answer 1</div>
+                    <div class="flow-box" style="background: linear-gradient(135deg, #FFF3E0, #FFE0B2);">Ask the Same Question 3-5 Times</div>
                     <div class="flow-arrow"><i class="fa-solid fa-arrow-down"></i></div>
-                    <div class="flow-box" style="background: linear-gradient(135deg, #E8F5E9, #C8E6C9);">Generate Answer 2</div>
+                    <div class="flow-box" style="background: linear-gradient(135deg, #E8F5E9, #C8E6C9);">Collect Different Reasoning Paths</div>
                     <div class="flow-arrow"><i class="fa-solid fa-arrow-down"></i></div>
-                    <div class="flow-box" style="background: linear-gradient(135deg, #E3F2FD, #BBDEFB);">Generate Answer 3</div>
+                    <div class="flow-box" style="background: linear-gradient(135deg, #E3F2FD, #BBDEFB);">Count Which Answer Appears Most</div>
                     <div class="flow-arrow"><i class="fa-solid fa-arrow-down"></i></div>
-                    <div class="flow-box" style="background: linear-gradient(135deg, #C9B1FF, #B39DDB);"><i class="fa-solid fa-vote-yea"></i> Pick Majority Answer</div>
+                    <div class="flow-box" style="background: linear-gradient(135deg, #C9B1FF, #B39DDB);"><i class="fa-solid fa-trophy"></i> Winner Takes All</div>
                 </div>
             </div>
 
-            <h3>Example in Action</h3>
-            <p><strong>Question:</strong> "When I was 6, my sister was half my age. Now I'm 70. How old is my sister?"</p>
+            <h3>5 Original Self-Consistency Examples</h3>
 
+            <h4>Example 1: The Infamous Age Riddle</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>The Classic Trap</span>
+                </div>
+                <div class="code-content">When I was 8 years old, my brother was half my age. Now I am 50 years old. How old is my brother?
+
+Generate 3 different ways to solve this and see if they agree.</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-vote-yea"></i></div>
+                <div><strong>Attempt 1:</strong> "Half of 8 is 4, so brother was 4. Now I'm 50, brother is 25." ❌ WRONG<br>
+                <strong>Attempt 2:</strong> "Age difference is always 4 years (8-4=4). So 50-4=46." ✓ RIGHT<br>
+                <strong>Attempt 3:</strong> "Brother is 4 years younger. 50-4=46." ✓ RIGHT<br>
+                <strong>Self-Consensus: 46 years old</strong> (2 out of 3 got it right!)</div>
+            </div>
+
+            <h4>Example 2: Logic Grid Puzzle</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Who Did It?</span>
+                </div>
+                <div class="code-content">Three friends (Alice, Bob, Charlie) each have different favorite colors (red, blue, green) and different pets (dog, cat, bird).
+
+Clues:
+1. Alice doesn't like red
+2. The person with the dog likes blue
+3. Bob has a cat
+4. Charlie doesn't like green
+
+What color does each person like and what pet do they have?
+
+Solve this 3 different ways and see if you get the same answer.</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-vote-yea"></i></div>
+                <div><strong>Path 1:</strong> Start with Bob having cat. Person with dog likes blue, so that's not Bob. Alice doesn't like red... [deduction] → Alice: green+bird, Bob: red+cat, Charlie: blue+dog ✓<br>
+                <strong>Path 2:</strong> Start with clue 4. Charlie doesn't like green. Could be red or blue. If Charlie likes blue, he has dog... [deduction] → Same answer ✓<br>
+                <strong>Path 3:</strong> Start with Alice. She doesn't like red, so green or blue. If blue, she'd have dog... leads to contradiction. So Alice has green... [deduction] → Same answer ✓<br>
+                <strong>High confidence: All paths agree!</strong></div>
+            </div>
+
+            <h4>Example 3: Probability Problem</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Monty Hall-ish</span>
+                </div>
+                <div class="code-content">I have two children. At least one is a boy. What's the probability both are boys?
+
+Solve this using 3 different approaches (e.g., sample space, conditional probability formula, enumeration).</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-vote-yea"></i></div>
+                <div><strong>Approach 1 (Sample Space):</strong> Possible combinations with at least one boy: BB, BG, GB. Only 1 has two boys. Answer: 1/3 ✓<br>
+                <strong>Approach 2 (Conditional Formula):</strong> P(BB | at least one B) = P(BB) / P(at least one B) = (1/4) / (3/4) = 1/3 ✓<br>
+                <strong>Approach 3 (Tree Diagram):</strong> Draw tree of possibilities, eliminate branches without at least one boy, count remaining... 1/3 ✓<br>
+                <strong>Consensus: 1/3 (About 33.3%)</strong></div>
+            </div>
+
+            <h4>Example 4: Pattern Completion</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>What's the Rule?</span>
+                </div>
+                <div class="code-content">Find the rule and the next item in this sequence:
+
+1, 11, 21, 1211, 111221, ?
+
+Try to figure this out 3 different ways.</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-vote-yea"></i></div>
+                <div><strong>Method 1 (Look at it differently):</strong> Try reading aloud... "one 1", "two 1s", "one 2 one 1" → It's describing the previous number! ✓<br>
+                <strong>Method 2 (Count digits):</strong> Count consecutive digits... 111221 has "three 1s, two 2s, one 1" → 312211 ✓<br>
+                <strong>Method 3 (Research pattern):</strong> This looks like Conway's Look-and-Say sequence... ✓<br>
+                <strong>All agree: Next is 312211!</strong></div>
+            </div>
+
+            <h4>Example 5: Analogy Completion</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Word Relationships</span>
+                </div>
+                <div class="code-content">Complete this analogy from different angles:
+
+Painting is to canvas as ______ is to code.
+
+Approach this from multiple perspectives: functional relationship, creative process, medium of expression, etc.</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-vote-yea"></i></div>
+                <div><strong>Angle 1 (Creation):</strong> Artist creates on canvas, programmer creates with code → <strong>Program</strong><br>
+                <strong>Angle 2 (Medium):</strong> Canvas is the medium for paint, ___ is medium for code → <strong>Software</strong><br>
+                <strong>Angle 3 (Art form):</strong> Painting is art on canvas, ___ is art made with code → <strong>Program/Software</strong><br>
+                <strong>Most common answers: "Program" or "Software"</strong> (Both work, consensus on the relationship)</div>
+            </div>
+        </section>
+
+        <!-- PROMPT CHAINING SECTION -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-chain fa-icon" style="color: var(--accent-teal);"></i>Prompt Chaining: Assembly Line Style</h2>
+            
+            <p><strong>What it is:</strong> Break a big task into <span class="highlight">smaller steps</span> where each step feeds into the next. Like a factory assembly line, but for AI prompts.</p>
+
+            <p>Instead of asking AI to write a novel in one go (spoiler: it'll be terrible), you break it down: outline → characters → chapter 1 → chapter 2 → etc. Each step gets the output from the previous step, so the AI has context but isn't overwhelmed.</p>
+
+            <h3>5 Original Prompt Chaining Examples</h3>
+
+            <h4>Example 1: Writing a Blog Post</h4>
             <div class="visual-metaphor">
-                <p><strong>Three different reasoning paths:</strong></p>
-                <ul style="margin-top: 10px; padding-left: 20px;">
-                    <li><strong>Answer 1:</strong> 67 (correct - sister is 3 years younger)</li>
-                    <li><strong>Answer 2:</strong> 67 (correct - same calculation)</li>
-                    <li><strong>Answer 3:</strong> 35 (incorrect - divided 70 by 2)</li>
-                </ul>
-                <p style="margin-top: 15px;"><strong>Self-Consistency Result:</strong> 67 wins! (2 out of 3)</p>
-            </div>
-
-            <p><strong>Best for:</strong> Math problems, logic puzzles, factual questions where accuracy matters more than speed.</p>
-        </section>
-
-        <!-- Prompt Chaining -->
-        <section class="card reveal">
-            <h2><i class="fa-solid fa-chain fa-icon" style="color: var(--accent-teal);"></i>Prompt Chaining</h2>
-            <p><strong>Concept:</strong> Break complex tasks into <span class="highlight">multiple sequential prompts</span>, where the output of one becomes the input of the next.</p>
-
-            <h3>The Assembly Line Analogy</h3>
-            <p>Just like a factory assembly line, each step specializes in one task. This improves transparency and makes debugging easier!</p>
-
-            <div class="flow-diagram">
-                <div class="flow-step">
-                    <div class="flow-box" style="background: linear-gradient(135deg, #FFEBEE, #FFCDD2);"><strong>Step 1:</strong> Extract Relevant Quotes</div>
-                    <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                    <div class="flow-box" style="background: linear-gradient(135deg, #E8F5E9, #C8E6C9);"><strong>Step 2:</strong> Analyze Quotes</div>
-                    <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                    <div class="flow-box" style="background: linear-gradient(135deg, #E3F2FD, #BBDEFB);"><strong>Step 3:</strong> Generate Final Answer</div>
+                <strong>The Chain:</strong>
+                <div class="flow-diagram" style="margin-top: 15px;">
+                    <div class="flow-step">
+                        <div class="flow-box" style="background: linear-gradient(135deg, #FFEBEE, #FFCDD2);"><strong>Step 1:</strong> Generate 5 blog topics about remote work</div>
+                        <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                        <div class="flow-box" style="background: linear-gradient(135deg, #FFF3E0, #FFE0B2);"><strong>Step 2:</strong> Pick best topic + create outline</div>
+                        <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                        <div class="flow-box" style="background: linear-gradient(135deg, #E8F5E9, #C8E6C9);"><strong>Step 3:</strong> Write introduction</div>
+                        <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                        <div class="flow-box" style="background: linear-gradient(135deg, #E3F2FD, #BBDEFB);"><strong>Step 4:</strong> Write each section</div>
+                        <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                        <div class="flow-box" style="background: linear-gradient(135deg, #C9B1FF, #B39DDB);"><strong>Step 5:</strong> Edit and polish</div>
+                    </div>
                 </div>
             </div>
 
-            <h3>Real Example: Document Q&A</h3>
+            <h4>Example 2: Customer Support Response</h4>
             <div class="code-block">
                 <div class="code-header">
                     <span class="dot red"></span>
                     <span class="dot yellow"></span>
                     <span class="dot green"></span>
-                    <span>Prompt 1: Extract Quotes</span>
+                    <span>Chain 1: Analyze</span>
                 </div>
-                <div class="code-content">Extract quotes from the document relevant to this question.
-Output format: <quotes>...</quotes>
+                <div class="code-content">Analyze this angry customer email and extract:
+1. The specific problem
+2. Customer's emotional state (1-10 scale)
+3. What they want as resolution
 
-Question: What are the main prompting techniques?
-Document: [Long document text here]</div>
+Email: "I ordered your product 2 weeks ago and it still hasn't arrived. This is completely unacceptable. I needed this for a presentation yesterday and now I look incompetent. I want a full refund AND an explanation."
+
+[OUTPUT]
+Problem: Late delivery (2 weeks overdue)
+Emotion: 9/10 (very angry)
+Wants: Refund + explanation</div>
             </div>
-
             <div class="code-block">
                 <div class="code-header">
                     <span class="dot red"></span>
                     <span class="dot yellow"></span>
                     <span class="dot green"></span>
-                    <span>Prompt 2: Generate Answer</span>
+                    <span>Chain 2: Draft Response</span>
                 </div>
-                <div class="code-content">Based on these quotes and the document, answer the question.
+                <div class="code-content">Draft an email response to a customer with these details:
+- Problem: Late delivery (2 weeks overdue)  
+- Emotion level: 9/10 (very angry)
+- Wants: Refund + explanation
 
-<quotes>
-- Chain-of-thought prompting
-- Generated knowledge prompting  
-- Tree-of-thought prompting
-</quotes>
+Tone: Empathetic but professional. Acknowledge their frustration. Offer refund. Explain what happened (shipping partner delay). Offer discount on future order.
 
-Question: What are the main prompting techniques?</div>
-            </div>
-        </section>
-
-        <!-- Section 3: Advanced Techniques -->
-        <section class="card reveal">
-            <h2><i class="fa-solid fa-rocket fa-icon" style="color: var(--accent-lavender);"></i>Advanced Techniques</h2>
-            <p>These are state-of-the-art methods for complex reasoning, multi-step tasks, and building AI agents.</p>
-        </section>
-
-        <!-- Tree of Thoughts -->
-        <section class="card reveal">
-            <h2><i class="fa-solid fa-sitemap fa-icon" style="color: var(--accent-orange);"></i>Tree of Thoughts (ToT)</h2>
-            <p><strong>Concept:</strong> Instead of a single reasoning chain, explore <span class="highlight">multiple reasoning paths</span> like branches on a tree, evaluate them, and pick the best one.</p>
-
-            <h3>ToT vs CoT: What's the Difference?</h3>
-            <div class="comparison-box">
-                <div class="comparison-item bad">
-                    <div class="comparison-icon"><i class="fa-solid fa-arrow-right-long"></i></div>
-                    <div class="comparison-label">Chain-of-Thought (Linear)</div>
-                    <p>Single path: A → B → C → Answer</p>
-                    <p style="margin-top: 10px; font-size: 0.95rem;">If one step is wrong, the whole chain fails</p>
-                </div>
-                <div class="comparison-item good">
-                    <div class="comparison-icon"><i class="fa-solid fa-code-branch"></i></div>
-                    <div class="comparison-label">Tree of Thoughts (Branching)</div>
-                    <p>Multiple paths explored simultaneously</p>
-                    <p style="margin-top: 10px; font-size: 0.95rem;">Can backtrack and try different approaches!</p>
-                </div>
+[OUTPUT]
+[Drafted response...]</div>
             </div>
 
-            <h3>ToT in Action: Game of 24</h3>
-            <p>Use numbers [4, 9, 10, 13] to make 24. ToT explores different paths:</p>
-
+            <h4>Example 3: Data Analysis Pipeline</h4>
             <div class="visual-metaphor">
-                <div class="flow-diagram">
+                <strong>The Data Chain:</strong>
+                <div class="flow-diagram" style="margin-top: 15px;">
                     <div class="flow-step">
-                        <div class="flow-box" style="background: linear-gradient(135deg, #E3F2FD, #BBDEFB);">Start: 4, 9, 10, 13</div>
-                    </div>
-                    <div class="flow-arrow"><i class="fa-solid fa-arrow-down"></i></div>
-                    <div class="flow-step" style="justify-content: center;">
-                        <div class="flow-box" style="background: linear-gradient(135deg, #FFF3E0, #FFE0B2);">Path A: 13 - 9 = 4</div>
-                        <div style="width: 20px;"></div>
-                        <div class="flow-box" style="background: linear-gradient(135deg, #E8F5E9, #C8E6C9);">Path B: 10 - 4 = 6</div>
-                        <div style="width: 20px;"></div>
-                        <div class="flow-box" style="background: linear-gradient(135deg, #F3E5F5, #E1BEE7);">Path C: 9 + 4 = 13</div>
-                    </div>
-                    <div class="flow-arrow"><i class="fa-solid fa-arrow-down"></i></div>
-                    <div class="flow-step">
-                        <div class="flow-box" style="background: linear-gradient(135deg, #E8F5E9, #C8E6C9);"><i class="fa-solid fa-trophy"></i> Winner: (13 - 9) × (10 - 4) = 24</div>
+                        <div class="flow-box" style="background: linear-gradient(135deg, #FFEBEE, #FFCDD2);"><strong>Step 1:</strong> Clean raw data (remove duplicates, fix formats)</div>
+                        <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                        <div class="flow-box" style="background: linear-gradient(135deg, #FFF3E0, #FFE0B2);"><strong>Step 2:</strong> Categorize and tag data</div>
+                        <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                        <div class="flow-box" style="background: linear-gradient(135deg, #E8F5E9, #C8E6C9);"><strong>Step 3:</strong> Calculate metrics and statistics</div>
+                        <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                        <div class="flow-box" style="background: linear-gradient(135deg, #E3F2FD, #BBDEFB);"><strong>Step 4:</strong> Identify trends and insights</div>
+                        <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                        <div class="flow-box" style="background: linear-gradient(135deg, #C9B1FF, #B39DDB);"><strong>Step 5:</strong> Generate executive summary</div>
                     </div>
                 </div>
             </div>
 
-            <h3>Simple ToT Prompt</h3>
+            <h4>Example 4: Code Review Process</h4>
             <div class="code-block">
                 <div class="code-header">
                     <span class="dot red"></span>
                     <span class="dot yellow"></span>
                     <span class="dot green"></span>
-                    <span>ToT Prompt Structure</span>
+                    <span>Multi-Step Code Review</span>
                 </div>
-                <div class="code-content">Imagine three different experts are answering this question.
-All experts will write down 1 step of their thinking, then share it.
-Then all experts will go on to the next step, etc.
-If any expert realizes they're wrong, they leave.
+                <div class="code-content">Step 1 - Syntax Check:
+"Review this Python code for syntax errors and obvious bugs: [code]"
+→ Output: Fixed syntax version
 
-The question is: [Your question here]</div>
+Step 2 - Logic Review:
+"Review this code for logical errors and edge cases: [fixed code from step 1]"
+→ Output: Logic-improved version  
+
+Step 3 - Style Check:
+"Review this code for PEP 8 compliance and best practices: [code from step 2]"
+→ Output: Polished final version
+
+Step 4 - Documentation:
+"Add docstrings and comments to this code: [code from step 3]"
+→ Output: Production-ready code!</div>
+            </div>
+
+            <h4>Example 5: Recipe Creator</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Recipe Chain</span>
+                </div>
+                <div class="code-content">Prompt 1: "Suggest 3 dessert ideas using chocolate and strawberries"
+→ Output: Chocolate strawberry tart, chocolate-covered strawberries, strawberry chocolate cake
+
+Prompt 2: "Create a detailed ingredient list for a chocolate strawberry tart for 8 people"
+→ Output: [List of ingredients with quantities]
+
+Prompt 3: "Write step-by-step instructions for making chocolate strawberry tart using these ingredients: [list from step 2]"
+→ Output: [Detailed cooking instructions]
+
+Prompt 4: "Suggest wine pairings and plating ideas for chocolate strawberry tart"
+→ Output: [Final presentation touches]</div>
             </div>
         </section>
 
-        <!-- RAG -->
+        <!-- TREE OF THOUGHTS SECTION -->
         <section class="card reveal">
-            <h2><i class="fa-solid fa-database fa-icon" style="color: var(--accent-green);"></i>Retrieval Augmented Generation (RAG)</h2>
-            <p><strong>Concept:</strong> Give the AI access to <span class="highlight">external knowledge</span> by retrieving relevant documents and including them in the prompt. This solves hallucination and knowledge cutoff problems!</p>
+            <h2><i class="fa-solid fa-sitemap fa-icon" style="color: var(--accent-orange);"></i>Tree of Thoughts: Explore All the Paths!</h2>
+            
+            <p><strong>What it is:</strong> Instead of one straight line of thinking, you <span class="highlight">branch out and explore multiple possibilities</span> at each step. Like a choose-your-own-adventure book, but for problem-solving.</p>
 
-            <h3>The RAG Architecture</h3>
-            <div class="flow-diagram">
-                <div class="flow-step">
-                    <div class="flow-box" style="background: linear-gradient(135deg, #E3F2FD, #BBDEFB);"><i class="fa-solid fa-question"></i> User Question</div>
-                    <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                    <div class="flow-box" style="background: linear-gradient(135deg, #FFF3E0, #FFE0B2);"><i class="fa-solid fa-magnifying-glass"></i> Retrieve Documents</div>
-                    <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                    <div class="flow-box" style="background: linear-gradient(135deg, #E8F5E9, #C8E6C9);"><i class="fa-solid fa-plus"></i> Combine Q + Docs</div>
-                    <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                    <div class="flow-box" style="background: linear-gradient(135deg, #C9B1FF, #B39DDB);"><i class="fa-solid fa-wand-magic-sparkles"></i> Generate Answer</div>
-                </div>
-            </div>
+            <p>Regular AI thinking: "I'll go this way... and hope it's right." Tree of Thoughts: "What if I try this way? Or that way? Or THIS way? Let me check all of them and pick the best one." It's like having multiple AI experts brainstorm together and vote on the best approach.</p>
 
-            <h3>Why RAG Matters</h3>
-            <ul style="margin: 15px 0; padding-left: 30px;">
-                <li><strong>Factuality:</strong> Answers grounded in real documents</li>
-                <li><strong>Up-to-date:</strong> Access information after training cutoff</li>
-                <li><strong>Verifiable:</strong> Can cite sources</li>
-                <li><strong>Domain-specific:</strong> Use private/company documents</li>
+            <h3>When Tree of Thoughts Shines</h3>
+            <ul class="example-list">
+                <li>Creative writing with multiple possible directions</li>
+                <li>Strategic planning with various options</li>
+                <li>Math problems where you could use different methods</li>
+                <li>Game playing (chess, puzzles, etc.)</li>
+                <li>Decision-making with trade-offs</li>
             </ul>
 
+            <h3>5 Original Tree of Thoughts Examples</h3>
+
+            <h4>Example 1: Creative Writing Branching</h4>
             <div class="code-block">
                 <div class="code-header">
                     <span class="dot red"></span>
                     <span class="dot yellow"></span>
                     <span class="dot green"></span>
-                    <span>RAG Prompt Structure</span>
+                    <span>Story Decision Tree</span>
                 </div>
-                <div class="code-content">Answer the question based on the provided context.
-If you cannot answer from the context, say "I don't know."
+                <div class="code-content">I'm writing a mystery novel. My detective has cornered the suspect in an abandoned warehouse. The suspect is holding a gun but seems nervous.
 
-Context:
-[Retrieved document 1]
-[Retrieved document 2]
-[Retrieved document 3]
+Generate 3 different ways this scene could play out:
 
-Question: What is the company's Q3 revenue?
+Branch A (Tension/Escalation): The suspect panics and fires...
+Branch B (Psychological): The detective talks them down using psychology...
+Branch C (Action): A secondary character bursts in and changes everything...
 
-Answer:</div>
+Evaluate each branch for: dramatic tension, character development, plot advancement. Which works best?</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-code-branch"></i></div>
+                <div><strong>Branch A Analysis:</strong> High tension, but might make detective seem incompetent. Risk of cliché shootout.<br>
+                <strong>Branch B Analysis:</strong> Great character moment, shows detective's skill. Lower action but higher emotional payoff.<br>
+                <strong>Branch C Analysis:</strong> Surprise twist potential, but could feel deus ex machina if not set up.<br>
+                <strong>Recommendation:</strong> Combine B + C - detective talks them down partially, THEN secondary character arrives with crucial evidence!</div>
             </div>
 
-            <div class="insight-box">
-                <div class="insight-icon"><i class="fa-solid fa-chart-line"></i></div>
-                <div>
-                    <strong>Real Impact:</strong> RAG reduces hallucination rates by up to 50% and is the foundation of most enterprise AI applications (chatbots, knowledge bases, research assistants).
+            <h4>Example 2: Business Strategy Options</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Strategic Decision Tree</span>
                 </div>
+                <div class="code-content">My startup has $100K left. We have three options:
+
+Option 1: Pour it all into marketing to acquire users fast
+Option 2: Hire one senior engineer to improve the product  
+Option 3: Split it - half marketing, half extending runway
+
+For each option, explore:
+- Best case scenario
+- Worst case scenario  
+- Probability of success
+- What we'd learn
+
+Then recommend the best path.</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-sitemap"></i></div>
+                <div><strong>Option 1 Tree:</strong> Best: Viral growth, Series A. Worst: Burn cash, no product-market fit. Risk: HIGH.<br>
+                <strong>Option 2 Tree:</strong> Best: Product breakthrough, organic growth. Worst: Delayed growth, still need marketing. Risk: MEDIUM.<br>
+                <strong>Option 3 Tree:</strong> Best: Balanced approach, learn what works. Worst: Mediocrity - not enough for either. Risk: MEDIUM.<br>
+                <strong>Tree Analysis:</strong> Option 3 has best risk-adjusted return. Allows testing before going all-in.</div>
+            </div>
+
+            <h4>Example 3: Math Problem with Multiple Methods</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Math Exploration Tree</span>
+                </div>
+                <div class="code-content">Calculate: 25 × 48
+
+Try solving this 4 different ways and see if you get the same answer:
+
+Method A: Standard multiplication
+Method B: 25 × 48 = 25 × 50 - 25 × 2
+Method C: 25 × 48 = 100 × 12 (quarter of 48 is 12, times 100)
+Method D: Break into (20 + 5) × 48
+
+Do all methods agree?</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-check-double"></i></div>
+                <div><strong>Method A:</strong> 25 × 48 = 1,200<br>
+                <strong>Method B:</strong> 1,250 - 50 = 1,200 ✓<br>
+                <strong>Method C:</strong> 100 × 12 = 1,200 ✓ (Elegant!)<br>
+                <strong>Method D:</strong> 960 + 240 = 1,200 ✓<br>
+                <strong>Confidence: 100%</strong> - Four independent paths all converge to 1,200!</div>
+            </div>
+
+            <h4>Example 4: Dinner Planning Decision Tree</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Culinary Thought Tree</span>
+                </div>
+                <div class="code-content">I need to plan dinner for 6 people with these constraints:
+- One person is vegetarian
+- One person has gluten allergy  
+- I have 2 hours to cook
+- Budget: $40
+
+Explore 3 different menu approaches:
+
+Approach A: Mediterranean feast (hummus, falafel, salads)
+Approach B: Mexican fiesta (tacos with corn tortillas, beans, rice)
+Approach C: Italian family style (risotto, roasted veggies, salad)
+
+Compare on: cost, prep time, deliciousness factor, accommodation of restrictions.</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-utensils"></i></div>
+                <div><strong>Approach A:</strong> $35, 1.5 hrs, naturally veg/gluten-free. High deliciousness.<br>
+                <strong>Approach B:</strong> $28, 1 hr, easy to make gluten-free. Very high deliciousness.<br>
+                <strong>Approach C:</strong> $38, 2+ hrs (risotto needs attention), naturally veg but need GF pasta. High deliciousness.<br>
+                <strong>Winner:</strong> Approach B - fastest, cheapest, easiest to modify, crowd-pleaser!</div>
+            </div>
+
+            <h4>Example 5: Debugging Code</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Debug Decision Tree</span>
+                </div>
+                <div class="code-content">My app crashes when users try to upload large files. Generate 3 different hypotheses and investigation paths:
+
+Hypothesis A: Memory issue - app runs out of RAM with large files
+Investigation: Check memory usage logs, test with different file sizes
+
+Hypothesis B: Timeout issue - upload takes too long and connection drops
+Investigation: Check server timeout settings, network logs
+
+Hypothesis C: File validation - corrupt files or wrong format causing crash
+Investigation: Check validation logic, test with different file types
+
+Evaluate each hypothesis probability and suggest where to start.</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-bug"></i></div>
+                <div><strong>Hypothesis A:</strong> High probability. Memory issues are common with file uploads. Easy to test.<br>
+                <strong>Hypothesis B:</strong> Medium probability. Would see specific timeout errors in logs.<br>
+                <strong>Hypothesis C:</strong> Lower probability. Usually gives error message, not crash.<br>
+                <strong>Investigation Order:</strong> Start with A (memory), if not that check B (timeout), finally C (validation).</div>
             </div>
         </section>
 
-        <!-- ReAct -->
+        <!-- RAG SECTION -->
         <section class="card reveal">
-            <h2><i class="fa-solid fa-arrows-rotate fa-icon" style="color: var(--accent-coral);"></i>ReAct (Reasoning + Acting)</h2>
-            <p><strong>Concept:</strong> Interleave <span class="highlight">reasoning (thinking)</span> with <span class="highlight">actions (tool use)</span>. The AI thinks about what to do, does it, observes the result, and repeats.</p>
+            <h2><i class="fa-solid fa-database fa-icon" style="color: var(--accent-green);"></i>RAG: Bring Your Own Facts</h2>
+            
+            <p><strong>What it is:</strong> <span class="highlight">Retrieval-Augmented Generation</span> - fancy way of saying "give the AI some documents to read before it answers." Like letting an open-book student use their textbook during the exam.</p>
+
+            <p>Here's the problem: AI has a knowledge cutoff. It doesn't know what happened yesterday. It might hallucinate (make stuff up). And it definitely doesn't know about your private company documents. RAG solves all of this by stuffing relevant info into the prompt.</p>
+
+            <h3>5 Original RAG Examples</h3>
+
+            <h4>Example 1: Company Policy Question</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>HR Chatbot Setup</span>
+                </div>
+                <div class="code-content">Context from Company Handbook:
+[SEPARATOR]
+Section 4.2: "Employees accrue 1 vacation day per month worked. Unused days roll over up to a maximum of 30 days. New employees must wait 90 days before using vacation time."
+
+Section 7.1: "Remote work is permitted up to 2 days per week with manager approval. Full-time remote work requires VP approval and must be requested 30 days in advance."
+[SEPARATOR]
+
+Question: I've been here for 2 months. How many vacation days do I have, and can I work from home tomorrow?</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-book"></i></div>
+                <div><strong>AI Answer:</strong> "You have accrued 2 vacation days (1 per month × 2 months). However, you cannot use them yet because you haven't reached the 90-day waiting period. Regarding remote work - you can work from home up to 2 days per week, but you need your manager's approval first!"</div>
+            </div>
+
+            <h4>Example 2: Product Support</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Tech Support Bot</span>
+                </div>
+                <div class="code-content">Product Documentation:
+[SEPARATOR]
+Model: TurboBlend 3000
+Issue: Blender won't start
+Troubleshooting:
+1. Check that pitcher is locked in place - must hear "click"
+2. Ensure safety switch is engaged (red light should be on)
+3. Try different power outlet
+4. Reset: unplug for 60 seconds, then replug
+5. If still not working, motor may need service
+
+Model: TurboBlend 3000
+Error Code E4: "Overheating protection activated. Let unit cool for 30 minutes."
+[SEPARATOR]
+
+Customer Question: "My blender shows a red light but won't turn on when I press the button. What should I do?"</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                <div><strong>AI Answer:</strong> "Good news - the red light means the safety switch is engaged (that's step 2!). Since the light is on but it won't start, let's check step 1: Is the pitcher fully locked in? You should hear a 'click' sound. If it's already clicked in, try step 4: unplug for 60 seconds to reset the unit. If still no luck after these steps, the motor may need service."</div>
+            </div>
+
+            <h4>Example 3: Medical Information (Disclaimer: Not Real Medical Advice!)</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Health Info Retrieval</span>
+                </div>
+                <div class="code-content">Context from Medical Database (for educational purposes only):
+[SEPARATOR]
+Medication: Amoxicillin
+Common side effects: Nausea, diarrhea, rash
+Serious side effects: Difficulty breathing, severe rash, swelling
+Interactions: May reduce effectiveness of birth control pills
+Food: Can take with or without food
+
+Medication: Ibuprofen
+Common side effects: Stomach upset, heartburn
+Serious side effects: Stomach bleeding, kidney problems
+Interactions: Blood thinners, other NSAIDs
+Food: Take with food to reduce stomach upset
+[SEPARATOR]
+
+Question: I'm taking amoxicillin and my stomach feels weird. Is that normal?</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-notes-medical"></i></div>
+                <div><strong>AI Answer:</strong> "According to the provided information, nausea is listed as a common side effect of amoxicillin, so stomach discomfort can be normal. Taking it with food might help. However, if you experience severe symptoms like difficulty breathing, severe rash, or swelling, contact a doctor immediately. (Note: Always consult your healthcare provider for medical advice!)"</div>
+            </div>
+
+            <h4>Example 4: Legal Document Analysis</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Lease Agreement Analysis</span>
+                </div>
+                <div class="code-content">Relevant Lease Clauses:
+[SEPARATOR]
+Section 12: "Tenant may not sublet the apartment without written consent from Landlord."
+
+Section 15: "Security deposit of $1,500 will be returned within 30 days of lease end, minus deductions for damages beyond normal wear and tear."
+
+Section 18: "Lease may be terminated early with 60 days written notice and payment of 2 months' rent as penalty."
+
+Section 22: "No pets allowed without written permission and $300 pet deposit."
+[SEPARATOR]
+
+Question: I need to move for a new job in 3 weeks. What are my options?</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-file-contract"></i></div>
+                <div><strong>AI Answer:</strong> "According to your lease: You CAN terminate early (Section 18), BUT you need 60 days notice and must pay 2 months' rent as penalty. Since you need to leave in 3 weeks (21 days), you don't have enough notice time. Options: 1) Negotiate with landlord (they might be flexible), 2) Find someone to take over your lease (but Section 12 requires landlord approval for subletting), or 3) Pay the penalty and give notice now for a future date."</div>
+            </div>
+
+            <h4>Example 5: Research Paper Q&A</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Paper Analysis</span>
+                </div>
+                <div class="code-content">Excerpt from Research Paper "Climate Effects on Coffee Production":
+[SEPARATOR]
+"Arabica coffee (Coffea arabica) requires specific growing conditions: temperatures between 18-21°C, consistent rainfall of 1,500-2,000mm annually, and elevations of 600-2,000 meters. 
+
+Climate change projections indicate that suitable growing areas may decrease by 50% by 2050. Rising temperatures force farmers to move to higher elevations, but mountainous terrain limits expansion. 
+
+The study examined 12 coffee-growing regions across Ethiopia, Colombia, and Indonesia. Yield reductions of 15-35% were observed in regions where temperatures exceeded 23°C for more than 30 days annually."
+[SEPARATOR]
+
+Question: Why are coffee farmers moving to higher ground, and how much coffee production might we lose by 2050?</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-mug-hot"></i></div>
+                <div><strong>AI Answer:</strong> "According to the research: Farmers are moving to higher elevations because rising temperatures from climate change make lower areas too hot for Arabica coffee (which needs 18-21°C). The paper projects that suitable coffee-growing areas may decrease by 50% by 2050. Additionally, regions experiencing temperatures over 23°C for 30+ days per year are already seeing yield reductions of 15-35%."</div>
+            </div>
+        </section>
+
+        <!-- REACT SECTION -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-arrows-rotate fa-icon" style="color: var(--accent-coral);"></i>ReAct: Think, Act, Observe, Repeat</h2>
+            
+            <p><strong>What it is:</strong> <span class="highlight">Re</span>asoning + <span class="highlight">Act</span>ing - the AI thinks about what to do, does it, sees what happened, and repeats. Like a robot scientist conducting experiments!</p>
+
+            <p>Picture this: You're trying to find the best pizza place in a new city. You don't just guess—you look at a map (act), see what's nearby (observe), decide which direction to go (think), walk there (act), check the reviews (observe), and keep going until you find the perfect slice. That's ReAct!</p>
 
             <h3>The ReAct Loop</h3>
-            <div class="visual-metaphor">
-                <div class="flow-diagram">
-                    <div class="flow-step">
-                        <div class="flow-box" style="background: linear-gradient(135deg, #E3F2FD, #BBDEFB);"><i class="fa-solid fa-brain"></i> Thought</div>
-                        <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                        <div class="flow-box" style="background: linear-gradient(135deg, #FFF3E0, #FFE0B2);"><i class="fa-solid fa-hammer"></i> Action</div>
-                        <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                        <div class="flow-box" style="background: linear-gradient(135deg, #E8F5E9, #C8E6C9);"><i class="fa-solid fa-eye"></i> Observation</div>
-                        <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
-                        <div class="flow-box" style="background: linear-gradient(135deg, #F3E5F5, #E1BEE7);"><i class="fa-solid fa-rotate"></i> Repeat</div>
-                    </div>
+            <div class="flow-diagram">
+                <div class="flow-step">
+                    <div class="flow-box" style="background: linear-gradient(135deg, #E3F2FD, #BBDEFB);"><i class="fa-solid fa-brain"></i> Thought<br>"What do I need to know?"</div>
+                    <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="flow-box" style="background: linear-gradient(135deg, #FFF3E0, #FFE0B2);"><i class="fa-solid fa-hammer"></i> Action<br>Do something!</div>
+                    <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="flow-box" style="background: linear-gradient(135deg, #E8F5E9, #C8E6C9);"><i class="fa-solid fa-eye"></i> Observation<br>What happened?</div>
+                    <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="flow-box" style="background: linear-gradient(135deg, #F3E5F5, #E1BEE7);"><i class="fa-solid fa-rotate"></i> Repeat!</div>
                 </div>
             </div>
 
-            <h3>ReAct Example: Multi-Step Question</h3>
-            <p><strong>Question:</strong> "What is the elevation range of the area that the eastern sector of the Colorado orogeny extends into?"</p>
+            <h3>5 Original ReAct Examples</h3>
 
+            <h4>Example 1: Trip Planner</h4>
             <div class="code-block">
                 <div class="code-header">
                     <span class="dot red"></span>
                     <span class="dot yellow"></span>
                     <span class="dot green"></span>
-                    <span>ReAct Reasoning Trace</span>
+                    <span>Planning a Weekend in Chicago</span>
                 </div>
-                <div class="code-content"><span class="key">Thought 1:</span> I need to search Colorado orogeny.
-<span class="key">Action 1:</span> Search[Colorado orogeny]
-<span class="key">Observation 1:</span> The Colorado orogeny was an episode of mountain building...
+                <div class="code-content">Question: "Plan a weekend trip to Chicago for under $500 including flights, hotel, and food."
 
-<span class="key">Thought 2:</span> It doesn't mention the eastern sector. I need to look that up.
-<span class="key">Action 2:</span> Lookup[eastern sector]
-<span class="key">Observation 2:</span> The eastern sector extends into the High Plains...
+Thought 1: I need to know flight prices first to see how much budget is left for hotel/food.
+Action 1: Search[cheap flights to Chicago this weekend]
+Observation 1: Flights are $180-250 round trip.
 
-<span class="key">Thought 3:</span> Now I need to search High Plains for elevation info.
-<span class="key">Action 3:</span> Search[High Plains elevation]
-<span class="key">Observation 3:</span> The High Plains rise from 1,800 to 7,000 ft.
+Thought 2: If I take the $180 flight, I have $320 left. I need to find a hotel for 2 nights.
+Action 2: Search[hotels in Chicago downtown under $150/night]
+Observation 2: Found budget hotels at $120/night ($240 total).
 
-<span class="key">Thought 4:</span> I have the answer!
-<span class="key">Action 4:</span> Finish[1,800 to 7,000 ft]</div>
+Thought 3: That leaves $80 for food for 2 days. That's tight but doable.
+Action 3: Search[cheap eats Chicago downtown]
+Observation 3: Deep dish pizza slices $6, food trucks $8-12, diners $15/meal.
+
+Thought 4: I have a viable plan! Let me compile the itinerary.
+Action 4: Finish[Weekend Chicago Plan: $180 flight + $240 hotel + $80 food = $500]</div>
             </div>
 
-            <p><strong>Best for:</strong> Tasks requiring external tools (search, calculator, APIs), complex multi-step problems, building AI agents.</p>
+            <h4>Example 2: Math Problem with Calculator</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Complex Calculation</span>
+                </div>
+                <div class="code-content">Question: "If I invest $10,000 at 7% annual interest compounded monthly for 20 years, then withdraw $500/month, how long until the money runs out?"
+
+Thought 1: This is a complex financial calculation. I need to calculate the future value first, then simulate withdrawals.
+Action 1: Calculate[10000 * (1 + 0.07/12)^(12*20)]
+Observation 1: After 20 years: $40,169.43
+
+Thought 2: Now I need to calculate how many months $500 withdrawals will last from this amount, considering it keeps earning interest.
+Action 2: Calculate[solve for N where 40169.43*(1.00583)^N - 500*((1.00583)^N - 1)/0.00583 = 0]
+Observation 2: Approximately 147 months
+
+Thought 3: 147 months is about 12.25 years.
+Action 3: Finish[The money will last approximately 12 years and 3 months after you start withdrawing]</div>
+            </div>
+
+            <h4>Example 3: Recipe Finder with Substitutions</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Cooking Assistant</span>
+                </div>
+                <div class="code-content">Question: "I want to make chocolate chip cookies but I'm out of eggs and butter. What can I use instead?"
+
+Thought 1: I need to find egg substitutes and butter substitutes for baking.
+Action 1: Search[baking substitutes for eggs]
+Observation 1: Options: 1/4 cup applesauce per egg, 1 tbsp flaxseed + 3 tbsp water per egg, mashed banana
+
+Thought 2: Good egg options. Now I need butter alternatives.
+Action 2: Search[butter substitutes in cookies]
+Observation 2: Options: Coconut oil (1:1), vegetable oil (3/4 cup per 1 cup butter), applesauce (1/2 cup per 1 cup butter)
+
+Thought 3: If I use applesauce for both, it might be too wet. Coconut oil + flax egg might work better.
+Action 3: Search[coconut oil flax egg chocolate chip cookie recipe]
+Observation 3: Found several successful recipes using this combo.
+
+Thought 4: I have a viable solution!
+Action 4: Finish[Use: 1 cup coconut oil instead of butter + 1 tbsp ground flaxseed mixed with 3 tbsp water per egg]</div>
+            </div>
+
+            <h4>Example 4: Debugging Assistant</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Code Detective</span>
+                </div>
+                <div class="code-content">Problem: "My Python script crashes with 'IndexError: list index out of range' on line 42"
+
+Thought 1: I need to see the code around line 42 to understand what's happening.
+Action 1: Read[lines 35-50 of script.py]
+Observation 1: Line 42: print(items[i]) inside a for loop
+
+Thought 2: The error suggests 'i' is larger than the list length. Let me check how 'i' is being set.
+Action 2: Read[lines 1-35 to see where items and i come from]
+Observation 2: items = get_data() returns variable length. i starts at 0 and increments.
+
+Thought 3: The issue might be that items is empty or shorter than expected. I should add a check.
+Action 3: Search[Python IndexError list index out of range fix]
+Observation 3: Common fixes: check len(list), use try/except, or iterate differently.
+
+Thought 4: Best fix is to check if items has elements before accessing.
+Action 4: Finish[Add check: if len(items) > i: print(items[i]) else: print("No item at index", i)]</div>
+            </div>
+
+            <h4>Example 5: Research Assistant</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Fact Checker</span>
+                </div>
+                <div class="code-content">Question: "Who wrote the first computer program and when?"
+
+Thought 1: I think it was Ada Lovelace in the 1800s, but I should verify this.
+Action 1: Search[first computer program Ada Lovelace]
+Observation 1: Ada Lovelace wrote the first algorithm intended for Charles Babbage's Analytical Engine in 1843.
+
+Thought 2: Wait, was it actually executed? Let me check if the machine was even built.
+Action 2: Search[Charles Babbage Analytical Engine built 1843]
+Observation 2: The Analytical Engine was never completed in Babbage's lifetime. Lovelace's program was theoretical.
+
+Thought 3: So if we're talking about actually executed programs, who ran the first one?
+Action 3: Search[first executed computer program in history]
+Observation 3: The first executed programs ran on ENIAC in 1945-1946, written by Jean Bartik and others.
+
+Thought 4: I have nuanced information now. Let me provide a complete answer.
+Action 4: Finish[Ada Lovelace wrote the first computer PROGRAM in 1843 (theoretical). The first EXECUTED program ran on ENIAC in 1945-1946, written by Jean Bartik and the ENIAC women.]</div>
+            </div>
         </section>
 
-        <!-- Meta Prompting -->
+        <!-- META PROMPTING SECTION -->
         <section class="card reveal">
-            <h2><i class="fa-solid fa-cubes fa-icon" style="color: var(--accent-teal);"></i>Meta Prompting</h2>
-            <p><strong>Concept:</strong> Focus on <span class="highlight">structural patterns</span> rather than specific content. Teach the AI the <em>form</em> of the solution, not just examples.</p>
+            <h2><i class="fa-solid fa-cubes fa-icon" style="color: var(--accent-teal);"></i>Meta Prompting: Teach the Recipe, Not Just the Dish</h2>
+            
+            <p><strong>What it is:</strong> Instead of giving examples of the answer, you give the AI a <span class="highlight">template or structure</span> for HOW to think about the problem. You're teaching it the recipe, not just showing finished dishes.</p>
 
-            <h3>Meta Prompting vs Few-Shot</h3>
-            <div class="comparison-box">
-                <div class="comparison-item bad">
-                    <div class="comparison-icon"><i class="fa-solid fa-list"></i></div>
-                    <div class="comparison-label">Few-Shot (Content)</div>
-                    <p>"Here are 3 examples of poems about cats..."</p>
-                    <p style="margin-top: 10px; font-size: 0.95rem;">AI learns specific content patterns</p>
-                </div>
-                <div class="comparison-item good">
-                    <div class="comparison-icon"><i class="fa-solid fa-shapes"></i></div>
-                    <div class="comparison-label">Meta (Structure)</div>
-                    <p>"A poem has: Title, Stanza 1 (sets scene), Stanza 2 (develops conflict), Stanza 3 (resolution)..."</p>
-                    <p style="margin-top: 10px; font-size: 0.95rem;">AI learns the underlying structure</p>
-                </div>
-            </div>
+            <p>This is like the difference between showing someone 5 photos of happy dogs (few-shot) vs. teaching them "draw a dog by starting with circles for body and head, then add legs, then fur texture" (meta prompting). The second approach teaches them to draw ANY dog, not just copy the 5 you showed.</p>
 
-            <h3>Meta Prompt Example</h3>
+            <h3>5 Original Meta Prompting Examples</h3>
+
+            <h4>Example 1: The Problem-Solving Template</h4>
             <div class="code-block">
                 <div class="code-header">
                     <span class="dot red"></span>
                     <span class="dot yellow"></span>
                     <span class="dot green"></span>
-                    <span>Meta Prompt Structure</span>
+                    <span>Universal Solver Pattern</span>
                 </div>
-                <div class="code-content">To solve this type of problem, follow this structure:
+                <div class="code-content">When solving any word problem, follow this structure:
 
-1. Identify the given information
-2. Determine what needs to be found
-3. Choose the appropriate formula/method
-4. Substitute values and solve
-5. Verify the answer makes sense
+1. IDENTIFY: What information is given? What am I solving for?
+2. CHOOSE: What mathematical operation or formula applies?
+3. SET UP: Write the equation with variables
+4. SOLVE: Calculate the answer step by step
+5. CHECK: Does the answer make sense? Verify with estimation.
 
-Problem: [Insert problem here]</div>
+Problem: A train travels 120 miles in 2 hours. How long will it take to travel 300 miles at the same speed?</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                <div><strong>AI Uses the Framework:</strong><br>
+                1. <strong>IDENTIFY:</strong> Given: 120 miles in 2 hours. Need: time for 300 miles.<br>
+                2. <strong>CHOOSE:</strong> First find speed, then use speed = distance/time<br>
+                3. <strong>SET UP:</strong> Speed = 120/2 = 60 mph. Time = 300/60<br>
+                4. <strong>SOLVE:</strong> Time = 5 hours<br>
+                5. <strong>CHECK:</strong> 300 is 2.5 × 120, so time should be 2.5 × 2 = 5 hours ✓</div>
+            </div>
+
+            <h4>Example 2: The Socratic Questioner</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Teaching Through Questions</span>
+                </div>
+                <div class="code-content">When someone asks a complex question, don't just answer. Use the Socratic method:
+
+1. Clarify what they know: "What do you already understand about this?"
+2. Identify gaps: "What specifically is confusing you?"
+3. Guide with questions: Ask leading questions toward understanding
+4. Connect to what they know: "This is similar to..."
+5. Confirm understanding: "Does that make sense? What questions do you have?"
+
+Student asks: "Why is the sky blue?"</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-comments"></i></div>
+                <div><strong>AI Responds with Socratic Method:</strong><br>
+                "Great question! Let's explore this together. First, what do you already know about sunlight? [Student responds] ... So sunlight contains all colors. Now, what happens when light enters our atmosphere? [Guides through Rayleigh scattering concept] ... So which colors scatter more easily - long wavelengths or short? [Leads to blue/violet scattering] ..."</div>
+            </div>
+
+            <h4>Example 3: The Code Review Structure</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Structured Code Review</span>
+                </div>
+                <div class="code-content">Review any code using this framework:
+
+SECTION 1: HIGH-LEVEL OVERVIEW
+- What does this code do in plain English?
+- What problem is it solving?
+
+SECTION 2: CODE QUALITY  
+- Is it readable? Are variable names clear?
+- Are there comments where needed?
+- Does it follow language conventions?
+
+SECTION 3: LOGIC & CORRECTNESS
+- Does it handle edge cases?
+- Are there potential bugs?
+- Is the logic efficient?
+
+SECTION 4: IMPROVEMENTS
+- One thing to change immediately
+- One thing to refactor later
+- One thing that was done well
+
+[Code to review would go here]</div>
+            </div>
+
+            <h4>Example 4: The Story Structure Blueprint</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Story Architecture</span>
+                </div>
+                <div class="code-content">Write any short story following this structure:
+
+OPENING (1 paragraph): Establish the setting and protagonist's normal world. End with something that hints at change coming.
+
+INCITING INCIDENT (1 paragraph): The event that disrupts the normal world. The protagonist must react.
+
+RISING ACTION (2-3 paragraphs): Complications arise. Stakes increase. Protagonist struggles.
+
+CLIMAX (1 paragraph): The moment of maximum tension. The protagonist faces their challenge.
+
+RESOLUTION (1 paragraph): What changed? How is the protagonist different? End with emotional impact.
+
+Theme to explore: Redemption</div>
+            </div>
+
+            <h4>Example 5: The Argument Analyzer</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Critical Thinking Template</span>
+                </div>
+                <div class="code-content">Analyze any argument using this logical framework:
+
+CLAIM: What is the main assertion being made?
+EVIDENCE: What facts, data, or examples support it?
+WARRANTS: What assumptions connect evidence to claim?
+COUNTER-ARGUMENTS: What could someone opposed say?
+QUALIFIERS: Under what conditions is this claim valid?
+
+Argument to analyze: "Social media is making teenagers more anxious and depressed, so we should ban it for anyone under 18."</div>
+            </div>
+            <div class="insight-box">
+                <div class="insight-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+                <div><strong>Structured Analysis:</strong><br>
+                <strong>CLAIM:</strong> Social media causes anxiety/depression in teens, therefore should be banned under 18.<br>
+                <strong>EVIDENCE:</strong> Studies showing correlation between social media use and mental health issues.<br>
+                <strong>WARRANTS:</strong> Correlation = causation; ban is effective solution; 18 is right cutoff.<br>
+                <strong>COUNTER-ARGUMENTS:</strong> Social connection benefits; teens will find workarounds; education better than prohibition.<br>
+                <strong>QUALIFIERS:</strong> Valid for excessive use; varies by individual; age-appropriate content matters.</div>
+            </div>
+        </section>
+
+        <!-- REFLEXION SECTION -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-mirror fa-icon" style="color: var(--accent-lavender);"></i>Reflexion: Learn From Your Mistakes</h2>
+            
+            <p><strong>What it is:</strong> After the AI does something, you ask it to <span class="highlight">critique its own work</span>, identify what went wrong, and try again with improvements. It's like having the AI grade its own homework and then redo it!</p>
+
+            <p>This is incredibly powerful because it turns one-shot prompting into an iterative improvement cycle. Instead of accepting the first draft (which might be mediocre), the AI becomes its own editor, spotting weaknesses and fixing them.</p>
+
+            <h3>The Reflexion Loop</h3>
+            <div class="flow-diagram">
+                <div class="flow-step">
+                    <div class="flow-box" style="background: linear-gradient(135deg, #E3F2FD, #BBDEFB);"><strong>Step 1:</strong> AI Does Task</div>
+                    <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="flow-box" style="background: linear-gradient(135deg, #FFF3E0, #FFE0B2);"><strong>Step 2:</strong> Self-Critique<br>"What could be better?"</div>
+                    <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="flow-box" style="background: linear-gradient(135deg, #E8F5E9, #C8E6C9);"><strong>Step 3:</strong> Revise & Improve</div>
+                    <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    <div class="flow-box" style="background: linear-gradient(135deg, #F3E5F5, #E1BEE7);"><strong>Repeat</strong> until satisfied</div>
+                </div>
+            </div>
+
+            <h3>5 Original Reflexion Examples</h3>
+
+            <h4>Example 1: Essay Improvement</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Draft 1: Initial Essay</span>
+                </div>
+                <div class="code-content">[AI writes 3-paragraph essay about climate change]
+
+[SEPARATOR]
+Now critique your own essay. Be honest:
+1. What are the weaknesses?
+2. What's missing?  
+3. Where is the evidence weak?
+4. How could the flow be better?
+
+Critique: "The opening is too generic. I need a hook. The middle paragraph jumps between topics without clear transitions. I'm making claims without citing specific data. The conclusion just restates instead of providing a call to action..."</div>
+            </div>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Draft 2: Improved Version</span>
+                </div>
+                <div class="code-content">Now rewrite the essay addressing those critiques:
+- Start with specific, startling statistic as hook
+- Add transition sentences between paragraphs  
+- Include specific data points with sources
+- End with actionable steps readers can take
+
+[AI produces much improved essay with all critiques addressed]</div>
+            </div>
+
+            <h4>Example 2: Code Refactoring</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Code Self-Review</span>
+                </div>
+                <div class="code-content">[AI writes Python function to process user data]
+
+[SEPARATOR]
+Review your own code as if you're a senior developer:
+- Are there code smells?
+- Is it efficient?
+- Is it maintainable?
+- Security concerns?
+
+Self-review: "I'm repeating the same validation logic in three places - that's a violation of DRY principle. The function is doing too many things (SRP violation). I'm not handling the case where user_data is None. The variable names 'x' and 'y' are not descriptive..."
+
+[SEPARATOR]
+Now refactor the code fixing these issues.</div>
+            </div>
+
+            <h4>Example 3: Creative Writing Polish</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Story Self-Editing</span>
+                </div>
+                <div class="code-content">[AI writes a short story scene]
+
+[SEPARATOR]
+Put on your editor hat. Analyze this scene:
+- Is the dialogue natural?
+- Are characters distinct?
+- Is there enough sensory detail?
+- What's the pacing like?
+- Does it advance the plot?
+
+Analysis: "The dialogue feels a bit on-the-nose - characters are saying exactly what they're thinking. I need more subtext. The setting description is just visual - I should add sounds and smells. The pacing drags in the middle. I tell the reader the character is nervous instead of showing it..."
+
+[SEPARATOR]
+Revise the scene incorporating these improvements.</div>
+            </div>
+
+            <h4>Example 4: Math Problem Correction</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Error Detection</span>
+                </div>
+                <div class="code-content">Solve: If a rectangle has perimeter 30 and length is twice the width, what's the area?
+
+First attempt:
+"Let width = w, length = 2w
+Perimeter = 2(length + width) = 2(2w + w) = 6w = 30
+So w = 5, length = 10
+Area = 5 × 10 = 50"
+
+[SEPARATOR]
+Wait, double-check your work:
+- Did you set up the equation correctly?
+- Check: Does 5 and 10 give perimeter 30?
+- Verify the area calculation.
+
+Verification: "2(10 + 5) = 2(15) = 30 ✓. Area is indeed 50. The answer is correct!"
+
+(If there was an error, the AI would catch and fix it)</div>
+            </div>
+
+            <h4>Example 5: Business Email Revision</h4>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Professional Communication Polish</span>
+                </div>
+                <div class="code-content">Draft an email to a client explaining that their project will be delayed by one week.
+
+[AI writes initial email]
+
+[SEPARATOR]
+Critique your own email professionally:
+- Is the tone appropriate?
+- Did you take responsibility or make excuses?
+- Is there a solution offered?
+- Is it concise or wordy?
+
+Self-critique: "I used passive voice ('delays have occurred') instead of taking ownership. I spent too much time explaining why instead of focusing on solutions. I should offer something to make up for the delay. The subject line is vague..."
+
+[SEPARATOR]
+Write an improved version addressing these issues.</div>
             </div>
 
             <div class="insight-box">
-                <div class="insight-icon"><i class="fa-solid fa-leaf"></i></div>
+                <div class="insight-icon"><i class="fa-solid fa-star"></i></div>
                 <div>
-                    <strong>Efficiency:</strong> Meta prompts use fewer tokens than extensive few-shot examples while often producing better, more generalizable results!
+                    <strong>Pro Tip:</strong> You can do multiple rounds of reflexion! Draft → Critique → Revise → Critique Again → Final Polish. Each iteration gets noticeably better.
                 </div>
             </div>
         </section>
 
         <!-- Best Practices Summary -->
         <section class="card reveal">
-            <h2><i class="fa-solid fa-star fa-icon" style="color: var(--accent-sunflower);"></i>Best Practices Summary</h2>
+            <h2><i class="fa-solid fa-trophy fa-icon" style="color: var(--accent-sunflower);"></i>The Greatest Hits: Your Prompt Engineering Cheat Sheet</h2>
             
-            <h3>The 80/20 of Prompt Engineering</h3>
-            <div class="technique-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+            <p>Look, I just threw a LOT at you. Here's the TL;DR - the stuff that'll give you 80% of the benefits with 20% of the effort:</p>
+
+            <h3>The Essential Toolkit</h3>
+            <div class="technique-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
                 <div class="technique-card" style="background: linear-gradient(135deg, #E8F8F5, #D1F2EB); text-align: left; padding: 25px;">
-                    <div class="technique-name"><i class="fa-solid fa-check-circle" style="color: var(--accent-green);"></i> Be Clear & Specific</div>
-                    <p style="font-size: 0.95rem; margin-top: 10px;">Vague prompts = vague answers. Tell the AI exactly what format, tone, and depth you want.</p>
+                    <div class="technique-name"><i class="fa-solid fa-check-circle" style="color: var(--accent-green);"></i> Be Specific AF</div>
+                    <p style="font-size: 0.95rem; margin-top: 10px;">"Write about dogs" → terrible. "Write a 300-word blog post about training golden retriever puppies, using a friendly tone, with 3 practical tips" → chef's kiss</p>
                 </div>
                 <div class="technique-card" style="background: linear-gradient(135deg, #E8F8F5, #D1F2EB); text-align: left; padding: 25px;">
-                    <div class="technique-name"><i class="fa-solid fa-check-circle" style="color: var(--accent-green);"></i> Use Examples</div>
-                    <p style="font-size: 0.95rem; margin-top: 10px;">When zero-shot isn't working, add 2-3 examples showing exactly what you want.</p>
+                    <div class="technique-name"><i class="fa-solid fa-check-circle" style="color: var(--accent-green);"></i> Give Examples</div>
+                    <p style="font-size: 0.95rem; margin-top: 10px;">When zero-shot fails, add 2-3 examples showing EXACTLY what you want. The AI is great at pattern matching.</p>
                 </div>
                 <div class="technique-card" style="background: linear-gradient(135deg, #E8F8F5, #D1F2EB); text-align: left; padding: 25px;">
-                    <div class="technique-name"><i class="fa-solid fa-check-circle" style="color: var(--accent-green);"></i> Think Step by Step</div>
-                    <p style="font-size: 0.95rem; margin-top: 10px;">For complex tasks, always ask the AI to show its reasoning. Add "Let's think step by step."</p>
+                    <div class="technique-name"><i class="fa-solid fa-check-circle" style="color: var(--accent-green);"></i> Make It Think</div>
+                    <p style="font-size: 0.95rem; margin-top: 10px;">For hard problems, add "Let's think step by step" or "Show your work." Seriously. It works like magic.</p>
                 </div>
                 <div class="technique-card" style="background: linear-gradient(135deg, #E8F8F5, #D1F2EB); text-align: left; padding: 25px;">
-                    <div class="technique-name"><i class="fa-solid fa-check-circle" style="color: var(--accent-green);"></i> Assign Roles</div>
-                    <p style="font-size: 0.95rem; margin-top: 10px;">Start with "Act as an expert [profession]..." to get more authoritative responses.</p>
+                    <div class="technique-name"><i class="fa-solid fa-check-circle" style="color: var(--accent-green);"></i> Assign a Role</div>
+                    <p style="font-size: 0.95rem; margin-top: 10px;">"Act as a grumpy cybersecurity expert" or "Explain like I'm 5." The AI commits to the bit hard.</p>
                 </div>
                 <div class="technique-card" style="background: linear-gradient(135deg, #E8F8F5, #D1F2EB); text-align: left; padding: 25px;">
-                    <div class="technique-name"><i class="fa-solid fa-check-circle" style="color: var(--accent-green);"></i> Separate Instructions & Data</div>
-                    <p style="font-size: 0.95rem; margin-top: 10px;">Use delimiters (###, """, XML tags) to clearly separate what you're asking from the context.</p>
+                    <div class="technique-name"><i class="fa-solid fa-check-circle" style="color: var(--accent-green);"></i> Break It Down</div>
+                    <p style="font-size: 0.95rem; margin-top: 10px;">Complex task? Chain it: outline → draft → edit. Don't ask for a masterpiece in one shot.</p>
                 </div>
                 <div class="technique-card" style="background: linear-gradient(135deg, #E8F8F5, #D1F2EB); text-align: left; padding: 25px;">
-                    <div class="technique-name"><i class="fa-solid fa-check-circle" style="color: var(--accent-green);"></i> Iterate & Refine</div>
-                    <p style="font-size: 0.95rem; margin-top: 10px;">First drafts rarely perfect. Ask the AI to critique and improve its own output.</p>
+                    <div class="technique-name"><i class="fa-solid fa-check-circle" style="color: var(--accent-green);"></i> Iterate, Iterate, Iterate</div>
+                    <p style="font-size: 0.95rem; margin-top: 10px;">First draft rarely perfect. Ask AI to critique itself and improve. Then do it again. Each pass gets better.</p>
                 </div>
             </div>
-        </section>
 
-        <!-- Quick Reference -->
-        <section class="card reveal">
-            <h2><i class="fa-solid fa-table-list fa-icon" style="color: var(--accent-lavender);"></i>Quick Reference: When to Use What</h2>
-            
+            <h3>Quick Reference: Which Technique When?</h3>
             <table style="width: 100%; border-collapse: separate; border-spacing: 0; margin: 25px 0; border: 2px solid var(--pencil); border-radius: 15px; overflow: hidden;">
                 <thead>
                     <tr style="background: #F5F0E8;">
-                        <th style="padding: 15px; text-align: left; border-bottom: 2px dashed rgba(0,0,0,0.15); font-family: 'Patrick Hand', cursive; font-size: 1.2rem;">Technique</th>
-                        <th style="padding: 15px; text-align: left; border-bottom: 2px dashed rgba(0,0,0,0.15); font-family: 'Patrick Hand', cursive; font-size: 1.2rem;">Best For</th>
-                        <th style="padding: 15px; text-align: left; border-bottom: 2px dashed rgba(0,0,0,0.15); font-family: 'Patrick Hand', cursive; font-size: 1.2rem;">Complexity</th>
+                        <th style="padding: 15px; text-align: left; border-bottom: 2px dashed rgba(0,0,0,0.15); font-family: 'Patrick Hand', cursive; font-size: 1.2rem;">If You Need...</th>
+                        <th style="padding: 15px; text-align: left; border-bottom: 2px dashed rgba(0,0,0,0.15); font-family: 'Patrick Hand', cursive; font-size: 1.2rem;">Use This</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
+                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);">Quick answer to simple question</td>
                         <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);"><strong>Zero-Shot</strong></td>
-                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);">Simple tasks, quick answers</td>
-                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);"><span style="color: var(--accent-green);">Easy</span></td>
                     </tr>
                     <tr>
+                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);">Specific format or style</td>
                         <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);"><strong>Few-Shot</strong></td>
-                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);">Pattern matching, formatting</td>
-                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);"><span style="color: var(--accent-green);">Easy</span></td>
                     </tr>
                     <tr>
+                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);">Different perspective or expertise</td>
                         <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);"><strong>Role Assignment</strong></td>
-                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);">Changing tone/perspective</td>
-                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);"><span style="color: var(--accent-green);">Easy</span></td>
                     </tr>
                     <tr>
+                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);">Math, logic, or complex reasoning</td>
                         <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);"><strong>Chain-of-Thought</strong></td>
-                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);">Math, logic, reasoning</td>
-                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);"><span style="color: var(--accent-sunflower);">Medium</span></td>
                     </tr>
                     <tr>
-                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);"><strong>Self-Consistency</strong></td>
                         <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);">High-stakes accuracy</td>
-                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);"><span style="color: var(--accent-sunflower);">Medium</span></td>
+                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);"><strong>Self-Consistency</strong></td>
                     </tr>
                     <tr>
+                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);">Multi-step complex task</td>
                         <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);"><strong>Prompt Chaining</strong></td>
-                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);">Complex multi-step tasks</td>
-                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);"><span style="color: var(--accent-sunflower);">Medium</span></td>
                     </tr>
                     <tr>
+                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);">Exploring multiple approaches</td>
                         <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);"><strong>Tree of Thoughts</strong></td>
-                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);">Exploration, creativity</td>
-                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);"><span style="color: var(--accent-coral);">Hard</span></td>
                     </tr>
                     <tr>
+                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);">Current or private information</td>
                         <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);"><strong>RAG</strong></td>
-                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);">Knowledge-intensive tasks</td>
-                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);"><span style="color: var(--accent-coral);">Hard</span></td>
                     </tr>
                     <tr>
-                        <td style="padding: 12px 15px;"><strong>ReAct</strong></td>
-                        <td style="padding: 12px 15px;">Agent behavior, tool use</td>
-                        <td style="padding: 12px 15px;"><span style="color: var(--accent-coral);">Hard</span></td>
+                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);">Using tools or doing research</td>
+                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);"><strong>ReAct</strong></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);">Teaching a reusable method</td>
+                        <td style="padding: 12px 15px; border-bottom: 1px dashed rgba(0,0,0,0.1);"><strong>Meta Prompting</strong></td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 12px 15px;">Improving quality</td>
+                        <td style="padding: 12px 15px;"><strong>Reflexion</strong></td>
                     </tr>
                 </tbody>
             </table>
         </section>
 
-        <!-- Conclusion -->
+        <!-- Final Words -->
         <section class="card reveal">
-            <h2><i class="fa-solid fa-flag-checkered fa-icon" style="color: var(--accent-coral);"></i>Putting It All Together</h2>
-            <p>Prompt engineering is not about memorizing techniques—it's about understanding <span class="highlight">how to communicate effectively with AI</span>. Start simple, iterate often, and combine techniques as needed.</p>
+            <h2><i class="fa-solid fa-flag-checkered fa-icon" style="color: var(--accent-coral);"></i>Go Forth and Prompt!</h2>
+            
+            <p>Congratulations! You now know more about prompting than 99% of people using AI. Seriously.</p>
 
-            <h3>Your Prompt Engineering Journey</h3>
+            <p>But here's the thing: <span class="highlight">knowing techniques is just the start.</span> The real magic happens when you experiment. Try weird combinations. Break things. See what happens when you ask an AI to "act as a pirate explaining quantum physics while showing your work step by step." (Spoiler: it's hilarious AND educational.)</p>
+
+            <h3>Your Mission, Should You Choose to Accept It</h3>
             <div class="flow-diagram">
                 <div class="flow-step">
-                    <div class="flow-box" style="background: linear-gradient(135deg, #E8F5E9, #C8E6C9);"><strong>Week 1:</strong> Master Zero-Shot & Few-Shot</div>
+                    <div class="flow-box" style="background: linear-gradient(135deg, #E8F5E9, #C8E6C9);"><strong>This Week:</strong> Use Chain-of-Thought for every math/logic problem</div>
                     <div class="flow-arrow"><i class="fa-solid fa-arrow-down"></i></div>
-                    <div class="flow-box" style="background: linear-gradient(135deg, #FFF3E0, #FFE0B2);"><strong>Week 2-3:</strong> Add Chain-of-Thought</div>
+                    <div class="flow-box" style="background: linear-gradient(135deg, #FFF3E0, #FFE0B2);"><strong>Next Week:</strong> Add role assignment to everything</div>
                     <div class="flow-arrow"><i class="fa-solid fa-arrow-down"></i></div>
-                    <div class="flow-box" style="background: linear-gradient(135deg, #E3F2FD, #BBDEFB);"><strong>Week 4+:</strong> Experiment with Advanced Techniques</div>
+                    <div class="flow-box" style="background: linear-gradient(135deg, #E3F2FD, #BBDEFB);"><strong>Ongoing:</strong> Always ask "How could this be better?"</div>
                 </div>
             </div>
 
             <div class="insight-box">
                 <div class="insight-icon"><i class="fa-solid fa-rocket"></i></div>
                 <div>
-                    <strong>Remember:</strong> The best prompt engineers are those who experiment constantly. Don't be afraid to try weird things—sometimes the most effective prompts are the ones that surprise you!
+                    <strong>Final Thought:</strong> The best prompt engineers aren't the ones who memorize every technique—they're the ones who treat AI like a collaborative partner. Be clear. Be specific. Be creative. And don't forget to have fun with it!
                 </div>
             </div>
 
-            <h3>Further Resources</h3>
-            <ul style="margin: 15px 0; padding-left: 30px;">
-                <li><strong>Prompt Engineering Guide:</strong> <a href="https://www.promptingguide.ai" target="_blank" style="color: var(--accent-teal);">promptingguide.ai</a></li>
-                <li><strong>Anthropic Tutorial:</strong> <a href="https://github.com/anthropics/prompt-eng-interactive-tutorial" target="_blank" style="color: var(--accent-teal);">GitHub Interactive Tutorial</a></li>
-                <li><strong>OpenAI Cookbook:</strong> Various prompt engineering patterns and examples</li>
-            </ul>
+            <p style="text-align: center; font-family: 'Caveat', cursive; font-size: 1.5rem; margin-top: 30px; color: var(--pencil);">
+                Now go make some AI magic! ✨
+            </p>
         </section>
 
         <footer>
