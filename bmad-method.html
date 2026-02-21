@@ -553,10 +553,120 @@
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; }
         .reveal.visible { opacity: 1; transform: translateY(0); }
 
+        /* Enhanced Mobile Styles */
         @media (max-width: 768px) {
-            h1 { font-size: 2.6rem; }
-            .card { padding: 26px; }
-            .sdlc-phase { width: 120px; padding: 15px 10px; }
+            body {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .card {
+                padding: 20px 15px;
+                margin-bottom: 20px;
+                border-radius: 20px 10px 20px 10px / 10px 20px 10px 20px;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+                padding-left: 40px;
+            }
+            
+            h2 .fa-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 1rem;
+            }
+            
+            .sdlc-cycle {
+                padding: 20px 15px;
+            }
+            
+            .sdlc-phase {
+                width: 100px;
+                padding: 12px 8px;
+                font-size: 0.85rem;
+            }
+            
+            .phase-icon {
+                font-size: 1.5rem;
+            }
+            
+            .agent-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .agent-card {
+                padding: 18px;
+            }
+            
+            .quote-box {
+                padding: 18px;
+                font-size: 0.95rem;
+            }
+            
+            .code-content {
+                padding: 12px 15px;
+                font-size: 0.8rem;
+                overflow-x: auto;
+            }
+            
+            .workflow-diagram {
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .card {
+                padding: 15px 12px;
+            }
+            
+            h2 {
+                font-size: 1.1rem;
+                padding-left: 35px;
+            }
+            
+            h2 .fa-icon {
+                width: 28px;
+                height: 28px;
+                font-size: 0.9rem;
+            }
+            
+            .sdlc-phase {
+                width: 85px;
+                padding: 10px 6px;
+                font-size: 0.8rem;
+            }
+            
+            .phase-icon {
+                font-size: 1.3rem;
+            }
+            
+            .agent-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 1.5rem;
+            }
+            
+            .page-meta {
+                flex-direction: column;
+                gap: 8px;
+            }
         }
     </style>
 </head>

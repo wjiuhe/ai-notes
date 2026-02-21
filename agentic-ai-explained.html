@@ -442,12 +442,131 @@
             gap: 8px;
         }
 
+        /* Enhanced Mobile Styles */
         @media (max-width: 768px) {
-            h1 { font-size: 2.6rem; }
-            .card { padding: 26px; }
-            .three-components { flex-direction: column; }
-            .process-flow { flex-direction: column; }
-            .memory-circles { flex-direction: column; }
+            body {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .card {
+                padding: 20px 15px;
+                margin-bottom: 20px;
+                border-radius: 20px 10px 20px 10px / 10px 20px 10px 20px;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+                padding-left: 40px;
+            }
+            
+            h2 .fa-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 1rem;
+            }
+            
+            .three-components {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .component-card {
+                min-width: auto;
+                padding: 18px;
+            }
+            
+            .process-flow {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .process-arrow {
+                transform: rotate(90deg);
+            }
+            
+            .memory-circles {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .memory-circle {
+                width: 100%;
+                max-width: 280px;
+                margin: 0 auto;
+            }
+            
+            .comparison-table {
+                font-size: 0.8rem;
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            
+            .comparison-table th,
+            .comparison-table td {
+                padding: 10px 12px;
+            }
+            
+            .action-card {
+                padding: 18px;
+            }
+            
+            .code-content {
+                padding: 12px 15px;
+                font-size: 0.8rem;
+                overflow-x: auto;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .card {
+                padding: 15px 12px;
+            }
+            
+            h2 {
+                font-size: 1.1rem;
+                padding-left: 35px;
+            }
+            
+            h2 .fa-icon {
+                width: 28px;
+                height: 28px;
+                font-size: 0.9rem;
+            }
+            
+            .component-card {
+                padding: 15px;
+            }
+            
+            .comparison-table {
+                font-size: 0.75rem;
+            }
+            
+            .comparison-table th,
+            .comparison-table td {
+                padding: 8px 10px;
+            }
+            
+            .page-meta {
+                flex-direction: column;
+                gap: 8px;
+            }
         }
 
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; }
@@ -477,9 +596,10 @@
             font-family: 'Patrick Hand', cursive;
             font-size: 0.95rem;
             color: var(--text-muted);
-            margin-bottom: 20px;
+            margin-top: 20px;
             display: flex;
             gap: 20px;
+            justify-content: center;
         }
         .page-meta i { margin-right: 5px; }
     </style>
@@ -487,15 +607,14 @@
 <body>
     <div class="container">
         <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Mind & Machine</a>
-        
-        <div class="page-meta">
-            <span><i class="fa-solid fa-user"></i> Jiuhe Wang</span>
-            <span><i class="fa-regular fa-calendar"></i> Feb 15, 2025</span>
-        </div>
 
         <header>
             <h1>What Makes a Real AI Agent?</h1>
             <p class="subtitle">Notes on AI, Agents, and Beyond</p>
+            <p style="margin-top: 15px; font-size: 0.9rem; color: var(--text-muted);">
+                <i class="fa-solid fa-user"></i> Jiuhe Wang &nbsp;|&nbsp;
+                <i class="fa-regular fa-calendar"></i> Feb 21, 2026
+            </p>
         </header>
 
         <section class="card reveal">

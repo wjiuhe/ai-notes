@@ -687,9 +687,135 @@
         }
         .page-meta i { margin-right: 5px; }
 
+        /* Enhanced Mobile Styles */
         @media (max-width: 768px) {
-            h1 { font-size: 2.2rem; }
-            .card { padding: 25px; }
+            body {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .card {
+                padding: 20px 15px;
+                margin-bottom: 20px;
+                border-radius: 20px 10px 20px 10px / 10px 20px 10px 20px;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+                padding-left: 40px;
+            }
+            
+            h2 .fa-icon {
+                width: 32px;
+                height: 32px;
+                font-size: 1rem;
+            }
+            
+            .expert-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .expert {
+                padding: 15px;
+            }
+            
+            .expert-status {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            
+            .moe-stats {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            
+            .moe-stat {
+                padding: 10px 15px;
+            }
+            
+            .architecture-flow {
+                padding: 20px;
+            }
+            
+            .flow-step {
+                padding: 15px;
+            }
+            
+            .benchmark-table {
+                font-size: 0.8rem;
+            }
+            
+            .benchmark-table th,
+            .benchmark-table td {
+                padding: 8px 10px;
+            }
+            
+            .code-content {
+                padding: 12px 15px;
+                font-size: 0.8rem;
+                overflow-x: auto;
+            }
+            
+            .insight-box {
+                padding: 15px;
+                gap: 12px;
+            }
+            
+            .insight-icon {
+                font-size: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .card {
+                padding: 15px 12px;
+            }
+            
+            h2 {
+                font-size: 1.1rem;
+                padding-left: 35px;
+            }
+            
+            h2 .fa-icon {
+                width: 28px;
+                height: 28px;
+                font-size: 0.9rem;
+            }
+            
+            .expert {
+                padding: 12px;
+            }
+            
+            .page-meta {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .moe-stats {
+                flex-direction: column;
+            }
+            
+            .moe-stat {
+                width: 100%;
+                text-align: center;
+            }
         }
 
         .reveal { opacity: 0; transform: translateY(15px); transition: all 0.5s ease; }

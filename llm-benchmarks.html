@@ -125,8 +125,9 @@
         .main-content {
             margin-left: 280px;
             flex: 1;
-            padding: 40px 30px;
-            max-width: 900px;
+            padding: 40px 40px;
+            max-width: calc(100vw - 320px);
+            min-width: 0;
         }
 
         .container { max-width: 100%; margin: 0 auto; }
@@ -578,6 +579,10 @@
             .sidebar.open {
                 transform: translateX(0);
             }
+
+            .sidebar.open .sidebar-header {
+                padding-top: 60px;
+            }
             
             .main-content {
                 margin-left: 0;
@@ -587,12 +592,197 @@
             .toc-toggle {
                 display: block;
             }
+
+            .back-link {
+                margin-top: 50px;
+            }
+        }
+
+        /* Enhanced Mobile Styles */
+        @media (max-width: 1200px) {
+            .main-content {
+                padding: 20px 15px;
+            }
+            
+            .card {
+                padding: 25px 20px;
+                border-radius: 20px 10px 20px 10px / 10px 20px 10px 20px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            h2 {
+                font-size: 1.6rem;
+                padding-left: 45px;
+            }
+            
+            h2 .fa-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+            
+            .universe-benchmarks {
+                grid-template-columns: 1fr;
+            }
+            
+            .benchmark-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .comparison-box {
+                flex-direction: column;
+            }
+            
+            .code-content {
+                padding: 15px;
+                font-size: 0.8rem;
+            }
         }
 
         @media (max-width: 768px) {
-            .benchmark-grid { grid-template-columns: 1fr; }
-            .comparison-box { flex-direction: column; }
-            .universe-benchmarks { grid-template-columns: 1fr; }
+            .main-content {
+                padding: 15px 12px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .card {
+                padding: 20px 15px;
+                margin-bottom: 20px;
+            }
+            
+            h2 {
+                font-size: 1.4rem;
+                padding-left: 40px;
+                min-height: 40px;
+            }
+            
+            h2 .fa-icon {
+                width: 32px;
+                height: 32px;
+            }
+            
+            .universe-benchmarks {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .universe-item {
+                padding: 15px;
+            }
+            
+            .benchmark-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            
+            .benchmark-card {
+                padding: 15px;
+            }
+            
+            .comparison-box {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .comparison-item {
+                min-width: auto;
+                padding: 20px;
+            }
+            
+            .code-block {
+                margin: 15px 0;
+                border-radius: 15px;
+            }
+            
+            .code-header {
+                padding: 10px 15px;
+                font-size: 0.85rem;
+            }
+            
+            .code-content {
+                padding: 12px 15px;
+                font-size: 0.75rem;
+                line-height: 1.6;
+                overflow-x: auto;
+            }
+            
+            .example-label {
+                font-size: 0.7rem;
+                padding: 2px 8px;
+            }
+            
+            .score-bar {
+                height: 20px;
+            }
+            
+            .metric-pill {
+                padding: 3px 8px;
+                font-size: 0.75rem;
+            }
+            
+            .toc-toggle {
+                top: 10px;
+                left: 10px;
+                padding: 10px 12px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            .card {
+                padding: 15px 12px;
+            }
+            
+            h2 {
+                font-size: 1.2rem;
+                padding-left: 35px;
+            }
+            
+            h2 .fa-icon {
+                width: 28px;
+                height: 28px;
+                font-size: 0.9rem;
+            }
+            
+            h3 {
+                font-size: 1.1rem;
+            }
+            
+            .code-content {
+                padding: 10px 12px;
+                font-size: 0.7rem;
+            }
+            
+            .universe-item {
+                padding: 12px;
+            }
+            
+            .universe-header {
+                font-size: 1rem;
+            }
+            
+            .item-header {
+                flex-wrap: wrap;
+                gap: 5px;
+            }
         }
     </style>
 </head>

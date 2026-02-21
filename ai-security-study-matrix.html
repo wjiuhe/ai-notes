@@ -120,8 +120,9 @@
         .main-content {
             margin-left: 280px;
             flex: 1;
-            padding: 40px 30px;
-            max-width: 900px;
+            padding: 40px 40px;
+            max-width: calc(100vw - 320px);
+            min-width: 0;
         }
 
         .container { max-width: 100%; margin: 0 auto; }
@@ -823,18 +824,339 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
 
+        /* Enhanced Mobile Styles */
         @media (max-width: 1200px) {
             .sidebar {
                 transform: translateX(-100%);
                 transition: transform 0.3s ease;
+                width: 260px;
             }
             .sidebar.open { transform: translateX(0); }
-            .main-content { margin-left: 0; padding: 40px 20px; }
-            .toc-toggle { display: block; }
+            .sidebar.open .sidebar-header {
+                padding-top: 60px;
+            }
+            .main-content { 
+                margin-left: 0; 
+                padding: 20px 15px;
+                max-width: 100%;
+            }
+            .toc-toggle { 
+                display: block;
+                top: 10px;
+                left: 10px;
+            }
+
+            .back-link {
+                margin-top: 50px;
+            }
+            
+            .card {
+                padding: 25px 20px;
+                border-radius: 20px 10px 20px 10px / 10px 20px 10px 20px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            h2 {
+                font-size: 1.6rem;
+                padding-left: 45px;
+            }
+            
+            h2 .fa-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+            
+            .technique-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .comparison-table {
+                font-size: 0.85rem;
+            }
+            
+            .comparison-table th,
+            .comparison-table td {
+                padding: 10px 12px;
+            }
+            
+            .defense-layers {
+                flex-direction: column;
+                gap: 12px;
+            }
+            
+            .defense-layer {
+                min-width: auto;
+                width: 100%;
+            }
+            
+            .shield-illustration {
+                gap: 10px;
+            }
+            
+            .shield-item {
+                min-width: 100px;
+                padding: 15px;
+            }
         }
 
         @media (max-width: 768px) {
-            .technique-grid { grid-template-columns: 1fr 1fr; }
+            .main-content {
+                padding: 15px 12px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .card {
+                padding: 20px 15px;
+                margin-bottom: 20px;
+            }
+            
+            h2 {
+                font-size: 1.4rem;
+                padding-left: 40px;
+                min-height: 40px;
+            }
+            
+            h2 .fa-icon {
+                width: 32px;
+                height: 32px;
+            }
+            
+            .technique-grid { 
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+            
+            .technique-card {
+                padding: 12px;
+            }
+            
+            .technique-icon {
+                font-size: 1.4rem;
+                width: 40px;
+                height: 40px;
+                line-height: 20px;
+                padding: 8px;
+            }
+            
+            .technique-name {
+                font-size: 0.9rem;
+            }
+            
+            .attack-card {
+                padding: 15px;
+                margin: 12px 0;
+            }
+            
+            .attack-example {
+                font-size: 0.8rem;
+                padding: 10px 12px;
+            }
+            
+            .mitigation-card {
+                padding: 15px;
+            }
+            
+            .mitigation-header {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+            
+            .mitigation-icon-large {
+                width: 48px;
+                height: 48px;
+                font-size: 1.3rem;
+            }
+            
+            .comparison-table {
+                font-size: 0.75rem;
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .comparison-table th,
+            .comparison-table td {
+                padding: 8px 10px;
+            }
+            
+            .solution-box,
+            .problem-box {
+                padding: 18px;
+            }
+            
+            .solution-title,
+            .problem-title {
+                font-size: 1.1rem;
+            }
+            
+            .quick-action {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+                padding: 15px;
+            }
+            
+            .tip-box,
+            .warning-box {
+                padding: 15px;
+            }
+            
+            .tip-title,
+            .warning-title {
+                font-size: 1.1rem;
+                margin-left: 15px;
+            }
+            
+            .shield-illustration {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .shield-item {
+                width: 100%;
+                max-width: 280px;
+            }
+            
+            .risk-level {
+                display: block;
+                margin-left: 0;
+                margin-top: 8px;
+                text-align: center;
+            }
+            
+            h3 {
+                font-size: 1.2rem;
+            }
+            
+            h4 {
+                font-size: 1rem;
+            }
+            
+            .toc-toggle {
+                top: 10px;
+                left: 10px;
+                padding: 10px 12px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+                margin-top: 15px;
+            }
+            
+            .card {
+                padding: 15px 12px;
+                margin-bottom: 15px;
+            }
+            
+            h2 {
+                font-size: 1.2rem;
+                padding-left: 35px;
+                min-height: 35px;
+            }
+            
+            h2 .fa-icon {
+                width: 28px;
+                height: 28px;
+                font-size: 0.9rem;
+            }
+            
+            h3 {
+                font-size: 1.1rem;
+            }
+            
+            .technique-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+            
+            .technique-card {
+                padding: 10px 8px;
+            }
+            
+            .technique-icon {
+                font-size: 1.2rem;
+                width: 36px;
+                height: 36px;
+                line-height: 18px;
+                padding: 6px;
+            }
+            
+            .technique-name {
+                font-size: 0.8rem;
+            }
+            
+            .comparison-table {
+                font-size: 0.7rem;
+            }
+            
+            .comparison-table th,
+            .comparison-table td {
+                padding: 6px 8px;
+            }
+            
+            .attack-card {
+                padding: 12px;
+            }
+            
+            .attack-title {
+                font-size: 1rem;
+            }
+            
+            .attack-example {
+                font-size: 0.75rem;
+                padding: 8px 10px;
+            }
+            
+            .attack-label {
+                font-size: 0.75rem;
+                padding: 2px 8px;
+            }
+            
+            .feature-list li {
+                padding-left: 25px;
+                font-size: 0.9rem;
+            }
+            
+            .mitigation-list li {
+                padding: 6px 0 6px 28px;
+                font-size: 0.9rem;
+            }
+            
+            .tool-badge {
+                font-size: 0.7rem;
+                padding: 3px 8px;
+            }
+            
+            .defense-icon-large {
+                font-size: 1.8rem;
+                padding: 10px;
+            }
+            
+            .back-link {
+                font-size: 1rem;
+                margin-bottom: 20px;
+            }
         }
     </style>
 </head>
