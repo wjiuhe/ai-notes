@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenCode Multiple Choice Interaction Study</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Nunito:wght@400;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-cream: #FDF8F3;
+            --bg-paper: #FFFEF9;
+            --accent-coral: #FF6B6B;
+            --accent-teal: #4ECDC4;
+            --accent-sunflower: #FFE66D;
+            --accent-lavender: #C9B1FF;
+            --accent-sky: #A8E6CF;
+            --accent-red: #E74C3C;
+            --accent-green: #27AE60;
+            --accent-orange: #E67E22;
+            --text-dark: #2D3436;
+            --text-muted: #636E72;
+            --pencil: #2B2B2B;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg-cream);
+            color: var(--text-dark);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+
+        header { text-align: center; margin-bottom: 50px; }
+
+        h1 {
+            font-family: 'Caveat', cursive;
+            font-size: 3.2rem;
+            color: var(--pencil);
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent-coral), var(--accent-teal), var(--accent-sunflower));
+            border-radius: 3px;
+            opacity: 0.6;
+        }
+
+        .subtitle { font-family: 'Patrick Hand', cursive; font-size: 1.5rem; color: var(--text-muted); margin-top: 20px; }
+
+        .back-link {
+            display: inline-block;
+            color: var(--accent-teal);
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.1rem;
+            text-decoration: none;
+            margin-bottom: 30px;
+            transition: color 0.3s;
+        }
+        .back-link:hover { color: var(--accent-coral); }
+
+        .page-meta {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            display: flex;
+            gap: 20px;
+        }
+        .page-meta i { margin-right: 5px; }
+
+        .card {
+            background: var(--bg-paper);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            padding: 40px;
+            margin-bottom: 28px;
+            box-shadow: 3px 4px 0 rgba(0,0,0,0.1), 6px 8px 0 rgba(0,0,0,0.05);
+            position: relative;
+            transition: transform 0.3s ease;
+            border: 2px solid var(--pencil);
+        }
+
+        .card:hover { transform: translate(-2px, -2px); }
+
+        h2 { 
+            font-family: 'Caveat', cursive; 
+            font-size: 2.2rem; 
+            color: var(--pencil); 
+            margin-bottom: 20px;
+            padding-left: 50px;
+            position: relative;
+            min-height: 45px;
+            display: flex;
+            align-items: center;
+        }
+
+        h2 .fa-icon {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 42px;
+            height: 42px;
+            background: var(--bg-paper);
+            border: 2px solid var(--pencil);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        h3 { font-family: 'Patrick Hand', cursive; font-size: 1.5rem; color: var(--text-dark); margin: 30px 0 15px; }
+        h4 { font-family: 'Patrick Hand', cursive; font-size: 1.2rem; color: var(--text-muted); margin: 20px 0 10px; }
+        p { margin-bottom: 15px; font-size: 1.08rem; }
+
+        .highlight { background: linear-gradient(180deg, transparent 65%, rgba(255, 230, 109, 0.5) 65%); }
+        .highlight-teal { background: linear-gradient(180deg, transparent 65%, rgba(78, 205, 196, 0.35) 65%); }
+        .highlight-coral { background: linear-gradient(180deg, transparent 65%, rgba(255, 107, 107, 0.35) 65%); }
+
+        /* Architecture Diagram */
+        .arch-diagram {
+            background: linear-gradient(135deg, #F8F4FF, #E8F8F5);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            padding: 30px;
+            margin: 25px 0;
+            border: 2px dashed var(--accent-lavender);
+        }
+
+        .arch-layer {
+            background: var(--bg-paper);
+            border: 3px solid var(--pencil);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            padding: 18px 25px;
+            margin: 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: transform 0.3s;
+        }
+
+        .arch-layer:hover { transform: scale(1.02) rotate(-1deg); }
+
+        .arch-icon {
+            width: 45px;
+            height: 45px;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0;
+            border: 2px solid var(--pencil);
+        }
+
+        .arch-icon.frontend { background: var(--accent-coral); color: white; }
+        .arch-icon.backend { background: var(--accent-orange); color: white; }
+        .arch-icon.agent { background: var(--accent-teal); color: white; }
+
+        /* Question Types */
+        .question-types {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .q-type {
+            flex: 1;
+            min-width: 200px;
+            background: var(--bg-paper);
+            border: 3px solid var(--pencil);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .q-type:hover { transform: scale(1.03) rotate(1deg); }
+
+        .q-type.switch { border-color: var(--accent-green); background: linear-gradient(145deg, #E8F8F5, #D1F2EB); }
+        .q-type.clarify { border-color: var(--accent-orange); background: linear-gradient(145deg, #FFF8E1, #FFECB3); }
+
+        .q-type-icon { font-size: 2.5rem; margin-bottom: 12px; }
+        .q-type.switch .q-type-icon { color: var(--accent-green); }
+        .q-type.clarify .q-type-icon { color: var(--accent-orange); }
+
+        .q-type-title { font-family: 'Patrick Hand', cursive; font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; }
+        .q-type-desc { font-size: 0.9rem; color: var(--text-muted); }
+
+        /* Code Blocks - Enhanced */
+        .code-block {
+            background: linear-gradient(135deg, #1E272E 0%, #252F38 100%);
+            color: #E8F4F8;
+            padding: 0;
+            border-radius: 20px;
+            font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+            font-size: 0.9rem;
+            margin: 25px 0;
+            overflow-x: auto;
+            border: 3px solid var(--pencil);
+            box-shadow: 4px 6px 0 rgba(0,0,0,0.2);
+        }
+
+        .code-header {
+            background: linear-gradient(135deg, #2D3A47 0%, #384554 100%);
+            padding: 12px 20px;
+            border-bottom: 2px solid #343D46;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 0.95rem;
+            color: #8FA5B5;
+        }
+
+        .code-header .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .code-header .dot.red { background: #FF5F56; }
+        .code-header .dot.yellow { background: #FFBD2E; }
+        .code-header .dot.green { background: #27CA40; }
+
+        .code-content {
+            padding: 20px 25px;
+            line-height: 1.7;
+            white-space: pre;
+            overflow-x: auto;
+        }
+
+        .code-block .comment { color: #6A9955; font-style: italic; }
+        .code-block .key { color: #9CDCFE; font-weight: 600; }
+        .code-block .string { color: #CE9178; }
+        .code-block .number { color: #B5CEA8; }
+        .code-block .boolean { color: #569CD6; }
+        .code-block .keyword { color: #C586C0; }
+        .code-block .tag { color: #4EC9B0; }
+        .code-block .attr { color: #9CDCFE; }
+        .code-block .prompt { color: #4ECDC4; font-weight: 700; }
+        .code-block .command { color: #FFE66D; }
+        .code-block .path { color: #FF6B6B; }
+        .code-block .operator { color: #D4D4D4; }
+        .code-block .punctuation { color: #D4D4D4; }
+
+        /* Feature List */
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 18px 0;
+        }
+
+        .feature-list li {
+            padding: 12px 0 12px 38px;
+            position: relative;
+            border-bottom: 2px dashed rgba(0,0,0,0.1);
+        }
+
+        .feature-list li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free', sans-serif;
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            font-size: 1.1rem;
+            color: var(--accent-teal);
+        }
+
+        /* Quote Box */
+        .quote-box {
+            background: linear-gradient(135deg, #FFF9E6, #FFF5D6);
+            border-left: 5px solid var(--accent-sunflower);
+            padding: 20px 25px;
+            margin: 20px 0;
+            border-radius: 0 16px 16px 0;
+            font-size: 1.12rem;
+            font-style: italic;
+            border: 2px dashed var(--accent-sunflower);
+        }
+
+        /* Insight Box */
+        .insight-box {
+            background: linear-gradient(135deg, #FFFDE7, #FFF9C4);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            padding: 22px;
+            margin: 22px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            border: 3px solid var(--accent-sunflower);
+        }
+
+        .insight-icon { font-size: 1.8rem; color: var(--accent-sunflower); }
+        
+        .insight-box code {
+            background: rgba(0,0,0,0.1);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+
+        /* Table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 22px 0;
+            font-size: 0.95rem;
+            border: 2px solid var(--pencil);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .comparison-table th, .comparison-table td {
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 2px dashed rgba(0,0,0,0.15);
+        }
+
+        .comparison-table th {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.15rem;
+            background: #F5F0E8;
+        }
+
+        /* Flow Diagram */
+        .flow-diagram {
+            background: linear-gradient(135deg, #F8F4FF, #E8F8F5);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            padding: 30px;
+            margin: 25px 0;
+            border: 2px dashed var(--accent-lavender);
+        }
+
+        .flow-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+
+        .flow-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .flow-circle {
+            width: 70px;
+            height: 70px;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: white;
+            border: 3px solid var(--pencil);
+            box-shadow: 3px 4px 0 rgba(0,0,0,0.15);
+            transition: transform 0.3s;
+        }
+
+        .flow-circle:hover { transform: scale(1.1) rotate(-3deg); }
+        .flow-circle.ask { background: var(--accent-coral); }
+        .flow-circle.wait { background: var(--accent-lavender); }
+        .flow-circle.answer { background: var(--accent-teal); }
+        .flow-circle.resume { background: var(--accent-green); }
+
+        .flow-label { font-family: 'Patrick Hand', cursive; font-size: 0.95rem; color: var(--text-muted); text-align: center; }
+        .flow-arrow { font-size: 1.5rem; color: var(--accent-lavender); }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: var(--text-muted);
+            font-family: 'Patrick Hand', cursive;
+        }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.6rem; }
+            .card { padding: 26px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Mind & Machine</a>
+        
+        <div class="page-meta">
+            <span><i class="fa-solid fa-user"></i> Jiuhe Wang</span>
+            <span><i class="fa-regular fa-calendar"></i> Feb 21, 2025</span>
+        </div>
+
+        <header>
+            <h1>OpenCode Multiple Choice Interaction</h1>
+            <p class="subtitle">How the Plan Agent Talks to You</p>
+        </header>
+
+        <!-- The Big Picture -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-layer-group fa-icon"></i>The Big Picture</h2>
+            
+            <p>When the AI needs to ask you something, it doesn't just pop up a dialog. There's a whole system behind it!</p>
+
+            <div class="arch-diagram">
+                <div style="text-align: center; font-family: 'Patrick Hand', cursive; font-size: 1.2rem; margin-bottom: 15px;">How Pieces Connect</div>
+                
+                <div class="arch-layer">
+                    <div class="arch-icon frontend"><i class="fa-solid fa-palette"></i></div>
+                    <div><strong>Frontend</strong> — SolidJS UI, Question Dock</div>
+                </div>
+                
+                <div style="text-align: center; color: var(--text-muted); font-size: 1.5rem;">↓ REST + SSE</div>
+                
+                <div class="arch-layer">
+                    <div class="arch-icon backend"><i class="fa-solid fa-server"></i></div>
+                    <div><strong>Backend</strong> — Runs agents, handles API requests</div>
+                </div>
+                
+                <div style="text-align: center; color: var(--text-muted); font-size: 1.5rem;">↓ executes</div>
+                
+                <div class="arch-layer">
+                    <div class="arch-icon agent"><i class="fa-solid fa-robot"></i></div>
+                    <div><strong>Agent</strong> — Plan, Build, or any agent</div>
+                </div>
+                
+                <div style="text-align: center; color: var(--text-muted); font-size: 1.5rem;">↓ uses</div>
+                
+                <div class="arch-layer">
+                    <div class="arch-icon" style="background: var(--accent-coral); color: white;"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+                    <div><strong>Tools</strong> — read, write, Question.ask(), etc.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Two Ways to Ask -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-comments fa-icon"></i>Two Ways the Agent Asks</h2>
+            <p>The question system handles different scenarios:</p>
+            
+            <div class="question-types">
+                <div class="q-type switch">
+                    <div class="q-type-icon"><i class="fa-solid fa-person-rays"></i></div>
+                    <div class="q-type-title">Agent Switching</div>
+                    <div class="q-type-desc">"Ready to switch to build agent?"<br>Plan ↔ Build mode transitions</div>
+                </div>
+                
+                <div class="q-type clarify">
+                    <div class="q-type-icon"><i class="fa-solid fa-circle-question"></i></div>
+                    <div class="q-type-title">Clarifying Requirements</div>
+                    <div class="q-type-desc">"What framework should I use?"<br>Filling in missing details</div>
+                </div>
+            </div>
+
+            <div class="insight-box">
+                <i class="fa-solid fa-lightbulb insight-icon"></i>
+                <div><strong>Why both matter:</strong> The plan agent uses questions in two situations — when you want to switch modes, AND when it encounters unclear requirements. This prevents the AI from guessing wrong!</div>
+            </div>
+        </section>
+
+        <!-- The Flow -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-arrows-rotate fa-icon"></i>When the Agent Asks a Question</h2>
+            
+            <p>Whether it's agent switching (like pressing Tab to enter Plan mode) or the agent needs clarification mid-flight, here's the complete flow:</p>
+            
+            <div class="flow-diagram">
+                <div class="flow-row">
+                    <div class="flow-step">
+                        <div class="flow-circle ask"><i class="fa-solid fa-robot"></i></div>
+                        <div class="flow-label">Agent calls<br>Question.ask()</div>
+                    </div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">
+                        <div class="flow-circle wait"><i class="fa-solid fa-pause"></i></div>
+                        <div class="flow-label">Promise<br>paused</div>
+                    </div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">
+                        <div class="flow-circle wait"><i class="fa-solid fa-wifi"></i></div>
+                        <div class="flow-label">Event sent<br>via SSE</div>
+                    </div>
+                </div>
+                <div class="flow-row">
+                    <div class="flow-step">
+                        <div class="flow-circle answer"><i class="fa-solid fa-comments"></i></div>
+                        <div class="flow-label">Question Dock<br>appears</div>
+                    </div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">
+                        <div class="flow-circle answer"><i class="fa-solid fa-check"></i></div>
+                        <div class="flow-label">You answer<br>"Yes"</div>
+                    </div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">
+                        <div class="flow-circle resume"><i class="fa-solid fa-play"></i></div>
+                        <div class="flow-label">Promise<br>resolves</div>
+                    </div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">
+                        <div class="flow-circle resume"><i class="fa-solid fa-forward-step"></i></div>
+                        <div class="flow-label">Tool<br>continues</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Code Example -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-code fa-icon"></i>How It Works (Under the Hood)</h2>
+            
+            <h3>1. Agent asks a question</h3>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>plan.ts</span>
+                </div>
+                <div class="code-content">
+<span class="keyword">const</span> answers = <span class="keyword">await</span> Question.<span class="keyword">ask</span>({
+  sessionID: <span class="string">"session_123"</span>,
+  questions: [{
+    question: <span class="string">"Switch to build agent?"</span>,
+    header: <span class="string">"Build Agent"</span>,
+    custom: <span class="keyword">false</span>,
+    options: [
+      { label: <span class="string">"Yes"</span>, description: <span class="string">"Switch"</span> },
+      { label: <span class="string">"No"</span>, description: <span class="string">"Stay"</span> }
+    ]
+  }]
+})
+<span class="comment">// Execution PAUSES here until user answers!</span></div>
+            </div>
+
+            <h3>2. User replies via REST API</h3>
+            <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>HTTP Request</span>
+                </div>
+                <div class="code-content">
+POST <span class="string">/question/question_abc/reply</span>
+{
+  <span class="string">"answers"</span>: [[<span class="string">"Yes"</span>]]
+}</div>
+            </div>
+
+            <h3>3. How the agent resumes</h3>
+            <div class="insight-box">
+                <i class="fa-solid fa-lightbulb insight-icon"></i>
+                <div>
+                    <strong>The magic of async/await:</strong> When the tool calls <code>await Question.ask()</code>, the function literally <em>pauses</em> at that line. It's like hitting a breakpoint! The server keeps the request pending, and when your answer arrives via REST API, it calls <code>resolve(answers)</code> — this unwinds the stack and the tool continues executing with your answer!
+                </div>
+            </div>
+        </section>
+
+        <!-- Key Components -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-puzzle-piece fa-icon"></i>Key Pieces</h2>
+            
+            <table class="comparison-table">
+                <tr>
+                    <th>Piece</th>
+                    <th>Location</th>
+                    <th>Job</th>
+                </tr>
+                <tr>
+                    <td><strong>Question Module</strong></td>
+                    <td><code>question/index.ts</code></td>
+                    <td>Schemas + ask/reply logic</td>
+                </tr>
+                <tr>
+                    <td><strong>Plan Tools</strong></td>
+                    <td><code>tool/plan.ts</code></td>
+                    <td>Agent switching</td>
+                </tr>
+                <tr>
+                    <td><strong>Question Tool</strong></td>
+                    <td><code>tool/question.ts</code></td>
+                    <td>General clarifying questions</td>
+                </tr>
+                <tr>
+                    <td><strong>Server Routes</strong></td>
+                    <td><code>server/routes/question.ts</code></td>
+                    <td>REST API endpoints</td>
+                </tr>
+                <tr>
+                    <td><strong>Event Stream</strong></td>
+                    <td><code>server/routes/global.ts</code></td>
+                    <td>SSE to frontend</td>
+                </tr>
+                <tr>
+                    <td><strong>Question Dock</strong></td>
+                    <td><code>session-question-dock.tsx</code></td>
+                    <td>SolidJS UI component</td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- Why It's Cool -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-star fa-icon"></i>Why It's Elegant</h2>
+            
+            <ul class="feature-list">
+                <li><strong>Promise-based blocking</strong> — Agent waits without blocking the server</li>
+                <li><strong>Event-driven</strong> — Frontend doesn't poll, it subscribes via SSE</li>
+                <li><strong>Type-safe</strong> — Zod schemas everywhere</li>
+                <li><strong>Multi-question support</strong> — Can ask several in a row</li>
+                <li><strong>Rich UI</strong> — Radio buttons, checkboxes, custom input</li>
+            </ul>
+
+            <div class="quote-box">
+                <strong>Think of it like...</strong> The agent is running down a path, then hits a "pause" barrier. It stays there frozen until YOU push the button to let it continue. No polling, no timeout, just pure waiting!
+            </div>
+        </section>
+
+        <footer>
+            <p><i class="fa-solid fa-paintbrush"></i> Mind & Machine | <a href="index.html" style="color: var(--accent-teal);">Back to Home</a></p>
+        </footer>
+    </div>
+
+    <script>
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            revealElements.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (elementTop < windowHeight - 80) {
+                    el.classList.add('visible');
+                }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+    </script>
+</body>
+</html>

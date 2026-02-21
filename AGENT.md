@@ -993,31 +993,79 @@ When creating a new page, you **MUST** add it to `index.html` so users can disco
 Add a new `<a>` element inside the `<div class="links">` container in `index.html`:
 
 ```html
-<a href="page-name.html" class="link-card">
+<a href="page-name.html" class="link-card" data-tags="tag1,tag2" data-date="2025-02-21" data-title="Page Title">
     <div class="link-icon" style="background: var(--accent-color);"><i class="fa-solid fa-icon-name"></i></div>
     <div class="link-text">
         <h2>Page Title <span class="tag new">New</span></h2>
         <p>Short description of the page content</p>
+        <div class="link-meta">
+            <span class="link-date"><i class="fa-regular fa-calendar"></i> Feb 21, 2025</span>
+            <div class="link-tags">
+                <span class="tag tag-name">Tag</span>
+            </div>
+        </div>
     </div>
 </a>
 ```
 
-### Requirements
+### Required Attributes
 
 1. **href**: Must match the new HTML file name (e.g., `sandbox-solutions.html`)
-2. **link-icon**: Choose a Font Awesome icon and assign a unique accent color
-3. **tag**: Use `<span class="tag new">New</span>` for new pages
-4. **Description**: Keep it under 80 characters, descriptive but concise
-5. **Order**: Add new cards at the bottom of the list (before the closing `</div>`)
+2. **data-tags**: Comma-separated tags for filtering (e.g., `ai,architecture`)
+3. **data-date**: Publication date in YYYY-MM-DD format
+4. **data-title**: Title for sorting (use the main heading)
+
+### Link Meta Section
+
+Each card should include:
+- **link-date**: Calendar icon with formatted date (e.g., "Feb 21, 2025")
+- **link-tags**: Tags for filtering (ai, architecture, security, moe, agile)
+
+### Available Tags
+
+| Tag | Display Name | Color |
+|-----|--------------|-------|
+| ai | AI | coral (#FF6B6B) |
+| architecture | Architecture | teal (#4ECDC4) |
+| security | Security | orange (#E67E22) |
+| moe | MoE | lavender (#C9B1FF) |
+| agile | Agile | sunflower (#FFE66D) |
+
+### Available Accent Colors
+
+Choose a unique color for each page's icon:
+- `var(--accent-coral)` - #FF6B6B
+- `var(--accent-teal)` - #4ECDC4
+- `var(--accent-sunflower)` - #FFE66D
+- `var(--accent-lavender)` - #C9B1FF
+- `var(--accent-sky)` - #A8E6CF
+- `var(--accent-orange)` - #E67E22
+
+### Icon Selection
+
+Choose a Font Awesome icon that matches the content. Common icons:
+- `fa-solid fa-brain` - AI/Intelligence
+- `fa-solid fa-microchip` - Hardware/Architecture
+- `fa-solid fa-shield-halved` - Security
+- `fa-solid fa-rocket` - Launch/Agile
+- `fa-solid fa-robot` - Agent/Robot
+- `fa-solid fa-clipboard-question` - Study/Research
 
 ### Example
 
 ```html
-<a href="sandbox-solutions.html" class="link-card">
-    <div class="link-icon" style="background: var(--accent-coral);"><i class="fa-solid fa-shield-halved"></i></div>
+<a href="opencode-multiple-choice-study.html" class="link-card" data-tags="ai,architecture" data-date="2025-02-21" data-title="OpenCode Multiple Choice Interaction">
+    <div class="link-icon" style="background: var(--accent-sky);"><i class="fa-solid fa-clipboard-question"></i></div>
     <div class="link-text">
-        <h2>AI Agent Sandbox Solutions <span class="tag new">New</span></h2>
-        <p>A comparative analysis of nsjail, Firecracker, gVisor, Docker & RestrictedPython</p>
+        <h2>OpenCode Multiple Choice Interaction <span class="tag new">New</span></h2>
+        <p>Deep dive into how the plan agent implements user interaction with multiple choice questions</p>
+        <div class="link-meta">
+            <span class="link-date"><i class="fa-regular fa-calendar"></i> Feb 21, 2025</span>
+            <div class="link-tags">
+                <span class="tag ai">AI</span>
+                <span class="tag architecture">Architecture</span>
+            </div>
+        </div>
     </div>
 </a>
 ```
@@ -1025,10 +1073,12 @@ Add a new `<a>` element inside the `<div class="links">` container in `index.htm
 ### Checklist
 
 - [ ] Page HTML file created
-- [ ] Link added to `index.html`
-- [ ] Appropriate icon selected
-- [ ] Title and description written
+- [ ] Link added to `index.html` inside `<div class="links">`
+- [ ] All required attributes set (`data-tags`, `data-date`, `data-title`)
+- [ ] Appropriate icon and accent color selected
+- [ ] Title and description written (description under 80 chars)
 - [ ] "New" tag added for recent pages
+- [ ] link-meta section with date and tags included
 
 ## Committing Changes
 
