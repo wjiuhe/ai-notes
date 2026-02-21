@@ -29,7 +29,17 @@ Include these in the `<head>`:
 ```html
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Nunito:wght@400;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="static/styles.css">
 ```
+
+## CSS Organization
+
+**Use the shared CSS first!** Unless you need to do something different, use the shared `static/styles.css`. This ensures consistent styling across all pages.
+
+Only add page-specific CSS when:
+- You need unique components not in the shared CSS
+- You need to override shared styles for a specific page
+- The page has special requirements that differ from the standard layout
 
 ## Base Styles
 

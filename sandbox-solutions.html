@@ -6,6 +6,7 @@
     <title>AI Agent Sandbox Solutions: A Comparative Analysis</title>
     <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Nunito:wght@400;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="static/styles.css">
     <style>
         :root {
             --bg-cream: #FDF8F3;
@@ -620,21 +621,67 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Mind & Machine</a>
-        
-        <div class="page-meta">
-            <span><i class="fa-solid fa-user"></i> Jiuhe Wang</span>
-            <span><i class="fa-regular fa-calendar"></i> Feb 21, 2025</span>
-        </div>
+    <button class="toc-toggle" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
 
-        <header>
-            <h1>AI Agent Sandbox Solutions</h1>
-            <p class="subtitle">A Comparative Analysis for Secure Agentic AI Workflows</p>
-        </header>
+    <div class="page-wrapper">
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-title">Sandbox Solutions</div>
+                <div class="sidebar-subtitle">Navigation Guide</div>
+            </div>
 
-        <!-- Introduction -->
-        <section class="card reveal">
+            <div class="toc-section">
+                <div class="toc-title"><i class="fa-solid fa-shield-halved"></i> Overview</div>
+                <ul class="toc-list">
+                    <li><a href="#need-sandboxing" onclick="scrollToSection('need-sandboxing')">The Need for Sandboxing</a></li>
+                    <li><a href="#isolation-hierarchy" onclick="scrollToSection('isolation-hierarchy')">Isolation Hierarchy</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title"><i class="fa-solid fa-server"></i> Solutions</div>
+                <ul class="toc-list">
+                    <li><a href="#firecracker" onclick="scrollToSection('firecracker')">Firecracker (MicroVM)</a></li>
+                    <li><a href="#gvisor" onclick="scrollToSection('gvisor')">gVisor (User-Space)</a></li>
+                    <li><a href="#nsjail" onclick="scrollToSection('nsjail')">nsjail (Process)</a></li>
+                    <li><a href="#docker" onclick="scrollToSection('docker')">Docker with seccomp</a></li>
+                    <li><a href="#restrictedpython" onclick="scrollToSection('restrictedpython')">RestrictedPython</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title"><i class="fa-solid fa-list-check"></i> Analysis</div>
+                <ul class="toc-list">
+                    <li><a href="#best-practices" onclick="scrollToSection('best-practices')">Security Best Practices</a></li>
+                    <li><a href="#comparison" onclick="scrollToSection('comparison')">Comparative Analysis</a></li>
+                    <li><a href="#recommendation" onclick="scrollToSection('recommendation')">Recommendation</a></li>
+                    <li><a href="#conclusion" onclick="scrollToSection('conclusion')">Conclusion</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section" style="margin-top: 30px; padding-top: 20px; border-top: 2px dashed rgba(0,0,0,0.1);">
+                <a href="index.html" style="display: flex; align-items: center; gap: 8px; color: var(--accent-teal); text-decoration: none; font-weight: 600;">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Home
+                </a>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <div class="container">
+                <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Mind & Machine</a>
+            
+                <div class="page-meta">
+                    <span><i class="fa-solid fa-user"></i> Jiuhe Wang</span>
+                    <span><i class="fa-regular fa-calendar"></i> Feb 21, 2025</span>
+                </div>
+
+                <header>
+                    <h1>AI Agent Sandbox Solutions</h1>
+                    <p class="subtitle">A Comparative Analysis for Secure Agentic AI Workflows</p>
+                </header>
+
+                <!-- Introduction -->
+                <section class="card reveal" id="need-sandboxing">
             <h2><i class="fa-solid fa-shield-halved fa-icon"></i>The Need for Sandboxing</h2>
             
             <p>Agentic AI systems, capable of autonomous code execution, present <span class="highlight-coral">unique security challenges</span>. Their ability to generate and execute code on the fly increases the risk of system compromise, data exfiltration, and privilege escalation.</p>
@@ -647,7 +694,7 @@
         </section>
 
         <!-- Isolation Hierarchy -->
-        <section class="card reveal">
+        <section class="card reveal" id="isolation-hierarchy">
             <h2><i class="fa-solid fa-layer-group fa-icon"></i>Isolation Hierarchy</h2>
             
             <p>Understanding the <span class="highlight-teal">isolation boundaries</span> is crucial for selecting the right sandbox solution. Each level provides different security guarantees:</p>
@@ -705,7 +752,7 @@
         </section>
 
         <!-- Solution Cards with Diagrams -->
-        <section class="card reveal">
+        <section class="card reveal" id="firecracker">
             <h2><i class="fa-solid fa-fire fa-icon"></i>Firecracker (MicroVM)</h2>
             
             <div class="solution-header">
@@ -753,7 +800,7 @@
             <p><strong>Best For:</strong> Multi-tenant, high-security, production-grade environments where strong isolation and scalability are essential.</p>
         </section>
 
-        <section class="card reveal">
+        <section class="card reveal" id="gvisor">
             <h2><i class="fa-solid fa-glasses fa-icon"></i>gVisor (User-Space Kernel)</h2>
             
             <div class="solution-header">
@@ -801,7 +848,7 @@
             <p><strong>Best For:</strong> Application-level sandboxing where compatibility with a wide syscall surface is required, and where VM-level performance is not a strict necessity.</p>
         </section>
 
-        <section class="card reveal">
+        <section class="card reveal" id="nsjail">
             <h2><i class="fa-solid fa-box-open fa-icon"></i>nsjail (Process Isolation)</h2>
             
             <div class="solution-header">
@@ -849,7 +896,7 @@
             <p><strong>Best For:</strong> Production Linux environments requiring strong syscall filtering and robust process isolation for untrusted code execution.</p>
         </section>
 
-        <section class="card reveal">
+        <section class="card reveal" id="docker">
             <h2><i class="fa-brands fa-docker fa-icon"></i>Docker with seccomp</h2>
             
             <div class="solution-header">
@@ -897,7 +944,7 @@
             <p><strong>Best For:</strong> Easier setup and deployment where fine-grained control is less critical, and where the threat model is less stringent.</p>
         </section>
 
-        <section class="card reveal">
+        <section class="card reveal" id="restrictedpython">
             <h2><i class="fa-brands fa-python fa-icon"></i>RestrictedPython</h2>
             
             <div class="solution-header">
@@ -946,7 +993,7 @@
         </section>
 
         <!-- Best Practices -->
-        <section class="card reveal">
+        <section class="card reveal" id="best-practices">
             <h2><i class="fa-solid fa-list-check fa-icon"></i>Security Requirements & Best Practices</h2>
             
             <p>Recent best practices for AI agent sandboxing emphasize the following principles:</p>
@@ -965,7 +1012,7 @@
         </section>
 
         <!-- Comparative Analysis Table -->
-        <section class="card reveal">
+        <section class="card reveal" id="comparison">
             <h2><i class="fa-solid fa-scale-balanced fa-icon"></i>Comparative Analysis</h2>
             
             <table class="comparison-table">
@@ -1019,7 +1066,7 @@
         </section>
 
         <!-- Recommendation -->
-        <section class="card reveal">
+        <section class="card reveal" id="recommendation">
             <h2><i class="fa-solid fa-trophy fa-icon"></i>Recommendation</h2>
             
             <div class="recommendation-box">
@@ -1042,7 +1089,7 @@
         </section>
 
         <!-- Conclusion -->
-        <section class="card reveal">
+        <section class="card reveal" id="conclusion">
             <h2><i class="fa-solid fa-flag-checkered fa-icon"></i>Conclusion</h2>
             
             <p>The landscape of sandboxing for AI agents is rapidly evolving, but the best practice is clear: <span class="highlight">use the strongest isolation feasible</span> for your operational context, defaulting to microVMs like Firecracker for untrusted, autonomous code execution.</p>
@@ -1055,7 +1102,9 @@
         <footer>
             <p><i class="fa-solid fa-paintbrush"></i> Mind & Machine | <a href="index.html" style="color: var(--accent-teal);">Back to Home</a></p>
         </footer>
-    </div>
+            </div>
+            </main>
+        </div>
 
     <script>
         const revealElements = document.querySelectorAll('.reveal');
