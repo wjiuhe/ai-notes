@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind & Machine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Nunito:wght@400;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            --bg-cream: #FDF8F3;
+            --bg-paper: #FFFEF9;
+            --accent-coral: #FF6B6B;
+            --accent-teal: #4ECDC4;
+            --accent-sunflower: #FFE66D;
+            --accent-lavender: #C9B1FF;
+            --accent-sky: #A8E6CF;
+            --text-dark: #2D3436;
+            --text-muted: #636E72;
+            --pencil: #2B2B2B;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg-cream);
+            color: var(--text-dark);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+
+        header { text-align: center; margin-bottom: 50px; }
+
+        h1 {
+            font-family: 'Caveat', cursive;
+            font-size: 3.5rem;
+            color: var(--pencil);
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent-coral), var(--accent-teal), var(--accent-sunflower));
+            border-radius: 3px;
+            opacity: 0.6;
+        }
+
+        .subtitle { font-family: 'Patrick Hand', cursive; font-size: 1.5rem; color: var(--text-muted); margin-top: 20px; }
+
+        .card {
+            background: var(--bg-paper);
+            border-radius: 4px;
+            padding: 40px;
+            margin-bottom: 28px;
+            box-shadow: 3px 4px 0 rgba(0,0,0,0.1), 6px 8px 0 rgba(0,0,0,0.05);
+            position: relative;
+            transition: transform 0.3s ease;
+            border: 2px solid var(--pencil);
+        }
+
+        .card:hover { transform: translate(-2px, -2px); }
+
+        h2 { 
+            font-family: 'Caveat', cursive; 
+            font-size: 2.2rem; 
+            color: var(--pencil); 
+            margin-bottom: 20px;
+            padding-left: 50px;
+            position: relative;
+            min-height: 45px;
+            display: flex;
+            align-items: center;
+        }
+
+        h2 .fa-icon {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 42px;
+            height: 42px;
+            background: var(--bg-paper);
+            border: 2px solid var(--pencil);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        h3 { font-family: 'Patrick Hand', cursive; font-size: 1.5rem; color: var(--text-dark); margin: 30px 0 15px; }
+        h4 { font-family: 'Patrick Hand', cursive; font-size: 1.2rem; color: var(--text-muted); margin: 20px 0 10px; }
+        p { margin-bottom: 15px; font-size: 1.08rem; }
+
+        .highlight { background: linear-gradient(180deg, transparent 65%, rgba(255, 230, 109, 0.5) 65%); }
+        .highlight-coral { background: linear-gradient(180deg, transparent 65%, rgba(255, 107, 107, 0.35) 65%); }
+        .highlight-teal { background: linear-gradient(180deg, transparent 65%, rgba(78, 205, 196, 0.35) 65%); }
+
+        .quote-box {
+            background: linear-gradient(135deg, #FFF9E6, #FFF5D6);
+            border-left: 5px solid var(--accent-sunflower);
+            padding: 20px 25px;
+            margin: 20px 0;
+            border-radius: 0 16px 16px 0;
+            font-size: 1.12rem;
+            font-style: italic;
+            border: 2px dashed var(--accent-sunflower);
+        }
+
+        /* Three components in a row */
+        .three-components {
+            display: flex;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .component-box {
+            flex: 1;
+            min-width: 220px;
+            padding: 25px 20px;
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            text-align: center;
+            transition: all 0.35s ease;
+            cursor: pointer;
+            border: 3px solid var(--pencil);
+        }
+
+        .component-box:hover { transform: scale(1.03); }
+
+        .component-box:nth-child(1) { background: linear-gradient(145deg, #FFEBEE, #FFCDD2); border-color: var(--accent-coral); }
+        .component-box:nth-child(2) { background: linear-gradient(145deg, #E3F2FD, #BBDEFB); border-color: #2196F3; }
+        .component-box:nth-child(3) { background: linear-gradient(145deg, #E8F5E9, #C8E6C9); border-color: var(--accent-teal); }
+
+        .component-icon { font-size: 2.5rem; margin-bottom: 10px; }
+        .component-title { font-family: 'Patrick Hand', cursive; font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; }
+        .component-desc { font-size: 0.9rem; color: var(--text-muted); }
+
+        /* Arrow flow */
+        .flow-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+
+        .flow-item {
+            padding: 12px 20px;
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            border: 2px solid var(--pencil);
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1rem;
+            background: var(--bg-paper);
+        }
+
+        .flow-arrow { font-size: 1.5rem; color: var(--accent-lavender); font-family: 'Caveat', cursive; }
+
+        .comparison-table { width: 100%; border-collapse: separate; border-spacing: 0; margin: 22px 0; font-size: 0.95rem; border: 2px solid var(--pencil); border-radius: 15px; overflow: hidden; }
+        .comparison-table th, .comparison-table td { padding: 14px 18px; text-align: left; border-bottom: 2px dashed rgba(0,0,0,0.15); }
+        .comparison-table th { font-family: 'Patrick Hand', cursive; font-size: 1.15rem; background: #F5F0E8; }
+
+        .badge { display: inline-block; padding: 4px 14px; border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px; font-size: 0.8rem; font-weight: 600; margin-right: 6px; border: 2px solid; }
+        .badge-red { background: #FFE8E8; color: #D63031; border-color: #D63031; }
+        .badge-green { background: #E8FAF4; color: #00B894; border-color: #00B894; }
+
+        .visual-metaphor {
+            background: linear-gradient(135deg, #F8F4FF, #E8F8F5);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            padding: 30px;
+            margin: 25px 0;
+            border: 2px dashed var(--accent-lavender);
+        }
+
+        .metaphor-visual { display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; margin: 25px 0; }
+
+        .metaphor-box {
+            flex: 1;
+            min-width: 280px;
+            max-width: 380px;
+            padding: 28px;
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            transition: transform 0.3s;
+            border: 3px solid var(--pencil);
+        }
+
+        .metaphor-box:hover { transform: scale(1.02) rotate(1deg); }
+        .metaphor-box.cabinet { background: linear-gradient(145deg, #F5F5F5, #EFEFEF); border-color: #999; }
+        .metaphor-box.spider { background: linear-gradient(145deg, #E8F6F3, #D4EFDF); border-color: var(--accent-teal); }
+
+        .metaphor-icon { font-size: 3.5rem; text-align: center; margin-bottom: 15px; }
+        .metaphor-label { font-family: 'Caveat', cursive; font-size: 1.7rem; text-align: center; margin-bottom: 12px; }
+        .metaphor-example { font-size: 0.95rem; color: var(--text-muted); text-align: center; font-style: italic; line-height: 1.6; }
+
+        /* Memory circles */
+        .memory-circles {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .memory-circle {
+            width: 110px;
+            height: 110px;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid var(--pencil);
+            transition: all 0.3s;
+            cursor: pointer;
+            text-align: center;
+            padding: 8px;
+        }
+
+        .memory-circle:hover { transform: scale(1.1); }
+        .memory-circle.working { background: linear-gradient(145deg, #E3F2FD, #BBDEFB); }
+        .memory-circle.episodic { background: linear-gradient(145deg, #FFEBEE, #FFCDD2); }
+        .memory-circle.semantic { background: linear-gradient(145deg, #E8F5E9, #C8E6C9); }
+        .memory-circle.procedural { background: linear-gradient(145deg, #FFF3E0, #FFE0B2); }
+
+        .memory-circle i { font-size: 1.5rem; margin-bottom: 3px; }
+        .memory-circle span { font-family: 'Patrick Hand', cursive; font-size: 1rem; font-weight: 700; }
+
+        /* Process flow */
+        .process-flow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .process-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .process-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+            transition: transform 0.3s;
+            cursor: pointer;
+            border: 3px solid var(--pencil);
+            box-shadow: 3px 4px 0 rgba(0,0,0,0.15);
+        }
+
+        .process-circle:hover { transform: scale(1.1) rotate(-3deg); }
+        .process-step:nth-child(1) .process-circle { background: var(--accent-coral); }
+        .process-step:nth-child(3) .process-circle { background: var(--accent-teal); }
+        .process-step:nth-child(5) .process-circle { background: var(--accent-sunflower); color: var(--text-dark); }
+        .process-step:nth-child(7) .process-circle { background: var(--accent-lavender); }
+
+        .process-label { font-family: 'Patrick Hand', cursive; font-size: 1rem; color: var(--text-muted); }
+
+        .action-card {
+            background: linear-gradient(135deg, #F8F5FF, #F0FFFA);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            padding: 28px;
+            margin: 22px 0;
+            border: 3px solid var(--accent-lavender);
+            transition: all 0.3s;
+        }
+
+        .action-card:hover { border-color: var(--accent-coral); transform: rotate(0.5deg); }
+        .action-title { font-family: 'Patrick Hand', cursive; font-size: 1.4rem; margin-bottom: 15px; display: flex; align-items: center; gap: 12px; }
+
+        .action-number {
+            width: 32px;
+            height: 32px;
+            background: var(--accent-coral);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+            border: 2px solid var(--pencil);
+        }
+
+        .code-snippet {
+            background: #1E272E;
+            color: #C8D6E5;
+            padding: 16px 20px;
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            margin: 14px 0;
+            overflow-x: auto;
+            border: 2px solid #343D46;
+        }
+
+        .real-world-example {
+            background: linear-gradient(135deg, #FFF0F5, #F0F8FF);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            padding: 24px;
+            margin: 18px 0;
+            border: 2px dashed var(--accent-coral);
+        }
+
+        .example-label { font-family: 'Patrick Hand', cursive; font-size: 1.15rem; color: var(--accent-coral); margin-bottom: 10px; }
+
+        .insight-box {
+            background: linear-gradient(135deg, #FFFDE7, #FFF9C4);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            padding: 22px;
+            margin: 22px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            border: 3px solid var(--accent-sunflower);
+        }
+
+        .insight-icon { font-size: 1.8rem; }
+
+        .checklist { list-style: none; padding: 0; margin: 18px 0; }
+        .checklist li { padding: 12px 0; padding-left: 38px; position: relative; border-bottom: 2px dashed rgba(0,0,0,0.1); }
+        .checklist li::before { 
+            content: '\f00c'; 
+            font-family: 'Font Awesome 6 Free'; 
+            font-weight: 900; 
+            position: absolute; 
+            left: 0; 
+            font-size: 1rem; 
+            color: var(--accent-teal); 
+        }
+
+        .tooltip { position: relative; display: inline-block; cursor: help; border-bottom: 2px dotted var(--accent-teal); }
+        .tooltip::after {
+            content: attr(data-tip);
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--pencil);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 10;
+        }
+        .tooltip:hover::after { opacity: 1; }
+
+        .critique-box {
+            background: linear-gradient(135deg, #FFF5F5, #FFEBEE);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            padding: 20px;
+            margin: 20px 0;
+            border-left: 5px solid var(--accent-coral);
+        }
+
+        .critique-title {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.2rem;
+            color: var(--accent-coral);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.6rem; }
+            .card { padding: 26px; }
+            .three-components { flex-direction: column; }
+            .process-flow { flex-direction: column; }
+            .memory-circles { flex-direction: column; }
+        }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        .divider { text-align: center; margin: 45px 0; }
+        .divider::before { 
+            content: '~~~~~~~'; 
+            font-family: 'Caveat', cursive;
+            font-size: 1.5rem; 
+            color: var(--accent-lavender); 
+            letter-spacing: 10px; 
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Mind & Machine</h1>
+            <p class="subtitle">Notes on AI, Agents, and Beyond</p>
+        </header>
+
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-circle-question fa-icon"></i>The Big Question</h2>
+            <p class="quote-box">"What is <span class="highlight">true AI Agent Design</span>? Why do I feel like most of today's 'agents' aren't really agentic at all?"</p>
+            <p>Most of what the internet calls "AI Agents" are just <span class="highlight-coral">glorified scripts</span> wearing a fancy name. Let's see why...</p>
+        </section>
+
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-puzzle-piece fa-icon"></i>Your Original Framework</h2>
+            <p>You mentioned three pillars: <strong>knowledge</strong>, <strong>skills</strong>, and <strong>past experience</strong>. Let me critique this:</p>
+
+            <div class="three-components">
+                <div class="component-box">
+                    <i class="fa-solid fa-book component-icon"></i>
+                    <div class="component-title">Knowledge</div>
+                    <div class="component-desc">Facts, concepts, understanding the world</div>
+                </div>
+                <div class="component-box">
+                    <i class="fa-solid fa-wrench component-icon"></i>
+                    <div class="component-title">Skills</div>
+                    <div class="component-desc">Abilities to take action, use tools</div>
+                </div>
+                <div class="component-box">
+                    <i class="fa-solid fa-clock-rotate-left component-icon"></i>
+                    <div class="component-title">Past Experience</div>
+                    <div class="component-desc">What worked/failed before</div>
+                </div>
+            </div>
+
+            <div class="critique-box">
+                <div class="critique-title"><i class="fa-solid fa-magnifying-glass"></i>Critique of Your Framework</div>
+                <p><strong>The issue:</strong> These three overlap significantly:</p>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                    <li><strong>Knowledge</strong> includes both learned facts AND distilled experience</li>
+                    <li><strong>Past experience</strong> is really a type of knowledge about what happened</li>
+                    <li><strong>Skills</strong> can be both declarative ("how it works") and procedural ("how to do it")</li>
+                </ul>
+                <p style="margin-top: 10px;"><strong>Better framing:</strong> Think of it as <em>what you know</em> (knowledge), <em>how you know what you know</em> (memory systems), and <em>what you can do</em> (capabilities).</p>
+            </div>
+        </section>
+
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-code fa-icon"></i>Why Most "Agents" Are Just Scripts</h2>
+            
+            <h3><i class="fa-solid fa-mask"></i> The Tool Calling Illusion</h3>
+            <p>When a traditional "agent" decides to use a tool:</p>
+            
+            <div class="process-flow">
+                <div class="process-step">
+                    <div class="process-circle"><i class="fa-solid fa-file-lines"></i></div>
+                    <div class="process-label">Read Prompt</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="process-step">
+                    <div class="process-circle"><i class="fa-solid fa-magnifying-glass"></i></div>
+                    <div class="process-label">Match Pattern</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="process-step">
+                    <div class="process-circle"><i class="fa-solid fa-hammer"></i></div>
+                    <div class="process-label">Call Tool</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="process-step">
+                    <div class="process-circle"><i class="fa-solid fa-rotate"></i></div>
+                    <div class="process-label">Repeat</div>
+                </div>
+            </div>
+
+            <p>This is like a <strong>calculator</strong> -- follows rules perfectly but has zero understanding. A real agent should understand the <em>why</em>.</p>
+
+            <h3><i class="fa-solid fa-folder-open"></i> Filing Cabinet vs. Spider Web</h3>
+
+            <div class="visual-metaphor">
+                <div class="metaphor-visual">
+                    <div class="metaphor-box cabinet">
+                        <i class="fa-solid fa-folder-open metaphor-icon"></i>
+                        <div class="metaphor-label">Current "Agent"</div>
+                        <div class="metaphor-example">Search "error" → 1000 docs → You figure it out</div>
+                    </div>
+                    <div class="metaphor-box spider">
+                        <i class="fa-solid fa-wifi metaphor-icon"></i>
+                        <div class="metaphor-label">True Agent / Human</div>
+                        <div class="metaphor-example">See error → "Like last month's timeout" → Solved!</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="real-world-example">
+                <div class="example-label"><i class="fa-solid fa-play"></i> Real Example</div>
+                <p><strong>Current:</strong> "Why server crash?" → Searches docs → 50 pages → You figure it out.</p>
+                <p><strong>True Agent:</strong> "Why server crash?" → Thinks: "Last 3 times = memory leak, let me check" → 30 sec.</p>
+            </div>
+        </section>
+
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-layer-group fa-icon"></i>A Better Framework: What a Real Agent Needs</h2>
+            
+            <p>Instead of overlapping pillars, here's a clearer mental model:</p>
+
+            <h3>1. A Reasoning Engine (The Brain)</h3>
+            <p>Not just pattern matching, but:</p>
+            <ul class="checklist">
+                <li><strong>Hybrid reasoning</strong> -- symbolic + analogical + causal + deductive</li>
+                <li><strong>Uncertainty handling</strong> -- hold probabilistic beliefs, not binary know/don't know</li>
+                <li><strong>Self-reflection</strong> -- "Am I going in circles? Should I verify this?"</li>
+            </ul>
+
+            <h3>2. Memory Systems (Not Just Storage)</h3>
+            <p>Four distinct types that work together:</p>
+
+            <div class="memory-circles">
+                <div class="memory-circle working">
+                    <i class="fa-solid fa-clipboard"></i>
+                    <span>Working</span>
+                </div>
+                <div class="flow-arrow">↔</div>
+                <div class="memory-circle episodic">
+                    <i class="fa-solid fa-film"></i>
+                    <span>Episodic</span>
+                </div>
+                <div class="flow-arrow">↔</div>
+                <div class="memory-circle semantic">
+                    <i class="fa-solid fa-book"></i>
+                    <span>Semantic</span>
+                </div>
+                <div class="flow-arrow">↔</div>
+                <div class="memory-circle procedural">
+                    <i class="fa-solid fa-gear"></i>
+                    <span>Procedural</span>
+                </div>
+            </div>
+
+            <p style="font-size: 0.9rem; color: var(--text-muted); text-align: center;">These aren't separate silos -- they constantly exchange information</p>
+
+            <div class="real-world-example">
+                <div class="example-label"><i class="fa-solid fa-bicycle"></i> Example: Learning to Ride a Bike</div>
+                <p><strong>Working:</strong> "Balance, pedals moving, eyes forward"</p>
+                <p><strong>Episodic:</strong> "Fell last time braking hard on turns"</p>
+                <p><strong>Semantic:</strong> "Leaning counterbalances centrifugal force"</p>
+                <p><strong>Procedural:</strong> (Just <em>knows how</em> -- can't explain!)</p>
+            </div>
+
+            <h3>3. Action System (More Than Tool Calling)</h3>
+            <ul class="checklist">
+                <li><strong>Tool mastery</strong> -- Understands HOW tools work, not just WHAT they do</li>
+                <li><strong>Failure awareness</strong> -- Knows what can go wrong, has workarounds</li>
+                <li><strong>Dynamic planning</strong> -- Can improvise, not just follow scripts</li>
+                <li><strong>Learning from outcomes</strong> -- Updates itself based on what happened</li>
+            </ul>
+
+            <div class="critique-box">
+                <div class="critique-title"><i class="fa-solid fa-magnifying-glass"></i>Why "Three Layers" Can Be Confusing</div>
+                <p>Some frameworks list: Executive / Memory / Cognitive</p>
+                <p><strong>Problem:</strong> Memory isn't a "layer" on top of cognition -- memory is USED BY cognition. It's like saying "the brain has a layer for files and a layer for thinking."</p>
+                <p style="margin-top: 10px;"><strong>Better:</strong> Think of components that work TOGETHER, not stacked layers:</p>
+                <div class="flow-row">
+                    <div class="flow-item">Input/Perception</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-item">Reasoning + Memory Access</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-item">Action/Output</div>
+                    <div class="flow-arrow">→</div>
+                    <div class="flow-item">Learn</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-cloud fa-icon"></i>The "Unverified Knowledge" Insight</h2>
+            <p>Your point about "unverified but useful memory" is brilliant and often overlooked!</p>
+
+            <div class="visual-metaphor">
+                <div class="metaphor-visual">
+                    <div class="metaphor-box" style="background: linear-gradient(145deg, #FFEBEE, #FFCDD2); border-color: var(--accent-coral);">
+                        <i class="fa-solid fa-robot metaphor-icon"></i>
+                        <div class="metaphor-label">Current AI</div>
+                        <div class="metaphor-example">"I don't know" OR confident but wrong</div>
+                    </div>
+                    <div class="metaphor-box" style="background: linear-gradient(145deg, #E3F2FD, #BBDEFB); border-color: #2196F3;">
+                        <i class="fa-solid fa-user metaphor-icon"></i>
+                        <div class="metaphor-label">Human / True Agent</div>
+                        <div class="metaphor-example">"70% confident, will verify"</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="real-world-example">
+                <div class="example-label"><i class="fa-solid fa-user"></i> Humans are full of uncertain beliefs:</div>
+                <p>"Sky looks weird, might rain" -- not proven, but USEFUL.</p>
+                <p>"Person seems trustworthy by gut" -- not fact-checked, but ACTIONABLE.</p>
+            </div>
+
+            <p>This is <span class="tooltip" data-tip="Reasoning that can revise conclusions when new evidence arrives">Non-monotonic Reasoning</span> -- basically absent in today's agents.</p>
+        </section>
+
+        <div class="divider"></div>
+
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-chart-simple fa-icon"></i>Mainstream vs. True Agent</h2>
+            
+            <table class="comparison-table">
+                <thead>
+                    <tr><th>Dimension</th><th>Mainstream "Agent"</th><th>True Agent</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Knowledge</strong></td><td><span class="badge badge-red">RAG</span> External retrieval</td><td><span class="badge badge-green">Internal</span> Associative</td></tr>
+                    <tr><td><strong>Memory</strong></td><td><span class="badge badge-red">Vector DB</span> Dumb storage</td><td><span class="badge badge-green">4-Types</span> + consolidation</td></tr>
+                    <tr><td><strong>Decisions</strong></td><td><span class="badge badge-red">Plan-Execute</span> Fixed loop</td><td><span class="badge badge-green">Hybrid</span> Intuition + Logic</td></tr>
+                    <tr><td><strong>Identity</strong></td><td><span class="badge badge-red">Stateless</span> Blank each time</td><td><span class="badge badge-green">Persistent</span> Growing self</td></tr>
+                    <tr><td><strong>Uncertainty</strong></td><td><span class="badge badge-red">Binary</span> Know or don't</td><td><span class="badge badge-green">Probabilistic</span> Confidence levels</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-rocket fa-icon"></i>How to Make YOUR Agent More Agentic</h2>
+            <p>What you can do TODAY:</p>
+
+            <div class="action-card">
+                <div class="action-title"><span class="action-number">1</span> Add Episodic Memory</div>
+                <p>Log what actually happened:</p>
+                <div class="code-snippet">
+{
+  "event": "api_call_failed",
+  "failure_reason": "rate_limit_exceeded",
+  "lesson": "check_rate_limits_before_calling"
+}
+                </div>
+                <p><em>Now it REMEMBERS: "Last time... failed." Next time, checks automatically!</em></p>
+            </div>
+
+            <div class="action-card">
+                <div class="action-title"><span class="action-number">2</span> Add Confidence Scores</div>
+                <div class="code-snippet">
+{
+  "belief": "user_prefers_short_answers",
+  "confidence": 0.75,
+  "evidence": ["asked_for_summary_twice"]
+}
+                </div>
+                <p><em>Says "75% confident" instead of binary "I know / I don't"</em></p>
+            </div>
+
+            <div class="action-card">
+                <div class="action-title"><span class="action-number">3</span> Add Self-Reflection</div>
+                <p>After every task: "What worked? What didn't? What would I do differently?"</p>
+                <p><em>Finishes coding → Thinks "took too long on tests, should write first next time" → REMEMBERS!</em></p>
+            </div>
+
+            <div class="action-card">
+                <div class="action-title"><span class="action-number">4</span> Build Skills Registry with Failure Modes</div>
+                <div class="code-snippet">
+"search_api": {
+  "failure_modes": ["outdated_info", "max_10_results"],
+  "workaround": "verify_with_second_source"
+}
+                </div>
+                <p><em>Tries search → suspicious date → "might be wrong per registry" → verifies!</em></p>
+            </div>
+
+            <div class="action-card">
+                <div class="action-title"><span class="action-number">5</span> Add "I Don't Know" Metacognition</div>
+                <p>Before answering: "Am I confident? What would change my mind?"</p>
+                <p><em>Thinks "40% confident" → tells user uncertainty → offers to research more.</em></p>
+            </div>
+        </section>
+
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-bullseye fa-icon"></i>The Bottom Line</h2>
+            
+            <div class="quote-box">The mainstream confuses <strong>Agent</strong> (has intentionality) with <strong>Actor</strong> (just executes). Without knowledge architecture and associative memory, an "Agent" is just a <span class="highlight-coral">script in a trench coat</span>.</div>
+
+            <h3>The Three Questions Every True Agent Must Answer:</h3>
+            <ol style="margin: 18px 0; padding-left: 28px;">
+                <li style="margin-bottom: 14px;"><i class="fa-solid fa-question"></i> <strong>How does this agent understand ITSELF?</strong> -- Its capabilities, limits, biases</li>
+                <li style="margin-bottom: 14px;"><i class="fa-solid fa-cloud"></i> <strong>How does it remember the AMBIGUITY of the world?</strong> -- Holding unverified but useful ideas</li>
+                <li style="margin-bottom: 14px;"><i class="fa-solid fa-chart-line"></i> <strong>How does it extract INEXPRESSIBLE experience from failure?</strong> -- Learning what can't be put into words</li>
+            </ol>
+
+            <div class="insight-box" style="background: linear-gradient(135deg, #E8F5E9, #C8E6C9); border-color: var(--accent-teal);">
+                <i class="fa-solid fa-star insight-icon" style="color: var(--accent-sunflower);"></i>
+                <div><strong>The future isn't smarter automation</strong> -- it's digital cognitive entities that truly <em>think, remember, and understand</em>.</div>
+            </div>
+        </section>
+
+        <footer>
+            <p><i class="fa-solid fa-paintbrush"></i> Made with hand-drawn thoughts | Mind & Machine</p>
+            <p style="font-size: 0.9rem; margin-top: 12px; color: var(--text-muted);">Remember: A script that calls itself an agent is still a script.</p>
+        </footer>
+    </div>
+
+    <script>
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            revealElements.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (elementTop < windowHeight - 80) { el.classList.add('visible'); }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+
+        document.querySelectorAll('.component-box').forEach(box => {
+            box.addEventListener('click', function() {
+                this.style.transform = 'scale(1.05)';
+                setTimeout(() => { this.style.transform = ''; }, 350);
+            });
+        });
+
+        document.querySelectorAll('.memory-circle').forEach(circle => {
+            circle.addEventListener('click', function() {
+                this.style.transform = 'scale(1.15)';
+                setTimeout(() => { this.style.transform = ''; }, 300);
+            });
+        });
+    </script>
+</body>
+</html>
