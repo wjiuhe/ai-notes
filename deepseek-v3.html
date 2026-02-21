@@ -821,6 +821,125 @@
         .reveal { opacity: 0; transform: translateY(15px); transition: all 0.5s ease; }
         .reveal.visible { opacity: 1; transform: translateY(0); }
 
+        /* Sidebar TOC Styles */
+        .page-wrapper {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .sidebar {
+            width: 280px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            background: linear-gradient(180deg, var(--bg-paper) 0%, #F8F4EF 100%);
+            border-right: 3px solid var(--pencil);
+            padding: 30px 20px;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: 3px 0 10px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px dashed rgba(0,0,0,0.15);
+        }
+
+        .sidebar-title {
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            color: var(--pencil);
+            margin-bottom: 5px;
+        }
+
+        .sidebar-subtitle {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .toc-section { margin-bottom: 20px; }
+
+        .toc-title {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1rem;
+            color: var(--pencil);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc-list li { margin-bottom: 6px; }
+
+        .toc-list a {
+            display: block;
+            padding: 6px 10px;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 0.9rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .toc-list a:hover {
+            background: rgba(78, 205, 196, 0.15);
+            border-left-color: var(--accent-teal);
+            transform: translateX(3px);
+        }
+
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 40px 40px;
+            max-width: calc(100vw - 320px);
+            min-width: 0;
+        }
+
+        .toc-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 200;
+            background: var(--accent-coral);
+            color: white;
+            border: none;
+            padding: 12px 15px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 1200px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            .sidebar.open { transform: translateX(0); }
+            .sidebar.open .sidebar-header { padding-top: 60px; }
+            .main-content { 
+                margin-left: 0; 
+                padding: 40px 20px;
+                max-width: 100%;
+            }
+            .toc-toggle { display: block; }
+            .back-link { margin-top: 50px; }
+        }
+
         /* ROUGH.JS HAND-DRAWN STYLE */
         .expert.rough {
             background: linear-gradient(135deg, #FFFEF9, #F5F0E8);
@@ -876,7 +995,39 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <button class="toc-toggle" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
+
+    <div class="page-wrapper">
+        <!-- Sidebar Table of Contents -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-title">DeepSeek-V3</div>
+                <div class="sidebar-subtitle">Navigation Guide</div>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title"><i class="fa-solid fa-book-open"></i> Contents</div>
+                <ul class="toc-list">
+                    <li><a href="#the-big-idea" onclick="scrollToSection('the-big-idea')">The Big Idea</a></li>
+                    <li><a href="#problem-superstar" onclick="scrollToSection('problem-superstar')">Problem 1: The "Superstar" Problem</a></li>
+                    <li><a href="#problem-jack-of-all-trades" onclick="scrollToSection('problem-jack-of-all-trades')">Problem 2: The "Jack of All Trades"</a></li>
+                    <li><a href="#problem-overworked-doctor" onclick="scrollToSection('problem-overworked-doctor')">Problem 3: The Overworked Doctor</a></li>
+                    <li><a href="#problem-multi-building-hospital" onclick="scrollToSection('problem-multi-building-hospital')">Problem 4: The Multi-Building Hospital</a></li>
+                    <li><a href="#why-exactly-8" onclick="scrollToSection('why-exactly-8')">Why Exactly 8? Hardware Limits!</a></li>
+                    <li><a href="#the-summary" onclick="scrollToSection('the-summary')">The Summary</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section" style="margin-top: 30px; padding-top: 20px; border-top: 2px dashed rgba(0,0,0,0.1);">
+                <a href="index.html" style="display: flex; align-items: center; gap: 8px; color: var(--accent-teal); text-decoration: none; font-weight: 600;">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Home
+                </a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="container">
         <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Mind & Machine</a>
 
         <header>
@@ -885,7 +1036,7 @@
         </header>
 
         <!-- Quick Intro -->
-        <section class="card reveal">
+        <section class="card reveal" id="the-big-idea">
             <h2><i class="fa-solid fa-lightbulb fa-icon"></i>The Big Idea</h2>
             
             <div class="analogy-box">
@@ -926,7 +1077,7 @@
         </section>
 
         <!-- Problem 1: Expert Collapse -->
-        <section class="card reveal">
+        <section class="card reveal" id="problem-superstar">
             <h2><i class="fa-solid fa-user-slash fa-icon"></i>Problem 1: The "Superstar" Problem</h2>
             
             <div class="problem-box">
@@ -1037,7 +1188,7 @@
         </section>
 
         <!-- Problem 2: Homogenization -->
-        <section class="card reveal">
+        <section class="card reveal" id="problem-jack-of-all-trades">
             <h2><i class="fa-solid fa-clone fa-icon"></i>Problem 2: The "Jack of All Trades"</h2>
             
             <div class="problem-box">
@@ -1136,7 +1287,7 @@
         </section>
 
         <!-- Problem 3: Workload Imbalance -->
-        <section class="card reveal">
+        <section class="card reveal" id="problem-overworked-doctor">
             <h2><i class="fa-solid fa-scale-unbalanced fa-icon"></i>Problem 3: The Overworked Doctor</h2>
             
             <div class="problem-box">
@@ -1201,7 +1352,7 @@
         </section>
 
         <!-- Problem 4: GPU Communication -->
-        <section class="card reveal">
+        <section class="card reveal" id="problem-multi-building-hospital">
             <h2><i class="fa-solid fa-server fa-icon"></i>Problem 4: The Multi-Building Hospital</h2>
             
             <div class="problem-box">
@@ -1263,7 +1414,7 @@
         </section>
 
         <!-- Why 8? -->
-        <section class="card reveal">
+        <section class="card reveal" id="why-exactly-8">
             <h2><i class="fa-solid fa-calculator fa-icon"></i>Why Exactly 8? Hardware Limits!</h2>
             
             <p>H800 GPUs have limited memory bandwidth (due to sanctions):</p>
@@ -1337,7 +1488,7 @@
         </section>
 
         <!-- Summary -->
-        <section class="card reveal">
+        <section class="card reveal" id="the-summary">
             <h2><i class="fa-solid fa-flag-checkered fa-icon"></i>The Summary</h2>
             
             <div class="strategy-grid">
@@ -1405,8 +1556,35 @@
             <p><i class="fa-solid fa-paintbrush"></i> Mind & Machine | <a href="index.html" style="color: var(--accent-teal);">Back to Home</a></p>
         </footer>
     </div>
+        </main>
+    </div>
 
     <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+                if (window.innerWidth <= 1200) {
+                    document.getElementById('sidebar').classList.remove('open');
+                }
+            }
+        }
+
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const toggle = document.querySelector('.toc-toggle');
+            if (window.innerWidth <= 1200 && 
+                sidebar.classList.contains('open') &&
+                !sidebar.contains(event.target) && 
+                !toggle.contains(event.target)) {
+                sidebar.classList.remove('open');
+            }
+        });
+
         const revealElements = document.querySelectorAll('.reveal');
         const revealOnScroll = () => {
             revealElements.forEach(el => {

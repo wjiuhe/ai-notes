@@ -381,6 +381,125 @@
         .reveal { opacity: 0; transform: translateY(30px); transition: all 0.7s ease; }
         .reveal.visible { opacity: 1; transform: translateY(0); }
 
+        /* Sidebar TOC Styles */
+        .page-wrapper {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .sidebar {
+            width: 280px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            background: linear-gradient(180deg, var(--bg-paper) 0%, #F8F4EF 100%);
+            border-right: 3px solid var(--pencil);
+            padding: 30px 20px;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: 3px 0 10px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px dashed rgba(0,0,0,0.15);
+        }
+
+        .sidebar-title {
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            color: var(--pencil);
+            margin-bottom: 5px;
+        }
+
+        .sidebar-subtitle {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .toc-section { margin-bottom: 20px; }
+
+        .toc-title {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1rem;
+            color: var(--pencil);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc-list li { margin-bottom: 6px; }
+
+        .toc-list a {
+            display: block;
+            padding: 6px 10px;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 0.9rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .toc-list a:hover {
+            background: rgba(78, 205, 196, 0.15);
+            border-left-color: var(--accent-teal);
+            transform: translateX(3px);
+        }
+
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 40px 40px;
+            max-width: calc(100vw - 320px);
+            min-width: 0;
+        }
+
+        .toc-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 200;
+            background: var(--accent-coral);
+            color: white;
+            border: none;
+            padding: 12px 15px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 1200px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            .sidebar.open { transform: translateX(0); }
+            .sidebar.open .sidebar-header { padding-top: 60px; }
+            .main-content { 
+                margin-left: 0; 
+                padding: 40px 20px;
+                max-width: 100%;
+            }
+            .toc-toggle { display: block; }
+            .back-link { margin-top: 50px; }
+        }
+
         /* Enhanced Mobile Styles */
         @media (max-width: 768px) {
             body {
@@ -518,7 +637,39 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <button class="toc-toggle" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
+
+    <div class="page-wrapper">
+        <!-- Sidebar Table of Contents -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-title">OpenCode Architecture</div>
+                <div class="sidebar-subtitle">Navigation Guide</div>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title"><i class="fa-solid fa-book-open"></i> Contents</div>
+                <ul class="toc-list">
+                    <li><a href="#executive-summary" onclick="scrollToSection('executive-summary')">Executive Summary</a></li>
+                    <li><a href="#system-architecture" onclick="scrollToSection('system-architecture')">System Architecture</a></li>
+                    <li><a href="#how-agents-work" onclick="scrollToSection('how-agents-work')">How Agents Work</a></li>
+                    <li><a href="#creating-custom-agents" onclick="scrollToSection('creating-custom-agents')">Creating Custom Agents</a></li>
+                    <li><a href="#skills-system" onclick="scrollToSection('skills-system')">The Skills System</a></li>
+                    <li><a href="#key-takeaways" onclick="scrollToSection('key-takeaways')">Key Takeaways</a></li>
+                    <li><a href="#project-file-structure" onclick="scrollToSection('project-file-structure')">Project File Structure</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section" style="margin-top: 30px; padding-top: 20px; border-top: 2px dashed rgba(0,0,0,0.1);">
+                <a href="index.html" style="display: flex; align-items: center; gap: 8px; color: var(--accent-teal); text-decoration: none; font-weight: 600;">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Home
+                </a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="container">
         <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Mind & Machine</a>
         
         <div class="page-meta">
@@ -532,7 +683,7 @@
         </header>
 
         <!-- Executive Summary -->
-        <section class="card reveal">
+        <section class="card reveal" id="executive-summary">
             <h2><i class="fa-solid fa-rocket fa-icon"></i>Executive Summary</h2>
             
             <p><span class="highlight">OpenCode</span> is an open-source AI coding agent with a modular architecture that separates concerns into <strong>agents</strong>, <strong>tools</strong>, <strong>skills</strong>, and <strong>permissions</strong>. It uses a client/server design where the TUI is just one possible frontend.</p>
@@ -544,7 +695,7 @@
         </section>
 
         <!-- System Architecture -->
-        <section class="card reveal">
+        <section class="card reveal" id="system-architecture">
             <h2><i class="fa-solid fa-layer-group fa-icon"></i>System Architecture</h2>
             
             <div class="arch-diagram">
@@ -584,7 +735,7 @@
         </section>
 
         <!-- How Agents Work -->
-        <section class="card reveal">
+        <section class="card reveal" id="how-agents-work">
             <h2><i class="fa-solid fa-users fa-icon"></i>How Agents Work</h2>
             
             <h3>Agent Types</h3>
@@ -651,7 +802,7 @@
         </section>
 
         <!-- Creating Custom Agents -->
-        <section class="card reveal">
+        <section class="card reveal" id="creating-custom-agents">
             <h2><i class="fa-solid fa-user-plus fa-icon"></i>Creating Custom Agents</h2>
             
             <h3>Method 1: Markdown (Recommended)</h3>
@@ -730,7 +881,7 @@ Provide <span class="keyword">severity ratings</span> and remediation steps.
         </section>
 
         <!-- Skills System -->
-        <section class="card reveal">
+        <section class="card reveal" id="skills-system">
             <h2><i class="fa-solid fa-book fa-icon"></i>The Skills System</h2>
             
             <p>Skills are <span class="highlight">reusable instruction documents</span> that agents can load on-demand. Unlike agents (full configurations), skills provide specific domain knowledge or workflows.</p>
@@ -883,7 +1034,7 @@ Ask clarifying questions if versioning is unclear.
         </section>
 
         <!-- Key Takeaways -->
-        <section class="card reveal">
+        <section class="card reveal" id="key-takeaways">
             <h2><i class="fa-solid fa-star fa-icon"></i>Key Takeaways</h2>
             
             <div class="agent-types">
@@ -921,7 +1072,7 @@ Ask clarifying questions if versioning is unclear.
         </section>
 
         <!-- File Structure -->
-        <section class="card reveal">
+        <section class="card reveal" id="project-file-structure">
             <h2><i class="fa-solid fa-folder-tree fa-icon"></i>Project File Structure</h2>
             
             <div class="code-block">

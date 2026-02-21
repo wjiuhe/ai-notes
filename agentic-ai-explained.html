@@ -573,6 +573,125 @@
         .reveal.visible { opacity: 1; transform: translateY(0); }
 
         .divider { text-align: center; margin: 45px 0; }
+
+        /* Sidebar TOC Styles */
+        .page-wrapper {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .sidebar {
+            width: 280px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            background: linear-gradient(180deg, var(--bg-paper) 0%, #F8F4EF 100%);
+            border-right: 3px solid var(--pencil);
+            padding: 30px 20px;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: 3px 0 10px rgba(0,0,0,0.1);
+        }
+
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px dashed rgba(0,0,0,0.15);
+        }
+
+        .sidebar-title {
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            color: var(--pencil);
+            margin-bottom: 5px;
+        }
+
+        .sidebar-subtitle {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .toc-section { margin-bottom: 20px; }
+
+        .toc-title {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1rem;
+            color: var(--pencil);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc-list li { margin-bottom: 6px; }
+
+        .toc-list a {
+            display: block;
+            padding: 6px 10px;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 0.9rem;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+        }
+
+        .toc-list a:hover {
+            background: rgba(78, 205, 196, 0.15);
+            border-left-color: var(--accent-teal);
+            transform: translateX(3px);
+        }
+
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 40px 40px;
+            max-width: calc(100vw - 320px);
+            min-width: 0;
+        }
+
+        .toc-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 200;
+            background: var(--accent-coral);
+            color: white;
+            border: none;
+            padding: 12px 15px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 1200px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            .sidebar.open { transform: translateX(0); }
+            .sidebar.open .sidebar-header { padding-top: 60px; }
+            .main-content { 
+                margin-left: 0; 
+                padding: 40px 20px;
+                max-width: 100%;
+            }
+            .toc-toggle { display: block; }
+            .back-link { margin-top: 50px; }
+        }
         .divider::before { 
             content: '~~~~~~~'; 
             font-family: 'Caveat', cursive;
@@ -605,25 +724,58 @@
     </style>
 </head>
 <body>
-    <div class="container">
+    <button class="toc-toggle" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
+
+    <div class="page-wrapper">
+        <!-- Sidebar Table of Contents -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-title">What Makes a Real AI Agent?</div>
+                <div class="sidebar-subtitle">Navigation Guide</div>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title"><i class="fa-solid fa-book-open"></i> Contents</div>
+                <ul class="toc-list">
+                    <li><a href="#big-question" onclick="scrollToSection('big-question')">The Big Question</a></li>
+                    <li><a href="#three-pillars" onclick="scrollToSection('three-pillars')">The Three Pillars of Intelligence</a></li>
+                    <li><a href="#agents-just-scripts" onclick="scrollToSection('agents-just-scripts')">Why Most "Agents" Are Just Scripts</a></li>
+                    <li><a href="#real-agent-needs" onclick="scrollToSection('real-agent-needs')">What a Real Agent Needs</a></li>
+                    <li><a href="#embracing-uncertainty" onclick="scrollToSection('embracing-uncertainty')">Embracing Uncertainty</a></li>
+                    <li><a href="#mainstream-vs-true" onclick="scrollToSection('mainstream-vs-true')">Mainstream vs. True Agent</a></li>
+                    <li><a href="#make-your-agent-more-agentic" onclick="scrollToSection('make-your-agent-more-agentic')">How to Make YOUR Agent More Agentic</a></li>
+                    <li><a href="#bottom-line" onclick="scrollToSection('bottom-line')">The Bottom Line</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section" style="margin-top: 30px; padding-top: 20px; border-top: 2px dashed rgba(0,0,0,0.1);">
+                <a href="index.html" style="display: flex; align-items: center; gap: 8px; color: var(--accent-teal); text-decoration: none; font-weight: 600;">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Home
+                </a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="container">
         <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Mind & Machine</a>
 
         <header>
             <h1>What Makes a Real AI Agent?</h1>
-            <p class="subtitle">Notes on AI, Agents, and Beyond</p>
+            <p class="subtitle">Beyond the Hype: Understanding Real AI Agent Architecture</p>
             <p style="margin-top: 15px; font-size: 0.9rem; color: var(--text-muted);">
                 <i class="fa-solid fa-user"></i> Jiuhe Wang &nbsp;|&nbsp;
                 <i class="fa-regular fa-calendar"></i> Feb 21, 2026
             </p>
         </header>
 
-        <section class="card reveal">
+        <section class="card reveal" id="big-question">
             <h2><i class="fa-solid fa-circle-question fa-icon"></i>The Big Question</h2>
             <p class="quote-box">"What is <span class="highlight">true AI Agent Design</span>? Why do I feel like most of today's 'agents' aren't really agentic at all?"</p>
             <p>Most of what the internet calls "AI Agents" are just <span class="highlight-coral">glorified scripts</span> wearing a fancy name. Let's see why...</p>
         </section>
 
-        <section class="card reveal">
+        <section class="card reveal" id="three-pillars">
             <h2><i class="fa-solid fa-puzzle-piece fa-icon"></i>The Three Pillars of Intelligence</h2>
             <p>Any intelligent system — human or artificial — needs three core components:</p>
 
@@ -653,7 +805,7 @@
             </ul>
         </section>
 
-        <section class="card reveal">
+        <section class="card reveal" id="agents-just-scripts">
             <h2><i class="fa-solid fa-code fa-icon"></i>Why Most "Agents" Are Just Scripts</h2>
             
             <h3><i class="fa-solid fa-mask"></i> The Tool Calling Illusion</h3>
@@ -707,7 +859,7 @@
             </div>
         </section>
 
-        <section class="card reveal">
+        <section class="card reveal" id="real-agent-needs">
             <h2><i class="fa-solid fa-layer-group fa-icon"></i>What a Real Agent Needs</h2>
             
             <p>Building on the three pillars, here's how it works in practice:</p>
@@ -776,7 +928,7 @@
             <p style="margin-top: 20px; color: var(--text-muted);">Think of these as components that work <em>together</em>, not stacked: Information → Capability + Mastery → Action → Learn.</p>
         </section>
 
-        <section class="card reveal">
+        <section class="card reveal" id="embracing-uncertainty">
             <h2><i class="fa-solid fa-cloud fa-icon"></i>Embracing Uncertainty</h2>
             <p>Real intelligence holds "unverified but useful" beliefs — something current AI largely lacks.</p>
 
@@ -806,7 +958,7 @@
 
         <div class="divider"></div>
 
-        <section class="card reveal">
+        <section class="card reveal" id="mainstream-vs-true">
             <h2><i class="fa-solid fa-chart-simple fa-icon"></i>Mainstream vs. True Agent</h2>
             
             <table class="comparison-table">
@@ -822,7 +974,7 @@
             </table>
         </section>
 
-        <section class="card reveal">
+        <section class="card reveal" id="make-your-agent-more-agentic">
             <h2><i class="fa-solid fa-rocket fa-icon"></i>How to Make YOUR Agent More Agentic</h2>
             <p>What you can do TODAY:</p>
 
@@ -893,7 +1045,7 @@
             </div>
         </section>
 
-        <section class="card reveal">
+        <section class="card reveal" id="bottom-line">
             <h2><i class="fa-solid fa-bullseye fa-icon"></i>The Bottom Line</h2>
             
             <div class="quote-box">The mainstream confuses <strong>Agent</strong> (has intentionality) with <strong>Actor</strong> (just executes). Without knowledge architecture and associative memory, an "Agent" is just a <span class="highlight-coral">script in a trench coat</span>.</div>
@@ -915,15 +1067,45 @@
             <p><i class="fa-solid fa-paintbrush"></i> Mind & Machine | <a href="index.html" style="color: var(--accent-teal);">Back to Home</a></p>
             <p style="font-size: 0.9rem; margin-top: 12px; color: var(--text-muted);">Remember: A script that calls itself an agent is still a script.</p>
         </footer>
+        </div>
+        </main>
     </div>
 
     <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+                // Close sidebar on mobile after clicking
+                if (window.innerWidth <= 1200) {
+                    document.getElementById('sidebar').classList.remove('open');
+                }
+            }
+        }
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', function(event) {
+            const sidebar = document.getElementById('sidebar');
+            const toggle = document.querySelector('.toc-toggle');
+            if (window.innerWidth <= 1200 && 
+                sidebar.classList.contains('open') &&
+                !sidebar.contains(event.target) && 
+                !toggle.contains(event.target)) {
+                sidebar.classList.remove('open');
+            }
+        });
+
+        // Existing reveal animation code
         const revealElements = document.querySelectorAll('.reveal');
         const revealOnScroll = () => {
             revealElements.forEach(el => {
                 const elementTop = el.getBoundingClientRect().top;
                 const windowHeight = window.innerHeight;
-                if (elementTop < windowHeight - 80) { el.classList.add('visible'); }
+                if (elementTop < windowHeight - 50) { el.classList.add('visible'); }
             });
         };
         window.addEventListener('scroll', revealOnScroll);
