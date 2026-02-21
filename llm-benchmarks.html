@@ -262,6 +262,55 @@
         .code-block .key { color: #9CDCFE; font-weight: 600; }
         .code-block .string { color: #CE9178; }
 
+        /* Example formatting improvements */
+        .example-question {
+            color: #FFD700;
+            font-weight: 600;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .example-options {
+            color: #B0C4DE;
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+
+        .example-answer {
+            color: #90EE90;
+            font-weight: 600;
+            margin: 15px 0 10px 0;
+            display: block;
+        }
+
+        .example-explanation {
+            color: #DDA0DD;
+            font-style: italic;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .example-label {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-right: 8px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .label-question { background: rgba(255, 215, 0, 0.2); color: #FFD700; }
+        .label-answer { background: rgba(144, 238, 144, 0.2); color: #90EE90; }
+        .label-explanation { background: rgba(221, 160, 221, 0.2); color: #DDA0DD; }
+
+        .code-content .divider {
+            border-top: 2px solid rgba(255,255,255,0.3);
+            margin: 15px 0;
+        }
+
         .insight-box {
             background: linear-gradient(135deg, #FFFDE7, #FFF9C4);
             border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
@@ -996,15 +1045,25 @@
                             <span class="dot green"></span>
                             <span>College Level Mathematics</span>
                         </div>
-                        <div class="code-content">Question: Let G be a group of order 15. Which of the following statements is true?
+                        <div class="code-content"><span class="example-label label-question">Question</span>
+<span class="example-question">Let G be a group of order 15. Which of the following statements is true?</span>
+
+<span class="example-options">
 A) G must be cyclic
 B) G must be abelian
 C) G is isomorphic to Z_15
 D) G has exactly 3 subgroups
+</span>
 
-Correct Answer: B
+<div class="divider"></div>
 
-Explanation: By Sylow theorems, groups of order 15 = 3 × 5 must be abelian. However, they need not be cyclic (though they always are in this case—turns out groups of order 15 are actually cyclic, making both A and B true, but B is the more fundamental property).</div>
+<span class="example-label label-answer">Answer</span>
+<span class="example-answer">B) G must be abelian</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-explanation">Explanation</span>
+<span class="example-explanation">By Sylow theorems, groups of order 15 = 3 × 5 must be abelian. However, they need not be cyclic (though they always are in this case—turns out groups of order 15 are actually cyclic, making both A and B true, but B is the more fundamental property).</span></div>
                     </div>
 
                     <h4>Example 2: Professional Law</h4>
@@ -1015,15 +1074,25 @@ Explanation: By Sylow theorems, groups of order 15 = 3 × 5 must be abelian. How
                             <span class="dot green"></span>
                             <span>Legal Reasoning</span>
                         </div>
-                        <div class="code-content">Question: Under the Fourth Amendment, which of the following searches requires a warrant?
+                        <div class="code-content"><span class="example-label label-question">Question</span>
+<span class="example-question">Under the Fourth Amendment, which of the following searches requires a warrant?</span>
+
+<span class="example-options">
 A) Searching a car during a traffic stop when police smell marijuana
 B) Searching a student's backpack based on a teacher's suspicion of contraband
 C) Searching a home's curtilage with a drone
 D) Searching a suspect's pockets during a lawful arrest
+</span>
 
-Correct Answer: C
+<div class="divider"></div>
 
-Explanation: While cars (A) and persons during arrest (D) have reduced expectations of privacy, and schools (B) have special rules, the home (including its curtilage) receives the highest Fourth Amendment protection. Aerial surveillance of the curtilage with a drone generally requires a warrant under Carpenter and Florida v. Riley analysis.</div>
+<span class="example-label label-answer">Answer</span>
+<span class="example-answer">C) Searching a home's curtilage with a drone</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-explanation">Explanation</span>
+<span class="example-explanation">While cars (A) and persons during arrest (D) have reduced expectations of privacy, and schools (B) have special rules, the home (including its curtilage) receives the highest Fourth Amendment protection. Aerial surveillance of the curtilage with a drone generally requires a warrant under Carpenter and Florida v. Riley analysis.</span></div>
                     </div>
 
                     <h4>Example 3: High School Chemistry</h4>
@@ -1034,40 +1103,28 @@ Explanation: While cars (A) and persons during arrest (D) have reduced expectati
                             <span class="dot green"></span>
                             <span>STEM Knowledge</span>
                         </div>
-                        <div class="code-content">Question: Which element has the highest electronegativity?
+                        <div class="code-content"><span class="example-label label-question">Question</span>
+<span class="example-question">Which element has the highest electronegativity?</span>
+
+<span class="example-options">
 A) Oxygen
 B) Fluorine
 C) Chlorine
 D) Nitrogen
+</span>
 
-Correct Answer: B
+<div class="divider"></div>
 
-Explanation: Fluorine has the highest electronegativity (3.98 on the Pauling scale) of all elements. It's the most reactive non-metal and has a strong tendency to attract electrons. This makes it useful in Teflon (PTFE) and toothpaste (sodium fluoride), but also extremely dangerous in its pure form!</div>
+<span class="example-label label-answer">Answer</span>
+<span class="example-answer">B) Fluorine</span>
+
+<div class="divider"></div>
+
+<span class="example-label label-explanation">Explanation</span>
+<span class="example-explanation">Fluorine has the highest electronegativity (3.98 on the Pauling scale) of all elements. It's the most reactive non-metal and has a strong tendency to attract electrons. This makes it useful in Teflon (PTFE) and toothpaste (sodium fluoride), but also extremely dangerous in its pure form!</span></div>
                     </div>
 
-                    <h3>Current State-of-the-Art (as of Feb 2026)</h3>
-                    <p><em>Source: <a href="https://paperswithcode.com/sota/multi-task-language-understanding-on-mmlu" target="_blank" style="color: var(--accent-teal);">Papers With Code MMLU Leaderboard</a>, <a href="https://chat.lmsys.org/?leaderboard" target="_blank" style="color: var(--accent-teal);">LMSYS Chatbot Arena</a></em></p>
-                    <ul class="example-list">
-                        <li><strong>GPT-5.3:</strong> ~93.2%</li>
-                        <li><strong>GPT-5.2:</strong> ~92.1%</li>
-                        <li><strong>Claude Opus 4.6:</strong> ~91.8%</li>
-                        <li><strong>Claude Sonnet 4.6:</strong> ~89.4%</li>
-                        <li><strong>Gemini 3.1 Pro:</strong> ~92.8%</li>
-                        <li><strong>Gemini 3.0 Pro:</strong> ~91.5%</li>
-                        <li><strong>DeepSeek-R1:</strong> ~90.2%</li>
-                        <li><strong>DeepSeek-V3:</strong> ~88.9%</li>
-                        <li><strong>Kimi 2.5:</strong> ~89.7%</li>
-                        <li><strong>GLM-5:</strong> ~87.3%</li>
-                        <li><strong>MiniMax 2.5:</strong> ~86.8%</li>
-                        <li><strong>Human expert:</strong> ~89.8%</li>
-                    </ul>
 
-                    <div class="insight-box">
-                        <div class="insight-icon"><i class="fa-solid fa-trophy"></i></div>
-                        <div>
-                            <strong>Interesting Fact:</strong> GPT-5.3's MMLU score (93.2%) now significantly exceeds human expert performance (~89.8%). Even more impressive, Chinese models like DeepSeek-R1 (~90.2%) and Kimi 2.5 (~89.7%) are now competitive with top Western models!
-                        </div>
-                    </div>
                 </section>
 
                 <!-- HumanEval Deep Dive -->
@@ -1215,20 +1272,7 @@ def is_perfect_square(n):
                         <li>Pass@100 = accuracy with 100 attempts (easier)</li>
                     </ul>
 
-                    <h3>Current State-of-the-Art (as of Feb 2026)</h3>
-                    <ul class="example-list">
-                        <li><strong>Claude 3.5 Sonnet:</strong> ~92% Pass@1</li>
-                        <li><strong>GPT-5:</strong> ~94% Pass@1</li>
-                        <li><strong>o3-mini (reasoning):</strong> ~96% Pass@1</li>
-                        <li><strong>Gemini 2.0 Pro:</strong> ~91% Pass@1</li>
-                    </ul>
 
-                    <div class="insight-box">
-                        <div class="insight-icon"><i class="fa-solid fa-lightbulb"></i></div>
-                        <div>
-                            <strong>The Breakthrough Moment:</strong> When GPT-4 hit 67% on HumanEval, it was impressive. Now with models hitting 96%, AI coding has moved from "occasionally helpful" to "reliable pair programmer" territory.
-                        </div>
-                    </div>
                 </section>
 
                 <!-- SWE-bench Deep Dive (NEW) -->
@@ -1305,24 +1349,7 @@ Difficulty: ★★★★☆ (requires understanding Django's QuerySet implementa
 </div>
                     </div>
 
-                    <h3>Current State-of-the-Art (as of Feb 2026)</h3>
-                    <p><em>Source: <a href="https://www.swebench.com/" target="_blank" style="color: var(--accent-teal);">SWE-bench Official Leaderboard</a></em></p>
-                    <p><strong>Note:</strong> SWE-bench has multiple variants. Scores below are for <strong>SWE-bench Verified</strong> (2,294 verified GitHub issues) with agentic tools enabled:</p>
-                    <ul class="example-list">
-                        <li><strong>GPT-5.3 Codex (with agentic tools):</strong> ~47% <em>(SWE-bench Verified)</em></li>
-                        <li><strong>Claude Sonnet 4.6 (with tools):</strong> ~38% <em>(SWE-bench Verified)</em></li>
-                        <li><strong>OpenAI Codex Agent:</strong> ~41% <em>(SWE-bench Verified)</em></li>
-                        <li><strong>Devin v2:</strong> ~32% <em>(SWE-bench Verified)</em></li>
-                        <li><strong>SWE-bench Lite (easier subset):</strong> Scores typically 15-25% higher</li>
-                        <li><strong>Human developers:</strong> ~80-90% (estimated)</li>
-                    </ul>
 
-                    <div class="insight-box">
-                        <div class="insight-icon"><i class="fa-solid fa-rocket"></i></div>
-                        <div>
-                            <strong>The Gap Is Closing:</strong> In 2023, the best models got ~1% on SWE-bench. By Feb 2026, GPT-5.3 Codex hits 47% on SWE-bench Verified with agentic tools. We're rapidly approaching the point where AI can handle real-world software maintenance. Check the <a href="https://www.swebench.com/" target="_blank" style="color: var(--accent-teal);">official leaderboard</a> for the latest results.
-                        </div>
-                    </div>
                 </section>
 
                 <!-- GSM8K Deep Dive -->
@@ -1450,20 +1477,7 @@ Answer: It would take 3 days.</div>
                         <li><strong>Self-verification:</strong> Checking if the answer makes sense</li>
                     </ul>
 
-                    <h3>Current State-of-the-Art (as of Feb 2026)</h3>
-                    <ul class="example-list">
-                        <li><strong>o3 (reasoning model):</strong> ~98.5%</li>
-                        <li><strong>GPT-5:</strong> ~97.8%</li>
-                        <li><strong>Claude 3.5 Sonnet:</strong> ~97.2%</li>
-                        <li><strong>Gemini 2.0 Pro:</strong> ~96.9%</li>
-                    </ul>
 
-                    <div class="insight-box">
-                        <div class="insight-icon"><i class="fa-solid fa-chart-line"></i></div>
-                        <div>
-                            <strong>The Chain-of-Thought Revolution:</strong> Before researchers discovered that prompting models to "show their work" dramatically improved GSM8K scores, even GPT-3 struggled to break 50%. Now state-of-the-art models hit 95%+. This single technique changed everything.
-                        </div>
-                    </div>
                 </section>
 
                 <!-- MATH Dataset Deep Dive (NEW) -->
@@ -1611,21 +1625,7 @@ Total: 120 + 60 + 6 = 186 ✓
 Answer: 186</div>
                     </div>
 
-                    <h3>Current State-of-the-Art (as of Feb 2026)</h3>
-                    <ul class="example-list">
-                        <li><strong>o3 (reasoning model):</strong> ~89%</li>
-                        <li><strong>GPT-5:</strong> ~85%</li>
-                        <li><strong>Claude 3.5 Sonnet:</strong> ~78%</li>
-                        <li><strong>Gemini 2.0 Ultra:</strong> ~82%</li>
-                        <li><strong>Human math olympiad participant:</strong> ~60-80%</li>
-                    </ul>
 
-                    <div class="insight-box">
-                        <div class="insight-icon"><i class="fa-solid fa-trophy"></i></div>
-                        <div>
-                            <strong>The o3 Breakthrough:</strong> OpenAI's o3 model hit ~89% on MATH, dramatically surpassing human math olympiad participants. This leap shows that reasoning-focused training can achieve expert-level mathematical capabilities.
-                        </div>
-                    </div>
                 </section>
 
                 <!-- TruthfulQA Deep Dive -->
@@ -1721,22 +1721,7 @@ Why people get this wrong: 19th-century writers created this narrative to make C
 
                     <p>TruthfulQA forces developers to train models not just to predict text, but to be factually accurate—even when that contradicts common beliefs in the training data.</p>
 
-                    <h3>Current State-of-the-Art (as of Feb 2026)</h3>
-                    <p>TruthfulQA scores are reported as the percentage of questions answered truthfully:</p>
-                    <ul class="example-list">
-                        <li><strong>GPT-5:</strong> ~78%</li>
-                        <li><strong>Claude 3.5 Sonnet:</strong> ~76%</li>
-                        <li><strong>o3 (reasoning model):</strong> ~82%</li>
-                        <li><strong>Anthropic Constitutional AI v2:</strong> ~81%</li>
-                        <li><strong>Average human:</strong> ~40-50%</li>
-                    </ul>
 
-                    <div class="insight-box">
-                        <div class="insight-icon"><i class="fa-solid fa-exclamation-triangle"></i></div>
-                        <div>
-                            <strong>Progress But Still Imperfect:</strong> State-of-the-art models now reach ~82% on TruthfulQA—a huge improvement from the ~30% of GPT-3. But that still means they fall for human misconceptions nearly 1 in 5 times. Always verify critical information!
-                        </div>
-                    </div>
                 </section>
 
                 <!-- MT-Bench Deep Dive -->
@@ -1871,21 +1856,7 @@ You'll have 10 minutes of buffer time, which should be manageable.
                         <li><strong>Helpfulness:</strong> Actually solving your problem across multiple exchanges</li>
                     </ul>
 
-                    <h3>Current State-of-the-Art (MT-Bench Scores, as of Feb 2026)</h3>
-                    <p>Scores are out of 10, judged by GPT-4:</p>
-                    <ul class="example-list">
-                        <li><strong>GPT-5:</strong> ~9.4</li>
-                        <li><strong>o3 (reasoning model):</strong> ~9.3</li>
-                        <li><strong>Claude 3.5 Sonnet:</strong> ~9.1</li>
-                        <li><strong>Gemini 2.0 Pro:</strong> ~9.2</li>
-                    </ul>
 
-                    <div class="insight-box">
-                        <div class="insight-icon"><i class="fa-solid fa-star"></i></div>
-                        <div>
-                            <strong>Chatbot Arena Connection:</strong> MT-Bench is closely related to Chatbot Arena (LMSYS), where humans vote on which model gives better responses. High MT-Bench scores correlate strongly with high ELO ratings in the Arena. It's the best predictor of "this feels like a good conversation."
-                        </div>
-                    </div>
                 </section>
 
                 <!-- Comparison Section -->
