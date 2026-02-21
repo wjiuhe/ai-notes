@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeepSeek-V3: Dancing in Hardware Chains</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Nunito:wght@400;600;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://unpkg.com/roughjs@4.6.6/bundled/rough.js"></script>
+    <style>
+        :root {
+            --bg-cream: #FDF8F3;
+            --bg-paper: #FFFEF9;
+            --accent-coral: #FF6B6B;
+            --accent-teal: #4ECDC4;
+            --accent-sunflower: #FFE66D;
+            --accent-lavender: #C9B1FF;
+            --accent-sky: #A8E6CF;
+            --accent-red: #E74C3C;
+            --accent-green: #27AE60;
+            --accent-orange: #E67E22;
+            --text-dark: #2D3436;
+            --text-muted: #636E72;
+            --pencil: #2B2B2B;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg-cream);
+            color: var(--text-dark);
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+
+        header { text-align: center; margin-bottom: 40px; }
+
+        h1 {
+            font-family: 'Caveat', cursive;
+            font-size: 3rem;
+            color: var(--pencil);
+            position: relative;
+            display: inline-block;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent-coral), var(--accent-teal), var(--accent-sunflower));
+            border-radius: 3px;
+            opacity: 0.6;
+        }
+
+        .subtitle { font-family: 'Patrick Hand', cursive; font-size: 1.4rem; color: var(--text-muted); margin-top: 15px; }
+
+        .card {
+            background: var(--bg-paper);
+            padding: 35px;
+            margin-bottom: 25px;
+            box-shadow: 3px 4px 0 rgba(0,0,0,0.1);
+            border: 2px solid var(--pencil);
+            border-radius: 4px;
+        }
+
+        h2 { 
+            font-family: 'Caveat', cursive; 
+            font-size: 1.9rem; 
+            color: var(--pencil); 
+            margin-bottom: 18px;
+            padding-left: 45px;
+            position: relative;
+            min-height: 40px;
+            display: flex;
+            align-items: center;
+        }
+
+        h2 .fa-icon {
+            position: absolute;
+            left: 0;
+            width: 38px;
+            height: 38px;
+            background: var(--bg-paper);
+            border: 2px solid var(--pencil);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        h3 { font-family: 'Patrick Hand', cursive; font-size: 1.3rem; color: var(--text-dark); margin: 20px 0 10px; }
+        p { margin-bottom: 12px; font-size: 1rem; }
+
+        /* ====== ANALOGY BOXES ====== */
+        .analogy-box {
+            background: linear-gradient(135deg, #FFF8E1, #FFECB3);
+            border: 3px dashed var(--accent-orange);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .analogy-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        .analogy-title {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.3rem;
+            color: var(--accent-orange);
+            margin-bottom: 10px;
+        }
+
+        .analogy-text {
+            font-size: 1.05rem;
+            color: var(--text-dark);
+            font-style: italic;
+        }
+
+        /* ====== EXPERT VISUALS ====== */
+        .expert-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .expert {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--pencil);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .expert.busy { background: var(--accent-coral); color: white; transform: scale(1.15); }
+        .expert.idle { background: #E0E0E0; color: #999; }
+        .expert.active { background: var(--accent-teal); color: white; }
+        .expert.shared { background: var(--accent-sunflower); color: var(--text-dark); width: 50px; height: 50px; font-size: 0.6rem; }
+        .expert.small { width: 40px; height: 40px; font-size: 0.65rem; }
+
+        /* ====== PROBLEM VS SOLUTION ====== */
+        .problem-box {
+            background: linear-gradient(135deg, #FFEBEE, #FFCDD2);
+            border: 3px dashed var(--accent-red);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .problem-title {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.3rem;
+            color: var(--accent-red);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .solution-box {
+            background: linear-gradient(135deg, #E8F8F5, #D1F2EB);
+            border: 3px solid var(--accent-green);
+            border-radius: 20px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .solution-title {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.3rem;
+            color: var(--accent-green);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* ====== HOSPITAL SCENE VISUALS ====== */
+        .hospital-scene {
+            background: #FFF8E7;
+            border: 2px dashed #8B7355;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 15px 0;
+            position: relative;
+        }
+
+        .hospital-label {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.1rem;
+            color: #8B7355;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .doctors-row {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .doctor {
+            width: 60px;
+            height: 50px;
+            border-radius: 10px;
+            background: #E8E8E8;
+            border: 2px solid #AAA;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            font-size: 1.2rem;
+            color: #888;
+        }
+
+        .doctor .doctor-icon {
+            font-size: 1.2rem;
+        }
+
+        .idle-doctor {
+            opacity: 0.6;
+        }
+
+        .doctor .zzz {
+            position: absolute;
+            top: -15px;
+            right: -5px;
+            font-size: 0.8rem;
+            animation: breathe 2s ease-in-out infinite;
+            color: #6B7280;
+            z-index: 10;
+        }
+
+        .doctor .cobweb {
+            position: absolute;
+            top: -12px;
+            left: -10px;
+            font-size: 0.8rem;
+            opacity: 0.6;
+            z-index: 10;
+        }
+
+        .doctor .dust {
+            position: absolute;
+            bottom: -8px;
+            right: -8px;
+            font-size: 0.7rem;
+            opacity: 0.5;
+            z-index: 10;
+        }
+
+        .patient-flow {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
+        }
+
+        .flow-arrow {
+            font-size: 1.5rem;
+            color: var(--accent-red);
+            animation: pulse-arrow 1.5s ease-in-out infinite;
+        }
+
+        .superstar-doctor {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            margin: 20px auto;
+            padding-top: 25px;
+        }
+
+        .superstar-doctor .crown {
+            font-size: 1.3rem;
+            color: #FFD700;
+            animation: float 2s ease-in-out infinite;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            margin-bottom: 5px;
+        }
+
+        .superstar-doctor .star-badge {
+            display: none;
+        }
+
+        .superstar-doctor .doctor-icon.superstar {
+            width: 80px;
+            height: 65px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent-coral), #FF6B6B);
+            border: 3px solid #E53935;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        .superstar-doctor .patient-count {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 0.9rem;
+            color: var(--accent-red);
+            font-weight: bold;
+            margin-top: 8px;
+        }
+
+        .surrounding-patients {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .surrounding-patients .patient {
+            font-size: 1rem;
+            color: #E57373;
+            animation: bounce 1.5s ease-in-out infinite;
+        }
+
+        .surrounding-patients .p1 { animation-delay: 0s; }
+        .surrounding-patients .p2 { animation-delay: 0.2s; }
+        .surrounding-patients .p3 { animation-delay: 0.4s; }
+        .surrounding-patients .p4 { animation-delay: 0.6s; }
+        .surrounding-patients .p5 { animation-delay: 0.8s; }
+        .surrounding-patients .p6 { animation-delay: 1s; }
+
+        /* ====== SOLUTION SCENE ====== */
+        .solution-scene {
+            background: #F0FFF4;
+            border-color: var(--accent-green);
+        }
+
+        .solution-layout {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .gp-doctor {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .gp-star {
+            position: absolute;
+            top: -25px;
+            font-size: 1.3rem;
+            color: #FFD700;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        .gp-doctor .doctor-icon.gp {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-sunflower), #FFB347);
+            border: 3px solid #F57C00;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: white;
+        }
+
+        .gp-doctor .gp-label {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1rem;
+            color: #F57C00;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .gp-doctor .patients-at-gp {
+            display: flex;
+            gap: 3px;
+            margin-top: 5px;
+        }
+
+        .gp-doctor .mini-patient {
+            font-size: 0.9rem;
+            color: #4CAF50;
+            animation: bounce 1s ease-in-out infinite;
+        }
+
+        .gp-doctor .mini-patient:nth-child(2) { animation-delay: 0.2s; }
+        .gp-doctor .mini-patient:nth-child(3) { animation-delay: 0.4s; }
+
+        .specialist-flow {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .flow-line {
+            width: 60px;
+            height: 3px;
+            background: var(--accent-green);
+            border-radius: 2px;
+        }
+
+        .flow-label {
+            font-size: 0.75rem;
+            color: var(--accent-green);
+            margin-top: 3px;
+        }
+
+        .specialists-row {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .specialist {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .spec-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            border: 2px solid white;
+        }
+
+        .spec-icon.heart { background: #E91E63; border-color: #C2185B; }
+        .spec-icon.brain { background: #9C27B0; border-color: #7B1FA2; }
+        .spec-icon.bone { background: #FF9800; border-color: #F57C00; }
+        .spec-icon.lungs { background: #2196F3; border-color: #1976D2; }
+
+        .spec-label {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 0.85rem;
+            color: #555;
+            margin-top: 3px;
+        }
+
+        .spec-patient {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            font-size: 0.9rem;
+            color: var(--accent-green);
+            animation: wiggle 1s ease-in-out infinite;
+        }
+
+        /* ====== ANIMATIONS ====== */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+
+        @keyframes pulse-arrow {
+            0%, 100% { transform: translateX(0); opacity: 1; }
+            50% { transform: translateX(10px); opacity: 0.5; }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(229, 57, 53, 0.5); }
+            50% { box-shadow: 0 0 25px rgba(229, 57, 53, 0.8); }
+        }
+
+        @keyframes orbit {
+            0% { transform: rotate(0deg) translateX(0) rotate(0deg); }
+            100% { transform: rotate(360deg) translateX(0) rotate(-360deg); }
+        }
+
+        @keyframes breathe {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-10deg); }
+            50% { transform: rotate(10deg); }
+        }
+
+        /* ====== COMPARISON ====== */
+        .compare-row {
+            display: flex;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .compare-box {
+            flex: 1;
+            min-width: 250px;
+            max-width: 320px;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .compare-box.bad {
+            background: linear-gradient(135deg, #FF6B6B, #E74C3C);
+            border: 2px dashed #C0392B;
+            color: white;
+        }
+
+        .compare-box.bad .compare-label {
+            color: #FFE6E6;
+        }
+
+        .compare-box.good {
+            background: linear-gradient(135deg, #E8F8F5, #D1F2EB);
+            border: 2px solid var(--accent-green);
+            color: var(--text-dark);
+        }
+
+        /* ====== GPU HOSPITAL ====== */
+        .hospital-visual {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+
+        .hospital-floor {
+            width: 100px;
+            padding: 15px 10px;
+            background: linear-gradient(145deg, #5D6D7E, #34495E);
+            border-radius: 12px;
+            text-align: center;
+            color: white;
+        }
+
+        .floor-label {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .room-row {
+            display: flex;
+            justify-content: center;
+            gap: 3px;
+            flex-wrap: wrap;
+        }
+
+        .room {
+            width: 22px;
+            height: 22px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.5rem;
+            border: 1px solid white;
+        }
+
+        .room.busy { background: var(--accent-coral); }
+        .room.idle { background: #7F8C8D; }
+        .room.active { background: var(--accent-teal); }
+
+        /* ====== STATS ====== */
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .stat-box {
+            background: var(--bg-paper);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: center;
+            border: 2px solid var(--pencil);
+        }
+
+        .stat-value {
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--accent-coral);
+        }
+
+        .stat-label { font-size: 0.75rem; color: var(--text-muted); }
+
+        /* ====== QUOTE ====== */
+        .quote-box {
+            background: linear-gradient(135deg, #FFF9C4, #FFF59D);
+            border-left: 5px solid var(--accent-sunflower);
+            padding: 18px 22px;
+            margin: 18px 0;
+            border-radius: 0 15px 15px 0;
+            font-style: italic;
+        }
+
+        /* ====== STRATEGY CARDS ====== */
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .strategy-card {
+            background: var(--bg-paper);
+            padding: 18px;
+            border-radius: 15px;
+            border: 2px solid var(--accent-lavender);
+            transition: all 0.3s;
+        }
+
+        .strategy-card:hover { transform: translateY(-4px); }
+
+        .strategy-num {
+            width: 26px;
+            height: 26px;
+            background: var(--accent-coral);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+        }
+
+        .strategy-title {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+        }
+
+        /* ====== BACK LINK ====== */
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: var(--accent-teal);
+            text-decoration: none;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1rem;
+        }
+        .back-link:hover { color: var(--accent-coral); }
+
+        @media (max-width: 768px) {
+            h1 { font-size: 2.2rem; }
+            .card { padding: 25px; }
+        }
+
+        .reveal { opacity: 0; transform: translateY(15px); transition: all 0.5s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+
+        /* ROUGH.JS HAND-DRAWN STYLE */
+        .expert.rough {
+            background: linear-gradient(135deg, #FFFEF9, #F5F0E8);
+            box-shadow: 2px 3px 0 rgba(0,0,0,0.15), inset 0 2px 4px rgba(255,255,255,0.8), inset 0 -2px 4px rgba(0,0,0,0.05);
+            border: 2px solid var(--pencil);
+            position: relative;
+        }
+
+        .expert.rough.busy {
+            background: linear-gradient(135deg, #FF8A8A, #FF6B6B);
+            box-shadow: 2px 3px 0 rgba(229, 57, 53, 0.3), inset 0 2px 4px rgba(255,255,255,0.3), inset 0 -2px 4px rgba(0,0,0,0.1);
+        }
+
+        .expert.rough.active {
+            background: linear-gradient(135deg, #6EE7DE, #4ECDC4);
+            box-shadow: 2px 3px 0 rgba(78, 205, 196, 0.3), inset 0 2px 4px rgba(255,255,255,0.3), inset 0 -2px 4px rgba(0,0,0,0.1);
+        }
+
+        .expert.rough.idle {
+            background: linear-gradient(135deg, #F0F0F0, #E0E0E0);
+            box-shadow: 2px 3px 0 rgba(0,0,0,0.1), inset 0 2px 4px rgba(255,255,255,0.8), inset 0 -2px 4px rgba(0,0,0,0.05);
+        }
+
+        .expert.rough.shared {
+            background: linear-gradient(135deg, #FFEF7E, #FFE66D);
+            box-shadow: 2px 3px 0 rgba(255, 200, 0, 0.3), inset 0 2px 4px rgba(255,255,255,0.5), inset 0 -2px 4px rgba(0,0,0,0.05);
+        }
+
+        .hand-drawn-circle {
+            border-radius: 50% 48% 52% 48% / 48% 52% 48% 50% !important;
+            border: 2px solid var(--pencil);
+            box-shadow: 2px 3px 0 rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .hand-drawn-circle:hover {
+            transform: scale(1.02);
+        }
+
+        .rough-card {
+            background: var(--bg-paper);
+            box-shadow: 4px 5px 0 rgba(0,0,0,0.1), 2px 3px 0 rgba(0,0,0,0.05);
+            border: 2px solid var(--pencil);
+        }
+
+        .rough-shadow {
+            box-shadow: 3px 4px 0 rgba(0,0,0,0.12), 5px 7px 0 rgba(0,0,0,0.08);
+        }
+
+        .rough-inset {
+            box-shadow: inset 2px 3px 6px rgba(0,0,0,0.1), inset -1px -2px 4px rgba(255,255,255,0.8);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Mind & Machine</a>
+
+        <header>
+            <h1>DeepSeek-V3: Dancing in Hardware Chains</h1>
+            <p class="subtitle">The Art of Making AI Cheaper & Faster</p>
+        </header>
+
+        <!-- Quick Intro -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-lightbulb fa-icon"></i>The Big Idea</h2>
+            
+            <div class="analogy-box">
+                <div class="analogy-icon"><i class="fa-solid fa-hospital"></i></div>
+                <div class="analogy-title">Think of AI Like a Hospital</div>
+                <div class="analogy-text">
+                    A <strong>dense model</strong> is like calling ALL doctors for every patient (expensive!)<br>
+                    A <strong>MoE model</strong> is like a hospital with 256 specialists — only call the 8 most relevant ones!
+                </div>
+            </div>
+
+            <div class="stats-row">
+                <div class="stat-box">
+                    <div class="stat-value">671B</div>
+                    <div class="stat-label">Total "Brain Size"</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">37B</div>
+                    <div class="stat-label">Actually Used</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">256</div>
+                    <div class="stat-label">Specialists</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">8+1</div>
+                    <div class="stat-label">Called Each Time</div>
+                </div>
+            </div>
+
+            <div class="expert-row">
+                <div class="expert idle">E1</div>
+                <div class="expert idle">E2</div>
+                <div class="expert idle">...</div>
+                <div class="expert idle">E256</div>
+            </div>
+            <p style="text-align: center; color: var(--text-muted); font-size: 0.9rem;">Only 9 wake up: 8 specialists + 1 always-on helper</p>
+        </section>
+
+        <!-- Problem 1: Expert Collapse -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-user-slash fa-icon"></i>Problem 1: The "Superstar" Problem</h2>
+            
+            <div class="problem-box">
+                <div class="problem-title"><i class="fa-solid fa-triangle-exclamation"></i> What Goes Wrong</div>
+                
+                <!-- Visual Hospital Scene - PROBLEM -->
+                <div class="hospital-scene">
+                    <div class="hospital-label"><i class="fa-solid fa-hospital"></i> The Hospital</div>
+                    <div class="doctors-row">
+                        <!-- Idle doctors with cobwebs/zZZ -->
+                        <div class="doctor idle-doctor">
+                            <div class="doctor-icon"><i class="fa-solid fa-user-md"></i></div>
+                            <div class="zzz"><i class="fa-solid fa-moon"></i></div>
+                        </div>
+                        <div class="doctor idle-doctor">
+                            <div class="doctor-icon"><i class="fa-solid fa-user-md"></i></div>
+                            <div class="cobweb"><i class="fa-solid fa-spider"></i></div>
+                        </div>
+                        <div class="doctor idle-doctor">
+                            <div class="doctor-icon"><i class="fa-solid fa-user-md"></i></div>
+                            <div class="zzz"><i class="fa-solid fa-moon"></i></div>
+                        </div>
+                        <div class="doctor idle-doctor">
+                            <div class="doctor-icon"><i class="fa-solid fa-user-md"></i></div>
+                            <div class="dust"><i class="fa-solid fa-leaf"></i></div>
+                        </div>
+                        <div class="doctor idle-doctor">
+                            <div class="doctor-icon"><i class="fa-solid fa-user-md"></i></div>
+                            <div class="cobweb"><i class="fa-solid fa-spider"></i></div>
+                        </div>
+                        <div class="doctor idle-doctor">
+                            <div class="doctor-icon"><i class="fa-solid fa-user-md"></i></div>
+                            <div class="zzz"><i class="fa-solid fa-moon"></i></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Patient flow arrow -->
+                    <div class="patient-flow">
+                        <div class="flow-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+                    </div>
+                    
+                    <!-- Superstar doctor -->
+                    <div class="superstar-doctor">
+                        <div class="crown"><i class="fa-solid fa-crown"></i></div>
+                        <div class="star-badge"><i class="fa-solid fa-star"></i></div>
+                        <div class="doctor-icon superstar"><i class="fa-solid fa-user-md"></i></div>
+                        <div class="patient-count">90% patients!</div>
+                        <!-- Patients surrounding superstar -->
+                        <div class="surrounding-patients">
+                            <div class="patient p1"><i class="fa-solid fa-user-injured"></i></div>
+                            <div class="patient p2"><i class="fa-solid fa-user-injured"></i></div>
+                            <div class="patient p3"><i class="fa-solid fa-user-injured"></i></div>
+                            <div class="patient p4"><i class="fa-solid fa-user-injured"></i></div>
+                            <div class="patient p5"><i class="fa-solid fa-user-injured"></i></div>
+                            <div class="patient p6"><i class="fa-solid fa-user-injured"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <p style="margin-top: 15px; text-align: center;">One "superstar" gets ALL patients! Others become idle & forget their skills.</p>
+            </div>
+
+            <div class="solution-box">
+                <div class="solution-title"><i class="fa-solid fa-lightbulb"></i> The Solution: Always-On GP</div>
+                
+                <!-- Visual Hospital Scene - SOLUTION -->
+                <div class="hospital-scene solution-scene">
+                    <div class="hospital-label"><i class="fa-solid fa-hospital"></i> Balanced Care</div>
+                    <div class="solution-layout">
+                        <!-- GP Doctor - Always on -->
+                        <div class="gp-doctor">
+                            <div class="gp-star"><i class="fa-solid fa-star"></i></div>
+                            <div class="doctor-icon gp"><i class="fa-solid fa-user-md"></i></div>
+                            <div class="gp-label">GP</div>
+                            <div class="patients-at-gp">
+                                <div class="mini-patient"><i class="fa-solid fa-user-injured"></i></div>
+                                <div class="mini-patient"><i class="fa-solid fa-user-injured"></i></div>
+                                <div class="mini-patient"><i class="fa-solid fa-user-injured"></i></div>
+                            </div>
+                        </div>
+                        
+                        <!-- Arrow to specialists -->
+                        <div class="specialist-flow">
+                            <div class="flow-line"></div>
+                            <div class="flow-label">Complex cases →</div>
+                        </div>
+                        
+                        <!-- Specialists -->
+                        <div class="specialists-row">
+                            <div class="specialist">
+                                <div class="spec-icon heart"><i class="fa-solid fa-heart"></i></div>
+                                <div class="spec-label">Heart</div>
+                                <div class="spec-patient"><i class="fa-solid fa-user-injured"></i></div>
+                            </div>
+                            <div class="specialist">
+                                <div class="spec-icon brain"><i class="fa-solid fa-brain"></i></div>
+                                <div class="spec-label">Brain</div>
+                                <div class="spec-patient"><i class="fa-solid fa-user-injured"></i></div>
+                            </div>
+                            <div class="specialist">
+                                <div class="spec-icon bone"><i class="fa-solid fa-bone"></i></div>
+                                <div class="spec-label">Bones</div>
+                                <div class="spec-patient"><i class="fa-solid fa-user-injured"></i></div>
+                            </div>
+                            <div class="specialist">
+                                <div class="spec-icon lungs"><i class="fa-solid fa-lungs"></i></div>
+                                <div class="spec-label">Lungs</div>
+                                <div class="spec-patient"><i class="fa-solid fa-user-injured"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p style="margin-top: 15px; text-align: center;">GP handles basics! Specialists focus on complex cases.</p>
+            </div>
+        </section>
+
+        <!-- Problem 2: Homogenization -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-clone fa-icon"></i>Problem 2: The "Jack of All Trades"</h2>
+            
+            <div class="problem-box">
+                <div class="problem-title"><i class="fa-solid fa-triangle-exclamation"></i> What Goes Wrong</div>
+                
+                <div style="display: flex; justify-content: center; align-items: center; gap: 30px; margin: 20px 0; flex-wrap: wrap;">
+                    <div style="text-align: center; max-width: 280px;">
+                        <div style="font-weight: bold; color: var(--accent-red); margin-bottom: 15px;"><i class="fa-solid fa-xmark"></i> Two "Mediocre" Doctors</div>
+                        <div class="expert-row" style="justify-content: center;">
+                            <div class="expert busy" style="width: 60px; height: 60px; border-radius: 10px; font-size: 0.7rem; line-height: 1.3;">
+                                <i class="fa-solid fa-user-md"></i><br>
+                                <small>Dr. A</small><br>
+                                <i class="fa-solid fa-heart"></i> <i class="fa-solid fa-brain"></i>
+                            </div>
+                            <div class="expert busy" style="width: 60px; height: 60px; border-radius: 10px; font-size: 0.7rem; line-height: 1.3;">
+                                <i class="fa-solid fa-user-md"></i><br>
+                                <small>Dr. B</small><br>
+                                <i class="fa-solid fa-heart"></i> <i class="fa-solid fa-brain"></i>
+                            </div>
+                        </div>
+                        <div style="margin-top: 10px; font-size: 0.85rem; color: #666;">
+                            Both do "okay" at everything<br>
+                            <strong>2x cost, same quality!</strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="solution-box">
+                <div class="solution-title"><i class="fa-solid fa-puzzle-piece"></i> The Solution: Tiny Specialized Experts</div>
+                
+                <div style="display: flex; justify-content: space-between; align-items: center; margin: 20px 0;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 5px;">BEFORE</div>
+                        <div class="expert-row" style="justify-content: center;">
+                            <div class="expert busy" style="width: 55px; height: 55px; border-radius: 8px; font-size: 0.6rem; line-height: 1.2;">Dr. A<br>Heart<br>Brain</div>
+                            <div class="expert busy" style="width: 55px; height: 55px; border-radius: 8px; font-size: 0.6rem; line-height: 1.2;">Dr. B<br>Heart<br>Brain</div>
+                        </div>
+                        <div style="font-size: 0.75rem; color: var(--accent-red); margin-top: 5px;">2 big, mediocre doctors</div>
+                    </div>
+                    
+                    <div style="font-size: 2rem; color: var(--text-muted);"><i class="fa-solid fa-arrow-right"></i></div>
+                    
+                    <div style="text-align: center;">
+                        <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 5px;">AFTER (256 tiny specialists)</div>
+                        <div class="expert-row" style="justify-content: center;">
+                            <div class="expert active" style="width: 40px; height: 40px; border-radius: 8px; font-size: 0.65rem;"><i class="fa-solid fa-heart"></i></div>
+                            <div class="expert active" style="width: 40px; height: 40px; border-radius: 8px; font-size: 0.65rem;"><i class="fa-solid fa-brain"></i></div>
+                            <div class="expert active" style="width: 40px; height: 40px; border-radius: 8px; font-size: 0.65rem;"><i class="fa-solid fa-bone"></i></div>
+                            <div class="expert active" style="width: 40px; height: 40px; border-radius: 8px; font-size: 0.65rem;"><i class="fa-solid fa-hand"></i></div>
+                            <div class="expert active" style="width: 40px; height: 40px; border-radius: 8px; font-size: 0.65rem;"><i class="fa-solid fa-child"></i></div>
+                            <div class="expert idle" style="width: 40px; height: 40px; border-radius: 8px; font-size: 1.2rem;">...</div>
+                        </div>
+                        <div style="font-size: 0.75rem; color: var(--accent-green); margin-top: 5px;">256 tiny, focused experts!</div>
+                    </div>
+                </div>
+                <p style="margin-top: 10px; font-size: 0.9rem; color: var(--text-muted);">Like having 256 specialist nurses instead of 2 general doctors!</p>
+            </div>
+        </section>
+
+        <!-- Problem 3: Workload Imbalance -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-scale-unbalanced fa-icon"></i>Problem 3: The Overworked Doctor</h2>
+            
+            <div class="problem-box">
+                <div class="problem-title"><i class="fa-solid fa-triangle-exclamation"></i> What Goes Wrong</div>
+                
+                <div style="display: flex; justify-content: space-around; align-items: center; margin: 20px 0; flex-wrap: wrap;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 0.85rem; font-weight: bold; color: var(--accent-red); margin-bottom: 10px;">Overloaded!</div>
+                        <div style="display: flex; flex-direction: column; align-items: center; gap: 5px;">
+                            <div class="expert busy" style="width: 50px; height: 50px; border-radius: 10px; font-size: 1.2rem;"><i class="fa-solid fa-heart"></i></div>
+                            <div class="expert busy" style="width: 50px; height: 50px; border-radius: 10px; font-size: 1.2rem;"><i class="fa-solid fa-user-injured"></i></div>
+                            <div class="expert busy" style="width: 50px; height: 50px; border-radius: 10px; font-size: 1.2rem;"><i class="fa-solid fa-user-injured"></i></div>
+                        </div>
+                        <div style="font-size: 0.75rem; color: var(--accent-red); margin-top: 8px;"><i class="fa-solid fa-triangle-exclamation"></i> Too many!</div>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">Idle...</div>
+                        <div class="expert idle" style="width: 50px; height: 50px; border-radius: 10px; font-size: 1.2rem;"><i class="fa-solid fa-brain"></i></div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 5px;"><i class="fa-solid fa-moon"></i> No work</div>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 10px;">Idle...</div>
+                        <div class="expert idle" style="width: 50px; height: 50px; border-radius: 10px; font-size: 1.2rem;"><i class="fa-solid fa-bone"></i></div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 5px;"><i class="fa-solid fa-moon"></i> No work</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="solution-box">
+                <div class="solution-title"><i class="fa-solid fa-sliders"></i> The Solution: Smart Queue System</div>
+                
+                <div style="display: flex; justify-content: space-around; align-items: center; margin: 20px 0; flex-wrap: wrap;">
+                    <div style="text-align: center;">
+                        <div class="expert busy" style="width: 60px; height: 60px; border-radius: 10px; font-size: 1.3rem; position: relative;">
+                            <i class="fa-solid fa-heart"></i>
+                            <span style="position: absolute; top: -8px; right: -8px; background: var(--accent-red); color: white; border-radius: 50%; width: 20px; height: 20px; font-size: 0.7rem; display: flex; align-items: center; justify-content: center;">-0.5</span>
+                        </div>
+                        <div style="font-size: 0.75rem; color: var(--accent-red); margin-top: 5px;">Low priority</div>
+                        <div style="font-size: 0.65rem; color: var(--text-muted);">"I'm busy, send elsewhere"</div>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <div class="expert active" style="width: 60px; height: 60px; border-radius: 10px; font-size: 1.3rem; position: relative;">
+                            <i class="fa-solid fa-brain"></i>
+                            <span style="position: absolute; top: -8px; right: -8px; background: var(--accent-green); color: white; border-radius: 50%; width: 20px; height: 20px; font-size: 0.7rem; display: flex; align-items: center; justify-content: center;">+0.8</span>
+                        </div>
+                        <div style="font-size: 0.75rem; color: var(--accent-green); margin-top: 5px;">High priority</div>
+                        <div style="font-size: 0.65rem; color: var(--text-muted);">"Send me more!"</div>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <div class="expert active" style="width: 60px; height: 60px; border-radius: 10px; font-size: 1.3rem; position: relative;">
+                            <i class="fa-solid fa-bone"></i>
+                            <span style="position: absolute; top: -8px; right: -8px; background: var(--accent-green); color: white; border-radius: 50%; width: 20px; height: 20px; font-size: 0.7rem; display: flex; align-items: center; justify-content: center;">+0.6</span>
+                        </div>
+                        <div style="font-size: 0.75rem; color: var(--accent-green); margin-top: 5px;">Higher priority</div>
+                        <div style="font-size: 0.65rem; color: var(--text-muted);">"I can help!"</div>
+                    </div>
+                </div>
+                <p style="margin-top: 10px; font-size: 0.9rem; color: var(--text-muted);">Like doctors voluntarily adjusting their workload based on availability!</p>
+            </div>
+        </section>
+
+        <!-- Problem 4: GPU Communication -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-server fa-icon"></i>Problem 4: The Multi-Building Hospital</h2>
+            
+            <div class="problem-box">
+                <div class="problem-title"><i class="fa-solid fa-triangle-exclamation"></i> What Goes Wrong</div>
+                <p>Expert data lives on different GPUs (like different hospital buildings). Moving data between them is SLOW!</p>
+                
+                <div class="hospital-visual" style="margin-top: 15px;">
+                    <div class="hospital-floor">
+                        <div class="floor-label">Building A</div>
+                        <div class="room-row">
+                            <div class="room busy">1</div>
+                            <div class="room busy">2</div>
+                            <div class="room idle">3</div>
+                        </div>
+                    </div>
+                    <div style="display: flex; align-items: center; color: var(--accent-red);">
+                        <i class="fa-solid fa-truck-loading"></i> SLOW!
+                    </div>
+                    <div class="hospital-floor">
+                        <div class="floor-label">Building B</div>
+                        <div class="room-row">
+                            <div class="room idle">50</div>
+                            <div class="room idle">51</div>
+                            <div class="room idle">52</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="solution-box">
+                <div class="solution-title"><i class="fa-solid fa-building-user"></i> The Solution: Local Neighborhood Care</div>
+                <p>Each patient can only use doctors from 3 nearby buildings! Forces local specialization — no more "commuting"!</p>
+                
+                <div class="hospital-visual" style="margin-top: 15px;">
+                    <div class="hospital-floor">
+                        <div class="floor-label">GPU 0</div>
+                        <div class="room-row">
+                            <div class="room active">1</div>
+                            <div class="room active">2</div>
+                        </div>
+                    </div>
+                    <div class="hospital-floor">
+                        <div class="floor-label">GPU 1</div>
+                        <div class="room-row">
+                            <div class="room active">3</div>
+                            <div class="room idle">4</div>
+                        </div>
+                    </div>
+                    <div class="hospital-floor">
+                        <div class="floor-label">GPU 2</div>
+                        <div class="room-row">
+                            <div class="room idle">5</div>
+                            <div class="room idle">6</div>
+                        </div>
+                    </div>
+                </div>
+                <p style="margin-top: 10px; font-size: 0.9rem; color: var(--text-muted);">Doctors must specialize locally — no freeloading!</p>
+            </div>
+        </section>
+
+        <!-- Why 8? -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-calculator fa-icon"></i>Why Exactly 8? Hardware Limits!</h2>
+            
+            <p>H800 GPUs have limited memory bandwidth (due to sanctions):</p>
+
+            <div class="stats-row">
+                <div class="stat-box">
+                    <div class="stat-value">37GB</div>
+                    <div class="stat-label">Activation Memory/GPU</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">3.35TB/s</div>
+                    <div class="stat-label">Max Speed</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-value">400GB/s</div>
+                    <div class="stat-label">Inter-GPU (slow!)</div>
+                </div>
+            </div>
+
+            <div class="analogy-box" style="background: linear-gradient(135deg, #E3F2FD, #BBDEFB); border-color: #1976D2;">
+                <div class="analogy-icon"><i class="fa-solid fa-pen"></i></div>
+                <div class="analogy-title" style="color: #1976D2;">Think of it like a whiteboard</div>
+                <div class="analogy-text">
+                    The <strong>37GB</strong> is like a whiteboard — you need space to work, but it clears after each patient! It's temporary activation memory needed per GPU during a forward pass, <strong>NOT</strong> the stored model weights.
+                </div>
+            </div>
+
+            <div class="quote-box">
+                <strong>More experts = more communication between GPUs = more waiting time!</strong><br><br>
+                <span style="font-size: 0.9rem;">Here's how the percentages are calculated:</span>
+                <ul style="margin: 10px 0 0 20px; font-size: 0.9rem;">
+                    <li><strong>8 experts:</strong> Communication time fits perfectly inside computation time = <span style="color: var(--accent-green); font-weight: bold;">100% speed</span> (no waiting!)</li>
+                    <li><strong>10 experts:</strong> Communication takes 25% longer than computation = <span style="color: var(--accent-orange); font-weight: bold;">25% slowdown</span></li>
+                    <li><strong>12 experts:</strong> Communication takes 50% longer than computation = <span style="color: var(--accent-red); font-weight: bold;">50% slowdown</span></li>
+                </ul>
+            </div>
+
+            <div class="solution-box">
+                <div class="solution-title"><i class="fa-solid fa-chart-line"></i> The Sweet Spot: 8 Experts</div>
+                
+                <div style="display: flex; justify-content: space-around; align-items: flex-end; margin: 20px 0; flex-wrap: wrap; gap: 15px;">
+                    <div style="text-align: center;">
+                        <div style="width: 60px; height: 120px; background: var(--accent-green); border-radius: 8px 8px 0 0; margin: 0 auto; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 5px; color: white; font-weight: bold;">
+                            100%
+                        </div>
+                        <div style="font-size: 1.2rem; color: var(--accent-green); margin-top: 5px;"><i class="fa-solid fa-bolt"></i></div>
+                        <div style="font-size: 0.9rem; font-weight: bold; margin-top: 5px;">8 Experts</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">Perfect!</div>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <div style="width: 60px; height: 90px; background: var(--accent-orange); border-radius: 8px 8px 0 0; margin: 0 auto; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 5px; color: white; font-weight: bold;">
+                            75%
+                        </div>
+                        <div style="font-size: 1.2rem; color: var(--accent-orange); margin-top: 5px;"><i class="fa-solid fa-clock"></i></div>
+                        <div style="font-size: 0.9rem; font-weight: bold; margin-top: 5px;">10 Experts</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">Slower...</div>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <div style="width: 60px; height: 60px; background: var(--accent-red); border-radius: 8px 8px 0 0; margin: 0 auto; display: flex; align-items: flex-end; justify-content: center; padding-bottom: 5px; color: white; font-weight: bold;">
+                            50%
+                        </div>
+                        <div style="font-size: 1.2rem; color: var(--accent-red); margin-top: 5px;"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                        <div style="font-size: 0.9rem; font-weight: bold; margin-top: 5px;">12 Experts</div>
+                        <div style="font-size: 0.75rem; color: var(--text-muted);">Too slow!</div>
+                    </div>
+                </div>
+                <p style="text-align: center; font-size: 0.85rem; color: var(--text-muted);">More experts = more waiting between GPUs = slower training!</p>
+            </div>
+        </section>
+
+        <!-- Summary -->
+        <section class="card reveal">
+            <h2><i class="fa-solid fa-flag-checkered fa-icon"></i>The Summary</h2>
+            
+            <div class="strategy-grid">
+                <div class="strategy-card" style="border-color: var(--accent-teal);">
+                    <div class="strategy-num" style="background: var(--accent-teal);">1</div>
+                    <div style="text-align: center; font-size: 1.8rem; margin-bottom: 5px;"><i class="fa-solid fa-user-md"></i></div>
+                    <div class="strategy-title">Always-On GP</div>
+                    <p style="font-size: 0.85rem;">One expert handles basics, others specialize</p>
+                </div>
+                <div class="strategy-card" style="border-color: var(--accent-coral);">
+                    <div class="strategy-num" style="background: var(--accent-coral);">2</div>
+                    <div style="text-align: center; font-size: 1.8rem; margin-bottom: 5px;"><i class="fa-solid fa-puzzle-piece"></i></div>
+                    <div class="strategy-title">256 Tiny Experts</div>
+                    <p style="font-size: 0.85rem;">Small but specialized = better quality</p>
+                </div>
+                <div class="strategy-card" style="border-color: var(--accent-sunflower);">
+                    <div class="strategy-num" style="background: var(--accent-sunflower); color: var(--text-dark);">3</div>
+                    <div style="text-align: center; font-size: 1.8rem; margin-bottom: 5px;"><i class="fa-solid fa-scale-balanced"></i></div>
+                    <div class="strategy-title">Smart Queue</div>
+                    <p style="font-size: 0.85rem;">Auto-balance workload without punishment</p>
+                </div>
+                <div class="strategy-card" style="border-color: var(--accent-lavender);">
+                    <div class="strategy-num" style="background: var(--accent-lavender); color: var(--text-dark);">4</div>
+                    <div style="text-align: center; font-size: 1.8rem; margin-bottom: 5px;"><i class="fa-solid fa-building"></i></div>
+                    <div class="strategy-title">Local Only</div>
+                    <p style="font-size: 0.85rem;">Use nearby GPUs to avoid waiting</p>
+                </div>
+                <div class="strategy-card" style="border-color: var(--accent-sky);">
+                    <div class="strategy-num" style="background: var(--accent-sky); color: var(--text-dark);">5</div>
+                    <div style="text-align: center; font-size: 1.8rem; margin-bottom: 5px;"><i class="fa-solid fa-clipboard"></i></div>
+                    <div class="strategy-title">Hot Replication</div>
+                    <p style="font-size: 0.85rem;">Busy experts clone themselves when needed</p>
+                </div>
+                <div class="strategy-card" style="border-color: var(--accent-orange);">
+                    <div class="strategy-num" style="background: var(--accent-orange);">6</div>
+                    <div style="text-align: center; font-size: 1.8rem; margin-bottom: 5px;"><i class="fa-solid fa-plus"></i></div>
+                    <div class="strategy-title">8+1 = 9</div>
+                    <p style="font-size: 0.85rem;">9 experts cover broader knowledge</p>
+                </div>
+            </div>
+
+            <div style="margin: 25px 0; padding: 20px; background: linear-gradient(135deg, #F8F9FA, #E9ECEF); border-radius: 15px; border: 2px dashed var(--pencil);">
+                <div style="text-align: center; font-family: 'Patrick Hand', cursive; font-size: 1.2rem; margin-bottom: 15px;">How the 6 Solutions Work Together</div>
+                <div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 8px; font-size: 0.85rem;">
+                    <div style="background: var(--accent-teal); color: white; padding: 6px 12px; border-radius: 20px;">GP handles basics</div>
+                    <span style="color: var(--text-muted);">→</span>
+                    <div style="background: var(--accent-coral); color: white; padding: 6px 12px; border-radius: 20px;">256 tiny experts</div>
+                    <span style="color: var(--text-muted);">→</span>
+                    <div style="background: var(--accent-sunflower); color: var(--text-dark); padding: 6px 12px; border-radius: 20px;">auto-balance</div>
+                    <span style="color: var(--text-muted);">→</span>
+                    <div style="background: var(--accent-lavender); color: var(--text-dark); padding: 6px 12px; border-radius: 20px;">local-only</div>
+                    <span style="color: var(--text-muted);">→</span>
+                    <div style="background: var(--accent-sky); color: var(--text-dark); padding: 6px 12px; border-radius: 20px;">replicate</div>
+                    <span style="color: var(--text-muted);">→</span>
+                    <div style="background: var(--accent-orange); color: white; padding: 6px 12px; border-radius: 20px;">8+1=9</div>
+                </div>
+            </div>
+
+            <div class="quote-box" style="margin-top: 20px;">
+                <strong>The Bottom Line:</strong> DeepSeek-V3 proves you can build GPT-4 level AI for ~$5.5M by making smart trade-offs. It's not "the best architecture" — it's the best architecture FOR LIMITED HARDWARE. When hardware improves, the architecture will evolve!
+            </div>
+        </section>
+
+        <footer style="text-align: center; padding: 30px; color: var(--text-muted); font-family: 'Patrick Hand', cursive;">
+            <p><i class="fa-solid fa-paintbrush"></i> Mind & Machine | <a href="index.html" style="color: var(--accent-teal);">Back to Home</a></p>
+        </footer>
+    </div>
+
+    <script>
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealOnScroll = () => {
+            revealElements.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (elementTop < windowHeight - 50) { el.classList.add('visible'); }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+    </script>
+</body>
+</html>
