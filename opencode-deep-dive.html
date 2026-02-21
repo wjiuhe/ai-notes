@@ -188,22 +188,82 @@
         .agent-title { font-family: 'Patrick Hand', cursive; font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; }
         .agent-desc { font-size: 0.9rem; color: var(--text-muted); }
 
-        /* Code Blocks */
+        /* Code Blocks - Enhanced */
         .code-block {
-            background: #1E272E;
-            color: #C8D6E5;
-            padding: 20px 25px;
-            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
-            font-family: 'Courier New', monospace;
+            background: linear-gradient(135deg, #1E272E 0%, #252F38 100%);
+            color: #E8F4F8;
+            padding: 0;
+            border-radius: 20px;
+            font-family: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
             font-size: 0.9rem;
-            margin: 20px 0;
+            margin: 25px 0;
             overflow-x: auto;
-            border: 2px solid #343D46;
+            border: 3px solid var(--pencil);
+            box-shadow: 4px 6px 0 rgba(0,0,0,0.2);
         }
 
-        .code-block .comment { color: #7F8C8D; }
-        .code-block .key { color: #E74C3C; }
-        .code-block .string { color: #2ECC71; }
+        .code-header {
+            background: linear-gradient(135deg, #2D3A47 0%, #384554 100%);
+            padding: 12px 20px;
+            border-bottom: 2px solid #343D46;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 0.95rem;
+            color: #8FA5B5;
+        }
+
+        .code-header .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .code-header .dot.red { background: #FF5F56; }
+        .code-header .dot.yellow { background: #FFBD2E; }
+        .code-header .dot.green { background: #27CA40; }
+
+        .code-content {
+            padding: 20px 25px;
+            line-height: 1.7;
+        }
+
+        .code-block .comment { color: #6A9955; font-style: italic; }
+        .code-block .key { color: #9CDCFE; font-weight: 600; }
+        .code-block .string { color: #CE9178; }
+        .code-block .number { color: #B5CEA8; }
+        .code-block .boolean { color: #569CD6; }
+        .code-block .keyword { color: #C586C0; }
+        .code-block .tag { color: #4EC9B0; }
+        .code-block .attr { color: #9CDCFE; }
+        .code-block .prompt { color: #4ECDC4; font-weight: 700; }
+        .code-block .command { color: #FFE66D; }
+        .code-block .path { color: #FF6B6B; }
+        .code-block .operator { color: #D4D4D4; }
+        .code-block .punctuation { color: #D4D4D4; }
+
+        /* Line numbers for code */
+        .code-with-lines {
+            counter-reset: line;
+        }
+
+        .code-line {
+            display: block;
+            padding: 2px 0;
+        }
+
+        .code-line::before {
+            counter-increment: line;
+            content: counter(line);
+            display: inline-block;
+            width: 30px;
+            text-align: right;
+            margin-right: 15px;
+            color: #5C6770;
+            font-size: 0.8rem;
+        }
 
         /* Feature List */
         .feature-list {
@@ -408,16 +468,30 @@
             <h3>Agent Schema</h3>
             
             <div class="code-block">
-{
-  <span class="key">name</span>: <span class="string">"security-audit"</span>,
-  <span class="key">description</span>: <span class="string">"Security-focused code reviewer"</span>,
-  <span class="key">mode</span>: <span class="string">"subagent"</span>,  <span class="comment">// primary | subagent | all</span>
-  <span class="key">model</span>: { providerID: <span class="string">"anthropic"</span>, modelID: <span class="string">"claude-sonnet"</span> },
-  <span class="key">temperature</span>: <span class="string">0.1</span>,  <span class="comment">// 0.0-1.0 creativity</span>
-  <span class="key">color</span>: <span class="string">"#FF6B6B"</span>,
-  <span class="key">tools</span>: { read: <span class="string">true</span>, write: <span class="string">false</span> },
-  <span class="key">permission</span>: [...]  <span class="comment">// Access control rules</span>
-}
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>opencode.json</span>
+                </div>
+                <div class="code-content">
+<span class="punctuation">{</span>
+  <span class="key">"name"</span><span class="operator">:</span> <span class="string">"security-audit"</span><span class="punctuation">,</span>
+  <span class="key">"description"</span><span class="operator">:</span> <span class="string">"Security-focused code reviewer"</span><span class="punctuation">,</span>
+  <span class="key">"mode"</span><span class="operator">:</span> <span class="string">"subagent"</span><span class="punctuation">,</span>  <span class="comment">// primary | subagent | all</span>
+  <span class="key">"model"</span><span class="operator">:</span> <span class="punctuation">{</span>
+    <span class="key">"providerID"</span><span class="operator">:</span> <span class="string">"anthropic"</span><span class="punctuation">,</span>
+    <span class="key">"modelID"</span><span class="operator">:</span> <span class="string">"claude-sonnet"</span>
+  <span class="punctuation">}</span><span class="punctuation">,</span>
+  <span class="key">"temperature"</span><span class="operator">:</span> <span class="number">0.1</span><span class="punctuation">,</span>  <span class="comment">// 0.0-1.0 creativity</span>
+  <span class="key">"color"</span><span class="operator">:</span> <span class="string">"#FF6B6B"</span><span class="punctuation">,</span>
+  <span class="key">"tools"</span><span class="operator">:</span> <span class="punctuation">{</span>
+    <span class="key">"read"</span><span class="operator">:</span> <span class="boolean">true</span><span class="punctuation">,</span>
+    <span class="key">"write"</span><span class="operator">:</span> <span class="boolean">false</span>
+  <span class="punctuation">}</span><span class="punctuation">,</span>
+  <span class="key">"permission"</span><span class="operator">:</span> <span class="punctuation">[</span><span class="punctuation">]</span>  <span class="comment">// Access control rules</span>
+<span class="punctuation">}</span>
+                </div>
             </div>
 
             <h3>Agent Loading Order</h3>
@@ -438,26 +512,36 @@
             <p>Create a file in <span class="highlight-teal">.opencode/agents/</span>:</p>
             
             <div class="code-block">
-<span class="comment"># .opencode/agents/security-audit.md</span>
-<span class="comment">&#45;&#45;&#45;</span>
-<span class="key">description</span>: Security-focused code reviewer
-<span class="key">mode</span>: subagent
-<span class="key">model</span>: anthropic/claude-sonnet-4-20250514
-<span class="key">temperature</span>: 0.1
-<span class="key">tools</span>:
-  read: true
-  write: false
-  bash: ask
-<span class="key">color</span>: "#FF6B6B"
-<span class="comment">&#45;&#45;&#45;</span>
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>.opencode/agents/security-audit.md</span>
+                </div>
+                <div class="code-content">
+<span class="comment"># Agent Configuration</span>
+<span class="tag">&#45;&#45;&#45;</span>
+<span class="attr">description</span><span class="punctuation">:</span> Security-focused code reviewer
+<span class="attr">mode</span><span class="punctuation">:</span> subagent
+<span class="attr">model</span><span class="punctuation">:</span> anthropic/claude-sonnet-4-20250514
+<span class="attr">temperature</span><span class="punctuation">:</span> <span class="number">0.1</span>
+<span class="attr">tools</span><span class="punctuation">:</span>
+  <span class="attr">read</span><span class="punctuation">:</span> <span class="boolean">true</span>
+  <span class="attr">write</span><span class="punctuation">:</span> <span class="boolean">false</span>
+  <span class="attr">bash</span><span class="punctuation">:</span> ask
+<span class="attr">color</span><span class="punctuation">:</span> <span class="string">"#FF6B6B"</span>
+<span class="tag">&#45;&#45;&#45;</span>
 
-You are a security auditor. Focus on:
-1. Injection vulnerabilities (SQL, command, XSS)
-2. Authentication issues
-3. Data exposure risks
-4. Dependency vulnerabilities
+<span class="comment"># System Prompt</span>
+You are a <span class="keyword">security auditor</span>. Focus on:
 
-Provide severity ratings and remediation steps.
+<span class="number">1.</span> Injection vulnerabilities (SQL, command, XSS)
+<span class="number">2.</span> Authentication issues
+<span class="number">3.</span> Data exposure risks
+<span class="number">4.</span> Dependency vulnerabilities
+
+Provide <span class="keyword">severity ratings</span> and remediation steps.
+                </div>
             </div>
 
             <div class="quote-box">
@@ -467,17 +551,24 @@ Provide severity ratings and remediation steps.
             <h3>Method 2: JSON Configuration</h3>
             
             <div class="code-block">
-<span class="comment">// opencode.json</span>
-{
-  <span class="key">"agent"</span>: {
-    <span class="key">"security-audit"</span>: {
-      <span class="key">"description"</span>: <span class="string">"Security-focused code reviewer"</span>,
-      <span class="key">"mode"</span>: <span class="string">"subagent"</span>,
-      <span class="key">"prompt"</span>: <span class="string">"You are a security auditor..."</span>,
-      <span class="key">"temperature"</span>: 0.1
-    }
-  }
-}
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>opencode.json</span>
+                </div>
+                <div class="code-content">
+<span class="punctuation">{</span>
+  <span class="key">"agent"</span><span class="punctuation">:</span> <span class="punctuation">{</span>
+    <span class="key">"security-audit"</span><span class="punctuation">:</span> <span class="punctuation">{</span>
+      <span class="key">"description"</span><span class="punctuation">:</span> <span class="string">"Security-focused code reviewer"</span><span class="punctuation">,</span>
+      <span class="key">"mode"</span><span class="punctuation">:</span> <span class="string">"subagent"</span><span class="punctuation">,</span>
+      <span class="key">"prompt"</span><span class="punctuation">:</span> <span class="string">"You are a security auditor..."</span><span class="punctuation">,</span>
+      <span class="key">"temperature"</span><span class="punctuation">:</span> <span class="number">0.1</span>
+    <span class="punctuation">}</span>
+  <span class="punctuation">}</span>
+<span class="punctuation">}</span>
+                </div>
             </div>
 
             <h3>Best Practices</h3>
@@ -530,27 +621,35 @@ Provide severity ratings and remediation steps.
             <h3>Skill File Format</h3>
             
             <div class="code-block">
-<span class="comment"># .opencode/skills/git-release/SKILL.md</span>
-<span class="comment">&#45;&#45;&#45;</span>
-<span class="key">name</span>: git-release
-<span class="key">description</span>: Create consistent releases and changelogs
-<span class="key">license</span>: MIT
-<span class="key">compatibility</span>: opencode
-<span class="key">metadata</span>:
-  audience: maintainers
-  workflow: github
-<span class="comment">&#45;&#45;&#45;</span>
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>.opencode/skills/git-release/SKILL.md</span>
+                </div>
+                <div class="code-content">
+<span class="comment"># Skill Configuration</span>
+<span class="tag">&#45;&#45;&#45;</span>
+<span class="attr">name</span><span class="punctuation">:</span> git-release
+<span class="attr">description</span><span class="punctuation">:</span> Create consistent releases and changelogs
+<span class="attr">license</span><span class="punctuation">:</span> MIT
+<span class="attr">compatibility</span><span class="punctuation">:</span> opencode
+<span class="attr">metadata</span><span class="punctuation">:</span>
+  <span class="attr">audience</span><span class="punctuation">:</span> maintainers
+  <span class="attr">workflow</span><span class="punctuation">:</span> github
+<span class="tag">&#45;&#45;&#45;</span>
 
-## What I do
+<span class="comment">## What I do</span>
 
-- Draft release notes from merged PRs
-- Propose a version bump
-- Provide copy-pasteable `gh release create` command
+<span class="punctuation">-</span> Draft release notes from merged PRs
+<span class="punctuation">-</span> Propose a version bump
+<span class="punctuation">-</span> Provide copy-pasteable <span class="string">`gh release create`</span> command
 
-## When to use me
+<span class="comment">## When to use me</span>
 
 Use this when preparing a tagged release.
 Ask clarifying questions if versioning is unclear.
+                </div>
             </div>
 
             <h3>How Skills Are Loaded</h3>
@@ -558,32 +657,47 @@ Ask clarifying questions if versioning is unclear.
             <p>At runtime, OpenCode exposes available skills to agents via the <span class="highlight-coral">skill</span> tool. The agent can then load a skill on-demand:</p>
             
             <div class="code-block">
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Runtime Skill Loading</span>
+                </div>
+                <div class="code-content">
 <span class="comment">// Agent sees available skills in tool description</span>
-&lt;available_skills&gt;
-  &lt;skill&gt;
-    &lt;name&gt;git-release&lt;/name&gt;
-    &lt;description&gt;Create consistent releases...&lt;/description&gt;
-  &lt;/skill&gt;
-&lt;/available_skills&gt;
+<span class="punctuation">&lt;</span><span class="tag">available_skills</span><span class="punctuation">&gt;</span>
+  <span class="punctuation">&lt;</span><span class="tag">skill</span><span class="punctuation">&gt;</span>
+    <span class="punctuation">&lt;</span><span class="tag">name</span><span class="punctuation">&gt;</span>git-release<span class="punctuation">&lt;/</span><span class="tag">name</span><span class="punctuation">&gt;</span>
+    <span class="punctuation">&lt;</span><span class="tag">description</span><span class="punctuation">&gt;</span>Create consistent releases...<span class="punctuation">&lt;/</span><span class="tag">description</span><span class="punctuation">&gt;</span>
+  <span class="punctuation">&lt;/</span><span class="tag">skill</span><span class="punctuation">&gt;</span>
+<span class="punctuation">&lt;/</span><span class="tag">available_skills</span><span class="punctuation">&gt;</span>
 
 <span class="comment">// Agent loads skill when needed</span>
-skill({ name: <span class="string">"git-release"</span> })
+<span class="keyword">skill</span><span class="punctuation">({</span> <span class="attr">name</span><span class="punctuation">:</span> <span class="string">"git-release"</span> <span class="punctuation">})</span>
 <span class="comment">// Returns full SKILL.md content</span>
+                </div>
             </div>
 
             <h3>Skill Permissions</h3>
             
             <div class="code-block">
-<span class="comment">// Global permission in opencode.json</span>
-{
-  <span class="key">"permission"</span>: {
-    <span class="key">"skill"</span>: {
-      <span class="key">"*"</span>: <span class="string">"allow"</span>,           <span class="comment">// Allow all</span>
-      <span class="key">"internal-*"</span>: <span class="string">"deny"</span>,    <span class="comment">// Block internal skills</span>
-      <span class="key">"experimental-*"</span>: <span class="string">"ask"</span>  <span class="comment">// Prompt user</span>
-    }
-  }
-}
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>opencode.json</span>
+                </div>
+                <div class="code-content">
+<span class="punctuation">{</span>
+  <span class="key">"permission"</span><span class="punctuation">:</span> <span class="punctuation">{</span>
+    <span class="key">"skill"</span><span class="punctuation">:</span> <span class="punctuation">{</span>
+      <span class="key">"*"</span><span class="punctuation">:</span> <span class="string">"allow"</span><span class="punctuation">,</span>           <span class="comment">// Allow all</span>
+      <span class="key">"internal-*"</span><span class="punctuation">:</span> <span class="string">"deny"</span><span class="punctuation">,</span>    <span class="comment">// Block internal skills</span>
+      <span class="key">"experimental-*"</span><span class="punctuation">:</span> <span class="string">"ask"</span>  <span class="comment">// Prompt user</span>
+    <span class="punctuation">}</span>
+  <span class="punctuation">}</span>
+<span class="punctuation">}</span>
+                </div>
             </div>
 
             <table class="comparison-table">
@@ -664,29 +778,37 @@ skill({ name: <span class="string">"git-release"</span> })
             <h2><i class="fa-solid fa-folder-tree fa-icon"></i>Project File Structure</h2>
             
             <div class="code-block">
-project/
-├── .opencode/
-│   ├── opencode.json          <span class="comment"># Project config</span>
-│   ├── agents/                <span class="comment"># Custom agents</span>
-│   │   ├── reviewer.md
-│   │   └── security-audit.md
-│   ├── skills/                <span class="comment"># Custom skills</span>
-│   │   ├── react-patterns/
-│   │   │   └── SKILL.md
-│   │   └── deployment/
-│   │       └── SKILL.md
-│   └── tools/                 <span class="comment"># Custom tools</span>
-│       └── my-tool.ts
-└── src/
-    └── ...
+                <div class="code-header">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                    <span>Project Structure</span>
+                </div>
+                <div class="code-content">
+<span class="path">project/</span>
+<span class="punctuation">├──</span> <span class="path">.opencode/</span>
+<span class="punctuation">│</span>   <span class="punctuation">├──</span> <span class="attr">opencode.json</span>          <span class="comment"># Project config</span>
+<span class="punctuation">│</span>   <span class="punctuation">├──</span> <span class="attr">agents/</span>                <span class="comment"># Custom agents</span>
+<span class="punctuation">│</span>   <span class="punctuation">│</span>   <span class="punctuation">├──</span> reviewer.md
+<span class="punctuation">│</span>   <span class="punctuation">│</span>   <span class="punctuation">└──</span> security-audit.md
+<span class="punctuation">│</span>   <span class="punctuation">├──</span> <span class="attr">skills/</span>                <span class="comment"># Custom skills</span>
+<span class="punctuation">│</span>   <span class="punctuation">│</span>   <span class="punctuation">├──</span> react-patterns/
+<span class="punctuation">│</span>   <span class="punctuation">│</span>   <span class="punctuation">│</span>   <span class="punctuation">└──</span> SKILL.md
+<span class="punctuation">│</span>   <span class="punctuation">│</span>   <span class="punctuation">└──</span> deployment/
+<span class="punctuation">│</span>   <span class="punctuation">│</span>       <span class="punctuation">└──</span> SKILL.md
+<span class="punctuation">│</span>   <span class="punctuation">└──</span> <span class="attr">tools/</span>                 <span class="comment"># Custom tools</span>
+<span class="punctuation">│</span>       <span class="punctuation">└──</span> my-tool.ts
+<span class="punctuation">└──</span> <span class="attr">src/</span>
+    <span class="punctuation">└──</span> ...
 
 <span class="comment"># Global config in home directory:</span>
-~/.config/opencode/
-├── opencode.json              <span class="comment"># Global config</span>
-├── agents/                    <span class="comment"># Global agents</span>
-└── skills/                    <span class="comment"># Global skills</span>
-    ├── python/SKILL.md
-    └── security/SKILL.md
+<span class="path">~/.config/opencode/</span>
+<span class="punctuation">├──</span> <span class="attr">opencode.json</span>              <span class="comment"># Global config</span>
+<span class="punctuation">├──</span> <span class="attr">agents/</span>                    <span class="comment"># Global agents</span>
+<span class="punctuation">└──</span> <span class="attr">skills/</span>                    <span class="comment"># Global skills</span>
+    <span class="punctuation">├──</span> python/SKILL.md
+    <span class="punctuation">└──</span> security/SKILL.md
+                </div>
             </div>
         </section>
 
