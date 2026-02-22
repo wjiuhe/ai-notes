@@ -180,7 +180,7 @@
 
         .isolation-icon.vm { background: var(--accent-green); color: white; }
         .isolation-icon.kernel { background: #2196F3; color: white; }
-        .isolation-icon.container { background: var(--accent-orange); color: white; }
+        .isolation-icon.container-ns { background: var(--accent-orange); color: white; }
         .isolation-icon.process { background: var(--accent-coral); color: white; }
         .isolation-icon.language { background: var(--accent-lavender); color: white; }
 
@@ -199,7 +199,7 @@
 
         .isolation-level.vm { background: linear-gradient(135deg, #E8F8F5, #D1F2EB); margin-left: 0; }
         .isolation-level.kernel { background: linear-gradient(135deg, #E3F2FD, #BBDEFB); margin-left: 20px; }
-        .isolation-level.container { background: linear-gradient(135deg, #FFF3E0, #FFE0B2); margin-left: 40px; }
+        .isolation-level.container-ns { background: linear-gradient(135deg, #FFF3E0, #FFE0B2); margin-left: 40px; }
         .isolation-level.process { background: linear-gradient(135deg, #FCE4EC, #F8BBD9); margin-left: 60px; }
         .isolation-level.language { background: linear-gradient(135deg, #E8EAF6, #C5CAE9); margin-left: 80px; }
 
@@ -859,8 +859,8 @@
                         <span class="isolation-strength"><i class="fa-solid fa-shield-halved"></i> High</span>
                     </div>
 
-                    <div class="isolation-level container">
-                        <div class="isolation-icon container"><i class="fa-solid fa-box-open"></i></div>
+                    <div class="isolation-level container-ns">
+                        <div class="isolation-icon container-ns"><i class="fa-solid fa-box-open"></i></div>
                         <div class="isolation-info">
                             <div class="isolation-name">Container + Namespace (nsjail, Docker)</div>
                             <div class="isolation-desc">OS-level virtualization • Shared kernel • Process isolation</div>
