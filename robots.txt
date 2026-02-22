@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://jiuhewang.dev/sitemap.xml
+
+# Crawl-delay to be nice to servers
+Crawl-delay: 10
+
+# Disallow specific paths if needed (currently none)
+# Disallow: /private/
+# Disallow: /admin/
