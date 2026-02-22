@@ -809,7 +809,7 @@
                             <div class="isolation-name">VM-Level (Hardware Virtualization)</div>
                             <div class="isolation-desc">Complete hardware isolation • Separate kernel • Strongest boundary</div>
                         </div>
-                        <span class="isolation-strength">🔒 Maximum</span>
+                        <span class="isolation-strength"><i class="fa-solid fa-lock"></i> Maximum</span>
                     </div>
 
                     <div class="isolation-level kernel">
@@ -818,7 +818,7 @@
                             <div class="isolation-name">User-Space Kernel (gVisor)</div>
                             <div class="isolation-desc">Syscall interception • User-space implementation • High compatibility</div>
                         </div>
-                        <span class="isolation-strength">🛡️ High</span>
+                        <span class="isolation-strength"><i class="fa-solid fa-shield-halved"></i> High</span>
                     </div>
 
                     <div class="isolation-level container">
@@ -827,7 +827,7 @@
                             <div class="isolation-name">Container + Namespace (nsjail, Docker)</div>
                             <div class="isolation-desc">OS-level virtualization • Shared kernel • Process isolation</div>
                         </div>
-                        <span class="isolation-strength">🛡️ Medium</span>
+                        <span class="isolation-strength"><i class="fa-solid fa-shield-halved"></i> Medium</span>
                     </div>
 
                     <div class="isolation-level process">
@@ -836,7 +836,7 @@
                             <div class="isolation-name">Process-Level (seccomp, cgroups)</div>
                             <div class="isolation-desc">Syscall filtering • Resource limits • Same user space</div>
                         </div>
-                        <span class="isolation-strength">🔓 Low</span>
+                        <span class="isolation-strength"><i class="fa-solid fa-lock-open"></i> Low</span>
                     </div>
 
                     <div class="isolation-level language">
@@ -845,7 +845,7 @@
                             <div class="isolation-name">Language-Level (RestrictedPython)</div>
                             <div class="isolation-desc">Interpreter restrictions • Python-only • Easily bypassed</div>
                         </div>
-                        <span class="isolation-strength">⚠️ Minimal</span>
+                        <span class="isolation-strength"><i class="fa-solid fa-triangle-exclamation"></i> Minimal</span>
                     </div>
                 </div>
             </div>
