@@ -1,73 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://jiuhewang.dev/index.html</loc>
+    <loc>https://wjiuhe.github.io/ai-notes/index.html</loc>
     <lastmod>2025-02-22</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://jiuhewang.dev/about-me.html</loc>
+    <loc>https://wjiuhe.github.io/ai-notes/about-me.html</loc>
     <lastmod>2025-02-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jiuhewang.dev/sandbox-solutions.html</loc>
+    <loc>https://wjiuhe.github.io/ai-notes/sandbox-solutions.html</loc>
     <lastmod>2025-02-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://jiuhewang.dev/prompt-engineering-techniques.html</loc>
+    <loc>https://wjiuhe.github.io/ai-notes/prompt-engineering-techniques.html</loc>
     <lastmod>2025-02-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://jiuhewang.dev/deepseek-v3.html</loc>
+    <loc>https://wjiuhe.github.io/ai-notes/deepseek-v3.html</loc>
     <lastmod>2025-02-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jiuhewang.dev/ai-security-study-matrix.html</loc>
+    <loc>https://wjiuhe.github.io/ai-notes/ai-security-study-matrix.html</loc>
     <lastmod>2025-02-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://jiuhewang.dev/llm-benchmarks.html</loc>
+    <loc>https://wjiuhe.github.io/ai-notes/llm-benchmarks.html</loc>
     <lastmod>2025-02-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jiuhewang.dev/agentic-ai-explained.html</loc>
+    <loc>https://wjiuhe.github.io/ai-notes/agentic-ai-explained.html</loc>
     <lastmod>2025-02-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://jiuhewang.dev/bmad-method.html</loc>
+    <loc>https://wjiuhe.github.io/ai-notes/bmad-method.html</loc>
     <lastmod>2025-02-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://jiuhewang.dev/dual-write-problem.html</loc>
+    <loc>https://wjiuhe.github.io/ai-notes/dual-write-problem.html</loc>
     <lastmod>2025-02-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://jiuhewang.dev/opencode-deep-dive.html</loc>
+    <loc>https://wjiuhe.github.io/ai-notes/opencode-deep-dive.html</loc>
     <lastmod>2025-02-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://jiuhewang.dev/opencode-multiple-choice-study.html</loc>
+    <loc>https://wjiuhe.github.io/ai-notes/opencode-multiple-choice-study.html</loc>
     <lastmod>2025-02-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
