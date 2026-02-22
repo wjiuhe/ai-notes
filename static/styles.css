@@ -547,7 +547,15 @@ footer {
 .card-label.variant-e { background: #FFE0B2; color: #EF6C00; }
 .card-label.variant-f { background: #B3E5FC; color: #0277BD; }
 
-.attack-label { @extend .card-label; }
+.attack-label {
+    display: inline-block;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 0.8rem;
+    padding: 3px 10px;
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
 
 .attack-title {
     font-family: 'Patrick Hand', cursive;
