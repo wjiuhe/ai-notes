@@ -8,201 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="static/styles.css">
     <style>
-        :root {
-            --bg-cream: #FDF8F3;
-            --bg-paper: #FFFEF9;
-            --accent-coral: #FF6B6B;
-            --accent-teal: #4ECDC4;
-            --accent-sunflower: #FFE66D;
-            --accent-lavender: #C9B1FF;
-            --accent-sky: #A8E6CF;
-            --accent-red: #E74C3C;
-            --accent-green: #27AE60;
-            --accent-orange: #E67E22;
-            --text-dark: #2D3436;
-            --text-muted: #636E72;
-            --pencil: #2B2B2B;
-        }
+        /* Page-specific styles only - common styles are in shared CSS */
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Nunito', sans-serif;
-            background: var(--bg-cream);
-            color: var(--text-dark);
-            line-height: 1.7;
-            min-height: 100vh;
-        }
-
-        .page-wrapper {
-            display: flex;
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        /* Sidebar TOC Styles */
-        .sidebar {
-            width: 280px;
-            position: fixed;
-            left: 0;
-            top: 0;
-            height: 100vh;
-            background: linear-gradient(180deg, var(--bg-paper) 0%, #F8F4EF 100%);
-            border-right: 3px solid var(--pencil);
-            padding: 30px 20px;
-            overflow-y: auto;
-            z-index: 100;
-            box-shadow: 3px 0 10px rgba(0,0,0,0.1);
-        }
-
-        .sidebar-header {
-            text-align: center;
-            margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 2px dashed rgba(0,0,0,0.15);
-        }
-
-        .sidebar-title {
-            font-family: 'Caveat', cursive;
-            font-size: 1.6rem;
-            color: var(--pencil);
-            margin-bottom: 5px;
-        }
-
-        .sidebar-subtitle {
-            font-family: 'Patrick Hand', cursive;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        .toc-section {
-            margin-bottom: 18px;
-        }
-
-        .toc-title {
-            font-family: 'Patrick Hand', cursive;
-            font-size: 0.95rem;
-            color: var(--pencil);
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: 700;
-        }
-
-        .toc-list {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .toc-list li {
-            margin-bottom: 4px;
-        }
-
-        .toc-list a {
-            display: block;
-            padding: 5px 10px;
-            color: var(--text-dark);
-            text-decoration: none;
-            font-size: 0.85rem;
-            border-radius: 8px;
-            transition: all 0.2s ease;
-            border-left: 3px solid transparent;
-        }
-
-        .toc-list a:hover {
-            background: rgba(78, 205, 196, 0.15);
-            border-left-color: var(--accent-teal);
-            transform: translateX(3px);
-        }
-
-        .toc-list a.active {
-            background: rgba(255, 107, 107, 0.15);
-            border-left-color: var(--accent-coral);
-            font-weight: 600;
-        }
-
-        .main-content {
-            margin-left: 280px;
-            flex: 1;
-            padding: 40px 40px;
-            max-width: calc(100vw - 320px);
-            min-width: 0;
-        }
-
-        .container { max-width: 100%; margin: 0 auto; }
-
-        header { text-align: center; margin-bottom: 50px; }
-
-        h1 {
-            font-family: 'Caveat', cursive;
-            font-size: 3.5rem;
-            color: var(--pencil);
-            position: relative;
-            display: inline-block;
-        }
-
-        h1::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, var(--accent-coral), var(--accent-teal), var(--accent-sunflower));
-            border-radius: 3px;
-            opacity: 0.6;
-        }
-
-        .subtitle { font-family: 'Patrick Hand', cursive; font-size: 1.5rem; color: var(--text-muted); margin-top: 20px; }
-
-        .card {
-            background: var(--bg-paper);
-            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
-            padding: 40px;
-            margin-bottom: 28px;
-            box-shadow: 3px 4px 0 rgba(0,0,0,0.1), 6px 8px 0 rgba(0,0,0,0.05);
-            position: relative;
-            transition: transform 0.3s ease;
-            border: 2px solid var(--pencil);
-            scroll-margin-top: 30px;
-        }
-
-        .card:hover { transform: translate(-2px, -2px); }
-
-        h2 { 
-            font-family: 'Caveat', cursive; 
-            font-size: 2.2rem; 
-            color: var(--pencil); 
-            margin-bottom: 20px;
-            padding-left: 50px;
-            position: relative;
-            min-height: 45px;
-            display: flex;
-            align-items: center;
-        }
-
-        h2 .fa-icon {
-            position: absolute;
-            left: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 42px;
-            height: 42px;
-            background: var(--bg-paper);
-            border: 2px solid var(--pencil);
-            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-        }
-
-        h3 { font-family: 'Patrick Hand', cursive; font-size: 1.4rem; color: var(--pencil); margin: 25px 0 12px; }
-        h4 { font-family: 'Patrick Hand', cursive; font-size: 1.15rem; color: var(--text-muted); margin: 18px 0 10px; }
-        p { margin-bottom: 15px; font-size: 1.05rem; }
-
+        /* Problem & Solution Boxes */
         .problem-box {
             background: linear-gradient(135deg, #FFEBEE, #FFCDD2);
             border: 3px dashed var(--accent-coral);
@@ -210,7 +18,6 @@
             padding: 25px;
             margin: 20px 0;
         }
-
         .problem-title {
             font-family: 'Patrick Hand', cursive;
             font-size: 1.25rem;
@@ -228,7 +35,6 @@
             padding: 28px;
             margin: 22px 0;
         }
-
         .solution-title {
             font-family: 'Patrick Hand', cursive;
             font-size: 1.3rem;
@@ -247,7 +53,6 @@
             margin: 20px 0;
             text-align: center;
         }
-
         .highlight-box p {
             font-family: 'Patrick Hand', cursive;
             font-size: 1.15rem;
@@ -265,9 +70,9 @@
             gap: 16px;
             border: 3px solid var(--accent-teal);
         }
-
         .insight-icon { font-size: 1.8rem; flex-shrink: 0; }
 
+        /* Flow Row */
         .flow-row {
             display: flex;
             align-items: center;
@@ -276,7 +81,6 @@
             margin: 25px 0;
             flex-wrap: wrap;
         }
-
         .flow-item {
             padding: 14px 22px;
             border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
@@ -286,13 +90,12 @@
             background: var(--bg-paper);
             text-align: center;
         }
-
         .flow-item.success { background: #E8F5E9; border-color: var(--accent-teal); }
         .flow-item.error { background: #FFEBEE; border-color: var(--accent-coral); }
         .flow-item.warning { background: #FFF8E1; border-color: var(--accent-orange); }
-
         .flow-arrow { font-size: 1.6rem; color: var(--accent-lavender); }
 
+        /* Action Card */
         .action-card {
             background: linear-gradient(135deg, #F8F5FF, #F0FFFA);
             border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
@@ -300,7 +103,6 @@
             margin: 16px 0;
             border: 3px solid var(--accent-lavender);
         }
-
         .action-title {
             font-family: 'Patrick Hand', cursive;
             font-size: 1.25rem;
@@ -309,7 +111,6 @@
             align-items: center;
             gap: 12px;
         }
-
         .action-number {
             width: 32px;
             height: 32px;
@@ -324,6 +125,7 @@
             border: 2px solid var(--pencil);
         }
 
+        /* Comparison Table */
         .comparison-table {
             width: 100%;
             border-collapse: separate;
@@ -334,36 +136,27 @@
             border-radius: 15px;
             overflow: hidden;
         }
-
         .comparison-table th, .comparison-table td {
             padding: 12px 15px;
             text-align: left;
             border-bottom: 2px dashed rgba(0,0,0,0.12);
         }
-
         .comparison-table th {
             font-family: 'Patrick Hand', cursive;
             font-size: 1rem;
             background: #F5F0E8;
         }
-
         .comparison-table tr:last-child td { border-bottom: none; }
-
         .check { color: var(--accent-teal); font-weight: bold; }
         .cross { color: var(--accent-coral); font-weight: bold; }
 
-        .checklist {
-            list-style: none;
-            padding: 0;
-            margin: 15px 0;
-        }
-
+        /* Checklist */
+        .checklist { list-style: none; padding: 0; margin: 15px 0; }
         .checklist li {
             padding: 8px 0 8px 30px;
             position: relative;
             border-bottom: 2px dashed rgba(0,0,0,0.06);
         }
-
         .checklist li::before {
             content: '\f00c';
             font-family: 'Font Awesome 6 Free';
@@ -374,11 +167,8 @@
             color: var(--accent-teal);
         }
 
-        .divider {
-            text-align: center;
-            margin: 40px 0;
-        }
-
+        /* Divider */
+        .divider { text-align: center; margin: 40px 0; }
         .divider::before {
             content: '~~~~~~~';
             font-family: 'Caveat', cursive;
@@ -387,6 +177,7 @@
             letter-spacing: 10px;
         }
 
+        /* Code Block */
         .code-block {
             background: #2D3436;
             color: #E8F4F8;
@@ -406,7 +197,6 @@
             gap: 15px;
             margin: 20px 0;
         }
-
         .strategy-card {
             background: var(--bg-paper);
             border: 2px solid var(--pencil);
@@ -415,12 +205,7 @@
             text-align: center;
             transition: all 0.3s;
         }
-
-        .strategy-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 3px 4px 0 rgba(0,0,0,0.15);
-        }
-
+        .strategy-card:hover { transform: translateY(-3px); box-shadow: 3px 4px 0 rgba(0,0,0,0.15); }
         .strategy-icon {
             width: 50px;
             height: 50px;
@@ -434,27 +219,16 @@
             color: white;
             border: 2px solid var(--pencil);
         }
-
         .strategy-name {
             font-family: 'Patrick Hand', cursive;
             font-size: 1.2rem;
             color: var(--pencil);
             margin-bottom: 8px;
         }
+        .strategy-use { font-size: 0.85rem; color: var(--accent-teal); font-weight: 600; margin-bottom: 4px; }
+        .strategy-when { font-size: 0.8rem; color: var(--text-muted); }
 
-        .strategy-use {
-            font-size: 0.85rem;
-            color: var(--accent-teal);
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .strategy-when {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        /* Visual Component Box */
+        /* Component Box */
         .component-box {
             display: flex;
             align-items: center;
@@ -465,7 +239,6 @@
             border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
             margin: 10px 0;
         }
-
         .component-icon-large {
             width: 55px;
             height: 55px;
@@ -477,22 +250,14 @@
             flex-shrink: 0;
             border: 2px solid var(--pencil);
         }
-
-        .component-text {
-            flex: 1;
-        }
-
+        .component-text { flex: 1; }
         .component-name {
             font-family: 'Patrick Hand', cursive;
             font-size: 1.15rem;
             color: var(--pencil);
             margin-bottom: 3px;
         }
-
-        .component-desc {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
+        .component-desc { font-size: 0.85rem; color: var(--text-muted); }
 
         /* Architecture Diagram */
         .arch-diagram {
@@ -502,7 +267,6 @@
             padding: 25px;
             margin: 20px 0;
         }
-
         .arch-title {
             font-family: 'Patrick Hand', cursive;
             font-size: 1rem;
@@ -510,7 +274,6 @@
             text-align: center;
             margin-bottom: 20px;
         }
-
         .arch-flow {
             display: flex;
             align-items: center;
@@ -518,7 +281,6 @@
             gap: 8px;
             flex-wrap: wrap;
         }
-
         .arch-node {
             padding: 12px 18px;
             border-radius: 12px;
@@ -526,16 +288,13 @@
             text-align: center;
             min-width: 100px;
         }
-
         .arch-node-db { background: #E3F2FD; }
         .arch-node-kafka { background: #F3E5F5; }
         .arch-node-worker { background: #FFF3E0; }
         .arch-node-app { background: #E8F5E9; }
         .arch-node-cdc { background: #FFEBEE; }
-
         .arch-node-icon { font-size: 1.4rem; margin-bottom: 4px; }
         .arch-node-label { font-size: 0.8rem; font-weight: 600; }
-
         .arch-arrow { font-size: 1.4rem; color: var(--accent-lavender); }
         .arch-arrow-down { transform: rotate(90deg); }
 
@@ -547,7 +306,6 @@
             padding: 18px;
             margin-top: 18px;
         }
-
         .example-title {
             font-family: 'Patrick Hand', cursive;
             font-size: 1.15rem;
@@ -557,88 +315,14 @@
             align-items: center;
             gap: 8px;
         }
+        .example-box p { font-size: 0.95rem; margin-bottom: 8px; padding-left: 10px; }
+        .example-box code { background: rgba(0,0,0,0.08); padding: 2px 6px; border-radius: 4px; }
 
-        .example-box p {
-            font-size: 0.95rem;
-            margin-bottom: 8px;
-            padding-left: 10px;
-        }
-
-        .example-box code {
-            background: rgba(0,0,0,0.08);
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.85rem;
-        }
-
-        footer {
-            text-align: center;
-            padding: 30px;
-            color: var(--text-muted);
-            font-family: 'Patrick Hand', cursive;
-            border-top: 2px dashed var(--pencil);
-            margin-top: 40px;
-        }
-
-        .back-link {
-            display: inline-block;
-            color: var(--accent-teal);
-            font-family: 'Patrick Hand', cursive;
-            font-size: 1rem;
-            text-decoration: none;
-            margin-bottom: 25px;
-            transition: color 0.3s;
-        }
-        .back-link:hover { color: var(--accent-coral); }
-
-        /* Mobile TOC Toggle */
-        .toc-toggle {
-            display: none;
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 200;
-            background: var(--accent-coral);
-            color: white;
-            border: none;
-            padding: 12px 15px;
-            border-radius: 50%;
-            font-size: 1.2rem;
-            cursor: pointer;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-        }
-
-        @media (max-width: 1200px) {
-            .sidebar {
-                transform: translateX(-100%);
-                transition: transform 0.3s ease;
-            }
-
-            .sidebar.open {
-                transform: translateX(0);
-            }
-
-            .sidebar.open .sidebar-header {
-                padding-top: 60px;
-            }
-
-            .main-content {
-                margin-left: 0;
-                padding: 40px 20px;
-                max-width: 100%;
-            }
-
-            .toc-toggle {
-                display: block;
-            }
-
-            .back-link {
-                margin-top: 50px;
-            }
-
-            h1 { font-size: 2.5rem; }
-            .card { padding: 25px; }
+        /* Mobile Overrides - Page Specific */
+        @media (max-width: 768px) {
+            .strategy-grid { grid-template-columns: 1fr; }
+            .component-box { flex-direction: column; text-align: center; }
+            .flow-row { flex-direction: column; }
         }
     </style>
 </head>
