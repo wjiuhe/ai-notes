@@ -578,3 +578,35 @@ footer {
     line-height: 1.5;
     border: 1px dashed rgba(0,0,0,0.2);
 }
+
+.night-mode-banner {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.night-mode-banner a {
+    display: inline-block;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #ff8a65;
+    padding: 12px 28px;
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    text-decoration: none;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1.2rem;
+    font-weight: 600;
+    border: 2px solid #ff8a65;
+    box-shadow: 4px 4px 0 rgba(255, 138, 101, 0.3);
+    transition: all 0.2s ease;
+}
+
+.night-mode-banner a:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 rgba(255, 138, 101, 0.4);
+    background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 100%);
+}
+
+.night-mode-subtitle {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    font-style: italic;
+}

@@ -1,0 +1,22 @@
+I'll simplify the language on your coffee page. Here's what I'm changing:
+
+**Before (complex):**
+"Every developer knows the feeling. It's 2 AM, the deadline is approaching, and your brain feels like it's running on Windows 95."
+
+**After (simple):**
+"All developers know this feeling. It is 2 AM. The deadline is coming. Your brain is slow like old Windows 95."
+
+**Before:**
+"This isn't just about staying awake. This is about understanding the chemistry, the craft, and the chaos that transforms humble beans into liquid productivity."
+
+**After:**
+"This is not just about staying awake. This is about knowing how coffee works. How to make it. And how beans become your energy drink."
+
+I'll update the entire page with:
+- Shorter sentences
+- Simple words (no "sacred ritual", "humble beans", "manifesto")
+- Common phrases you can understand easily
+- Less jokes that need cultural knowledge
+- Clear, direct explanations
+
+Do you want me to update the whole page now?

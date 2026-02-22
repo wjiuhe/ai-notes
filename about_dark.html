@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="About Jiuhe Wang - the person behind the late night code. AI engineer, chaos enthusiast, and professional coffee consumer.">
+    <meta name="author" content="Jiuhe Wang">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://wjiuhe.github.io/ai-notes/about_dark.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="profile">
+    <meta property="og:url" content="https://wjiuhe.github.io/ai-notes/about_dark.html">
+    <meta property="og:title" content="About | Mind & Machine Overtime">
+    <meta property="og:description" content="The person behind the late night code. AI engineer, chaos enthusiast, and professional coffee consumer.">
+    <meta property="og:site_name" content="Mind & Machine - Overtime">
+    
+    <title>About | Mind & Machine Overtime</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/dark-theme.css">
+    <style>
+        /* About page specific styles - Vampire Coder aesthetic */
+
+        /* Title flicker styles */
+        header {
+            position: relative;
+        }
+
+        h1 {
+            transition: opacity 0.05s ease;
+        }
+
+        h1.title-dark {
+            color: #1a0a0a;
+            text-shadow:
+                0 0 15px rgba(255, 50, 50, 0.8),
+                0 0 40px rgba(200, 0, 0, 0.5);
+            opacity: 0;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+        }
+
+        h1.title-dark.visible {
+            opacity: 1;
+        }
+
+        /* Vampire Coder Profile Section */
+        .vampire-profile {
+            position: relative;
+            margin-bottom: 60px;
+            padding: 60px 40px;
+            background: 
+                /* Gothic arch shape mask */
+                linear-gradient(135deg, transparent 0%, rgba(139, 0, 0, 0.1) 50%, transparent 100%),
+                /* Code pattern background */
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 20px,
+                    rgba(50, 205, 50, 0.03) 20px,
+                    rgba(50, 205, 50, 0.03) 21px
+                ),
+                var(--bg-secondary);
+            border: 2px solid #4a0000;
+            overflow: hidden;
+        }
+
+        /* Gothic arch top */
+        .vampire-profile::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 100px;
+            background: var(--bg-primary);
+            border-radius: 100px 100px 0 0;
+            border: 2px solid #4a0000;
+            border-bottom: none;
+        }
+
+        /* Blood drip effect made of code */
+        .vampire-profile::after {
+            content: '</> // ::...';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: #8b0000;
+            letter-spacing: 3px;
+            text-shadow: 0 0 5px rgba(139, 0, 0, 0.5);
+            padding: 8px 20px;
+            background: var(--bg-primary);
+            border-radius: 0 0 10px 10px;
+            border: 1px solid #4a0000;
+            border-top: none;
+        }
+
+        /* Ornate gothic corners made of code brackets */
+        .gothic-corner {
+            position: absolute;
+            font-family: var(--font-mono);
+            font-size: 1.2rem;
+            color: #6b0000;
+            text-shadow: 0 0 10px rgba(139, 0, 0, 0.3);
+        }
+
+        .gothic-corner.top-left {
+            top: 10px;
+            left: 15px;
+        }
+
+        .gothic-corner.top-right {
+            top: 10px;
+            right: 15px;
+        }
+
+        .gothic-corner.bottom-left {
+            bottom: 10px;
+            left: 15px;
+        }
+
+        .gothic-corner.bottom-right {
+            bottom: 10px;
+            right: 15px;
+        }
+
+        /* Floating code symbols as decoration */
+        .code-ornament {
+            position: absolute;
+            font-family: var(--font-mono);
+            color: rgba(139, 0, 0, 0.2);
+            font-size: 0.9rem;
+            pointer-events: none;
+        }
+
+        .code-ornament:nth-child(1) { top: 20%; left: 5%; transform: rotate(-15deg); }
+        .code-ornament:nth-child(2) { top: 30%; right: 8%; transform: rotate(10deg); }
+        .code-ornament:nth-child(3) { bottom: 25%; left: 10%; transform: rotate(5deg); }
+        .code-ornament:nth-child(4) { bottom: 35%; right: 5%; transform: rotate(-8deg); }
+
+        .vampire-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            padding-top: 20px;
+        }
+
+        .vampire-title {
+            font-family: var(--font-hand);
+            font-size: 2.5rem;
+            color: #ff0040;
+            margin-bottom: 10px;
+            text-shadow: 
+                0 0 10px rgba(255, 0, 64, 0.5),
+                0 0 30px rgba(139, 0, 0, 0.3);
+            letter-spacing: 2px;
+        }
+
+        .vampire-subtitle {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: #32cd32;
+            margin-bottom: 30px;
+            opacity: 0.7;
+        }
+
+        .vampire-subtitle::before {
+            content: 'class ';
+            color: #bd93f9;
+        }
+
+        .vampire-subtitle::after {
+            content: ' extends NightOwl {';
+            color: #bd93f9;
+        }
+
+        .vampire-description {
+            font-size: 1.1rem;
+            color: var(--fg-secondary);
+            line-height: 1.9;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+
+        .vampire-description::before {
+            content: '// ';
+            color: #6272a4;
+        }
+
+        /* Blood pool effect at bottom */
+        .blood-pool {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: linear-gradient(to top, rgba(139, 0, 0, 0.3), transparent);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 5px;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: rgba(255, 0, 64, 0.5);
+            letter-spacing: 5px;
+        }
+
+        /* Vampire stats - like character sheet */
+        .vampire-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 500px;
+            margin: 30px auto 0;
+            padding-top: 30px;
+            border-top: 1px solid rgba(139, 0, 0, 0.3);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-label {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: #6272a4;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-family: var(--font-hand);
+            font-size: 1.3rem;
+            color: #ff0040;
+            text-shadow: 0 0 10px rgba(255, 0, 64, 0.3);
+        }
+
+        .stat-value::before {
+            content: '[';
+            color: #32cd32;
+            font-family: var(--font-mono);
+            margin-right: 3px;
+        }
+
+        .stat-value::after {
+            content: ']';
+            color: #32cd32;
+            font-family: var(--font-mono);
+            margin-left: 3px;
+        }
+
+        /* Info cards */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .info-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--bg-tertiary);
+            border-radius: 8px;
+            padding: 30px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .info-card-title {
+            font-family: var(--font-hand);
+            font-size: 1.4rem;
+            color: var(--accent-purple);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-card-content {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--fg-secondary);
+        }
+
+        .info-card-content p {
+            margin-bottom: 12px;
+        }
+
+        /* Quote styling */
+        .quote-box {
+            margin-top: 20px;
+            padding: 20px;
+            background: var(--bg-dark);
+            border-left: 3px solid var(--accent-red);
+            font-style: italic;
+        }
+
+        .quote-box p {
+            margin: 0 0 10px 0;
+        }
+
+        .quote-attribution {
+            color: var(--fg-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Location tag */
+        .location-tag {
+            display: inline-block;
+            padding: 8px 16px;
+            background: var(--bg-dark);
+            border: 1px solid var(--accent-purple);
+            border-radius: 4px;
+            color: var(--accent-purple);
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            margin-top: 10px;
+        }
+
+        /* Connect section */
+        .connect-section {
+            text-align: center;
+            padding: 40px 20px;
+            margin-bottom: 30px;
+        }
+
+        .connect-title {
+            font-family: var(--font-hand);
+            font-size: 2rem;
+            color: var(--accent-cyan);
+            margin-bottom: 15px;
+        }
+
+        .connect-subtitle {
+            color: var(--fg-muted);
+            margin-bottom: 30px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border: 1px solid var(--accent-cyan);
+            color: var(--accent-cyan);
+            text-decoration: none;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--accent-cyan);
+            transition: left 0.3s;
+            z-index: -1;
+        }
+
+        .social-link:hover {
+            color: var(--bg-primary);
+        }
+
+        .social-link:hover::before {
+            left: 0;
+        }
+
+        /* Terminal prompt styling */
+        .terminal-prompt {
+            color: var(--accent-green);
+            font-family: var(--font-mono);
+        }
+
+        .terminal-command {
+            color: var(--fg-primary);
+        }
+
+        /* Hover tooltip */
+        .has-tooltip {
+            position: relative;
+            cursor: help;
+            border-bottom: 1px dashed var(--accent-orange);
+            color: var(--accent-orange);
+        }
+
+        .tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-dark);
+            border: 1px solid var(--accent-orange);
+            padding: 8px 12px;
+            border-radius: 6px;
+            color: var(--accent-orange);
+            font-size: 0.85rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s;
+            margin-bottom: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .has-tooltip:hover .tooltip {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Portal back to home -->
+    <a href="index_dark.html" class="portal-back">
+        <span>← Back to Home</span>
+    </a>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1 id="mainTitle">About</h1>
+            <h1 id="darkTitle" class="title-dark">Despair</h1>
+            <p class="subtitle">The Person Behind the Keyboard</p>
+        </header>
+
+        <!-- Vampire Coder Profile Section -->
+        <section class="vampire-profile">
+            <!-- Gothic corners with code brackets -->
+            <span class="gothic-corner top-left">++</span>
+            <span class="gothic-corner top-right">++</span>
+            <span class="gothic-corner bottom-left">##</span>
+            <span class="gothic-corner bottom-right">##</span>
+            
+            <!-- Floating code ornaments -->
+            <span class="code-ornament">function()</span>
+            <span class="code-ornament">return null;</span>
+            <span class="code-ornament">console.log</span>
+            <span class="code-ornament">await sleep</span>
+            
+            <div class="vampire-content">
+                <h2 class="vampire-title">The Night Coder</h2>
+                <p class="vampire-subtitle">VampireDeveloper</p>
+                
+                <p class="vampire-description">
+                    This is me at 3 AM. Hunched over the keyboard. 
+                    <span class="has-tooltip">Coffee
+                        <span class="tooltip">Don't ask how many I've had</span>
+                    </span> 
+                    in hand. Chasing bugs that only appear when the world sleeps. I don't drink blood—I drink coffee. I don't sleep—I compile.
+                </p>
+                
+                <div class="vampire-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Caffeine</div>
+                        <div class="stat-value">∞</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Sleep</div>
+                        <div class="stat-value">NULL</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Bugs</div>
+                        <div class="stat-value">404</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="blood-pool">&lt;/&gt; :: &lt;/&gt; :: &lt;/&gt;</div>
+        </section>
+
+        <!-- Info Cards Grid -->
+        <section class="info-grid">
+            <!-- Card 1: The Setup -->
+            <div class="info-card">
+                <h3 class="info-card-title">
+                    <span>~</span> My Setup
+                </h3>
+                <div class="info-card-content">
+                    <p>📍 <strong>Hong Kong</strong> (HKT timezone)</p>
+                    <p>MacBook glowing in the dark, the only light in my cave.</p>
+                    <p>Mechanical <span class="has-tooltip" style="border-bottom-color: var(--accent-cyan); color: var(--accent-cyan);">keyboard
+                        <span class="tooltip" style="border-color: var(--accent-cyan); color: var(--accent-cyan);">Clicky switches for clicky thoughts</span>
+                    </span> providing ASMR.</p>
+                    <p>Semi-auto coffee machine within arm's reach (essential for survival).</p>
+                    <p>Scattered sticky notes with half-formed ideas.</p>
+                    <p style="margin-top: 15px; font-style: italic; color: var(--accent-orange);">"Organized chaos" — every genius needs a system</p>
+                </div>
+            </div>
+
+            <!-- Card 2: Philosophy -->
+            <div class="info-card">
+                <h3 class="info-card-title">
+                    <span>$</span> Why I Do This
+                </h3>
+                <div class="info-card-content">
+                    <p><span class="terminal-prompt">></span> <span class="terminal-command">Because 3AM ideas hit different</span></p>
+                    <p><span class="terminal-prompt">></span> <span class="terminal-command">Because nobody interrupts you</span></p>
+                    
+                    <p style="margin-top: 15px;">The world is quieter at night. No Slack notifications. No meetings. Just you, the code, and the occasional existential crisis about why that function worked yesterday but doesn't today.</p>
+                    
+                    <p style="margin-top: 15px; color: var(--accent-pink); font-weight: bold;">Best bugs are found when everyone else is dreaming.</p>
+                </div>
+            </div>
+
+            <!-- Card 3: The Reality -->
+            <div class="info-card">
+                <h3 class="info-card-title">
+                    <span>#</span> The Reality
+                </h3>
+                <div class="info-card-content">
+                    <p>I don't have it all figured out. That's the point of this blog.</p>
+                    
+                    <p>I break things so you don't have to. I spend hours debugging so you can spend minutes reading.</p>
+                    
+                    <p>Every article here is written after I've gone through the pain, the confusion, and the "why isn't this working??" moments.</p>
+                    
+                    <div class="quote-box">
+                        <p>"Documentation is a love letter that you write to your future self."</p>
+                        <p class="quote-attribution">— Future me, desperately reading this at 4 AM</p>
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
+
+        <!-- Connect Section -->
+        <section class="connect-section">
+            <h2 class="connect-title">Find Me in the Shadows</h2>
+            
+            <p class="connect-subtitle">Ping me. I might be awake.</p>
+
+            <div class="social-links">
+                <a href="https://wjiuhe.github.io/wjiuhe" class="social-link" target="_blank">
+                    <span>GH</span> github.com/wjiuhe
+                </a>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p class="footer-text">Still awake? Me too.</p>
+            <p class="time-display" id="currentTime">--:--:--</p>
+            <p class="sleep-nag">
+                Go get some sleep. The bugs will wait.<span class="cursor-blink"></span>
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Live time display
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', { 
+                hour12: false,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            document.getElementById('currentTime').textContent = timeString;
+        }
+        
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        // Title flicker and dark mode switch
+        const mainTitle = document.getElementById('mainTitle');
+        const darkTitle = document.getElementById('darkTitle');
+        
+        function flickerTitle() {
+            // Random flicker intensity
+            const flickerChance = Math.random();
+            
+            if (flickerChance > 0.97) {
+                // Sudden blackout - hide main title, show dark title
+                mainTitle.style.opacity = '0';
+                darkTitle.classList.add('visible');
+                
+                // Keep dark title for 200-600ms
+                setTimeout(() => {
+                    darkTitle.classList.remove('visible');
+                    mainTitle.style.opacity = '1';
+                }, 200 + Math.random() * 400);
+            } else if (flickerChance > 0.85) {
+                // Subtle flicker
+                mainTitle.style.opacity = '0.7';
+                setTimeout(() => {
+                    mainTitle.style.opacity = '1';
+                }, 50 + Math.random() * 100);
+            }
+        }
+        
+        // Check every 100ms for flicker opportunities
+        setInterval(flickerTitle, 100);
+        
+        // Guaranteed dark flash every 15-45 seconds
+        function guaranteedDarkFlash() {
+            mainTitle.style.opacity = '0';
+            darkTitle.classList.add('visible');
+            
+            setTimeout(() => {
+                darkTitle.classList.remove('visible');
+                mainTitle.style.opacity = '1';
+            }, 400);
+            
+            // Schedule next guaranteed flash
+            setTimeout(guaranteedDarkFlash, 15000 + Math.random() * 30000);
+        }
+        
+        setTimeout(guaranteedDarkFlash, 10000);
+    </script>
+</body>
+</html>

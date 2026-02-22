@@ -2347,3 +2347,252 @@ Note: Hide sidebar on mobile:
     .main-content { margin-left: 0; max-width: 100%; padding: 25px 20px; }
 }
 ```
+
+## Dual-Theme System (Light vs Dark)
+
+The website supports **two distinct visual themes**:
+
+1. **Light/Casual Theme** (`index.html`) - Daytime, friendly, hand-drawn sketchy style
+2. **Dark/Overtime Theme** (`index_dark.html`) - Night shift, gothic/vampire coder aesthetic
+
+### Theme Specification
+
+When creating a new article, you **MUST specify which theme** it belongs to:
+
+#### For Light/Casual Articles:
+- Use: `static/styles.css`
+- Listed in: `index.html`
+- Style: Hand-drawn, sketchy borders, pastel colors, friendly fonts (Caveat, Patrick Hand, Nunito)
+
+#### For Dark/Overtime Articles:
+- Use: `static/dark-theme.css`
+- Listed in: `index_dark.html`
+- Style: Gothic, vampire coder aesthetic, warm amber colors (#ff8a65), monospace fonts
+
+### File Structure
+
+```
+/ai-agent/
+├── index.html              # Light theme homepage
+├── index_dark.html         # Dark theme homepage
+├── static/
+│   ├── styles.css         # Light theme shared CSS
+│   └── dark-theme.css     # Dark theme shared CSS
+├── article-light.html     # Light theme article example
+└── article-dark.html      # Dark theme article example
+```
+
+### Creating a Light Theme Article
+
+1. **Link the light CSS**:
+```html
+<link rel="stylesheet" href="static/styles.css">
+```
+
+2. **Use light theme color variables**:
+```css
+:root {
+    --bg-cream: #FDF8F3;
+    --bg-paper: #FFFEF9;
+    --accent-coral: #FF6B6B;
+    --accent-teal: #4ECDC4;
+    --text-dark: #2D3436;
+    --pencil: #2B2B2B;
+}
+```
+
+3. **Add to index.html** with proper data attributes:
+```html
+<a href="article-light.html" class="link-card" data-tags="ai,architecture" data-date="2026-02-22" data-title="Article Title">
+    <div class="link-icon" style="background: var(--accent-coral);">
+        <i class="fa-solid fa-brain"></i>
+    </div>
+    <div class="link-text">
+        <h2>Article Title <span class="tag new">New</span></h2>
+        <p>Short description</p>
+        <div class="link-meta">
+            <span class="link-date"><i class="fa-regular fa-calendar"></i> Feb 22, 2026</span>
+            <div class="link-tags">
+                <span class="tag ai">AI</span>
+            </div>
+        </div>
+    </div>
+</a>
+```
+
+### Creating a Dark Theme Article
+
+1. **Link the dark CSS**:
+```html
+<link rel="stylesheet" href="static/dark-theme.css">
+```
+
+2. **Use dark theme color variables**:
+```css
+:root {
+    --bg-primary: #050505;
+    --bg-secondary: #0a0a0a;
+    --bg-tertiary: #1a1a1a;
+    --accent-primary: #ff8a65;
+    --accent-secondary: #5d4037;
+    --text-primary: #e0e0e0;
+    --font-mono: 'Courier Prime', monospace;
+    --font-hand: 'Caveat', cursive;
+}
+```
+
+3. **Add to index_dark.html** with proper data attributes:
+```html
+<a href="article-dark.html" class="article-card" data-tags="philosophy" data-date="2026-02-22" data-title="Article Title">
+    <div class="article-header">
+        <h3 class="article-title">Article Title</h3>
+        <span class="status-indicator status-yellow"></span>
+    </div>
+    <p class="article-preview">Short description</p>
+    <div class="article-meta">
+        <span class="article-date">February 22, 2026</span>
+        <span class="article-tag tag-philosophy">Philosophy</span>
+    </div>
+</a>
+```
+
+### Portal Links Between Themes
+
+**In index.html** (Light theme), add portal to dark:
+```html
+<a href="index_dark.html" style="color: #5d4037; text-decoration: none; font-size: 0.9rem;">
+    <i class="fa-solid fa-moon"></i> Enter the Night Mode <i class="fa-solid fa-bat"></i>
+</a>
+```
+
+**In index_dark.html** (Dark theme), add portal to light:
+```html
+<a href="index.html" class="portal-back">
+    <span>Return to Daylight</span>
+</a>
+```
+
+### Title Flicker Effect (Dark Theme Only)
+
+The dark theme has a special title animation that cycles between "Mind & Machine" and "Syntax Error!":
+
+```javascript
+// Title flicker effect - Mind & Machine 5s, Syntax Error 1s cycle
+const mainTitle = document.getElementById('mainTitle');
+const darkTitle = document.getElementById('darkTitle');
+
+let showingMainTitle = true;
+let flickerCount = 0;
+const maxFlickers = 8;
+
+function flickerMain() {
+    if (flickerCount < maxFlickers && showingMainTitle) {
+        mainTitle.style.opacity = Math.random() > 0.5 ? '1' : '0.3';
+        flickerCount++;
+        setTimeout(flickerMain, 200 + Math.random() * 400);
+    } else if (showingMainTitle) {
+        mainTitle.style.opacity = '1';
+    }
+}
+
+function cycleTitles() {
+    if (showingMainTitle) {
+        flickerCount = 0;
+        flickerMain();
+        
+        setTimeout(() => {
+            showingMainTitle = false;
+            mainTitle.style.opacity = '0';
+            darkTitle.classList.add('visible');
+            
+            setTimeout(() => {
+                darkTitle.classList.remove('visible');
+                mainTitle.style.opacity = '1';
+                showingMainTitle = true;
+                cycleTitles();
+            }, 1000); // Syntax Error shows for 1 second
+        }, 5000); // Mind & Machine shows for 5 seconds
+    }
+}
+
+cycleTitles();
+```
+
+### Filter and Sort (Both Themes)
+
+Both themes support filtering and sorting articles:
+
+**Light Theme** (`index.html`):
+- Filter by tags: AI, Architecture, Security, MoE, Agile
+- Sort by: Date, Title
+- Toggle sort direction with click
+
+**Dark Theme** (`index_dark.html`):
+- Filter by tags: AI, Philosophy, Tips, Architecture
+- Sort by: Date, Title
+- Toggle sort direction with click
+
+### Article Card Structure Comparison
+
+**Light Theme Card**:
+```html
+<div class="link-card" data-tags="tag1,tag2" data-date="YYYY-MM-DD" data-title="Title">
+    <div class="link-icon">...</div>
+    <div class="link-text">
+        <h2>Title</h2>
+        <p>Description</p>
+        <div class="link-meta">...</div>
+    </div>
+</div>
+```
+
+**Dark Theme Card**:
+```html
+<div class="article-card" data-tags="tag1,tag2" data-date="YYYY-MM-DD" data-title="Title">
+    <div class="article-header">
+        <h3 class="article-title">Title</h3>
+        <span class="status-indicator"></span>
+    </div>
+    <p class="article-preview">Description</p>
+    <div class="article-meta">...</div>
+</div>
+```
+
+### Visual Differences Summary
+
+| Feature | Light Theme | Dark Theme |
+|---------|-------------|------------|
+| **Background** | Cream (#FDF8F3) | Black (#050505) |
+| **Accent Color** | Coral/Teal | Amber (#ff8a65) |
+| **Border Style** | Sketchy/wobbly | Gothic/monospace |
+| **Fonts** | Caveat, Patrick Hand, Nunito | Caveat, Courier Prime |
+| **Mood** | Friendly, daytime | Night shift, vampire coder |
+| **Title Effect** | Static | Flickers (5s/1s cycle) |
+| **Code Style** | Light editor | Dark terminal |
+
+### When to Use Each Theme
+
+**Use Light Theme for:**
+- Technical tutorials
+- Architecture deep-dives
+- Educational content
+- Professional presentations
+- Most standard articles
+
+**Use Dark Theme for:**
+- Late night thoughts
+- Personal reflections
+- Philosophy pieces
+- Coffee/culture content
+- "Overtime" style content
+- Anything with humor about coding struggles
+
+### Complete Workflow
+
+1. **Decide on theme** based on content tone
+2. **Create HTML file** with appropriate CSS link
+3. **Write content** using theme-appropriate components
+4. **Add to corresponding index** (index.html or index_dark.html)
+5. **Add data attributes** (data-tags, data-date, data-title)
+6. **Test filtering/sorting** works correctly
+7. **Commit changes** immediately
