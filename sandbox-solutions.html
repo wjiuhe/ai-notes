@@ -601,38 +601,44 @@
                 width: 100%;
                 max-width: 100%;
                 box-sizing: border-box;
-                flex-wrap: wrap;
+                display: grid;
+                grid-template-columns: 36px 1fr auto;
+                align-items: start;
                 gap: 10px;
                 padding: 12px 15px;
             }
             
             .isolation-icon {
-                flex-shrink: 0;
-                width: 40px;
-                height: 40px;
-                font-size: 1.2rem;
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+                grid-column: 1;
             }
             
             .isolation-info {
+                grid-column: 2;
                 min-width: 0;
-                flex: 1 1 calc(100% - 60px);
+                overflow: hidden;
             }
             
             .isolation-name {
                 word-wrap: break-word;
                 overflow-wrap: break-word;
-                font-size: 1.1rem;
+                font-size: 1rem;
+                line-height: 1.3;
+                margin-bottom: 4px;
             }
             
             .isolation-desc {
                 word-wrap: break-word;
                 overflow-wrap: break-word;
-                font-size: 0.9rem;
+                font-size: 0.85rem;
+                line-height: 1.3;
             }
             
             .isolation-strength {
-                margin-left: auto;
-                flex-shrink: 0;
+                grid-column: 3;
+                white-space: nowrap;
             }
             
             .isolation-title {
