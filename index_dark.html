@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The overtime edition - raw, unfiltered technical deep dives. Mind & Machine after dark.">
+    <meta name="author" content="Jiuhe Wang">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://wjiuhe.github.io/ai-notes/index_dark.html">
+    <link rel="alternate" href="https://wjiuhe.github.io/ai-notes/index.html" hreflang="en">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://wjiuhe.github.io/ai-notes/index_dark.html">
+    <meta property="og:title" content="Mind & Machine | Overtime Edition">
+    <meta property="og:description" content="The overtime edition - raw, unfiltered technical deep dives written after midnight.">
+    <meta property="og:site_name" content="Mind & Machine - Overtime">
+    
+    <title>Mind & Machine | Overtime Edition</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/dark-theme.css">
+    <style>
+        /* Vampire Coder Profile Section - Index Page */
+        .vampire-profile {
+            position: relative;
+            margin-bottom: 60px;
+            padding: 60px 40px;
+            background: 
+                /* Gothic arch shape mask */
+                linear-gradient(135deg, transparent 0%, rgba(93, 64, 55, 0.1) 50%, transparent 100%),
+                /* Code pattern background */
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 20px,
+                    rgba(50, 205, 50, 0.03) 20px,
+                    rgba(50, 205, 50, 0.03) 21px
+                ),
+                var(--bg-secondary);
+            border: 2px solid #5d4037;
+            overflow: hidden;
+        }
+
+        /* Gothic arch top */
+        .vampire-profile::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 100px;
+            background: var(--bg-primary);
+            border-radius: 100px 100px 0 0;
+            border: 2px solid #5d4037;
+            border-bottom: none;
+        }
+
+        /* Blood drip effect made of code */
+        .vampire-profile::after {
+            content: '</> // ::...';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: #8b0000;
+            letter-spacing: 3px;
+            text-shadow: 0 0 5px rgba(93, 64, 55, 0.5);
+            padding: 8px 20px;
+            background: var(--bg-primary);
+            border-radius: 0 0 10px 10px;
+            border: 1px solid #5d4037;
+            border-top: none;
+        }
+
+        /* Gothic corners with code brackets */
+        .gothic-corner {
+            position: absolute;
+            font-family: var(--font-mono);
+            font-size: 1.2rem;
+            color: #6b0000;
+            text-shadow: 0 0 10px rgba(93, 64, 55, 0.3);
+        }
+
+        .gothic-corner.top-left { top: 10px; left: 15px; }
+        .gothic-corner.top-right { top: 10px; right: 15px; }
+        .gothic-corner.bottom-left { bottom: 10px; left: 15px; }
+        .gothic-corner.bottom-right { bottom: 10px; right: 15px; }
+
+        /* Floating code ornaments */
+        .code-ornament {
+            position: absolute;
+            font-family: var(--font-mono);
+            color: rgba(93, 64, 55, 0.2);
+            font-size: 0.9rem;
+            pointer-events: none;
+        }
+
+        .code-ornament:nth-child(1) { top: 20%; left: 5%; transform: rotate(-15deg); }
+        .code-ornament:nth-child(2) { top: 30%; right: 8%; transform: rotate(10deg); }
+        .code-ornament:nth-child(3) { bottom: 25%; left: 10%; transform: rotate(5deg); }
+        .code-ornament:nth-child(4) { bottom: 35%; right: 5%; transform: rotate(-8deg); }
+
+        .vampire-content {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            padding-top: 20px;
+        }
+
+        .vampire-title {
+            font-family: var(--font-hand);
+            font-size: 2.5rem;
+            color: #ff8a65;
+            margin-bottom: 10px;
+            text-shadow: 
+                0 0 10px rgba(255, 138, 101, 0.5),
+                0 0 30px rgba(93, 64, 55, 0.3);
+            letter-spacing: 2px;
+        }
+
+        .vampire-subtitle {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: #32cd32;
+            margin-bottom: 30px;
+            opacity: 0.7;
+        }
+
+        .vampire-subtitle::before {
+            content: 'class ';
+            color: #bd93f9;
+        }
+
+        .vampire-subtitle::after {
+            content: ' extends NightOwl {';
+            color: #bd93f9;
+        }
+
+        .vampire-description {
+            font-size: 1.1rem;
+            color: var(--fg-secondary);
+            line-height: 1.9;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+
+        .vampire-description::before {
+            content: '// ';
+            color: #6272a4;
+        }
+
+        /* Blood pool at bottom */
+        .blood-pool {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            background: linear-gradient(to top, rgba(93, 64, 55, 0.3), transparent);
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 5px;
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            color: rgba(255, 138, 101, 0.5);
+            letter-spacing: 5px;
+        }
+
+        /* Vampire stats */
+        .vampire-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 500px;
+            margin: 30px auto 0;
+            padding-top: 30px;
+            border-top: 1px solid rgba(93, 64, 55, 0.3);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-label {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: #6272a4;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        .stat-value {
+            font-family: var(--font-hand);
+            font-size: 1.3rem;
+            color: #ff8a65;
+            text-shadow: 0 0 10px rgba(255, 138, 101, 0.3);
+        }
+
+        .stat-value::before {
+            content: '[';
+            color: #32cd32;
+            font-family: var(--font-mono);
+            margin-right: 3px;
+        }
+
+        .stat-value::after {
+            content: ']';
+            color: #32cd32;
+            font-family: var(--font-mono);
+            margin-left: 3px;
+        }
+
+        /* Filter and Sort Controls */
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(93, 64, 55, 0.15);
+            border: 1px solid #5d4037;
+            border-radius: 8px;
+        }
+
+        .filter-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .filter-label {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: #6272a4;
+            margin-right: 10px;
+        }
+
+        .filter-tag {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            padding: 6px 14px;
+            border-radius: 4px;
+            border: 1px solid #5d4037;
+            background: transparent;
+            color: var(--fg-secondary);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .filter-tag:hover {
+            border-color: #ff8a65;
+            color: #ff8a65;
+        }
+
+        .filter-tag.active {
+            background: #ff8a65;
+            color: #1a1a1a;
+            border-color: #ff8a65;
+        }
+
+        .sort-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sort-btn {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            padding: 6px 14px;
+            border-radius: 4px;
+            border: 1px solid #5d4037;
+            background: transparent;
+            color: var(--fg-secondary);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.3s;
+        }
+
+        .sort-btn:hover {
+            border-color: #ff8a65;
+            color: #ff8a65;
+        }
+
+        .sort-btn.active {
+            background: rgba(255, 138, 101, 0.2);
+            border-color: #ff8a65;
+            color: #ff8a65;
+        }
+
+        .sort-direction {
+            font-size: 0.8rem;
+        }
+
+        .results-count {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: #6272a4;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .article-card.hidden {
+            display: none;
+        }
+
+        /* Tooltip styles */
+        .has-tooltip {
+            position: relative;
+            cursor: help;
+            border-bottom: 1px dashed var(--accent-orange);
+            color: var(--accent-orange);
+        }
+
+        .tooltip {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-dark);
+            border: 1px solid var(--accent-orange);
+            padding: 8px 12px;
+            border-radius: 6px;
+            color: var(--accent-orange);
+            font-size: 0.85rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s;
+            margin-bottom: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .has-tooltip:hover .tooltip {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Portal back to casual theme -->
+    <a href="index.html" class="portal-back">
+        <span>Return to Daylight</span>
+    </a>
+
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1 id="mainTitle">Mind & Machine</h1>
+            <h1 id="darkTitle" class="title-dark">Syntax Error!</h1>
+            <p class="subtitle">The Night Shift</p>
+        </header>
+
+        <!-- Easter Egg 1: Hidden dot -->
+        <div class="easter-egg" style="position: fixed; top: 100px; right: 15%;">
+            <span class="egg-tooltip">You found me! This side is where the magic happens after midnight.</span>
+        </div>
+
+        <!-- Vampire Coder Profile Section -->
+        <section class="vampire-profile">
+            <!-- Gothic corners -->
+            <span class="gothic-corner top-left">++</span>
+            <span class="gothic-corner top-right">++</span>
+            <span class="gothic-corner bottom-left">##</span>
+            <span class="gothic-corner bottom-right">##</span>
+            
+            <!-- Floating code ornaments -->
+            <span class="code-ornament">function()</span>
+            <span class="code-ornament">return null;</span>
+            <span class="code-ornament">console.log</span>
+            <span class="code-ornament">await sleep</span>
+            
+            <!-- Terminal prompt - prominently displayed -->
+            <div class="terminal-prompt-display" style="position: absolute; top: 60px; right: 40px; font-family: var(--font-mono); color: #ffb86c; font-size: 0.9rem; cursor: pointer; z-index: 10;"
+                     title="3AM clarity hits different.">
+                <span style="color: #50fa7b;">$</span> ls -la
+            </div>
+
+            <div class="vampire-content">
+                <h2 class="vampire-title">Welcome to the Void</h2>
+                <p class="vampire-subtitle">HomeBase</p>
+                
+                <p class="vampire-description">
+                    You've stumbled into the night shift. This is where code is written, bugs are hunted, and coffee is consumed in dangerous quantities. 
+                    <span class="has-tooltip">Proceed
+                        <span class="tooltip">At your own risk</span>
+                    </span> 
+                    if you dare. The daylight version is for tourists. This is where the real work happens.
+                </p>
+                
+                <p style="margin-top: 20px;">
+                    <a href="about_dark.html" style="color: #ff8a65; text-decoration: none; font-family: var(--font-hand); font-size: 1.2rem; border-bottom: 1px dashed #ff8a65;">Learn More About This Madman →</a>
+                </p>
+                
+                <div class="vampire-stats">
+                    <div class="stat-item">
+                        <div class="stat-label">Commits</div>
+                        <div class="stat-value">2,847</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Crashes</div>
+                        <div class="stat-value">∞</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-label">Regrets</div>
+                        <div class="stat-value">0</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="blood-pool">&lt;/&gt; :: &lt;/&gt; :: &lt;/&gt;</div>
+        </section>
+
+        <!-- Easter Egg 3: Near articles section -->
+        <div class="easter-egg" style="position: absolute; margin-top: -30px; margin-left: 5%;">
+            <span class="egg-tooltip">The best bugs are found when everyone else is dreaming.</span>
+        </div>
+
+        <!-- Articles Section -->
+        <section class="articles-section">
+            <h2 class="section-title">Late Night Thoughts</h2>
+            
+            <div class="controls">
+                <div class="filter-section">
+                    <span class="filter-label">Filter:</span>
+                    <button class="filter-tag active" data-tag="all">All</button>
+                    <button class="filter-tag" data-tag="ai">AI</button>
+                    <button class="filter-tag" data-tag="philosophy">Philosophy</button>
+                    <button class="filter-tag" data-tag="tips">Tips</button>
+                    <button class="filter-tag" data-tag="architecture">Architecture</button>
+                </div>
+                <div class="sort-section">
+                    <span class="filter-label">Sort:</span>
+                    <button class="sort-btn active" data-sort="date" data-direction="desc">
+                        Date <span class="sort-direction">↓</span>
+                    </button>
+                    <button class="sort-btn" data-sort="title" data-direction="asc">
+                        Title <span class="sort-direction">→</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="results-count" id="resultsCount">Showing all topics</div>
+
+            <div class="articles-grid" id="articlesContainer">
+                <!-- Article 1: Coffee-Driven Development -->
+                <a href="coffee-driven-development.html" class="article-card" data-tags="philosophy" data-date="2026-02-22" data-title="Coffee-Driven Development">
+                    <div class="article-header">
+                        <h3 class="article-title">Coffee-Driven Development</h3>
+                        <span class="status-indicator status-yellow"></span>
+                    </div>
+                    <p class="article-preview">
+                        Why the best code is written on caffeine and sheer willpower.
+                        A scientific analysis of how espresso affects commit quality.
+                    </p>
+                    <div class="article-meta">
+                        <span class="article-date">February 22, 2026</span>
+                        <span class="article-tag tag-philosophy">Philosophy</span>
+                    </div>
+                </a>
+
+                <!-- Article 2: LLM Hallucination Guide -->
+                <a href="llm-hallucination-guide.html" class="article-card" data-tags="ai" data-date="2026-02-22" data-title="When AI Makes Things Up">
+                    <div class="article-header">
+                        <h3 class="article-title">When AI Makes Things Up</h3>
+                        <span class="status-indicator status-red"></span>
+                    </div>
+                    <p class="article-preview">
+                        Understanding, detecting, and mitigating hallucinations in Large Language Models.
+                        Hands-on experiments with real code examples.
+                    </p>
+                    <div class="article-meta">
+                        <span class="article-date">February 22, 2026</span>
+                        <span class="article-tag tag-ai">AI</span>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Easter Egg 4: Near footer -->
+        <div class="easter-egg" style="position: absolute; margin-top: 20px; right: 10%;">
+            <span class="egg-tooltip">Sleep is just a badly designed garbage collector.</span>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <p class="footer-text">Built with caffeine and questionable life choices</p>
+            <p class="time-display" id="currentTime">--:--:--</p>
+            <p class="sleep-nag">It's <span id="timeNag">late</span>. You should probably sleep.<span class="cursor-blink"></span></p>
+        </footer>
+    </div>
+
+    <script>
+        // Live time display
+        function updateTime() {
+            const now = new Date();
+            const timeString = now.toLocaleTimeString('en-US', { 
+                hour12: false,
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+            document.getElementById('currentTime').textContent = timeString;
+            
+            // Update nag message based on time
+            const hour = now.getHours();
+            const nagElement = document.getElementById('timeNag');
+            if (hour >= 0 && hour < 5) {
+                nagElement.textContent = 'way too late';
+            } else if (hour >= 5 && hour < 8) {
+                nagElement.textContent = 'early morning';
+            } else if (hour >= 23) {
+                nagElement.textContent = 'getting late';
+            } else {
+                nagElement.textContent = 'late';
+            }
+        }
+        
+        updateTime();
+        setInterval(updateTime, 1000);
+
+        // Title flicker effect - Mind & Machine 5s, Syntax Error 1s cycle
+        const mainTitle = document.getElementById('mainTitle');
+        const darkTitle = document.getElementById('darkTitle');
+        
+        let showingMainTitle = true;
+        let flickerCount = 0;
+        const maxFlickers = 8;
+        
+        function flickerMain() {
+            if (flickerCount < maxFlickers && showingMainTitle) {
+                mainTitle.style.opacity = Math.random() > 0.5 ? '1' : '0.3';
+                flickerCount++;
+                setTimeout(flickerMain, 200 + Math.random() * 400);
+            } else if (showingMainTitle) {
+                mainTitle.style.opacity = '1';
+            }
+        }
+        
+        function cycleTitles() {
+            if (showingMainTitle) {
+                // Show main title for 5 seconds with flickering effect
+                flickerCount = 0;
+                flickerMain();
+                
+                // After 5 seconds, switch to dark title
+                setTimeout(() => {
+                    showingMainTitle = false;
+                    mainTitle.style.opacity = '0';
+                    darkTitle.classList.add('visible');
+                    
+                    // Show Syntax Error for 1 second
+                    setTimeout(() => {
+                        darkTitle.classList.remove('visible');
+                        mainTitle.style.opacity = '1';
+                        showingMainTitle = true;
+                        cycleTitles();
+                    }, 1000);
+                }, 5000);
+            }
+        }
+        
+        // Start the cycle
+        cycleTitles();
+
+        // Filter and Sort functionality
+        const filterTags = document.querySelectorAll('.filter-tag');
+        const sortBtns = document.querySelectorAll('.sort-btn');
+        const articlesContainer = document.getElementById('articlesContainer');
+        const resultsCount = document.getElementById('resultsCount');
+        let currentFilter = 'all';
+        let currentSort = 'date';
+        let currentDirection = 'desc';
+
+        filterTags.forEach(btn => {
+            btn.addEventListener('click', function() {
+                filterTags.forEach(function(t) { t.classList.remove('active'); });
+                btn.classList.add('active');
+                currentFilter = btn.dataset.tag;
+                applyFilterAndSort();
+            });
+        });
+
+        sortBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const sortType = btn.dataset.sort;
+                
+                if (currentSort === sortType) {
+                    // Toggle direction
+                    currentDirection = currentDirection === 'asc' ? 'desc' : 'asc';
+                } else {
+                    // New sort type
+                    currentSort = sortType;
+                    currentDirection = sortType === 'date' ? 'desc' : 'asc';
+                }
+                
+                // Update button UI
+                sortBtns.forEach(b => {
+                    b.classList.remove('active');
+                    b.querySelector('.sort-direction').textContent = '→';
+                });
+                btn.classList.add('active');
+                btn.querySelector('.sort-direction').textContent = currentDirection === 'asc' ? '↑' : '↓';
+                
+                applyFilterAndSort();
+            });
+        });
+
+        function applyFilterAndSort() {
+            const cards = Array.from(document.querySelectorAll('.article-card'));
+            
+            // Filter
+            cards.forEach(card => {
+                if (currentFilter === 'all') {
+                    card.classList.remove('hidden');
+                } else {
+                    const cardTags = card.dataset.tags.split(',');
+                    if (cardTags.includes(currentFilter)) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                }
+            });
+            
+            // Sort
+            const visibleCards = cards.filter(c => !c.classList.contains('hidden'));
+            visibleCards.sort((a, b) => {
+                if (currentSort === 'date') {
+                    const dateA = new Date(a.dataset.date);
+                    const dateB = new Date(b.dataset.date);
+                    return currentDirection === 'asc' ? dateA - dateB : dateB - dateA;
+                } else {
+                    const titleA = a.dataset.title.toLowerCase();
+                    const titleB = b.dataset.title.toLowerCase();
+                    return currentDirection === 'asc' 
+                        ? titleA.localeCompare(titleB) 
+                        : titleB.localeCompare(titleA);
+                }
+            });
+            
+            // Reorder in DOM
+            visibleCards.forEach(card => {
+                articlesContainer.appendChild(card);
+            });
+            
+            // Update count
+            resultsCount.textContent = `Showing ${visibleCards.length} topic${visibleCards.length !== 1 ? 's' : ''}`;
+        }
+
+        // Initialize count on page load
+        applyFilterAndSort();
+    </script>
+</body>
+</html>
