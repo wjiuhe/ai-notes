@@ -601,6 +601,38 @@
                 width: 100%;
                 max-width: 100%;
                 box-sizing: border-box;
+                flex-wrap: wrap;
+                gap: 10px;
+                padding: 12px 15px;
+            }
+            
+            .isolation-icon {
+                flex-shrink: 0;
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .isolation-info {
+                min-width: 0;
+                flex: 1 1 calc(100% - 60px);
+            }
+            
+            .isolation-name {
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+                font-size: 1.1rem;
+            }
+            
+            .isolation-desc {
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+                font-size: 0.9rem;
+            }
+            
+            .isolation-strength {
+                margin-left: auto;
+                flex-shrink: 0;
             }
             
             .isolation-title {
