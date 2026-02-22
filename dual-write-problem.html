@@ -633,19 +633,62 @@
                         </div>
                     </div>
                     
-                    <h3>The State Machine Approach</h3>
+                    <h3>State Machine: Two-Phase Commit</h3>
                     
                     <div class="flow-row">
                         <div class="flow-item" style="background: #E3F2FD;">
-                            <strong>INITIALIZED</strong><br><span style="font-size: 0.85rem;">Record created</span>
+                            <strong>INITIALIZED</strong><br><span style="font-size: 0.8rem;">Record created</span>
                         </div>
                         <div class="flow-arrow">-&gt;</div>
                         <div class="flow-item" style="background: #FFF3E0;">
-                            <strong>PROCESSING</strong><br><span style="font-size: 0.85rem;">Event being emitted</span>
+                            <strong>PROCESSING</strong><br><span style="font-size: 0.8rem;">Event emitting</span>
+                        </div>
+                        <div class="flow-arrow">-&gt;</div>
+                        <div class="flow-item" style="background: #F3E5F5;">
+                            <strong>EMITTED</strong><br><span style="font-size: 0.8rem;">Wait for ack</span>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-row">
+                        <div class="flow-item success">
+                            <strong>SUCCESS</strong><br><span style="font-size: 0.8rem;">Consumed + txn complete</span>
+                        </div>
+                        <div style="color: var(--accent-coral); font-weight: bold;">|</div>
+                        <div class="flow-item error">
+                            <strong>FAILED</strong><br><span style="font-size: 0.8rem;">Consume failed</span>
+                        </div>
+                    </div>
+                    
+                    <p style="font-size: 0.95rem; color: var(--text-muted); margin-top: 10px;">
+                        <strong>Phase 1:</strong> INITIALIZED -&gt; PROCESSING (mark before emit)<br>
+                        <strong>Phase 2:</strong> PROCESSING -&gt; EMITTED (event sent, wait for consumer ack)<br>
+                        <strong>Complete:</strong> EMITTED -&gt; SUCCESS (consumer confirmed) or FAILED (consumer rejected)
+                    </p>
+                    
+                    <h3>Reconciliation Process</h3>
+                    
+                    <div class="flow-row">
+                        <div class="flow-item" style="background: #FFEBEE;">
+                            <strong>STUCK RECORDS</strong><br><span style="font-size: 0.8rem;">INIT/PROC &gt; threshold</span>
+                        </div>
+                        <div class="flow-arrow">-&gt;</div>
+                        <div class="flow-item" style="background: #FFF8E1;">
+                            <strong>RECONCILE</strong><br><span style="font-size: 0.8rem;">Query + decide</span>
+                        </div>
+                        <div class="flow-arrow">-&gt;</div>
+                        <div class="flow-item" style="background: #E3F2FD;">
+                            <strong>RETRY</strong><br><span style="font-size: 0.8rem;">Trigger again</span>
                         </div>
                         <div class="flow-arrow">-&gt;</div>
                         <div class="flow-item success">
-                            <strong>SUCCESS</strong><br><span style="font-size: 0.85rem;">Event emitted</span>
+                            <strong>SUCCESS/FAILED</strong><br><span style="font-size: 0.8rem;">Final state</span>
+                        </div>
+                    </div>
+                    
+                    <div class="insight-box" style="margin-top: 20px;">
+                        <div class="insight-icon"><i class="fa-solid fa-rotate"></i></div>
+                        <div>
+                            <strong>Reconciliation Job:</strong> Scheduled job runs periodically (hourly/daily), finds records stuck in INITIALIZED or PROCESSING beyond threshold, then either auto-retry or alert for manual intervention.
                         </div>
                     </div>
                     
@@ -654,41 +697,49 @@
                     <div class="action-card">
                         <div class="action-title">
                             <span class="action-number">1</span>
-                            Initial Record with Status Tracking
+                            Create Record in INITIALIZED State
                         </div>
-                        <p>Instead of just writing data, add a <code>status</code> field: <code>initialized</code>, <code>processing</code>, <code>success</code>, <code>failed</code>. The initial write creates the record in <code>initialized</code> state.</p>
+                        <p>Write to database with <code>status = 'initialized'</code>. The business operation is recorded but event is not yet emitted.</p>
                     </div>
                     
                     <div class="action-card">
                         <div class="action-title">
                             <span class="action-number">2</span>
-                            Mark as Processing Before Emitting
+                            Mark PROCESSING Before Emit
                         </div>
-                        <p>Before emitting the event (via CDC or outbox), atomically update the record status from <code>initialized</code> to <code>processing</code>. This prevents duplicate emission if the process crashes and restarts.</p>
+                        <p>Before emitting the event (via CDC or outbox), atomically update status to <code>processing</code>. This prevents duplicate emission if the process crashes and restarts.</p>
                     </div>
                     
                     <div class="action-card">
                         <div class="action-title">
                             <span class="action-number">3</span>
-                            Mark Success After Confirmed Emit
+                            Emit Event and Mark EMITTED
                         </div>
-                        <p>After the event is successfully published to Kafka (with confirmation), update status to <code>success</code>. Only now is the record considered fully processed.</p>
+                        <p>Send event to Kafka, then update status to <code>emitted</code>. Now wait for consumer acknowledgment.</p>
                     </div>
                     
                     <div class="action-card">
                         <div class="action-title">
                             <span class="action-number">4</span>
-                            Scheduled Reconciliation Job
+                            Consumer Confirms: Mark SUCCESS
                         </div>
-                        <p>A daily (or hourly) scheduled job queries for records stuck in <code>initialized</code> or <code>processing</code> state for longer than expected threshold. These are flagged for manual review or automatic retry.</p>
+                        <p>When downstream consumer successfully processes the event and confirms, update to <code>success</code>. Transaction is complete.</p>
                     </div>
                     
                     <div class="action-card">
                         <div class="action-title">
                             <span class="action-number">5</span>
-                            Idempotent Replay
+                            Consumer Fails: Mark FAILED
                         </div>
-                        <p>When reconciling stuck records, re-emit the event. The downstream consumer MUST be idempotent - it should handle duplicate events gracefully (using event ID or business key dedup).</p>
+                        <p>If consumer rejects or fails to process, update to <code>failed</code> with error details. May trigger compensation logic.</p>
+                    </div>
+                    
+                    <div class="action-card">
+                        <div class="action-title">
+                            <span class="action-number">6</span>
+                            Reconciliation: Fix Stuck Records
+                        </div>
+                        <p>Scheduled job finds records in <code>initialized</code> or <code>processing</code> beyond threshold. Either auto-retry (re-trigger from EMITTED step) or alert for manual review.</p>
                     </div>
                     
                     <div class="highlight-box">
@@ -710,10 +761,10 @@
     error_message  TEXT
 );
 
--- Index for reconciliation
+-- Partial index for reconciliation: only index stuck records
 CREATE INDEX idx_outbox_stuck 
-ON outbox(status, created_at) 
-WHERE status IN ('initialized', 'processing');</pre>
+ON outbox(created_at) 
+WHERE status = 'initialized' OR status = 'processing';</pre>
                     </div>
                 </section>
 
