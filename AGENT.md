@@ -1268,12 +1268,12 @@ git commit -m "Add isolation hierarchy visualization to sandbox page
 ```
 
 3. **Commit message examples**:
-   - ✅ "Remove spider web decorations from idle doctors"
-   - ✅ "Add new page: sandbox-solutions.html with security comparisons"
-   - ✅ "Update index.html with date filtering and tag system"
-   - ❌ "Fix stuff"
-   - ❌ "Update"
-   - ❌ "Changes"
+   - "Remove spider web decorations from idle doctors"
+   - "Add new page: sandbox-solutions.html with security comparisons"
+   - "Update index.html with date filtering and tag system"
+   - "Fix stuff"
+   - "Update"
+   - "Changes"
 
 ### Commit Checklist
 
@@ -1281,3 +1281,156 @@ git commit -m "Add isolation hierarchy visualization to sandbox page
 - [ ] Commit message describes what was done
 - [ ] Files are properly staged
 - [ ] Commit succeeded without errors
+
+## Content Page Rules
+
+### No Emojis
+
+Do NOT use emojis in any content pages. Use text-based symbols instead:
+
+| Emoji | Replace With |
+|-------|--------------|
+| [x]   | [v] or [x] for checkmarks |
+| [-]   | [-] for cons/negatives |
+| [+]   | [+] for pros/positives |
+| !     | [!] for warnings |
+| ?     | [?] for questions |
+| #     | [#] for numbers |
+| *     | [*] for emphasis |
+| $     | [$] for money |
+| arrow | -> or | for flow arrows |
+
+### Centered Header
+
+All study note pages must have a centered header with title, author, and date:
+
+```html
+<header class="article-header">
+    <h1>Page Title</h1>
+    <p class="article-meta">By Jiuhe | February 22, 2026</p>
+    <p class="article-subtitle">Subtitle describing the page</p>
+</header>
+```
+
+Required CSS:
+```css
+.article-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.article-header h1 {
+    font-family: 'Caveat', cursive;
+    font-size: 3.5rem;
+    color: var(--pencil);
+    margin-bottom: 10px;
+    display: block;
+}
+
+.article-header h1::after {
+    content: '';
+    display: block;
+    width: 200px;
+    height: 5px;
+    background: linear-gradient(90deg, var(--accent-coral), var(--accent-teal), var(--accent-sunflower));
+    border-radius: 3px;
+    opacity: 0.6;
+    margin: 10px auto 0;
+}
+
+.article-meta {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin-bottom: 15px;
+}
+
+.article-subtitle {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1.3rem;
+    color: var(--text-muted);
+}
+```
+
+### Table of Contents
+
+All study note pages MUST include a table of contents (TOC) with anchor links:
+
+```html
+<nav class="toc">
+    <h3>Table of Contents</h3>
+    <ul>
+        <li><a href="#section1"><span class="toc-num">1</span> Section One</a></li>
+        <li><a href="#section2"><span class="toc-num">2</span> Section Two</a></li>
+        <li><a href="#subsection"><span class="toc-num">2.1</span> Subsection</a></li>
+    </ul>
+</nav>
+```
+
+Required CSS:
+```css
+.toc {
+    background: var(--bg-paper);
+    border: 2px solid var(--pencil);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 25px;
+    box-shadow: 3px 4px 0 rgba(0,0,0,0.1);
+}
+
+.toc h3 {
+    font-family: 'Caveat', cursive;
+    font-size: 1.5rem;
+    color: var(--pencil);
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.toc ul {
+    list-style: none;
+    padding: 0;
+}
+
+.toc li {
+    margin-bottom: 8px;
+}
+
+.toc a {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.toc a:hover {
+    background: rgba(78,205,196,0.1);
+    color: var(--accent-teal);
+}
+
+.toc-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: var(--accent-lavender);
+    color: white;
+    border-radius: 50%;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+```
+
+Each section must have an `id` attribute matching the TOC href:
+```html
+<div class="section" id="section-name">
+    <h2>Section Title</h2>
+    <!-- content -->
+</div>
+```
