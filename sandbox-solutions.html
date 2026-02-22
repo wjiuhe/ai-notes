@@ -7,18 +7,18 @@
     <meta name="keywords" content="AI sandbox, agent sandboxing, Firecracker, gVisor, nsjail, Docker security, RestrictedPython, AI security, container isolation, microVM">
     <meta name="author" content="Jiuhe Wang">
     <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://jiuhewang.dev/sandbox-solutions.html">
+    <link rel="canonical" href="https://wjiuhe.github.io/ai-notes/sandbox-solutions.html">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="article">
-    <meta property="og:url" content="https://jiuhewang.dev/sandbox-solutions.html">
+    <meta property="og:url" content="https://wjiuhe.github.io/ai-notes/sandbox-solutions.html">
     <meta property="og:title" content="AI Agent Sandbox Solutions: A Comparative Analysis">
     <meta property="og:description" content="Comprehensive comparison of AI agent sandboxing solutions: Firecracker, gVisor, nsjail, Docker, and RestrictedPython.">
     <meta property="og:site_name" content="Mind & Machine">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://jiuhewang.dev/sandbox-solutions.html">
+    <meta property="twitter:url" content="https://wjiuhe.github.io/ai-notes/sandbox-solutions.html">
     <meta property="twitter:title" content="AI Agent Sandbox Solutions Comparison">
     <meta property="twitter:description" content="Compare AI sandboxing solutions: Firecracker, gVisor, nsjail, Docker, and RestrictedPython.">
 
@@ -260,7 +260,7 @@
             background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
         }
 
-        .arch-layer.container {
+        .arch-layer.container-box {
             background: linear-gradient(135deg, #FFF3E0, #FFE0B2);
         }
 
@@ -981,7 +981,7 @@
                     <div class="layer-detail">Intercepts & implements syscalls</div>
                 </div>
                 <div class="arch-arrow">↓</div>
-                <div class="arch-layer container">
+                <div class="arch-layer container-box">
                     <div class="layer-icon" style="color: var(--accent-orange);"><i class="fa-solid fa-box"></i></div>
                     <div class="layer-label">Container</div>
                     <div class="layer-detail">Namespace isolation</div>
@@ -1023,7 +1023,7 @@
                     <div class="layer-detail">Shared kernel</div>
                 </div>
                 <div class="arch-arrow">↓</div>
-                <div class="arch-layer container">
+                <div class="arch-layer container-box">
                     <div class="layer-icon" style="color: var(--accent-orange);"><i class="fa-solid fa-layer-group"></i></div>
                     <div class="layer-label">Namespaces (UTS, PID, NET, IPC, MNT)</div>
                     <div class="layer-detail">Process isolation</div>
@@ -1071,7 +1071,7 @@
                     <div class="layer-detail">Shared kernel</div>
                 </div>
                 <div class="arch-arrow">↓</div>
-                <div class="arch-layer container">
+                <div class="arch-layer container-box">
                     <div class="layer-icon" style="color: var(--accent-orange);"><i class="fa-brands fa-docker"></i></div>
                     <div class="layer-label">Docker Container</div>
                     <div class="layer-detail">Standard container isolation</div>
