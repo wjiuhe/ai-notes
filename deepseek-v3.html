@@ -665,13 +665,58 @@
         .page-meta i { margin-right: 5px; }
 
         /* Enhanced Mobile Styles */
+        @media (max-width: 1200px) {
+            .page-wrapper {
+                flex-direction: column;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 40px 20px;
+                max-width: 100%;
+                width: 100%;
+                min-width: 0;
+            }
+            
+            .container {
+                max-width: 100%;
+                width: 100%;
+                overflow-x: hidden;
+            }
+        }
+        
         @media (max-width: 768px) {
+            html, body {
+                overflow-x: hidden;
+                width: 100%;
+                max-width: 100vw;
+            }
+            
             body {
+                padding: 0;
+            }
+            
+            .page-wrapper {
+                width: 100%;
+                max-width: 100%;
+            }
+            
+            .main-content {
                 padding: 20px 15px;
+                width: 100%;
+                max-width: 100%;
+                box-sizing: border-box;
+            }
+            
+            .container {
+                width: 100%;
+                max-width: 100%;
+                overflow-x: hidden;
             }
             
             h1 {
                 font-size: 1.8rem;
+                word-wrap: break-word;
             }
             
             .subtitle {
@@ -682,6 +727,9 @@
                 padding: 20px 15px;
                 margin-bottom: 20px;
                 border-radius: 20px 10px 20px 10px / 10px 20px 10px 20px;
+                width: 100%;
+                box-sizing: border-box;
+                max-width: 100%;
             }
             
             h2 {
@@ -721,6 +769,8 @@
             
             .architecture-flow {
                 padding: 20px;
+                width: 100%;
+                box-sizing: border-box;
             }
             
             .flow-step {
@@ -729,6 +779,10 @@
             
             .benchmark-table {
                 font-size: 0.8rem;
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+                max-width: 100%;
             }
             
             .benchmark-table th,
@@ -736,19 +790,46 @@
                 padding: 8px 10px;
             }
             
+            .code-block {
+                max-width: 100%;
+                overflow-x: auto;
+            }
+            
             .code-content {
                 padding: 12px 15px;
                 font-size: 0.8rem;
                 overflow-x: auto;
+                white-space: pre;
+                max-width: 100%;
             }
             
             .insight-box {
                 padding: 15px;
                 gap: 12px;
+                width: 100%;
+                box-sizing: border-box;
             }
             
             .insight-icon {
                 font-size: 1.5rem;
+            }
+            
+            .hospital-scene {
+                width: 100%;
+                box-sizing: border-box;
+            }
+            
+            .doctors-row {
+                width: 100%;
+            }
+            
+            .solution-layout {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .stats-row {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
         
