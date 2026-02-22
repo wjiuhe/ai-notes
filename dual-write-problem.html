@@ -454,6 +454,91 @@
             color: var(--text-muted);
         }
 
+        /* Visual Component Box */
+        .component-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 18px;
+            background: var(--bg-paper);
+            border: 2px solid var(--pencil);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            margin: 10px 0;
+        }
+
+        .component-icon-large {
+            width: 55px;
+            height: 55px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            flex-shrink: 0;
+            border: 2px solid var(--pencil);
+        }
+
+        .component-text {
+            flex: 1;
+        }
+
+        .component-name {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.15rem;
+            color: var(--pencil);
+            margin-bottom: 3px;
+        }
+
+        .component-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Architecture Diagram */
+        .arch-diagram {
+            background: #fafafa;
+            border: 2px dashed var(--pencil);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .arch-title {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1rem;
+            color: var(--text-muted);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .arch-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .arch-node {
+            padding: 12px 18px;
+            border-radius: 12px;
+            border: 2px solid var(--pencil);
+            text-align: center;
+            min-width: 100px;
+        }
+
+        .arch-node-db { background: #E3F2FD; }
+        .arch-node-kafka { background: #F3E5F5; }
+        .arch-node-worker { background: #FFF3E0; }
+        .arch-node-app { background: #E8F5E9; }
+        .arch-node-cdc { background: #FFEBEE; }
+
+        .arch-node-icon { font-size: 1.4rem; margin-bottom: 4px; }
+        .arch-node-label { font-size: 0.8rem; font-weight: 600; }
+
+        .arch-arrow { font-size: 1.4rem; color: var(--accent-lavender); }
+        .arch-arrow-down { transform: rotate(90deg); }
+
         footer {
             text-align: center;
             padding: 30px;
@@ -599,26 +684,47 @@
                         <div class="solution-title">
                             <i class="fa-solid fa-inbox"></i> 1. Transactional Outbox Pattern
                         </div>
-                        <p>Use a database transaction to write BOTH your data AND an "outbox" table. A separate process then reads the outbox and publishes to Kafka.</p>
                         
-                        <div class="flow-row">
-                            <div class="flow-item">User Request</div>
-                            <div class="flow-arrow">-&gt;</div>
-                            <div class="flow-item success">1 Transaction</div>
-                            <div class="flow-arrow">-&gt;</div>
-                            <div class="flow-item">Data + Outbox</div>
-                        </div>
-                        <div class="flow-row">
-                            <div class="flow-item" style="background: #F3E5F5;">CDC/Worker</div>
-                            <div class="flow-arrow">-&gt;</div>
-                            <div class="flow-item">Kafka</div>
+                        <div class="arch-diagram">
+                            <div class="arch-title">How It Works</div>
+                            <div class="arch-flow">
+                                <div class="arch-node arch-node-app">
+                                    <div class="arch-node-icon"><i class="fa-solid fa-user"></i></div>
+                                    <div class="arch-node-label">App</div>
+                                </div>
+                                <div class="arch-arrow">-&gt;</div>
+                                <div class="arch-node arch-node-db" style="background: #BBDEFB;">
+                                    <div class="arch-node-icon"><i class="fa-solid fa-database"></i></div>
+                                    <div class="arch-node-label">DB + Outbox</div>
+                                </div>
+                                <div class="arch-arrow">-&gt;</div>
+                                <div class="arch-node arch-node-worker">
+                                    <div class="arch-node-icon"><i class="fa-solid fa-gear"></i></div>
+                                    <div class="arch-node-label">Worker</div>
+                                </div>
+                                <div class="arch-arrow">-&gt;</div>
+                                <div class="arch-node arch-node-kafka">
+                                    <div class="arch-node-icon"><i class="fa-solid fa-bolt"></i></div>
+                                    <div class="arch-node-label">Kafka</div>
+                                </div>
+                            </div>
                         </div>
                         
-                        <div class="checklist">
-                            <li>Write to Database + Outbox in Single Transaction</li>
-                            <li>Respond to User (success)</li>
-                            <li>Separate Process Reads Outbox</li>
-                            <li>Publish to Kafka (at-least-once)</li>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px;">
+                            <div class="component-box">
+                                <div class="component-icon-large" style="background: #BBDEFB;"><i class="fa-solid fa-plus"></i></div>
+                                <div class="component-text">
+                                    <div class="component-name">Single Transaction</div>
+                                    <div class="component-desc">Write data + event to outbox atomically</div>
+                                </div>
+                            </div>
+                            <div class="component-box">
+                                <div class="component-icon-large" style="background: #FFE0B2;"><i class="fa-solid fa-bell"></i></div>
+                                <div class="component-text">
+                                    <div class="component-name">Async Publish</div>
+                                    <div class="component-desc">Worker reads outbox, sends to Kafka</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -627,16 +733,33 @@
                         <div class="solution-title" style="color: #B8860B;">
                             <i class="fa-solid fa-scroll"></i> 2. Event Sourcing
                         </div>
-                        <p>Do not store current state - store ONLY the sequence of events. The state is reconstructed by replaying events. Kafka IS your database!</p>
                         
-                        <div class="highlight-box">
-                            <p><strong>Banks use this!</strong> They do not store your balance - they store all transactions!</p>
+                        <div class="arch-diagram">
+                            <div class="arch-title">Events = Source of Truth</div>
+                            <div class="arch-flow">
+                                <div class="arch-node arch-node-kafka" style="background: #E1BEE7;">
+                                    <div class="arch-node-icon"><i class="fa-solid fa-list"></i></div>
+                                    <div class="arch-node-label">Event Log</div>
+                                </div>
+                                <div class="arch-arrow">-&gt;</div>
+                                <div class="arch-node" style="background: #FFF9C4;">
+                                    <div class="arch-node-icon"><i class="fa-solid fa-play"></i></div>
+                                    <div class="arch-node-label">Replay</div>
+                                </div>
+                                <div class="arch-arrow">-&gt;</div>
+                                <div class="arch-node" style="background: #C8E6C9;">
+                                    <div class="arch-node-icon"><i class="fa-solid fa-warehouse"></i></div>
+                                    <div class="arch-node-label">State</div>
+                                </div>
+                            </div>
                         </div>
                         
-                        <div class="checklist">
-                            <li>Store Events Only (append to event log)</li>
-                            <li>Kafka as Event Store (durable, ordered)</li>
-                            <li>Reconstruct on Read (or use snapshots)</li>
+                        <div class="component-box" style="background: #FFFDE7;">
+                            <div class="component-icon-large" style="background: #FFE082;"><i class="fa-solid fa-building-columns"></i></div>
+                            <div class="component-text">
+                                <div class="component-name">Banks Store Transactions, Not Balances</div>
+                                <div class="component-desc">Your balance is derived by summing all transactions</div>
+                            </div>
                         </div>
                     </div>
 
@@ -645,17 +768,39 @@
                         <div class="solution-title" style="color: #7B1FA2;">
                             <i class="fa-solid fa-ear-listen"></i> 3. Listen to Yourself Pattern
                         </div>
-                        <p>Write to Kafka FIRST, then have your own service consume that event to update the database. You are both producer AND consumer!</p>
                         
-                        <div class="highlight-box">
-                            <p><strong>Great for fast responses!</strong> User gets immediate acknowledgment, processing happens async.</p>
+                        <div class="arch-diagram">
+                            <div class="arch-title">Reverse the Flow</div>
+                            <div class="arch-flow">
+                                <div class="arch-node arch-node-app">
+                                    <div class="arch-node-icon"><i class="fa-solid fa-user"></i></div>
+                                    <div class="arch-node-label">App</div>
+                                </div>
+                                <div class="arch-arrow">-&gt;</div>
+                                <div class="arch-node arch-node-kafka" style="background: #CE93D8;">
+                                    <div class="arch-node-icon"><i class="fa-solid fa-bolt"></i></div>
+                                    <div class="arch-node-label">Kafka</div>
+                                </div>
+                            </div>
+                            <div class="arch-flow" style="margin-top: 15px;">
+                                <div class="arch-node" style="background: #E1BEE7;">
+                                    <div class="arch-node-icon"><i class="fa-solid fa-ear-listen"></i></div>
+                                    <div class="arch-node-label">Self-Consumer</div>
+                                </div>
+                                <div class="arch-arrow">-&gt;</div>
+                                <div class="arch-node arch-node-db">
+                                    <div class="arch-node-icon"><i class="fa-solid fa-database"></i></div>
+                                    <div class="arch-node-label">DB</div>
+                                </div>
+                            </div>
                         </div>
                         
-                        <div class="checklist">
-                            <li>Write Only to Kafka (no DB write!)</li>
-                            <li>Respond to User immediately</li>
-                            <li>Consume Your Own Events</li>
-                            <li>Update Database (async)</li>
+                        <div class="component-box" style="background: #F3E5F5;">
+                            <div class="component-icon-large" style="background: #CE93D8;"><i class="fa-solid fa-bolt"></i></div>
+                            <div class="component-text">
+                                <div class="component-name">Fast Response First</div>
+                                <div class="component-desc">Write to Kafka, respond immediately, then update DB async</div>
+                            </div>
                         </div>
                     </div>
 
@@ -664,13 +809,42 @@
                         <div class="solution-title" style="color: #E65100;">
                             <i class="fa-solid fa-radar"></i> 4. Change Data Capture (CDC)
                         </div>
-                        <p>Let a CDC tool (like Debezium) monitor your database and automatically stream changes to Kafka. No code changes needed!</p>
                         
-                        <div class="checklist">
-                            <li>No application code needed</li>
-                            <li>Works with existing apps</li>
-                            <li>Captures all changes</li>
-                            <li>Low latency</li>
+                        <div class="arch-diagram">
+                            <div class="arch-title">Database Watching</div>
+                            <div class="arch-flow">
+                                <div class="arch-node arch-node-db">
+                                    <div class="arch-node-icon"><i class="fa-solid fa-database"></i></div>
+                                    <div class="arch-node-label">Database</div>
+                                </div>
+                                <div class="arch-arrow">-&gt;</div>
+                                <div class="arch-node" style="background: #FFAB91;">
+                                    <div class="arch-node-icon"><i class="fa-solid fa-radar"></i></div>
+                                    <div class="arch-node-label">CDC Tool</div>
+                                </div>
+                                <div class="arch-arrow">-&gt;</div>
+                                <div class="arch-node arch-node-kafka">
+                                    <div class="arch-node-icon"><i class="fa-solid fa-bolt"></i></div>
+                                    <div class="arch-node-label">Kafka</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 15px;">
+                            <div class="component-box" style="background: #FFF3E0;">
+                                <div class="component-icon-large" style="background: #FF8A65;"><i class="fa-solid fa-eye"></i></div>
+                                <div class="component-text">
+                                    <div class="component-name">No Code Change</div>
+                                    <div class="component-desc">Monitors DB binlog, streams changes</div>
+                                </div>
+                            </div>
+                            <div class="component-box" style="background: #FFF3E0;">
+                                <div class="component-icon-large" style="background: #FF8A65;"><i class="fa-solid fa-legacy-code"></i></div>
+                                <div class="component-text">
+                                    <div class="component-name">Legacy Friendly</div>
+                                    <div class="component-desc">Works with existing applications</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
