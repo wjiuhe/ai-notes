@@ -1354,83 +1354,209 @@ Required CSS:
 
 ### Table of Contents
 
-All study note pages MUST include a table of contents (TOC) with anchor links:
+All study note pages MUST use a **sidebar TOC** (not inline TOC). The sidebar should be on the left with groups:
 
 ```html
-<nav class="toc">
-    <h3>Table of Contents</h3>
-    <ul>
-        <li><a href="#section1"><span class="toc-num">1</span> Section One</a></li>
-        <li><a href="#section2"><span class="toc-num">2</span> Section Two</a></li>
-        <li><a href="#subsection"><span class="toc-num">2.1</span> Subsection</a></li>
-    </ul>
-</nav>
+<div class="page-wrapper">
+    <!-- Sidebar Table of Contents -->
+    <nav class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-title">Page Title</div>
+            <div class="sidebar-subtitle">Navigation</div>
+        </div>
+
+        <div class="toc-section">
+            <div class="toc-title"><i class="fa-solid fa-icon"></i> Section Group Name</div>
+            <ul class="toc-list">
+                <li><a href="#section1" onclick="scrollToSection('section1')">1. Section One</a></li>
+                <li><a href="#section2" onclick="scrollToSection('section2')">2. Section Two</a></li>
+            </ul>
+        </div>
+
+        <div class="toc-section">
+            <div class="toc-title"><i class="fa-solid fa-icon"></i> Another Group</div>
+            <ul class="toc-list">
+                <li><a href="#subsection" onclick="scrollToSection('subsection')">Subsection Name</a></li>
+            </ul>
+        </div>
+
+        <div class="toc-section" style="margin-top: 25px; padding-top: 18px; border-top: 2px dashed rgba(0,0,0,0.1);">
+            <a href="index.html" style="display: flex; align-items: center; gap: 8px; color: var(--accent-teal); text-decoration: none; font-weight: 600; font-family: 'Patrick Hand', cursive;">
+                <i class="fa-solid fa-arrow-left"></i> Back to Home
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <header>
+                <h1>Page Title</h1>
+                <p class="subtitle">Subtitle describing the page</p>
+                <p style="margin-top: 15px; font-size: 0.9rem; color: var(--text-muted);">
+                    <i class="fa-solid fa-user"></i> Jiuhe Wang &nbsp;|&nbsp; 
+                    <i class="fa-regular fa-calendar"></i> Created: Feb 21, 2026
+                </p>
+            </header>
+
+            <section class="card" id="section1">
+                <!-- content -->
+            </section>
+        </div>
+    </main>
+</div>
 ```
 
 Required CSS:
 ```css
-.toc {
-    background: var(--bg-paper);
-    border: 2px solid var(--pencil);
-    border-radius: 15px;
-    padding: 20px;
-    margin-bottom: 25px;
-    box-shadow: 3px 4px 0 rgba(0,0,0,0.1);
+.page-wrapper {
+    display: flex;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
 }
 
-.toc h3 {
-    font-family: 'Caveat', cursive;
-    font-size: 1.5rem;
-    color: var(--pencil);
-    margin-bottom: 15px;
+/* Sidebar TOC Styles */
+.sidebar {
+    width: 280px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    background: linear-gradient(180deg, var(--bg-paper) 0%, #F8F4EF 100%);
+    border-right: 3px solid var(--pencil);
+    padding: 30px 20px;
+    overflow-y: auto;
+    z-index: 100;
+    box-shadow: 3px 0 10px rgba(0,0,0,0.1);
+}
+
+.sidebar-header {
     text-align: center;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 2px dashed rgba(0,0,0,0.15);
 }
 
-.toc ul {
-    list-style: none;
-    padding: 0;
+.sidebar-title {
+    font-family: 'Caveat', cursive;
+    font-size: 1.6rem;
+    color: var(--pencil);
+    margin-bottom: 5px;
 }
 
-.toc li {
-    margin-bottom: 8px;
-}
-
-.toc a {
+.sidebar-subtitle {
     font-family: 'Patrick Hand', cursive;
-    font-size: 1.1rem;
-    color: var(--text-dark);
-    text-decoration: none;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.toc-section {
+    margin-bottom: 18px;
+}
+
+.toc-title {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 0.95rem;
+    color: var(--pencil);
+    margin-bottom: 8px;
     display: flex;
     align-items: center;
-    gap: 10px;
-    padding: 8px 12px;
+    gap: 8px;
+    font-weight: 700;
+}
+
+.toc-list {
+    list-style: none;
+    padding-left: 0;
+}
+
+.toc-list li {
+    margin-bottom: 4px;
+}
+
+.toc-list a {
+    display: block;
+    padding: 5px 10px;
+    color: var(--text-dark);
+    text-decoration: none;
+    font-size: 0.85rem;
     border-radius: 8px;
-    transition: all 0.3s;
+    transition: all 0.2s ease;
+    border-left: 3px solid transparent;
 }
 
-.toc a:hover {
-    background: rgba(78,205,196,0.1);
-    color: var(--accent-teal);
+.toc-list a:hover {
+    background: rgba(78, 205, 196, 0.15);
+    border-left-color: var(--accent-teal);
+    transform: translateX(3px);
 }
 
-.toc-num {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    background: var(--accent-lavender);
-    color: white;
-    border-radius: 50%;
-    font-size: 0.9rem;
-    flex-shrink: 0;
+.toc-list a.active {
+    background: rgba(255, 107, 107, 0.15);
+    border-left-color: var(--accent-coral);
+    font-weight: 600;
 }
+
+.main-content {
+    margin-left: 280px;
+    flex: 1;
+    padding: 40px 40px;
+    max-width: calc(100vw - 320px);
+    min-width: 0;
+}
+
+.container { max-width: 100%; margin: 0 auto; }
+```
+
+JavaScript for scroll spy:
+```javascript
+function scrollToSection(id) {
+    const element = document.getElementById(id);
+    if (element) {
+        const offset = 30;
+        const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+        window.scrollTo({ top: elementPosition - offset, behavior: 'smooth' });
+    }
+}
+
+// Scroll spy
+const sections = document.querySelectorAll('.card[id]');
+const tocLinks = document.querySelectorAll('.toc-list a');
+
+function highlightToc() {
+    let current = '';
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        if (window.scrollY >= sectionTop - 150) {
+            current = section.getAttribute('id');
+        }
+    });
+
+    tocLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + current) {
+            link.classList.add('active');
+        }
+    });
+}
+
+window.addEventListener('scroll', highlightToc);
+highlightToc();
 ```
 
 Each section must have an `id` attribute matching the TOC href:
 ```html
-<div class="section" id="section-name">
+<section class="card" id="section-name">
     <h2>Section Title</h2>
     <!-- content -->
-</div>
+</section>
+```
+
+Note: Hide sidebar on mobile:
+```css
+@media (max-width: 1100px) {
+    .sidebar { display: none; }
+    .main-content { margin-left: 0; max-width: 100%; padding: 25px 20px; }
+}
 ```
