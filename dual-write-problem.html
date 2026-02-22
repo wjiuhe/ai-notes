@@ -399,6 +399,61 @@
             border: 2px solid var(--pencil);
         }
 
+        /* Strategy Grid */
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .strategy-card {
+            background: var(--bg-paper);
+            border: 2px solid var(--pencil);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .strategy-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 3px 4px 0 rgba(0,0,0,0.15);
+        }
+
+        .strategy-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.2rem;
+            color: white;
+            border: 2px solid var(--pencil);
+        }
+
+        .strategy-name {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.2rem;
+            color: var(--pencil);
+            margin-bottom: 8px;
+        }
+
+        .strategy-use {
+            font-size: 0.85rem;
+            color: var(--accent-teal);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .strategy-when {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
         footer {
             text-align: center;
             padding: 30px;
@@ -823,45 +878,39 @@ WHERE status = 'initialized' OR status = 'processing';</pre>
                 <section class="card" id="choose">
                     <h2><i class="fa-solid fa-question fa-icon"></i>Which Pattern to Use?</h2>
                     
-                    <div class="solution-box">
-                        <div class="solution-title">Use Transactional Outbox when:</div>
-                        <ul class="checklist">
-                            <li>You have a transactional database</li>
-                            <li>You need strong consistency</li>
-                            <li>You want a simple, well-understood pattern</li>
-                            <li>Regulatory compliance requires atomicity</li>
-                            <li><strong>Always add reconciliation for production!</strong></li>
-                        </ul>
+                    <div class="strategy-grid">
+                        <div class="strategy-card">
+                            <div class="strategy-icon" style="background: var(--accent-teal);">[O]</div>
+                            <div class="strategy-name">Outbox</div>
+                            <div class="strategy-use">Transactional DB</div>
+                            <div class="strategy-when">Strong consistency required</div>
+                        </div>
+                        
+                        <div class="strategy-card">
+                            <div class="strategy-icon" style="background: var(--accent-sunflower);">[E]</div>
+                            <div class="strategy-name">Event Sourcing</div>
+                            <div class="strategy-use">Audit trail</div>
+                            <div class="strategy-when">Banking, healthcare</div>
+                        </div>
+                        
+                        <div class="strategy-card">
+                            <div class="strategy-icon" style="background: var(--accent-lavender);">[L]</div>
+                            <div class="strategy-name">Listen to Self</div>
+                            <div class="strategy-use">Fast response</div>
+                            <div class="strategy-when">Async OK</div>
+                        </div>
+                        
+                        <div class="strategy-card">
+                            <div class="strategy-icon" style="background: var(--accent-orange);">[C]</div>
+                            <div class="strategy-name">CDC</div>
+                            <div class="strategy-use">No code change</div>
+                            <div class="strategy-when">Legacy systems</div>
+                        </div>
                     </div>
                     
-                    <div class="solution-box" style="border-color: var(--accent-sunflower); background: linear-gradient(135deg, #FFFDE7, #FFF3B0);">
-                        <div class="solution-title" style="color: #B8860B;">Use Event Sourcing when:</div>
-                        <ul class="checklist">
-                            <li>Complete audit trail is required (banking, healthcare)</li>
-                            <li>You need to replay events for debugging</li>
-                            <li>Business domain naturally fits event model</li>
-                            <li>You need temporal queries ("state at time X")</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="solution-box" style="border-color: var(--accent-lavender); background: linear-gradient(135deg, #F3E5F5, #E1BEE7);">
-                        <div class="solution-title" style="color: #7B1FA2;">Use Listen to Yourself when:</div>
-                        <ul class="checklist">
-                            <li>Fast response time is critical</li>
-                            <li>Complex processing can be deferred</li>
-                            <li>Eventual consistency is acceptable</li>
-                            <li>Processing can happen async</li>
-                        </ul>
-                    </div>
-                    
-                    <div class="solution-box" style="border-color: var(--accent-orange); background: linear-gradient(135deg, #FFF3E0, #FFE0B2);">
-                        <div class="solution-title" style="color: #E65100;">Use CDC when:</div>
-                        <ul class="checklist">
-                            <li>You cannot modify existing application code</li>
-                            <li>You need to capture legacy system changes</li>
-                            <li>Real-time change notification needed</li>
-                            <li>Existing app already writes to database</li>
-                        </ul>
+                    <div class="insight-box" style="margin-top: 25px;">
+                        <div class="insight-icon"><i class="fa-solid fa-triangle-exclamation"></i></div>
+                        <div><strong>Production tip:</strong> Always add Two-Phase Commit + Reconciliation to any pattern!</div>
                     </div>
                 </section>
 
