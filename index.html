@@ -44,7 +44,7 @@
             padding: 25px 30px;
             margin: 20px auto 30px;
             max-width: 700px;
-            border: 2px solid var(--pencil);
+            border: 3px dashed var(--accent-coral);
             box-shadow: 3px 4px 0 rgba(0,0,0,0.1);
             text-align: center;
         }
@@ -67,6 +67,91 @@
             font-size: 0.95rem;
             color: var(--text-muted);
             line-height: 1.6;
+        }
+
+        .intro-illustration {
+            position: relative;
+            height: 80px;
+            margin-bottom: 10px;
+        }
+
+        .doodle-robot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2.5rem;
+            color: var(--accent-teal);
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-8px); }
+        }
+
+        .doodle-speech {
+            position: absolute;
+            font-family: 'Patrick Hand', cursive;
+            font-size: 0.85rem;
+            padding: 4px 10px;
+            background: var(--bg-paper);
+            border: 2px solid var(--pencil);
+            border-radius: 10px;
+            white-space: nowrap;
+        }
+
+        .speech-1 {
+            top: 5px;
+            left: 20%;
+            transform: rotate(-5deg);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .speech-2 {
+            top: 15px;
+            right: 15%;
+            transform: rotate(3deg);
+            animation: float 3s ease-in-out infinite 0.5s;
+        }
+
+        .speech-3 {
+            top: 35px;
+            left: 10%;
+            transform: rotate(-3deg);
+            color: var(--accent-coral);
+            animation: float 3s ease-in-out infinite 1s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: rotate(var(--rotate, 0deg)) translateY(0); }
+            50% { transform: rotate(var(--rotate, 0deg)) translateY(-5px); }
+        }
+
+        .speech-1 { --rotate: -5deg; }
+        .speech-2 { --rotate: 3deg; }
+        .speech-3 { --rotate: -3deg; }
+
+        .doodle-bulb {
+            position: absolute;
+            right: 25%;
+            bottom: 10px;
+            font-size: 1.2rem;
+            color: var(--accent-sunflower);
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
+        .doodle-scribble {
+            position: absolute;
+            left: 30%;
+            bottom: 5px;
+            font-size: 1rem;
+            color: var(--accent-lavender);
+            transform: rotate(-15deg);
         }
 
         .author-links {
@@ -563,14 +648,22 @@
         </header>
 
         <div class="author-intro">
-            <div class="author-name">👋 Hi, I'm Jiuhe</div>
+            <div class="intro-illustration">
+                <div class="doodle-robot"><i class="fa-solid fa-robot"></i></div>
+                <div class="doodle-speech speech-1">Hey!</div>
+                <div class="doodle-speech speech-2">Wait...</div>
+                <div class="doodle-speech speech-3">That's wrong!</div>
+                <div class="doodle-bulb"><i class="fa-regular fa-lightbulb"></i></div>
+                <div class="doodle-scribble"><i class="fa-solid fa-pen-fancy"></i></div>
+            </div>
+            <div class="author-name">Hi, I'm Jiuhe</div>
             <div class="author-bio" style="font-family: 'Patrick Hand', cursive; font-size: 1.1rem;">
                 I break AI systems so you don't have to. <br>
                 When I'm not arguing with LLMs about why they hallucinated that function, <br>
                 I'm writing about it here. <br>
                 <span style="color: var(--text-muted); font-size: 0.9rem;">(The robots haven't taken over... yet)</span>
                 <br><br>
-                <a href="about-me.html" style="color: var(--accent-coral); text-decoration: none; font-size: 1rem;">→ More about me</a>
+                <a href="about-me.html" style="color: var(--accent-coral); text-decoration: none; font-size: 1rem;">More about me <i class="fa-solid fa-arrow-right"></i></a>
             </div>
         </div>
 

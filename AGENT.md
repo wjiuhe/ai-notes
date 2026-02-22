@@ -1229,6 +1229,568 @@ Choose a Font Awesome icon that matches the content. Common icons:
 - [ ] "New" tag added for recent pages
 - [ ] link-meta section with date and tags included
 
+## Security Study Components (ai-security-study-matrix.html style)
+
+These components are used in security-focused study pages with severity levels and detailed visualizations.
+
+### Attack Card
+
+```css
+.attack-card {
+    background: var(--bg-paper);
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    padding: 20px;
+    margin: 15px 0;
+    border: 2px solid var(--pencil);
+    transition: all 0.3s ease;
+}
+
+.attack-card:hover {
+    transform: translateX(5px);
+    box-shadow: 3px 4px 0 rgba(0,0,0,0.1);
+}
+
+.attack-card.critical { border-left: 5px solid var(--accent-coral); }
+.attack-card.high { border-left: 5px solid var(--accent-orange); }
+.attack-card.medium { border-left: 5px solid var(--accent-sunflower); }
+```
+
+### Attack Label (Badge)
+
+```css
+.attack-label {
+    display: inline-block;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 0.8rem;
+    padding: 3px 10px;
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.attack-label.direct { background: #FFCDD2; color: #C62828; }
+.attack-label.indirect { background: #FFE0B2; color: #EF6C00; }
+.attack-label.extraction { background: #E1BEE7; color: #7B1FA2; }
+.attack-label.supply { background: #BBDEFB; color: #1565C0; }
+.attack-label.poison { background: #C8E6C9; color: #2E7D32; }
+.attack-label.output { background: #FFCDD2; color: #C62828; }
+.attack-label.agency { background: #B3E5FC; color: #0277BD; }
+.attack-label.rag { background: #F8BBD9; color: #C2185B; }
+.attack-label.misinfo { background: #D7CCC8; color: #5D4037; }
+.attack-label.resource { background: #FFE082; color: #F57F17; }
+```
+
+### Risk Level Badge
+
+```css
+.risk-level {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-left: 10px;
+}
+.risk-critical { background: #FFEBEE; color: #C62828; }
+.risk-high { background: #FFF3E0; color: #EF6C00; }
+.risk-medium { background: #FFFDE7; color: #F9A825; }
+```
+
+### Mitigation Card
+
+```css
+.mitigation-card {
+    background: linear-gradient(135deg, #E8F5E9, #C8E6C9);
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    padding: 20px;
+    margin: 15px 0;
+    border: 2px solid var(--accent-green);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.mitigation-card::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, rgba(39, 174, 96, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+}
+
+.mitigation-card:hover {
+    transform: scale(1.02);
+    box-shadow: 4px 6px 0 rgba(0,0,0,0.1);
+}
+
+.mitigation-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 15px;
+    padding-bottom: 12px;
+    border-bottom: 2px dashed rgba(39, 174, 96, 0.3);
+}
+
+.mitigation-icon-large {
+    width: 55px;
+    height: 55px;
+    background: linear-gradient(135deg, #27AE60, #2ECC71);
+    color: white;
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    border: 2px solid #1E8449;
+    box-shadow: 2px 3px 0 rgba(0,0,0,0.15);
+}
+
+.mitigation-title-text {
+    font-family: 'Caveat', cursive;
+    font-size: 1.5rem;
+    color: #1E8449;
+    font-weight: 700;
+}
+
+.mitigation-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.mitigation-list li {
+    padding: 8px 0 8px 32px;
+    position: relative;
+    font-size: 0.95rem;
+    color: #33691E;
+    border-bottom: 1px dashed rgba(39, 174, 96, 0.2);
+}
+
+.mitigation-list li:last-child {
+    border-bottom: none;
+}
+
+.mitigation-list li::before {
+    content: '\f00c';
+    font-family: 'Font Awesome 6 Free', sans-serif;
+    font-weight: 900;
+    position: absolute;
+    left: 0;
+    color: #27AE60;
+    font-size: 0.9rem;
+}
+```
+
+### Defense Layers
+
+```css
+.defense-layers {
+    display: flex;
+    gap: 15px;
+    margin: 25px 0;
+    flex-wrap: wrap;
+}
+
+.defense-layer {
+    flex: 1;
+    min-width: 130px;
+    padding: 20px 12px;
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    text-align: center;
+    border: 3px solid var(--pencil);
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.defense-layer::after {
+    content: '';
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 4px;
+    background: currentColor;
+    opacity: 0.3;
+    border-radius: 2px;
+}
+
+.defense-layer:hover {
+    transform: translateY(-8px) rotate(-2deg);
+    box-shadow: 4px 8px 0 rgba(0,0,0,0.15);
+}
+
+.defense-layer.input {
+    background: linear-gradient(180deg, #E3F2FD 0%, #BBDEFB 100%);
+    border-color: #1976D2;
+}
+
+.defense-layer.process {
+    background: linear-gradient(180deg, #FFF3E0 0%, #FFE0B2 100%);
+    border-color: #F57C00;
+}
+
+.defense-layer.output {
+    background: linear-gradient(180deg, #F3E5F5 0%, #E1BEE7 100%);
+    border-color: #7B1FA2;
+}
+
+.defense-icon-large {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    display: inline-block;
+    padding: 12px;
+    border-radius: 50%;
+    background: white;
+    border: 2px solid currentColor;
+    box-shadow: 2px 3px 0 rgba(0,0,0,0.1);
+}
+
+.defense-label {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.defense-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 5px;
+    line-height: 1.4;
+}
+```
+
+### Tool Badge
+
+```css
+.tool-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin: 2px;
+    border: 1px solid;
+}
+
+.tool-badge.promptfoo { background: #FFE082; color: #F57F17; border-color: #FFB300; }
+.tool-badge.garak { background: #80DEEA; color: #0097A7; border-color: #00ACC1; }
+.tool-badge.lakera { background: #CE93D8; color: #7B1FA2; border-color: #8E24AA; }
+.tool-badge.rebuff { background: #A5D6A7; color: #388E3C; border-color: #4CAF50; }
+```
+
+### Tip Box
+
+```css
+.tip-box {
+    background: linear-gradient(135deg, #FFF8E1, #FFECB3);
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    padding: 20px;
+    margin: 20px 0;
+    border: 3px solid #FFC107;
+    position: relative;
+}
+
+.tip-box::before {
+    content: '\f0eb';
+    font-family: 'Font Awesome 6 Free', sans-serif;
+    font-weight: 900;
+    position: absolute;
+    top: -15px;
+    left: 20px;
+    background: #FFC107;
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    border: 2px solid var(--pencil);
+}
+
+.tip-title {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1.2rem;
+    color: #F57F17;
+    margin-bottom: 10px;
+    margin-left: 25px;
+}
+```
+
+### Warning Box
+
+```css
+.warning-box {
+    background: linear-gradient(135deg, #FFEBEE, #FFCDD2);
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    padding: 20px;
+    margin: 20px 0;
+    border: 3px dashed #E53935;
+    position: relative;
+}
+
+.warning-box::before {
+    content: '\f071';
+    font-family: 'Font Awesome 6 Free', sans-serif;
+    font-weight: 900;
+    position: absolute;
+    top: -15px;
+    left: 20px;
+    background: #E53935;
+    color: white;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    border: 2px solid var(--pencil);
+}
+
+.warning-title {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1.2rem;
+    color: #C62828;
+    margin-bottom: 10px;
+    margin-left: 25px;
+}
+```
+
+### Quick Action
+
+```css
+.quick-action {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: linear-gradient(135deg, #E1F5FE, #B3E5FC);
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    padding: 18px 22px;
+    margin: 18px 0;
+    border: 2px solid #03A9F4;
+}
+
+.quick-action-icon {
+    font-size: 1.6rem;
+    color: #0288D1;
+}
+
+.quick-action-text {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1.05rem;
+    color: #01579B;
+}
+```
+
+### Shield Illustration
+
+```css
+.shield-illustration {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 30px 0;
+    flex-wrap: wrap;
+}
+
+.shield-item {
+    text-align: center;
+    padding: 20px;
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+    border: 3px dashed var(--pencil);
+    transition: all 0.3s;
+    min-width: 120px;
+}
+
+.shield-item:hover {
+    transform: scale(1.05);
+    border-style: solid;
+}
+
+.shield-item.green { background: linear-gradient(135deg, #E8F5E9, #C8E6C9); }
+.shield-item.blue { background: linear-gradient(135deg, #E3F2FD, #BBDEFB); }
+.shield-item.orange { background: linear-gradient(135deg, #FFF3E0, #FFE0B2); }
+.shield-item.purple { background: linear-gradient(135deg, #F3E5F5, #E1BEE7); }
+
+.shield-icon {
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+
+.shield-item.green .shield-icon { color: #27AE60; }
+.shield-item.blue .shield-icon { color: #1976D2; }
+.shield-item.orange .shield-icon { color: #F57C00; }
+.shield-item.purple .shield-icon { color: #7B1FA2; }
+
+.shield-label {
+    font-family: 'Patrick Hand', cursive;
+    font-size: 0.95rem;
+    font-weight: 700;
+}
+```
+
+### Timeline Item
+
+```css
+.timeline-item {
+    position: relative;
+    padding-left: 40px;
+    margin: 20px 0;
+}
+
+.timeline-item::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 8px;
+    width: 12px;
+    height: 12px;
+    background: var(--accent-coral);
+    border: 2px solid var(--pencil);
+    border-radius: 50%;
+    transform: rotate(5deg);
+}
+
+.timeline-item::after {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 25px;
+    width: 2px;
+    height: calc(100% + 10px);
+    background: repeating-linear-gradient(
+        to bottom,
+        var(--pencil) 0px,
+        var(--pencil) 5px,
+        transparent 5px,
+        transparent 10px
+    );
+    opacity: 0.3;
+}
+
+.timeline-item:last-child::after {
+    display: none;
+}
+```
+
+### Process Flow Sketchy
+
+```css
+.process-flow-sketchy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin: 30px 0;
+    flex-wrap: wrap;
+}
+
+.process-step-sketchy {
+    padding: 15px 25px;
+    border: 2px dashed var(--pencil);
+    background: var(--bg-paper);
+    font-family: 'Patrick Hand', cursive;
+    font-size: 1.1rem;
+    position: relative;
+    transform: rotate(-2deg);
+}
+
+.process-step-sketchy:nth-child(even) {
+    transform: rotate(2deg);
+}
+
+.process-step-sketchy::after {
+    content: '→';
+    position: absolute;
+    right: -25px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.5rem;
+    color: var(--accent-coral);
+}
+
+.process-step-sketchy:last-child::after {
+    display: none;
+}
+```
+
+### Corner Accent
+
+```css
+.corner-accent {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 40px;
+    height: 40px;
+    border-top: 3px solid var(--accent-coral);
+    border-right: 3px solid var(--accent-coral);
+    border-radius: 0 15px 0 0;
+    opacity: 0.6;
+}
+```
+
+### Wavy Divider
+
+```css
+.wavy-divider {
+    text-align: center;
+    margin: 30px 0;
+    position: relative;
+}
+
+.wavy-divider::before {
+    content: '~ ~ ~ ~ ~';
+    font-family: 'Caveat', cursive;
+    font-size: 2rem;
+    color: var(--accent-coral);
+    letter-spacing: 15px;
+    opacity: 0.6;
+}
+```
+
+### Sketchy Badge
+
+```css
+.sketchy-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    font-family: 'Patrick Hand', cursive;
+    font-size: 0.9rem;
+    font-weight: 700;
+    border: 2px solid var(--pencil);
+    margin: 5px;
+    transition: all 0.3s ease;
+}
+
+.sketchy-badge:hover {
+    transform: rotate(-3deg) scale(1.05);
+}
+
+.sketchy-badge.rounded {
+    border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+}
+
+.sketchy-badge.circular {
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 1.2;
+}
+```
+
 ## Committing Changes
 
 **IMPORTANT:** Commit each change immediately after it's completed.
@@ -1551,6 +2113,231 @@ Each section must have an `id` attribute matching the TOC href:
     <h2>Section Title</h2>
     <!-- content -->
 </section>
+```
+
+### Mobile Toggle Button
+
+Add this button for mobile TOC toggle (hidden on desktop, visible on mobile):
+
+```css
+/* Mobile TOC Toggle */
+.toc-toggle {
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 200;
+    background: var(--accent-coral);
+    color: white;
+    border: none;
+    padding: 12px 15px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+@media (max-width: 1200px) {
+    .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .sidebar.open .sidebar-header {
+        padding-top: 60px;
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 40px 20px;
+        max-width: 100%;
+    }
+
+    .toc-toggle {
+        display: block;
+    }
+
+    .back-link {
+        margin-top: 50px;
+    }
+}
+
+/* Enhanced Mobile Styles */
+@media (max-width: 1200px) {
+    .main-content {
+        padding: 20px 15px;
+    }
+    
+    .card {
+        padding: 25px 20px;
+        border-radius: 20px 10px 20px 10px / 10px 20px 10px 20px;
+    }
+    
+    h1 {
+        font-size: 2.2rem;
+    }
+    
+    h2 {
+        font-size: 1.6rem;
+        padding-left: 45px;
+    }
+    
+    h2 .fa-icon {
+        width: 36px;
+        height: 36px;
+        font-size: 1rem;
+    }
+    
+    .code-content {
+        padding: 15px;
+        font-size: 0.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        padding: 15px 12px;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+    }
+    
+    .subtitle {
+        font-size: 1.1rem;
+    }
+    
+    .card {
+        padding: 20px 15px;
+        margin-bottom: 20px;
+    }
+    
+    h2 {
+        font-size: 1.4rem;
+        padding-left: 40px;
+        min-height: 40px;
+    }
+    
+    h2 .fa-icon {
+        width: 32px;
+        height: 32px;
+    }
+    
+    .technique-grid { 
+        grid-template-columns: 1fr; 
+        gap: 12px;
+    }
+    
+    .technique-card {
+        padding: 15px;
+    }
+    
+    .comparison-box { 
+        flex-direction: column; 
+        gap: 15px;
+    }
+    
+    .comparison-item {
+        min-width: auto;
+        padding: 20px;
+    }
+    
+    .flow-step { 
+        flex-direction: column; 
+        gap: 10px;
+    }
+    
+    .flow-step .flow-box { 
+        max-width: 100%; 
+        width: 100%; 
+        padding: 15px;
+        font-size: 0.95rem;
+    }
+    
+    .flow-arrow { 
+        transform: rotate(90deg); 
+    }
+    
+    .code-block {
+        margin: 15px 0;
+        border-radius: 15px;
+    }
+    
+    .code-header {
+        padding: 10px 15px;
+        font-size: 0.85rem;
+    }
+    
+    .code-content {
+        padding: 12px 15px;
+        font-size: 0.75rem;
+        line-height: 1.6;
+        overflow-x: auto;
+    }
+    
+    .example-label {
+        font-size: 0.7rem;
+        padding: 2px 8px;
+    }
+    
+    .insight-box {
+        padding: 15px;
+        gap: 12px;
+    }
+    
+    .insight-icon {
+        font-size: 1.4rem;
+    }
+    
+    .visual-metaphor {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 1.6rem;
+    }
+    
+    .subtitle {
+        font-size: 1rem;
+    }
+    
+    .card {
+        padding: 15px 12px;
+    }
+    
+    h2 {
+        font-size: 1.2rem;
+        padding-left: 35px;
+    }
+    
+    h2 .fa-icon {
+        width: 28px;
+        height: 28px;
+        font-size: 0.9rem;
+    }
+    
+    h3 {
+        font-size: 1.1rem;
+    }
+    
+    .code-content {
+        padding: 10px 12px;
+        font-size: 0.7rem;
+    }
+    
+    .toc-toggle {
+        top: 10px;
+        left: 10px;
+        padding: 10px 12px;
+        font-size: 1rem;
+    }
+}
 ```
 
 Note: Hide sidebar on mobile:

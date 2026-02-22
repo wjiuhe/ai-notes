@@ -539,6 +539,39 @@
         .arch-arrow { font-size: 1.4rem; color: var(--accent-lavender); }
         .arch-arrow-down { transform: rotate(90deg); }
 
+        /* Example Box */
+        .example-box {
+            background: #f0f7ff;
+            border: 2px dashed var(--accent-teal);
+            border-radius: 15px;
+            padding: 18px;
+            margin-top: 18px;
+        }
+
+        .example-title {
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1.15rem;
+            color: var(--accent-teal);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .example-box p {
+            font-size: 0.95rem;
+            margin-bottom: 8px;
+            padding-left: 10px;
+        }
+
+        .example-box code {
+            background: rgba(0,0,0,0.08);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+        }
+
         footer {
             text-align: center;
             padding: 30px;
@@ -559,15 +592,59 @@
         }
         .back-link:hover { color: var(--accent-coral); }
 
-        @media (max-width: 1100px) {
-            .sidebar { display: none; }
-            .main-content { margin-left: 0; max-width: 100%; padding: 25px 20px; }
+        /* Mobile TOC Toggle */
+        .toc-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 200;
+            background: var(--accent-coral);
+            color: white;
+            border: none;
+            padding: 12px 15px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        @media (max-width: 1200px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .sidebar.open .sidebar-header {
+                padding-top: 60px;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 40px 20px;
+                max-width: 100%;
+            }
+
+            .toc-toggle {
+                display: block;
+            }
+
+            .back-link {
+                margin-top: 50px;
+            }
+
             h1 { font-size: 2.5rem; }
             .card { padding: 25px; }
         }
     </style>
 </head>
 <body>
+    <button class="toc-toggle" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
+
     <div class="page-wrapper">
         <!-- Sidebar Table of Contents -->
         <nav class="sidebar" id="sidebar">
@@ -726,6 +803,14 @@
                                 </div>
                             </div>
                         </div>
+                        
+                        <div class="example-box">
+                            <div class="example-title"><i class="fa-solid fa-cart-shopping"></i> Example: Order Processing</div>
+                            <p>1. User places order -> write to <code>orders</code> table + <code>outbox</code> table in ONE transaction</p>
+                            <p>2. Return "Order placed!" to user immediately</p>
+                            <p>3. Background worker reads outbox -> publishes "OrderCreated" event to Kafka</p>
+                            <p>4. Notification service consumes event -> sends email to user</p>
+                        </div>
                     </div>
 
                     <!-- Event Sourcing -->
@@ -760,6 +845,15 @@
                                 <div class="component-name">Banks Store Transactions, Not Balances</div>
                                 <div class="component-desc">Your balance is derived by summing all transactions</div>
                             </div>
+                        </div>
+                        
+                        <div class="example-box" style="border-color: var(--accent-sunflower); background: #FFFDE7;">
+                            <div class="example-title" style="color: #B8860B;"><i class="fa-solid fa-university"></i> Example: Bank Account</div>
+                            <p>1. Instead of storing <code>balance = $1000</code>, store: <code>Deposited $500</code>, <code>Withdrew $200</code>, <code>Deposited $700</code></p>
+                            <p>2. Current balance = $500 - $200 + $700 = $1000 (computed on read)</p>
+                            <p>3. Any state can be reconstructed by replaying all events from the beginning</p>
+                            <p>4. To transfer $100: record <code>DebitEvent(acc A, $100)</code> + <code>CreditEvent(acc B, $100)</code></p>
+                            <p>5. Event store is the single source of truth - Kafka holds all history</p>
                         </div>
                     </div>
 
@@ -802,6 +896,15 @@
                                 <div class="component-desc">Write to Kafka, respond immediately, then update DB async</div>
                             </div>
                         </div>
+                        
+                        <div class="example-box" style="border-color: var(--accent-lavender); background: #F3E5F5;">
+                            <div class="example-title" style="color: #7B1FA2;"><i class="fa-solid fa-bell"></i> Example: Order Confirmation</div>
+                            <p>1. User clicks "Place Order" -> immediately publish <code>OrderCreated</code> event to Kafka</p>
+                            <p>2. Return "Order confirmed!" to user (very fast, ~10ms)</p>
+                            <p>3. A consumer within the same service reads the event and writes to local database</p>
+                            <p>4. If DB write fails: consumer retries until it succeeds (idempotent)</p>
+                            <p>5. User sees confirmation immediately, background syncs the state</p>
+                        </div>
                     </div>
 
                     <!-- CDC -->
@@ -839,12 +942,21 @@
                                 </div>
                             </div>
                             <div class="component-box" style="background: #FFF3E0;">
-                                <div class="component-icon-large" style="background: #FF8A65;"><i class="fa-solid fa-legacy-code"></i></div>
+                                <div class="component-icon-large" style="background: #FF8A65;"><i class="fa-solid fa-clock-rotate-left"></i></div>
                                 <div class="component-text">
                                     <div class="component-name">Legacy Friendly</div>
                                     <div class="component-desc">Works with existing applications</div>
                                 </div>
                             </div>
+                        </div>
+                        
+                        <div class="example-box" style="border-color: var(--accent-orange); background: #FFF3E0;">
+                            <div class="example-title" style="color: #E65100;"><i class="fa-solid fa-magnifying-glass"></i> Example: Legacy Inventory System</div>
+                            <p>1. Old monolith app writes to PostgreSQL (unchanged, no code modifications)</p>
+                            <p>2. Debezium monitors the database binlog for changes</p>
+                            <p>3. When inventory row updates, Debezium automatically streams to Kafka topic</p>
+                            <p>4. New analytics service consumes from Kafka, builds real-time dashboards</p>
+                            <p>5. Zero changes needed to the legacy app - just add Debezium connector</p>
                         </div>
                     </div>
                 </section>
@@ -1111,6 +1223,11 @@ WHERE status = 'initialized' OR status = 'processing';</pre>
     </div>
 
     <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
         function scrollToSection(id) {
             const element = document.getElementById(id);
             if (element) {
