@@ -1,0 +1,27 @@
+# OpenCode Skills Index
+# This file registers all available skills for OpenCode
+
+skills:
+  - id: dual-theme-web-system
+    name: Dual Theme Web System
+    description: Implement parallel light/dark themes with shared component architecture
+    path: dual-theme-web-system/SKILL.md
+    tags: [css, themes, frontend, design-system]
+
+  - id: hand-drawn-css-components
+    name: Hand-Drawn CSS Components
+    description: Create sketchy, organic UI components using pure CSS without external libraries
+    path: hand-drawn-css-components/SKILL.md
+    tags: [css, ui-components, design, frontend]
+
+  - id: sidebar-toc-navigation
+    name: Sidebar TOC Navigation
+    description: Fixed sidebar table of contents with scroll spy highlighting and smooth scrolling
+    path: sidebar-toc-navigation/SKILL.md
+    tags: [navigation, javascript, frontend, documentation]
+
+  - id: filter-sort-card-grid
+    name: Filter and Sort Card Grid
+    description: Filterable and sortable card grid with data attributes for content organization
+    path: filter-sort-card-grid/SKILL.md
+    tags: [javascript, ui-components, frontend, data-display]
