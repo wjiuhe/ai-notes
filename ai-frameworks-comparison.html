@@ -39,7 +39,6 @@
             /* Framework Colors */
             --ecc-color: #ff8a65;
             --bmad-color: #bd93f9;
-            --pilot-color: #50fa7b;
             --superpowers-color: #8be9fd;
         }
 
@@ -312,11 +311,6 @@
         }
         .framework-card.bmad:hover { border-color: var(--bmad-color); }
         
-        .framework-card.pilot { 
-            border-top: 5px solid var(--pilot-color); 
-        }
-        .framework-card.pilot:hover { border-color: var(--pilot-color); }
-        
         .framework-card.superpowers { 
             border-top: 5px solid var(--superpowers-color); 
         }
@@ -331,7 +325,6 @@
 
         .framework-card.ecc .framework-name { color: var(--ecc-color); }
         .framework-card.bmad .framework-name { color: var(--bmad-color); }
-        .framework-card.pilot .framework-name { color: var(--pilot-color); }
         .framework-card.superpowers .framework-name { color: var(--superpowers-color); }
 
         .framework-tagline {
@@ -418,7 +411,6 @@
 
         .comparison-table .highlight-ecc { color: var(--ecc-color); font-weight: 600; }
         .comparison-table .highlight-bmad { color: var(--bmad-color); font-weight: 600; }
-        .comparison-table .highlight-pilot { color: var(--pilot-color); font-weight: 600; }
         .comparison-table .highlight-superpowers { color: var(--superpowers-color); font-weight: 600; }
 
         /* Status Indicators */
@@ -431,7 +423,7 @@
             font-family: var(--font-mono);
         }
 
-        .status-yes { background: rgba(80, 250, 123, 0.2); color: var(--pilot-color); border: 1px solid var(--pilot-color); }
+        .status-yes { background: rgba(80, 250, 123, 0.2); color: #8be9fd; border: 1px solid #8be9fd; }
         .status-no { background: rgba(255, 85, 85, 0.2); color: #ff5555; border: 1px solid #ff5555; }
         .status-partial { background: rgba(255, 184, 108, 0.2); color: #ffb86c; border: 1px solid #ffb86c; }
 
@@ -608,11 +600,6 @@
             color: var(--bmad-color); 
             border-color: var(--bmad-color);
         }
-        .answer-pilot { 
-            background: rgba(80, 250, 123, 0.15); 
-            color: var(--pilot-color); 
-            border-color: var(--pilot-color);
-        }
         .answer-superpowers { 
             background: rgba(139, 233, 253, 0.15); 
             color: var(--superpowers-color); 
@@ -746,7 +733,6 @@
 
         .cta-item.ecc { border-color: var(--ecc-color); color: var(--ecc-color); }
         .cta-item.bmad { border-color: var(--bmad-color); color: var(--bmad-color); }
-        .cta-item.pilot { border-color: var(--pilot-color); color: var(--pilot-color); }
         .cta-item.superpowers { border-color: var(--superpowers-color); color: var(--superpowers-color); }
 
         .cta-label {
@@ -901,7 +887,6 @@
                 <ul class="toc-list">
                     <li><a href="#ecc" onclick="scrollToSection('ecc')">Everything Claude Code</a></li>
                     <li><a href="#bmad" onclick="scrollToSection('bmad')">BMAD Method</a></li>
-                    <li><a href="#pilot" onclick="scrollToSection('pilot')">Claude Pilot</a></li>
                     <li><a href="#superpowers" onclick="scrollToSection('superpowers')">Superpowers</a></li>
                 </ul>
             </div>
@@ -919,7 +904,6 @@
                     <li><a href="#project-overview" onclick="scrollToSection('project-overview')">Project Overview</a></li>
                     <li><a href="#ecc-practical" onclick="scrollToSection('ecc-practical')">ECC Walkthrough</a></li>
                     <li><a href="#bmad-practical" onclick="scrollToSection('bmad-practical')">BMAD Walkthrough</a></li>
-                    <li><a href="#pilot-practical" onclick="scrollToSection('pilot-practical')">Pilot Walkthrough</a></li>
                     <li><a href="#superpowers-practical" onclick="scrollToSection('superpowers-practical')">Superpowers Walkthrough</a></li>
                 </ul>
             </div>
@@ -977,7 +961,7 @@
             <section class="card" id="executive-summary">
                 <h2><span class="section-icon">&#10002;</span>Executive Summary</h2>
                 
-                <p>This guide compares four leading AI-assisted development frameworks designed for production-grade code quality: Everything Claude Code (ECC), BMAD Method, Claude Pilot, and Superpowers.</p>
+                <p>This guide compares three leading AI-assisted development frameworks designed for production-grade code quality: Everything Claude Code (ECC), BMAD Method, and Superpowers.</p>
 
                 <p>Each framework takes a different approach to solving the same fundamental problem: <em>how to leverage AI coding assistants to produce reliable, tested, production-quality code consistently.</em></p>
 
@@ -990,7 +974,6 @@
                 <ul class="feature-list">
                     <li>ECC: Comprehensive ecosystem with 43 skills, 13 agents, 15+ hooks</li>
                     <li>BMAD: Structured agile process from ideation to deployment</li>
-                    <li>Pilot: Quality-first with mandatory enforcement via hooks</li>
                     <li>Superpowers: Minimalist skill-based with rigid TDD discipline</li>
                 </ul>
             </section>
@@ -1005,7 +988,6 @@
                             <th>Aspect</th>
                             <th class="highlight-ecc">Everything Claude Code</th>
                             <th class="highlight-bmad">BMAD Method</th>
-                            <th class="highlight-pilot">Claude Pilot</th>
                             <th class="highlight-superpowers">Superpowers</th>
                         </tr>
                     </thead>
@@ -1014,56 +996,48 @@
                             <td>Philosophy</td>
                             <td>Comprehensive plugin ecosystem</td>
                             <td>Structured agile workflows</td>
-                            <td>Quality automation & hooks</td>
                             <td>Skill-based TDD workflow</td>
                         </tr>
                         <tr>
                             <td>Primary Focus</td>
                             <td>Multi-language, multi-platform</td>
                             <td>Project planning & management</td>
-                            <td>Code quality enforcement</td>
                             <td>Test-driven development</td>
                         </tr>
                         <tr>
                             <td>TDD Enforcement</td>
                             <td>Strong (commands)</td>
                             <td>Moderate (workflows)</td>
-                            <td>Mandatory (hooks)</td>
                             <td>Rigid (core philosophy)</td>
                         </tr>
                         <tr>
                             <td>Hook System</td>
                             <td><span class="status-badge status-yes">Advanced (15+)</span></td>
                             <td><span class="status-badge status-no">None</span></td>
-                            <td><span class="status-badge status-yes">Advanced (15)</span></td>
                             <td><span class="status-badge status-partial">Basic</span></td>
                         </tr>
                         <tr>
                             <td>Agent Count</td>
                             <td>13+ specialized agents</td>
                             <td>12+ domain agents</td>
-                            <td>Implicit via commands</td>
                             <td>Implicit via skills</td>
                         </tr>
                         <tr>
                             <td>Language Support</td>
                             <td>6+ languages</td>
                             <td>Language-agnostic</td>
-                            <td>Python, TS, Go (official)</td>
                             <td>Language-agnostic</td>
                         </tr>
                         <tr>
                             <td>Pricing</td>
                             <td>Free (MIT)</td>
                             <td>Free (MIT)</td>
-                            <td>Commercial (Solo/Team)</td>
                             <td>Free (MIT)</td>
                         </tr>
                         <tr>
                             <td>Learning Curve</td>
                             <td>Moderate</td>
                             <td>Moderate-High</td>
-                            <td>Low-Moderate</td>
                             <td>Low</td>
                         </tr>
                     </tbody>
@@ -1189,101 +1163,6 @@
 
                 <div class="info-box">
                     Best for: Enterprise product development with formal requirements, teams following agile methodologies, projects needing comprehensive planning before coding, multi-stakeholder environments with PRDs and architecture docs.
-                </div>
-            </section>
-
-            <!-- Claude Pilot -->
-            <section class="card" id="pilot">
-                <h2><span class="section-icon">&#9992;</span>Claude Pilot</h2>
-                
-                <div class="framework-grid">
-                    <div class="framework-card pilot">
-                        <div class="framework-name">Claude Pilot</div>
-                        <div class="framework-tagline">"Quality enforced, not suggested - walk away and it works"</div>
-                        <div class="framework-desc">
-                            A quality-first wrapper around Claude Code built by Max Ritter. Core philosophy: quality should be enforced through automated hooks and mandatory verification, not just suggested. Features 15 hooks across 6 lifecycle events.
-                        </div>
-                    </div>
-                </div>
-
-                <h3>The Hooks Pipeline</h3>
-                
-                <div class="workflow-container">
-                    <div class="workflow-step">
-                        <div class="workflow-number" style="background: var(--pilot-color); color: var(--bg-primary);">1</div>
-                        <div class="workflow-content">
-                            <div class="workflow-title" style="color: var(--pilot-color);">SessionStart</div>
-                            <div class="workflow-desc">Memory loader (persistent context), Post-compact restore</div>
-                        </div>
-                    </div>
-                    <div class="workflow-step">
-                        <div class="workflow-number" style="background: var(--pilot-color); color: var(--bg-primary);">2</div>
-                        <div class="workflow-content">
-                            <div class="workflow-title" style="color: var(--pilot-color);">PreToolUse</div>
-                            <div class="workflow-desc">Tool redirect (blocks unsafe tools), Safety validation</div>
-                        </div>
-                    </div>
-                    <div class="workflow-step">
-                        <div class="workflow-number" style="background: var(--pilot-color); color: var(--bg-primary);">3</div>
-                        <div class="workflow-content">
-                            <div class="workflow-title" style="color: var(--pilot-color);">PostToolUse</div>
-                            <div class="workflow-desc">File checker (lint/format/type-check), TDD enforcer (blocks code without tests), Context monitor (warns at 80%/90%)</div>
-                        </div>
-                    </div>
-                    <div class="workflow-step">
-                        <div class="workflow-number" style="background: var(--pilot-color); color: var(--bg-primary);">4</div>
-                        <div class="workflow-content">
-                            <div class="workflow-title" style="color: var(--pilot-color);">SessionEnd</div>
-                            <div class="workflow-desc">State preservation to memory, Cleanup, Notifications</div>
-                        </div>
-                    </div>
-                </div>
-
-                <h3>Smart Model Routing</h3>
-                
-                <table class="comparison-table">
-                    <thead>
-                        <tr>
-                            <th>Phase</th>
-                            <th>Model</th>
-                            <th>Why</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Planning</td>
-                            <td class="highlight-pilot">Opus</td>
-                            <td>Deep reasoning for architecture and spec</td>
-                        </tr>
-                        <tr>
-                            <td>Plan Verification</td>
-                            <td class="highlight-pilot">Opus</td>
-                            <td>Catch gaps before expensive rework</td>
-                        </tr>
-                        <tr>
-                            <td>Implementation</td>
-                            <td class="highlight-pilot">Sonnet</td>
-                            <td>Fast, cost-effective with clear spec</td>
-                        </tr>
-                        <tr>
-                            <td>Code Verification</td>
-                            <td class="highlight-pilot">Opus</td>
-                            <td>Independent review, catch subtle bugs</td>
-                        </tr>
-                    </tbody>
-                </table>
-
-                <h3>Core Strengths</h3>
-                <ul class="feature-list">
-                    <li>Mandatory Quality Gates: TDD enforcement via hooks (cannot write code without failing test)</li>
-                    <li>Context Preservation: Persistent memory across sessions, state preserved across compaction</li>
-                    <li>Worktree Isolation: Isolated branches for features, main branch stays clean</li>
-                    <li>Smart Model Routing: Invests reasoning power where it matters (Opus for planning/verification)</li>
-                    <li>Local-First Architecture: All tools run locally, enterprise data privacy compliant</li>
-                </ul>
-
-                <div class="info-box">
-                    Best for: Freelancers/consultants shipping production code, teams needing enforceable quality standards, existing codebases (not greenfield), data-sensitive environments, developers wanting "grab a coffee" autonomous execution.
                 </div>
             </section>
 

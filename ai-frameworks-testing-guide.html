@@ -315,7 +315,6 @@
 
         .framework-card.ecc { border-top: 4px solid #ff8a65; }
         .framework-card.bmad { border-top: 4px solid #bd93f9; }
-        .framework-card.pilot { border-top: 4px solid #50fa7b; }
         .framework-card.superpowers { border-top: 4px solid #8be9fd; }
 
         .framework-name {
@@ -326,7 +325,6 @@
 
         .framework-card.ecc .framework-name { color: #ff8a65; }
         .framework-card.bmad .framework-name { color: #bd93f9; }
-        .framework-card.pilot .framework-name { color: #50fa7b; }
         .framework-card.superpowers .framework-name { color: #8be9fd; }
 
         .framework-tagline {
@@ -386,7 +384,6 @@
 
         .comparison-table .highlight-ecc { color: #ff8a65; font-weight: 600; }
         .comparison-table .highlight-bmad { color: #bd93f9; font-weight: 600; }
-        .comparison-table .highlight-pilot { color: #50fa7b; font-weight: 600; }
         .comparison-table .highlight-superpowers { color: #8be9fd; font-weight: 600; }
 
         /* Code Block Styling */
@@ -994,7 +991,6 @@
                 <ul class="toc-list">
                     <li><a href="#ecc-testing" onclick="scrollToSection('ecc-testing')">ECC Testing</a></li>
                     <li><a href="#bmad-testing" onclick="scrollToSection('bmad-testing')">BMAD Testing</a></li>
-                    <li><a href="#pilot-testing" onclick="scrollToSection('pilot-testing')">Pilot Testing</a></li>
                     <li><a href="#superpowers-testing" onclick="scrollToSection('superpowers-testing')">Superpowers Testing</a></li>
                 </ul>
             </div>
@@ -1082,24 +1078,17 @@
                     <div class="framework-card bmad">
                         <div class="framework-name">BMAD Method</div>
                         <div class="framework-tagline">"Story-driven acceptance testing"</div>
-                        <div class="framework-desc">
-                            Testing is embedded in the story workflow with explicit test creation during story development. Uses structured agile testing practices.
-                        </div>
-                    </div>
-                    <div class="framework-card pilot">
-                        <div class="framework-name">Claude Pilot</div>
-                        <div class="framework-tagline">"Mandatory hooks enforce testing"</div>
-                        <div class="framework-desc">
-                            PostToolUse hooks automatically run tests after file changes. TDD enforcement prevents code without tests. Quality gates block commits.
-                        </div>
-                    </div>
-                    <div class="framework-card superpowers">
-                        <div class="framework-name">Superpowers</div>
-                        <div class="framework-tagline">"Iron Law: Tests before code"</div>
-                        <div class="framework-desc">
-                            Rigid TDD discipline via skill system. Code without failing tests is deleted. Two-stage review ensures spec compliance and quality.
-                        </div>
-                    </div>
+                         <div class="framework-desc">
+                             Testing is embedded in the story workflow with explicit test creation during story development. Uses structured agile testing practices.
+                         </div>
+                     </div>
+                     <div class="framework-card superpowers">
+                         <div class="framework-name">Superpowers</div>
+                         <div class="framework-tagline">"Iron Law: Tests before code"</div>
+                         <div class="framework-desc">
+                             Rigid TDD discipline via skill system. Code without failing tests is deleted. Two-stage review ensures spec compliance and quality.
+                         </div>
+                     </div>
                 </div>
 
                 <h3>The Testing Pyramid</h3>
