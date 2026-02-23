@@ -5,6 +5,9 @@ from sqlalchemy.orm import sessionmaker
 from app.database import Base
 from app.config import settings
 
+# Import models to register them with Base.metadata
+from app import models  # noqa: F401
+
 
 @pytest.fixture(scope="function")
 def db_session():
