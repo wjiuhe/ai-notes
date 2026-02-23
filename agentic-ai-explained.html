@@ -501,17 +501,51 @@
 
             <h3><i class="fa-solid fa-folder-open"></i> Filing Cabinet vs. Spider Web</h3>
 
-            <div class="visual-metaphor">
-                <div class="metaphor-visual">
-                    <div class="metaphor-box cabinet">
-                        <i class="fa-solid fa-folder-open metaphor-icon"></i>
-                        <div class="metaphor-label">Current "Agent"</div>
-                        <div class="metaphor-example">Search "error" → 1000 docs → You figure it out</div>
+            <div style="display: flex; gap: 30px; justify-content: center; flex-wrap: wrap; margin: 25px 0;">
+                <!-- Filing Cabinet - Rigid -->
+                <div style="flex: 1; min-width: 300px; max-width: 400px; padding: 30px; border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px; background: linear-gradient(145deg, #F5F5F5, #EEEEEE); border: 3px solid #9E9E9E; text-align: center;">
+                    <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 20px;">
+                        <i class="fa-solid fa-folder" style="font-size: 2.5rem; color: #9E9E9E;"></i>
+                        <i class="fa-solid fa-folder" style="font-size: 2.5rem; color: #9E9E9E;"></i>
+                        <i class="fa-solid fa-folder" style="font-size: 2.5rem; color: #9E9E9E;"></i>
                     </div>
-                    <div class="metaphor-box spider">
-                        <i class="fa-solid fa-wifi metaphor-icon"></i>
-                        <div class="metaphor-label">True Agent / Human</div>
-                        <div class="metaphor-example">See error → "Like last month's timeout" → Solved!</div>
+                    <div style="font-family: 'Caveat', cursive; font-size: 1.6rem; color: #757575; margin-bottom: 12px;">Current "Agent"</div>
+                    <div style="font-size: 0.9rem; color: #666; margin-bottom: 15px;">
+                        <i class="fa-solid fa-xmark" style="color: #E57373; margin-right: 5px;"></i> No memory of past
+                    </div>
+                    <div style="background: #fff; border-radius: 10px; padding: 15px; border: 2px dashed #BDBDBD;">
+                        <div style="font-family: 'Patrick Hand', cursive; color: #666;">
+                            "error" → <span style="color: #E57373;">1000 docs</span> → You figure it out
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Spider Web - Flexible -->
+                <div style="flex: 1; min-width: 300px; max-width: 400px; padding: 30px; border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px; background: linear-gradient(145deg, #E8F5E9, #C8E6C9); border: 3px solid #4CAF50; text-align: center;">
+                    <div style="position: relative; width: 100px; height: 100px; margin: 0 auto 20px;">
+                        <svg viewBox="0 0 100 100" style="width: 100%; height: 100%;">
+                            <circle cx="50" cy="50" r="45" fill="none" stroke="#4CAF50" stroke-width="1" opacity="0.3"/>
+                            <circle cx="50" cy="50" r="35" fill="none" stroke="#4CAF50" stroke-width="1" opacity="0.4"/>
+                            <circle cx="50" cy="50" r="25" fill="none" stroke="#4CAF50" stroke-width="1" opacity="0.5"/>
+                            <circle cx="50" cy="50" r="15" fill="none" stroke="#4CAF50" stroke-width="1" opacity="0.6"/>
+                            <line x1="50" y1="5" x2="50" y2="95" stroke="#4CAF50" stroke-width="1.5" opacity="0.6"/>
+                            <line x1="5" y1="50" x2="95" y2="50" stroke="#4CAF50" stroke-width="1.5" opacity="0.6"/>
+                            <line x1="18" y1="18" x2="82" y2="82" stroke="#4CAF50" stroke-width="1.5" opacity="0.6"/>
+                            <line x1="82" y1="18" x2="18" y2="82" stroke="#4CAF50" stroke-width="1.5" opacity="0.6"/>
+                            <circle cx="50" cy="50" r="5" fill="#4CAF50"/>
+                            <circle cx="50" cy="20" r="4" fill="#81C784" stroke="#4CAF50" stroke-width="1"/>
+                            <circle cx="80" cy="50" r="4" fill="#81C784" stroke="#4CAF50" stroke-width="1"/>
+                            <circle cx="25" cy="75" r="4" fill="#81C784" stroke="#4CAF50" stroke-width="1"/>
+                        </svg>
+                    </div>
+                    <div style="font-family: 'Caveat', cursive; font-size: 1.6rem; color: #388E3C; margin-bottom: 12px;">True Agent / Human</div>
+                    <div style="font-size: 0.9rem; color: #666; margin-bottom: 15px;">
+                        <i class="fa-solid fa-check" style="color: #4CAF50; margin-right: 5px;"></i> Connects related experiences
+                    </div>
+                    <div style="background: #fff; border-radius: 10px; padding: 15px; border: 2px dashed #4CAF50;">
+                        <div style="font-family: 'Patrick Hand', cursive; color: #388E3C;">
+                            "error" → <span style="color: #4CAF50;">"like last month's timeout"</span> → Solved!
+                        </div>
                     </div>
                 </div>
             </div>
