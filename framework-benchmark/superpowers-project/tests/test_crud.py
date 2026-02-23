@@ -1,7 +1,6 @@
 import pytest
 from decimal import Decimal
-from datetime import date, timedelta
-from uuid import uuid4
+from datetime import date
 
 from app.models import User, Expense, ExpenseCategory
 

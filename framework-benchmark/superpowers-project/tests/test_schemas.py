@@ -1,7 +1,6 @@
 import pytest
 from decimal import Decimal
-from datetime import date, datetime
-from uuid import uuid4
+from datetime import date
 
 
 def test_expense_category_enum():

@@ -3,7 +3,7 @@ from decimal import Decimal
 from typing import Optional
 from uuid import UUID
 
-from sqlalchemy import func
+from sqlalchemy import func, extract
 from sqlalchemy.orm import Session
 
 from app.models import Expense, ExpenseCategory
@@ -76,8 +76,6 @@ def get_monthly_summary(
     year: int,
     month: int
 ) -> MonthlySummary:
-    from sqlalchemy import extract
-
     results = db.query(
         Expense.category,
         func.sum(Expense.amount).label('total')
