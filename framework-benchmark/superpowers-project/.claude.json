@@ -1,0 +1,9 @@
+{
+  "plugins": {
+    "enabled": true,
+    "list": ["superpowers@superpowers-marketplace"]
+  },
+  "skills": {
+    "enabled": false
+  }
+}

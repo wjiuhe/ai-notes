@@ -1,0 +1,9 @@
+{
+  "plugins": {
+    "enabled": true,
+    "list": ["everything-claude-code@everything-claude-code"]
+  },
+  "skills": {
+    "enabled": false
+  }
+}

@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI Development Frameworks Comparison: Everything Claude Code, BMAD Method, Claude Pilot, and Superpowers - Production-grade code development guide.">
+    <meta name="keywords" content="AI coding, Claude Code, BMAD Method, Claude Pilot, Superpowers, test-driven development, code quality, production-grade">
+    <meta name="author" content="Jiuhe Wang">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://wjiuhe.github.io/ai-notes/ai-frameworks-comparison.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://wjiuhe.github.io/ai-notes/ai-frameworks-comparison.html">
+    <meta property="og:title" content="AI Development Frameworks Comparison: Production-Grade Guide">
+    <meta property="og:description" content="Comprehensive comparison of Everything Claude Code, BMAD Method, Claude Pilot, and Superpowers for reliable production-grade code development.">
+    <meta property="og:site_name" content="Mind & Machine - Overtime">
+    
+    <title>AI Development Frameworks Comparison | Mind & Machine Overtime</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Courier+Prime:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/dark-theme.css">
+    <style>
+        /* =========================================================
+           HAND-DRAWN ARTICLE STYLING SYSTEM
+           Based on security-themed design with organic shapes
+           ========================================================= */
+
+        :root {
+            /* Core Colors */
+            --pencil: #2c3e50;
+            --bg-paper: #f8f9fa;
+            --accent-coral: #e74c3c;
+            --accent-orange: #e67e22;
+            --accent-sunflower: #f1c40f;
+            --accent-green: #27ae60;
+            --accent-cyan: #3498db;
+            --accent-purple: #9b59b6;
+            
+            /* Framework Colors */
+            --ecc-color: #ff8a65;
+            --bmad-color: #bd93f9;
+            --pilot-color: #50fa7b;
+            --superpowers-color: #8be9fd;
+        }
+
+        /* Page Layout */
+        .page-wrapper {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* Sidebar TOC - Dark Theme */
+        .sidebar {
+            width: 280px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            background: var(--bg-secondary);
+            border-right: 3px solid var(--accent-cyan);
+            padding: 30px 20px;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: 3px 0 15px rgba(0,0,0,0.5);
+        }
+
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px dashed rgba(139, 233, 253, 0.3);
+        }
+
+        .sidebar-title {
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            color: var(--accent-cyan);
+            margin-bottom: 5px;
+            text-shadow: 0 0 10px rgba(139, 233, 253, 0.3);
+        }
+
+        .sidebar-subtitle {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: #6272a4;
+        }
+
+        .toc-section {
+            margin-bottom: 20px;
+        }
+
+        .toc-title {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: var(--accent-purple);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc-list li {
+            margin-bottom: 6px;
+        }
+
+        .toc-list a {
+            display: block;
+            padding: 6px 10px;
+            color: var(--fg-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+            font-family: var(--font-mono);
+        }
+
+        .toc-list a:hover {
+            background: rgba(189, 147, 249, 0.1);
+            border-left-color: var(--accent-purple);
+            transform: translateX(3px);
+        }
+
+        .toc-list a.active {
+            background: rgba(139, 233, 253, 0.15);
+            border-left-color: var(--accent-cyan);
+            font-weight: 600;
+            color: var(--accent-cyan);
+        }
+
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 40px;
+            max-width: calc(100vw - 320px);
+            min-width: 0;
+        }
+
+        /* Mobile TOC Toggle */
+        .toc-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 200;
+            background: var(--accent-cyan);
+            color: var(--bg-primary);
+            border: none;
+            padding: 12px 15px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(139, 233, 253, 0.4);
+            font-family: var(--font-mono);
+        }
+
+        @media (max-width: 1200px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+                max-width: 100%;
+            }
+
+            .toc-toggle {
+                display: block;
+            }
+        }
+
+        /* =========================================================
+           HAND-DRAWN COMPONENTS
+           ========================================================= */
+
+        /* Article Header */
+        .article-header-section {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px;
+            background: var(--bg-secondary);
+            border: 3px solid var(--accent-cyan);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-header-section h1 {
+            font-family: 'Caveat', cursive;
+            font-size: 3.2rem;
+            color: var(--accent-cyan);
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(139, 233, 253, 0.4);
+            margin-top: 10px;
+        }
+
+        .article-subtitle {
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            color: var(--accent-purple);
+            margin-bottom: 20px;
+        }
+
+        .article-meta-info {
+            font-size: 0.85rem;
+            color: var(--fg-muted);
+            font-family: var(--font-mono);
+        }
+
+        /* Section Cards */
+        .card {
+            background: var(--bg-secondary);
+            border: 2px solid var(--bg-tertiary);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            padding: 35px;
+            margin-bottom: 30px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 4px 20px rgba(139, 233, 253, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .card h2 {
+            font-family: 'Caveat', cursive;
+            font-size: 2rem;
+            color: var(--accent-cyan);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .card h3 {
+            font-family: var(--font-mono);
+            font-size: 1.3rem;
+            color: var(--accent-purple);
+            margin: 25px 0 15px;
+            border-bottom: 1px solid rgba(189, 147, 249, 0.2);
+            padding-bottom: 8px;
+        }
+
+        .card h4 {
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            color: var(--accent-cyan);
+            margin: 20px 0 10px;
+        }
+
+        /* Section Icon */
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--bg-primary);
+            border: 2px solid var(--accent-cyan);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--accent-cyan);
+        }
+
+        /* Framework Cards Grid */
+        .framework-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .framework-card {
+            background: var(--bg-primary);
+            border: 2px solid var(--bg-tertiary);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            padding: 30px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .framework-card:hover {
+            transform: translateY(-5px) rotate(-1deg);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .framework-card.ecc { 
+            border-top: 5px solid var(--ecc-color); 
+        }
+        .framework-card.ecc:hover { border-color: var(--ecc-color); }
+        
+        .framework-card.bmad { 
+            border-top: 5px solid var(--bmad-color); 
+        }
+        .framework-card.bmad:hover { border-color: var(--bmad-color); }
+        
+        .framework-card.pilot { 
+            border-top: 5px solid var(--pilot-color); 
+        }
+        .framework-card.pilot:hover { border-color: var(--pilot-color); }
+        
+        .framework-card.superpowers { 
+            border-top: 5px solid var(--superpowers-color); 
+        }
+        .framework-card.superpowers:hover { border-color: var(--superpowers-color); }
+
+        .framework-name {
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .framework-card.ecc .framework-name { color: var(--ecc-color); }
+        .framework-card.bmad .framework-name { color: var(--bmad-color); }
+        .framework-card.pilot .framework-name { color: var(--pilot-color); }
+        .framework-card.superpowers .framework-name { color: var(--superpowers-color); }
+
+        .framework-tagline {
+            font-size: 0.95rem;
+            color: var(--fg-secondary);
+            margin-bottom: 20px;
+            font-style: italic;
+            border-left: 3px solid var(--bg-tertiary);
+            padding-left: 15px;
+        }
+
+        .framework-desc {
+            font-size: 0.9rem;
+            color: var(--fg-secondary);
+            line-height: 1.7;
+        }
+
+        /* Info Boxes */
+        .info-box, .warning-box, .quote-box {
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            padding: 25px;
+            margin: 25px 0;
+            position: relative;
+        }
+
+        .info-box {
+            background: rgba(139, 233, 253, 0.1);
+            border: 2px solid var(--accent-cyan);
+        }
+
+        .warning-box {
+            background: rgba(255, 184, 108, 0.1);
+            border: 2px solid #ffb86c;
+        }
+
+        .quote-box {
+            background: rgba(189, 147, 249, 0.1);
+            border-left: 5px solid var(--accent-purple);
+            font-style: italic;
+        }
+
+        .quote-box p {
+            margin: 0 0 10px 0;
+            font-size: 1.1rem;
+        }
+
+        .quote-attribution {
+            color: var(--fg-muted);
+            font-size: 0.9rem;
+            font-family: var(--font-mono);
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin: 25px 0;
+            font-size: 0.9rem;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 14px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--bg-tertiary);
+        }
+
+        .comparison-table th {
+            background: var(--bg-primary);
+            font-family: var(--font-mono);
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        .comparison-table tr:hover td {
+            background: rgba(139, 233, 253, 0.05);
+        }
+
+        .comparison-table .highlight-ecc { color: var(--ecc-color); font-weight: 600; }
+        .comparison-table .highlight-bmad { color: var(--bmad-color); font-weight: 600; }
+        .comparison-table .highlight-pilot { color: var(--pilot-color); font-weight: 600; }
+        .comparison-table .highlight-superpowers { color: var(--superpowers-color); font-weight: 600; }
+
+        /* Status Indicators */
+        .status-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            font-family: var(--font-mono);
+        }
+
+        .status-yes { background: rgba(80, 250, 123, 0.2); color: var(--pilot-color); border: 1px solid var(--pilot-color); }
+        .status-no { background: rgba(255, 85, 85, 0.2); color: #ff5555; border: 1px solid #ff5555; }
+        .status-partial { background: rgba(255, 184, 108, 0.2); color: #ffb86c; border: 1px solid #ffb86c; }
+
+        /* Code Blocks */
+        .code-block {
+            background: var(--bg-primary);
+            border: 2px dashed var(--bg-tertiary);
+            border-radius: 15px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .code-header {
+            background: var(--bg-tertiary);
+            padding: 12px 18px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--accent-cyan);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+        }
+
+        .code-content {
+            padding: 25px;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            overflow-x: auto;
+        }
+
+        .code-line {
+            margin-bottom: 6px;
+        }
+
+        .code-comment { color: #6272a4; }
+        .code-command { color: var(--pilot-color); }
+        .code-output { color: var(--bmad-color); }
+
+        /* Step Cards */
+        .step-card {
+            background: var(--bg-primary);
+            border-left: 4px solid var(--accent-cyan);
+            border-radius: 0 15px 15px 0;
+            padding: 25px;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .step-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 35px;
+            height: 35px;
+            background: var(--accent-cyan);
+            color: var(--bg-primary);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            font-family: var(--font-mono);
+            font-weight: bold;
+            margin-right: 12px;
+            font-size: 0.9rem;
+        }
+
+        .step-title {
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            color: var(--accent-cyan);
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+
+        /* Feature Lists */
+        .feature-list {
+            list-style: none;
+            padding: 0;
+            margin: 20px 0;
+        }
+
+        .feature-list li {
+            padding: 10px 0 10px 35px;
+            position: relative;
+            border-bottom: 1px dashed rgba(139, 233, 253, 0.1);
+        }
+
+        .feature-list li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            background: var(--bg-primary);
+            border: 2px solid var(--pilot-color);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+        }
+
+        .feature-list li::after {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 50%;
+            transform: translateY(-50%) rotate(45deg);
+            width: 5px;
+            height: 10px;
+            border: solid var(--pilot-color);
+            border-width: 0 2px 2px 0;
+        }
+
+        /* Decision Framework - Multi-Select Version */
+        .decision-matrix {
+            background: var(--bg-primary);
+            border: 3px dashed var(--accent-purple);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .decision-header {
+            font-family: 'Caveat', cursive;
+            font-size: 1.8rem;
+            color: var(--accent-purple);
+            margin-bottom: 25px;
+            text-align: center;
+            font-weight: 700;
+        }
+
+        .decision-row {
+            display: flex;
+            align-items: flex-start;
+            padding: 18px 15px;
+            border-bottom: 1px dashed var(--bg-tertiary);
+            gap: 20px;
+        }
+
+        .decision-row:last-child {
+            border-bottom: none;
+        }
+
+        .decision-question {
+            flex: 1;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: var(--fg-primary);
+            font-weight: 600;
+        }
+
+        .decision-answers {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            max-width: 400px;
+            justify-content: flex-end;
+        }
+
+        .decision-answer {
+            padding: 6px 12px;
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            font-weight: bold;
+            border: 2px solid;
+        }
+
+        .answer-ecc { 
+            background: rgba(255, 138, 101, 0.15); 
+            color: var(--ecc-color); 
+            border-color: var(--ecc-color);
+        }
+        .answer-bmad { 
+            background: rgba(189, 147, 249, 0.15); 
+            color: var(--bmad-color); 
+            border-color: var(--bmad-color);
+        }
+        .answer-pilot { 
+            background: rgba(80, 250, 123, 0.15); 
+            color: var(--pilot-color); 
+            border-color: var(--pilot-color);
+        }
+        .answer-superpowers { 
+            background: rgba(139, 233, 253, 0.15); 
+            color: var(--superpowers-color); 
+            border-color: var(--superpowers-color);
+        }
+
+        /* Workflow Diagram */
+        .workflow-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 25px 0;
+            padding: 20px;
+            background: var(--bg-primary);
+            border: 2px dashed var(--bg-tertiary);
+            border-radius: 15px;
+        }
+
+        .workflow-step {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 20px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--bg-tertiary);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            transition: all 0.3s ease;
+        }
+
+        .workflow-step:hover {
+            transform: translateX(10px);
+            border-color: var(--accent-cyan);
+        }
+
+        .workflow-number {
+            width: 30px;
+            height: 30px;
+            background: var(--accent-cyan);
+            color: var(--bg-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-mono);
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+
+        .workflow-content {
+            flex: 1;
+        }
+
+        .workflow-title {
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        .workflow-desc {
+            font-size: 0.85rem;
+            color: var(--fg-secondary);
+            margin-top: 3px;
+        }
+
+        /* Architecture Components Grid */
+        .components-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .component-item {
+            background: var(--bg-primary);
+            border: 2px solid var(--bg-tertiary);
+            border-radius: 15px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .component-item:hover {
+            transform: translateY(-3px);
+            border-color: var(--accent-cyan);
+        }
+
+        .component-name {
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        .component-count {
+            font-size: 0.75rem;
+            color: var(--fg-muted);
+            margin-top: 5px;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, rgba(139, 233, 253, 0.1), rgba(189, 147, 249, 0.1));
+            border: 3px solid var(--accent-cyan);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-family: 'Caveat', cursive;
+            font-size: 2.2rem;
+            color: var(--accent-cyan);
+            margin-bottom: 15px;
+        }
+
+        .cta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+
+        .cta-item {
+            padding: 20px;
+            border-radius: 15px;
+            border: 2px solid;
+            background: rgba(0,0,0,0.2);
+        }
+
+        .cta-item.ecc { border-color: var(--ecc-color); color: var(--ecc-color); }
+        .cta-item.bmad { border-color: var(--bmad-color); color: var(--bmad-color); }
+        .cta-item.pilot { border-color: var(--pilot-color); color: var(--pilot-color); }
+        .cta-item.superpowers { border-color: var(--superpowers-color); color: var(--superpowers-color); }
+
+        .cta-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .cta-desc {
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 50px 40px;
+            border-top: 3px dashed rgba(139, 233, 253, 0.3);
+            margin-top: 60px;
+        }
+
+        footer p {
+            font-family: 'Caveat', cursive;
+            font-size: 1.4rem;
+            color: var(--accent-cyan);
+            margin-bottom: 15px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .framework-grid,
+            .cta-grid,
+            .components-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .decision-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .decision-answers {
+                justify-content: flex-start;
+                max-width: 100%;
+            }
+
+            .article-header-section h1 {
+                font-size: 2rem;
+            }
+
+            .card h2 {
+                font-size: 1.5rem;
+            }
+
+            .comparison-table {
+                font-size: 0.75rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 8px 10px;
+            }
+
+            .workflow-step {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="toc-toggle" onclick="toggleSidebar()">=</button>
+
+    <div class="page-wrapper">
+        <!-- Sidebar Table of Contents -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-title">AI Frameworks</div>
+                <div class="sidebar-subtitle">Comparison + Practical Guide</div>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title">>> Overview</div>
+                <ul class="toc-list">
+                    <li><a href="#executive-summary" onclick="scrollToSection('executive-summary')">Executive Summary</a></li>
+                    <li><a href="#quick-comparison" onclick="scrollToSection('quick-comparison')">Quick Comparison</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title">>> Frameworks</div>
+                <ul class="toc-list">
+                    <li><a href="#ecc" onclick="scrollToSection('ecc')">Everything Claude Code</a></li>
+                    <li><a href="#bmad" onclick="scrollToSection('bmad')">BMAD Method</a></li>
+                    <li><a href="#pilot" onclick="scrollToSection('pilot')">Claude Pilot</a></li>
+                    <li><a href="#superpowers" onclick="scrollToSection('superpowers')">Superpowers</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title">>> Decision Guide</div>
+                <ul class="toc-list">
+                    <li><a href="#decision-framework" onclick="scrollToSection('decision-framework')">Choose Your Framework</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title">>> Practical Guide</div>
+                <ul class="toc-list">
+                    <li><a href="#project-overview" onclick="scrollToSection('project-overview')">Project Overview</a></li>
+                    <li><a href="#ecc-practical" onclick="scrollToSection('ecc-practical')">ECC Walkthrough</a></li>
+                    <li><a href="#bmad-practical" onclick="scrollToSection('bmad-practical')">BMAD Walkthrough</a></li>
+                    <li><a href="#pilot-practical" onclick="scrollToSection('pilot-practical')">Pilot Walkthrough</a></li>
+                    <li><a href="#superpowers-practical" onclick="scrollToSection('superpowers-practical')">Superpowers Walkthrough</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section" style="margin-top: 30px; padding-top: 20px; border-top: 2px dashed rgba(139, 233, 253, 0.3);">
+                <a href="index_dark.html" style="display: flex; align-items: center; gap: 8px; color: var(--accent-cyan); text-decoration: none; font-family: var(--font-mono); font-size: 0.9rem;">
+                    <span>&larr;</span> Back to Shadows
+                </a>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <a href="index_dark.html" style="display: inline-flex; align-items: center; gap: 8px; color: var(--accent-cyan); text-decoration: none; font-family: var(--font-mono); font-size: 0.9rem; margin-bottom: 30px; transition: all 0.3s;">
+                <span>&larr;</span> Return to Mind & Machine
+            </a>
+
+            <header class="article-header-section">
+                <h1>AI Development Frameworks Comparison</h1>
+                <p class="article-subtitle">Production-grade code development with AI assistance</p>
+                <p class="article-meta-info">
+                    <span style="color: #6272a4;">author:</span> Jiuhe Wang | 
+                    <span style="color: #6272a4;">analyzed:</span> February 23, 2026 | 
+                    <span style="color: #6272a4;">quality_level:</span> PRODUCTION
+                </p>
+            </header>
+
+            <!-- Executive Summary -->
+            <section class="card" id="executive-summary">
+                <h2><span class="section-icon">&#10002;</span>Executive Summary</h2>
+                
+                <p>This guide compares four leading AI-assisted development frameworks designed for production-grade code quality: <strong>Everything Claude Code (ECC)</strong>, <strong>BMAD Method</strong>, <strong>Claude Pilot</strong>, and <strong>Superpowers</strong>.</p>
+
+                <p>Each framework takes a different approach to solving the same fundamental problem: <em>how to leverage AI coding assistants to produce reliable, tested, production-quality code consistently.</em></p>
+
+                <div class="quote-box">
+                    <p>"The goal isn't to master all frameworks—it's to find the one (or combination) that helps you ship reliable, tested, production-quality code consistently."</p>
+                    <p class="quote-attribution">— Production-Grade Development Manifesto</p>
+                </div>
+
+                <h3>Key Differences at a Glance</h3>
+                <ul class="feature-list">
+                    <li><strong>ECC:</strong> Comprehensive ecosystem with 43 skills, 13 agents, 15+ hooks</li>
+                    <li><strong>BMAD:</strong> Structured agile process from ideation to deployment</li>
+                    <li><strong>Pilot:</strong> Quality-first with mandatory enforcement via hooks</li>
+                    <li><strong>Superpowers:</strong> Minimalist skill-based with rigid TDD discipline</li>
+                </ul>
+            </section>
+
+            <!-- Quick Comparison Matrix -->
+            <section class="card" id="quick-comparison">
+                <h2><span class="section-icon">&#9776;</span>Quick Comparison Matrix</h2>
+
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Aspect</th>
+                            <th class="highlight-ecc">Everything Claude Code</th>
+                            <th class="highlight-bmad">BMAD Method</th>
+                            <th class="highlight-pilot">Claude Pilot</th>
+                            <th class="highlight-superpowers">Superpowers</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Philosophy</strong></td>
+                            <td>Comprehensive plugin ecosystem</td>
+                            <td>Structured agile workflows</td>
+                            <td>Quality automation & hooks</td>
+                            <td>Skill-based TDD workflow</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Primary Focus</strong></td>
+                            <td>Multi-language, multi-platform</td>
+                            <td>Project planning & management</td>
+                            <td>Code quality enforcement</td>
+                            <td>Test-driven development</td>
+                        </tr>
+                        <tr>
+                            <td><strong>TDD Enforcement</strong></td>
+                            <td>Strong (commands)</td>
+                            <td>Moderate (workflows)</td>
+                            <td>Mandatory (hooks)</td>
+                            <td>Rigid (core philosophy)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Hook System</strong></td>
+                            <td><span class="status-badge status-yes">Advanced (15+)</span></td>
+                            <td><span class="status-badge status-no">None</span></td>
+                            <td><span class="status-badge status-yes">Advanced (15)</span></td>
+                            <td><span class="status-badge status-partial">Basic</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Agent Count</strong></td>
+                            <td>13+ specialized agents</td>
+                            <td>12+ domain agents</td>
+                            <td>Implicit via commands</td>
+                            <td>Implicit via skills</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Language Support</strong></td>
+                            <td>6+ languages</td>
+                            <td>Language-agnostic</td>
+                            <td>Python, TS, Go (official)</td>
+                            <td>Language-agnostic</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pricing</strong></td>
+                            <td>Free (MIT)</td>
+                            <td>Free (MIT)</td>
+                            <td>Commercial (Solo/Team)</td>
+                            <td>Free (MIT)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Learning Curve</strong></td>
+                            <td>Moderate</td>
+                            <td>Moderate-High</td>
+                            <td>Low-Moderate</td>
+                            <td>Low</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Everything Claude Code -->
+            <section class="card" id="ecc">
+                <h2><span class="section-icon">&#9874;</span>Everything Claude Code (ECC)</h2>
+                
+                <div class="framework-grid">
+                    <div class="framework-card ecc">
+                        <div class="framework-name">Everything Claude Code</div>
+                        <div class="framework-tagline">"Everything you need, comprehensive ecosystem"</div>
+                        <div class="framework-desc">
+                            A comprehensive Claude Code plugin created by Affaan Mustafa, an Anthropic hackathon winner. Represents a mature, battle-tested ecosystem evolved over 10+ months of intensive daily use with 43+ skills, 13+ agents, and 15+ hooks.
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Architecture Overview</h3>
+                
+                <div class="workflow-container">
+                    <div class="workflow-step">
+                        <div class="workflow-number">1</div>
+                        <div class="workflow-content">
+                            <div class="workflow-title">Agents Layer (13+)</div>
+                            <div class="workflow-desc">Planner, Architect, Code Reviewer, Security Reviewer, E2E Runner</div>
+                        </div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="workflow-number">2</div>
+                        <div class="workflow-content">
+                            <div class="workflow-title">Skills Layer (43+)</div>
+                            <div class="workflow-desc">Coding Standards, TDD Workflow, Security Review, Continuous Learning</div>
+                        </div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="workflow-number">3</div>
+                        <div class="workflow-content">
+                            <div class="workflow-title">Commands Layer (31)</div>
+                            <div class="workflow-desc">/plan, /tdd, /code-review, /learn, /checkpoint, /verify</div>
+                        </div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="workflow-number">4</div>
+                        <div class="workflow-content">
+                            <div class="workflow-title">Hooks Layer (15+)</div>
+                            <div class="workflow-desc">PreToolUse, PostToolUse, SessionStart, PreCompact, SessionEnd</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Core Strengths</h3>
+                <ul class="feature-list">
+                    <li><strong>Comprehensive Hook System:</strong> 15+ hooks across 6 lifecycle events with memory persistence</li>
+                    <li><strong>Multi-Language Excellence:</strong> First-class support for TypeScript, Python, Go, Java</li>
+                    <li><strong>Continuous Learning v2:</strong> Instinct-based learning with confidence scoring</li>
+                    <li><strong>Token Optimization:</strong> Smart model selection (Sonnet default, Opus for complex)</li>
+                    <li><strong>Ecosystem Tools:</strong> Skill Creator, AgentShield (912 tests, 98% coverage)</li>
+                </ul>
+
+                <div class="info-box">
+                    <strong>Best for:</strong> Multi-language projects, teams needing comprehensive agent ecosystem, projects with complex requirements needing planning agents, organizations needing security auditing.
+                </div>
+            </section>
+
+            <!-- BMAD Method -->
+            <section class="card" id="bmad">
+                <h2><span class="section-icon">&#9981;</span>BMAD Method</h2>
+                
+                <div class="framework-grid">
+                    <div class="framework-card bmad">
+                        <div class="framework-name">BMAD Method</div>
+                        <div class="framework-tagline">"Structured agile process from idea to deployment"</div>
+                        <div class="framework-desc">
+                            Breakthrough Method of Agile AI Driven Development - an AI-driven agile development framework focused on structured project planning and execution. The most process-oriented of the four frameworks with 34+ workflows and 12+ domain agents.
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Four-Phase Architecture</h3>
+                
+                <div class="workflow-container">
+                    <div class="workflow-step">
+                        <div class="workflow-number" style="background: var(--bmad-color);">1</div>
+                        <div class="workflow-content">
+                            <div class="workflow-title" style="color: var(--bmad-color);">Phase 1: Analysis</div>
+                            <div class="workflow-desc">Brainstorming, research, requirements gathering</div>
+                        </div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="workflow-number" style="background: var(--bmad-color);">2</div>
+                        <div class="workflow-content">
+                            <div class="workflow-title" style="color: var(--bmad-color);">Phase 2: Planning</div>
+                            <div class="workflow-desc">PRD creation, technical specification</div>
+                        </div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="workflow-number" style="background: var(--bmad-color);">3</div>
+                        <div class="workflow-content">
+                            <div class="workflow-title" style="color: var(--bmad-color);">Phase 3: Solutioning</div>
+                            <div class="workflow-desc">Architecture design (Method/Enterprise level)</div>
+                        </div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="workflow-number" style="background: var(--bmad-color);">4</div>
+                        <div class="workflow-content">
+                            <div class="workflow-title" style="color: var(--bmad-color);">Phase 4: Implementation</div>
+                            <div class="workflow-desc">Epics, stories, build cycle, deployment</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Core Strengths</h3>
+                <ul class="feature-list">
+                    <li><strong>Structured Agile Process:</strong> Complete SDLC from ideation to deployment with clear phase gates</li>
+                    <li><strong>BMad-Help Intelligence:</strong> Context-aware guidance that auto-detects project state and recommends next steps</li>
+                    <li><strong>Comprehensive Planning:</strong> PRD, Architecture diagrams, Epic/Story breakdown with acceptance criteria</li>
+                    <li><strong>Module Extensibility:</strong> Test Architect, Game Dev Studio, Creative Intelligence Suite plugins</li>
+                    <li><strong>Fresh Chat Philosophy:</strong> Prevents context pollution, each workflow in isolated session</li>
+                </ul>
+
+                <div class="info-box">
+                    <strong>Best for:</strong> Enterprise product development with formal requirements, teams following agile methodologies, projects needing comprehensive planning before coding, multi-stakeholder environments with PRDs and architecture docs.
+                </div>
+            </section>
+
+            <!-- Claude Pilot -->
+            <section class="card" id="pilot">
+                <h2><span class="section-icon">&#9992;</span>Claude Pilot</h2>
+                
+                <div class="framework-grid">
+                    <div class="framework-card pilot">
+                        <div class="framework-name">Claude Pilot</div>
+                        <div class="framework-tagline">"Quality enforced, not suggested - walk away and it works"</div>
+                        <div class="framework-desc">
+                            A quality-first wrapper around Claude Code built by Max Ritter. Core philosophy: quality should be enforced through automated hooks and mandatory verification, not just suggested. Features 15 hooks across 6 lifecycle events.
+                        </div>
+                    </div>
+                </div>
+
+                <h3>The Hooks Pipeline</h3>
+                
+                <div class="workflow-container">
+                    <div class="workflow-step">
+                        <div class="workflow-number" style="background: var(--pilot-color); color: var(--bg-primary);">1</div>
+                        <div class="workflow-content">
+                            <div class="workflow-title" style="color: var(--pilot-color);">SessionStart</div>
+                            <div class="workflow-desc">Memory loader (persistent context), Post-compact restore</div>
+                        </div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="workflow-number" style="background: var(--pilot-color); color: var(--bg-primary);">2</div>
+                        <div class="workflow-content">
+                            <div class="workflow-title" style="color: var(--pilot-color);">PreToolUse</div>
+                            <div class="workflow-desc">Tool redirect (blocks unsafe tools), Safety validation</div>
+                        </div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="workflow-number" style="background: var(--pilot-color); color: var(--bg-primary);">3</div>
+                        <div class="workflow-content">
+                            <div class="workflow-title" style="color: var(--pilot-color);">PostToolUse</div>
+                            <div class="workflow-desc">File checker (lint/format/type-check), TDD enforcer (blocks code without tests), Context monitor (warns at 80%/90%)</div>
+                        </div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="workflow-number" style="background: var(--pilot-color); color: var(--bg-primary);">4</div>
+                        <div class="workflow-content">
+                            <div class="workflow-title" style="color: var(--pilot-color);">SessionEnd</div>
+                            <div class="workflow-desc">State preservation to memory, Cleanup, Notifications</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Smart Model Routing</h3>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Phase</th>
+                            <th>Model</th>
+                            <th>Why</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Planning</strong></td>
+                            <td class="highlight-pilot">Opus</td>
+                            <td>Deep reasoning for architecture and spec</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Plan Verification</strong></td>
+                            <td class="highlight-pilot">Opus</td>
+                            <td>Catch gaps before expensive rework</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Implementation</strong></td>
+                            <td class="highlight-pilot">Sonnet</td>
+                            <td>Fast, cost-effective with clear spec</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Code Verification</strong></td>
+                            <td class="highlight-pilot">Opus</td>
+                            <td>Independent review, catch subtle bugs</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Core Strengths</h3>
+                <ul class="feature-list">
+                    <li><strong>Mandatory Quality Gates:</strong> TDD enforcement via hooks (cannot write code without failing test)</li>
+                    <li><strong>Context Preservation:</strong> Persistent memory across sessions, state preserved across compaction</li>
+                    <li><strong>Worktree Isolation:</strong> Isolated branches for features, main branch stays clean</li>
+                    <li><strong>Smart Model Routing:</strong> Invests reasoning power where it matters (Opus for planning/verification)</li>
+                    <li><strong>Local-First Architecture:</strong> All tools run locally, enterprise data privacy compliant</li>
+                </ul>
+
+                <div class="info-box">
+                    <strong>Best for:</strong> Freelancers/consultants shipping production code, teams needing enforceable quality standards, existing codebases (not greenfield), data-sensitive environments, developers wanting "grab a coffee" autonomous execution.
+                </div>
+            </section>
+
+            <!-- Superpowers -->
+            <section class="card" id="superpowers">
+                <h2><span class="section-icon">&#9874;</span>Superpowers</h2>
+                
+                <div class="framework-grid">
+                    <div class="framework-card superpowers">
+                        <div class="framework-name">Superpowers</div>
+                        <div class="framework-tagline">"Rigid TDD discipline with minimal overhead"</div>
+                        <div class="framework-desc">
+                            A minimalist, skill-based workflow created by Jesse Vincent. Focuses on rigid TDD discipline and subagent-driven development with a philosophy of "systematic over ad-hoc." Features 15+ composable skills with automatic invocation.
+                        </div>
+                    </div>
+                </div>
+
+                <h3>The Iron Law of TDD</h3>
+                
+                <div class="quote-box" style="border-left-color: var(--superpowers-color); background: rgba(139, 233, 253, 0.1);">
+                    <p style="font-size: 1.2rem; font-weight: 600; color: var(--superpowers-color);">"NO PRODUCTION CODE WITHOUT A FAILING TEST FIRST"</p>
+                    <p>Write code before the test? Delete it. Start over. Delete means delete. No exceptions.</p>
+                    <p class="quote-attribution">— Superpowers TDD Skill</p>
+                </div>
+
+                <h3>Skill-Based Workflow (Auto-triggered)</h3>
+                
+                <div class="workflow-container">
+                    <div class="workflow-step">
+                        <div class="workflow-number" style="background: var(--superpowers-color); color: var(--bg-primary);">1</div>
+                        <div class="workflow-content">
+                            <div class="workflow-title" style="color: var(--superpowers-color);">brainstorming</div>
+                            <div class="workflow-desc">Socratic design refinement - asks questions one at a time to clarify requirements</div>
+                        </div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="workflow-number" style="background: var(--superpowers-color); color: var(--bg-primary);">2</div>
+                        <div class="workflow-content">
+                            <div class="workflow-title" style="color: var(--superpowers-color);">using-git-worktrees</div>
+                            <div class="workflow-desc">Creates isolated workspace on new branch, keeping main clean</div>
+                        </div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="workflow-number" style="background: var(--superpowers-color); color: var(--bg-primary);">3</div>
+                        <div class="workflow-content">
+                            <div class="workflow-title" style="color: var(--superpowers-color);">writing-plans</div>
+                            <div class="workflow-desc">Breaks work into bite-sized tasks (2-5 minutes each) with clear acceptance criteria</div>
+                        </div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="workflow-number" style="background: var(--superpowers-color); color: var(--bg-primary);">4</div>
+                        <div class="workflow-content">
+                            <div class="workflow-title" style="color: var(--superpowers-color);">subagent-driven-development</div>
+                            <div class="workflow-desc">Dispatches fresh subagent per task with two-stage review: spec compliance then code quality</div>
+                        </div>
+                    </div>
+                    <div class="workflow-step">
+                        <div class="workflow-number" style="background: var(--superpowers-color); color: var(--bg-primary);">5</div>
+                        <div class="workflow-content">
+                            <div class="workflow-title" style="color: var(--superpowers-color);">test-driven-development</div>
+                            <div class="workflow-desc">Enforces RED-GREEN-REFACTOR: write failing test, watch it fail, write minimal code, watch it pass, commit</div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>Core Strengths</h3>
+                <ul class="feature-list">
+                    <li><strong>Rigid TDD Discipline:</strong> Iron Law enforced - code without tests must be deleted</li>
+                    <li><strong>Skill-Based Architecture:</strong> 15+ composable skills, automatic invocation without manual /command</li>
+                    <li><strong>Two-Stage Review:</strong> Spec compliance first, code quality second - critical issues block progress</li>
+                    <li><strong>YAGNI Enforcement:</strong> "You Aren't Gonna Need It" - remove unnecessary features, fight scope creep</li>
+                    <li><strong>Minimal Overhead:</strong> No complex agent ecosystem, skills trigger automatically based on context</li>
+                </ul>
+
+                <div class="info-box">
+                    <strong>Best for:</strong> Individual developers who want TDD discipline, teams needing systematic evidence-based development, projects where simplicity and quality are paramount, developers who prefer minimal overhead, test-first advocates who want enforcement.
+                </div>
+            </section>
+
+            <!-- Decision Framework -->
+            <section class="card" id="decision-framework">
+                <h2><span class="section-icon">&#9733;</span>Decision Framework</h2>
+                
+                <p>Use this decision matrix to identify which frameworks best match your specific needs. Each question can recommend multiple tools - combine them for maximum effectiveness.</p>
+
+                <div class="decision-matrix">
+                    <div class="decision-header">Choose Your Frameworks</div>
+                    
+                    <div class="decision-row">
+                        <span class="decision-question">Need multi-language support (6+ languages)?</span>
+                        <div class="decision-answers">
+                            <span class="decision-answer answer-ecc">Everything Claude Code</span>
+                        </div>
+                    </div>
+                    
+                    <div class="decision-row">
+                        <span class="decision-question">Doing enterprise product development with formal requirements?</span>
+                        <div class="decision-answers">
+                            <span class="decision-answer answer-bmad">BMAD Method</span>
+                        </div>
+                    </div>
+                    
+                    <div class="decision-row">
+                        <span class="decision-question">Want enforceable quality gates (not just suggestions)?</span>
+                        <div class="decision-answers">
+                            <span class="decision-answer answer-pilot">Claude Pilot</span>
+                            <span class="decision-answer answer-superpowers">Superpowers</span>
+                        </div>
+                    </div>
+                    
+                    <div class="decision-row">
+                        <span class="decision-question">Believe in rigid TDD discipline?</span>
+                        <div class="decision-answers">
+                            <span class="decision-answer answer-superpowers">Superpowers</span>
+                            <span class="decision-answer answer-pilot">Claude Pilot</span>
+                        </div>
+                    </div>
+                    
+                    <div class="decision-row">
+                        <span class="decision-question">Working with existing codebases (not greenfield)?</span>
+                        <div class="decision-answers">
+                            <span class="decision-answer answer-pilot">Claude Pilot</span>
+                            <span class="decision-answer answer-ecc">Everything Claude Code</span>
+                        </div>
+                    </div>
+                    
+                    <div class="decision-row">
+                        <span class="decision-question">Need comprehensive security auditing?</span>
+                        <div class="decision-answers">
+                            <span class="decision-answer answer-ecc">Everything Claude Code</span>
+                        </div>
+                    </div>
+                    
+                    <div class="decision-row">
+                        <span class="decision-question">Want minimal learning curve?</span>
+                        <div class="decision-answers">
+                            <span class="decision-answer answer-superpowers">Superpowers</span>
+                        </div>
+                    </div>
+                    
+                    <div class="decision-row">
+                        <span class="decision-question">Need structured agile process with PRDs?</span>
+                        <div class="decision-answers">
+                            <span class="decision-answer answer-bmad">BMAD Method</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practical Guide Section -->
+            <section class="card" id="project-overview">
+                <h2><span class="section-icon">&#9998;</span>Part 2: Practical Guide</h2>
+                
+                <p style="font-size: 1.1rem; color: var(--accent-purple); margin-bottom: 20px;">Ready to put theory into practice? Follow this hands-on walkthrough to build a real project with each framework.</p>
+                
+                <div style="background: var(--bg-primary); border-left: 4px solid var(--accent-purple); padding: 25px; margin: 25px 0; border-radius: 0 15px 15px 0;">
+                    <h3 style="margin-top: 0; color: var(--accent-purple);">Project: Personal Expense Tracker API</h3>
+                    <p><strong>Stack:</strong> FastAPI + PostgreSQL + pytest</p>
+                    <p><strong>Difficulty:</strong> Beginner | <strong>Time:</strong> 1-2 days</p>
+                    <p>A realistic project perfect for learning production-grade AI development with TDD, validation, and reports.</p>
+                </div>
+
+                <h3>Quick Links to Framework Guides</h3>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin: 20px 0;">
+                    <a href="#ecc-practical" style="display: block; padding: 20px; background: rgba(255, 138, 101, 0.1); border: 2px solid var(--ecc-color); border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px; color: var(--ecc-color); text-decoration: none; font-family: var(--font-mono); font-weight: 600; text-align: center; transition: all 0.3s;">
+                        ECC Walkthrough &rarr;
+                    </a>
+                    <a href="#bmad-practical" style="display: block; padding: 20px; background: rgba(189, 147, 249, 0.1); border: 2px solid var(--bmad-color); border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px; color: var(--bmad-color); text-decoration: none; font-family: var(--font-mono); font-weight: 600; text-align: center; transition: all 0.3s;">
+                        BMAD Walkthrough &rarr;
+                    </a>
+                    <a href="#pilot-practical" style="display: block; padding: 20px; background: rgba(80, 250, 123, 0.1); border: 2px solid var(--pilot-color); border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px; color: var(--pilot-color); text-decoration: none; font-family: var(--font-mono); font-weight: 600; text-align: center; transition: all 0.3s;">
+                        Pilot Walkthrough &rarr;
+                    </a>
+                    <a href="#superpowers-practical" style="display: block; padding: 20px; background: rgba(139, 233, 253, 0.1); border: 2px solid var(--superpowers-color); border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px; color: var(--superpowers-color); text-decoration: none; font-family: var(--font-mono); font-weight: 600; text-align: center; transition: all 0.3s;">
+                        Superpowers Walkthrough &rarr;
+                    </a>
+                </div>
+            </section>
+
+            <!-- ECC Practical Guide -->
+            <section class="card" id="ecc-practical">
+                <h2><span class="section-icon" style="border-color: var(--ecc-color); color: var(--ecc-color);">&#9874;</span>ECC: Expense Tracker Walkthrough</h2>
+                
+                <h3>Step 1: Setup (5 minutes)</h3>
+                
+                <div class="code-block">
+                    <div class="code-header">Terminal Commands</div>
+                    <div class="code-content">
+                        <div class="code-line"><span class="code-comment"># Create project directory</span></div>
+                        <div class="code-line"><span class="code-command">mkdir</span> expense-tracker && <span class="code-command">cd</span> expense-tracker</div>
+                        <div class="code-line"><span class="code-command">git</span> init</div>
+                        <div class="code-line"><span class="code-comment"># Install ECC plugin</span></div>
+                        <div class="code-line">/plugin marketplace add affaan-m/everything-claude-code</div>
+                        <div class="code-line">/plugin install everything-claude-code@everything-claude-code</div>
+                        <div class="code-line"><span class="code-comment"># Install Python rules</span></div>
+                        <div class="code-line">./install.sh python</div>
+                    </div>
+                </div>
+
+                <h3>Step 2: Create Design Document</h3>
+                
+                <div class="code-block">
+                    <div class="code-header">In Claude Code</div>
+                    <div class="code-content">
+                        <div class="code-line"><span class="code-command">/plan</span> <span class="code-comment">"Create a personal expense tracker API with FastAPI and PostgreSQL..."</span></div>
+                    </div>
+                </div>
+
+                <h3>Step 3: TDD Development</h3>
+                
+                <div class="code-block">
+                    <div class="code-header">Start TDD Workflow</div>
+                    <div class="code-content">
+                        <div class="code-line"><span class="code-command">/tdd</span></div>
+                    </div>
+                </div>
+
+                <p><strong>Test First (RED):</strong></p>
+                
+                <div class="code-block">
+                    <div class="code-content">
+                        <div class="code-line"><span class="code-command">def</span> <span class="code-command">test_create_expense</span>(): ...</div>
+                    </div>
+                </div>
+
+                <p><strong>Implement (GREEN):</strong> Then run <code>/code-review</code></p>
+
+                <h3>Step 4: Security Review</h3>
+                
+                <div class="code-block">
+                    <div class="code-content">
+                        <div class="code-line"><span class="code-command">/security-scan</span></div>
+                        <div class="code-line"><span class="code-comment"># AgentShield checks for SQL injection, validation issues, auth gaps</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- BMAD Practical Guide -->
+            <section class="card" id="bmad-practical">
+                <h2><span class="section-icon" style="border-color: var(--bmad-color); color: var(--bmad-color);">&#9981;</span>BMAD: Expense Tracker Walkthrough</h2>
+                
+                <h3>Step 1: Installation</h3>
+                
+                <div class="code-block">
+                    <div class="code-header">Terminal</div>
+                    <div class="code-content">
+                        <div class="code-line"><span class="code-command">cd</span> expense-tracker</div>
+                        <div class="code-line"><span class="code-command">npx</span> bmad-method install</div>
+                        <div class="code-line"><span class="code-comment"># Select: BMad Method (BMM)</span></div>
+                    </div>
+                </div>
+
+                <h3>Step 2: Use BMad-Help</h3>
+                
+                <div class="code-block">
+                    <div class="code-content">
+                        <div class="code-line"><span class="code-command">/bmad-help</span> <span class="code-comment">"I want to build a personal expense tracker API..."</span></div>
+                    </div>
+                </div>
+
+                <h3>Step 3: Create PRD</h3>
+                
+                <div class="code-block">
+                    <div class="code-content">
+                        <div class="code-line"><span class="code-command">/bmad-agent-bmm-pm</span>  <span class="code-comment"># Load PM agent</span></div>
+                        <div class="code-line"><span class="code-command">/bmad-bmm-create-prd</span>  <span class="code-comment"># Create PRD</span></div>
+                    </div>
+                </div>
+
+                <h3>Step 4: Development Cycle</h3>
+                
+                <div class="step-card">
+                    <div class="step-title">For Each Story:</div>
+                    <p>1. <code>/bmad-bmm-create-story</code> - Create story file</p>
+                    <p>2. <code>/bmad-bmm-dev-story</code> - Implement</p>
+                    <p>3. <code>/bmad-bmm-code-review</code> - Quality validation</p>
+                </div>
+            </section>
+
+            <!-- CTA Section -->
+            <section class="cta-section">
+                <h2><span class="section-icon">&#10026;</span>Ready to Build?</h2>
+                
+                <p style="font-size: 1.1rem; max-width: 600px; margin: 0 auto 30px;">Pick ONE framework and complete the expense tracker. Then compare by trying another. Finally, apply these patterns to your real projects!</p>
+                
+                <div class="cta-grid">
+                    <div class="cta-item ecc">
+                        <div class="cta-label">Best for Multi-Language</div>
+                        <div class="cta-desc">Everything Claude Code</div>
+                    </div>
+                    <div class="cta-item bmad">
+                        <div class="cta-label">Best for Enterprise</div>
+                        <div class="cta-desc">BMAD Method</div>
+                    </div>
+                    <div class="cta-item pilot">
+                        <div class="cta-label">Best for Quality Gates</div>
+                        <div class="cta-desc">Claude Pilot</div>
+                    </div>
+                    <div class="cta-item superpowers">
+                        <div class="cta-label">Best for TDD Discipline</div>
+                        <div class="cta-desc">Superpowers</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer>
+                <p>Ship reliable code. Sleep peacefully.</p>
+                <p style="color: var(--fg-muted); font-family: var(--font-mono); font-size: 0.85rem; margin-top: 15px;">
+                    <span style="color: #6272a4;">while</span> (coding) { <span style="color: #6272a4;">await</span> quality.enforce(); }
+                </p>
+            </footer>
+        </main>
+    </div>
+
+    <script>
+        // Sidebar toggle
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+
+        // Smooth scroll to section
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+                // Close sidebar on mobile after clicking
+                if (window.innerWidth <= 1200) {
+                    document.getElementById('sidebar').classList.remove('open');
+                }
+            }
+        }
+
+        // Active section highlighting
+        const sections = document.querySelectorAll('.card');
+        const tocLinks = document.querySelectorAll('.toc-list a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            tocLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

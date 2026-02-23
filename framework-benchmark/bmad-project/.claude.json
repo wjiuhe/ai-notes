@@ -1,0 +1,9 @@
+{
+  "plugins": {
+    "enabled": true,
+    "list": ["bmad-method@local"]
+  },
+  "skills": {
+    "enabled": true
+  }
+}

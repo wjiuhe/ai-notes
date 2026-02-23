@@ -1,0 +1,9 @@
+{
+  "plugins": {
+    "enabled": true,
+    "list": ["claude-pilot@claude-pilot-marketplace"]
+  },
+  "skills": {
+    "enabled": false
+  }
+}
