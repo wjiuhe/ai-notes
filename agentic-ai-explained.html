@@ -55,7 +55,7 @@
         .component-box:nth-child(3) { background: linear-gradient(145deg, #E8F5E9, #C8E6C9); border-color: var(--accent-teal); }
 
         .component-icon { font-size: 2.5rem; margin-bottom: 10px; }
-        .component-title { font-family: 'Patrick Hand', cursive; font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; }
+        .component-title { font-family: 'Patrick Hand', cursive; font-size: 1.4rem; font-weight: 500; margin-bottom: 8px; }
         .component-desc { font-size: 0.9rem; color: var(--text-muted); }
 
         /* Flow Row */
@@ -80,7 +80,7 @@
         .flow-arrow { font-size: 1.5rem; color: var(--accent-lavender); font-family: 'Caveat', cursive; }
 
         /* Badge Styles */
-        .badge { display: inline-block; padding: 4px 14px; border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px; font-size: 0.8rem; font-weight: 600; margin-right: 6px; border: 2px solid; }
+        .badge { display: inline-block; padding: 4px 14px; border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px; font-size: 0.8rem; font-weight: 500; margin-right: 6px; border: 2px solid; }
         .badge-red { background: #FFE8E8; color: #D63031; border-color: #D63031; }
         .badge-green { background: #E8FAF4; color: #00B894; border-color: #00B894; }
 
@@ -110,7 +110,7 @@
         .metaphor-box.spider { background: linear-gradient(145deg, #E8F6F3, #D4EFDF); border-color: var(--accent-teal); }
 
         .metaphor-icon { font-size: 3.5rem; text-align: center; margin-bottom: 15px; }
-        .metaphor-label { font-family: 'Caveat', cursive; font-size: 1.7rem; text-align: center; margin-bottom: 12px; }
+        .metaphor-label { font-family: 'Caveat', cursive; font-size: 1.7rem; text-align: center; margin-bottom: 12px; font-weight: 500; }
         .metaphor-example { font-size: 0.95rem; color: var(--text-muted); text-align: center; font-style: italic; line-height: 1.6; }
 
         /* Memory Circles */
@@ -145,7 +145,7 @@
         .memory-circle.procedural { background: linear-gradient(145deg, #FFF3E0, #FFE0B2); }
 
         .memory-circle i { font-size: 1.5rem; margin-bottom: 3px; }
-        .memory-circle span { font-family: 'Patrick Hand', cursive; font-size: 1rem; font-weight: 700; }
+        .memory-circle span { font-family: 'Patrick Hand', cursive; font-size: 1rem; font-weight: 500; }
 
         /* Process Flow */
         .process-flow {
@@ -413,7 +413,7 @@
             </div>
 
             <div class="toc-section" style="margin-top: 30px; padding-top: 20px; border-top: 2px dashed rgba(0,0,0,0.1);">
-                <a href="index.html" style="display: flex; align-items: center; gap: 8px; color: var(--accent-teal); text-decoration: none; font-weight: 600;">
+                <a href="index.html" style="display: flex; align-items: center; gap: 8px; color: var(--accent-teal); text-decoration: none;">
                     <i class="fa-solid fa-arrow-left"></i> Back to Home
                 </a>
             </div>
@@ -463,9 +463,9 @@
 
             <p style="margin-top: 20px; color: var(--text-muted);">This mirrors how philosophers and cognitive scientists think about intelligence:</p>
             <ul style="margin: 15px 0; padding-left: 24px; color: var(--text-muted);">
-                <li style="margin-bottom: 8px;"><strong>Information</strong> is what the system knows — facts, concepts, relationships stored in memory</li>
-                <li style="margin-bottom: 8px;"><strong>Capability</strong> is what the system can do — like System 1 (fast intuition) and System 2 (slow reasoning) in dual-process theory</li>
-                <li><strong>Mastery</strong> is the <em>executive function</em> — deciding <em>how</em> to allocate attention and choose capabilities. This is what Herbert Simon called <span class="tooltip" data-tip="Making 'good enough' decisions with limited information">bounded rationality</span>: optimizing within constraints, not searching endlessly for the "perfect" answer</li>
+                <li style="margin-bottom: 8px;">Information is what the system knows — facts, concepts, relationships stored in memory</li>
+                <li style="margin-bottom: 8px;">Capability is what the system can do — like System 1 (fast intuition) and System 2 (slow reasoning) in dual-process theory</li>
+                <li>Mastery is the executive function — deciding how to allocate attention and choose capabilities. This is what Herbert Simon called <span class="tooltip" data-tip="Making 'good enough' decisions with limited information">bounded rationality</span>: optimizing within constraints, not searching endlessly for the "perfect" answer</li>
             </ul>
         </section>
 
@@ -518,8 +518,8 @@
 
             <div class="real-world-example">
                 <div class="example-label"><i class="fa-solid fa-play"></i> Real Example</div>
-                <p><strong>Current:</strong> "Why server crash?" → Searches docs → 50 pages → You figure it out.</p>
-                <p><strong>True Agent:</strong> "Why server crash?" → Thinks: "Last 3 times = memory leak, let me check" → 30 sec.</p>
+                <p>Current: "Why server crash?" → Searches docs → 50 pages → You figure it out.</p>
+                <p>True Agent: "Why server crash?" → Thinks: "Last 3 times = memory leak, let me check" → 30 sec.</p>
             </div>
         </section>
 
@@ -557,36 +557,36 @@
 
             <div class="real-world-example">
                 <div class="example-label"><i class="fa-solid fa-brain"></i> Four Memories in Action: Planning a Vacation</div>
-                <p><strong>Working:</strong> "Need to book flights, check weather, pack sunscreen"</p>
-                <p><strong>Episodic:</strong> "Last trip to Japan — forgot adapter, nearly missed flight"</p>
-                <p><strong>Semantic:</strong> "Japan uses 100V, adapter needed. Summer = typhoon season"</p>
-                <p><strong>Procedural:</strong> (Just <em>knows how</em> to book — can't explain the steps!)</p>
+                <p>Working: "Need to book flights, check weather, pack sunscreen"</p>
+                <p>Episodic: "Last trip to Japan — forgot adapter, nearly missed flight"</p>
+                <p>Semantic: "Japan uses 100V, adapter needed. Summer = typhoon season"</p>
+                <p>Procedural: (Just knows how to book — can't explain the steps!)</p>
             </div>
 
             <div class="real-world-example">
                 <div class="example-label"><i class="fa-solid fa-code"></i> Debugging a Crash</div>
-                <p><strong>Working:</strong> "Error in function X, stack trace shows Y"</p>
-                <p><strong>Episodic:</strong> "Last time this error = memory leak in v2.3"</p>
-                <p><strong>Semantic:</strong> "Memory leaks caused by unclosed connections"</p>
-                <p><strong>Procedural:</strong> (Just <em>knows how</em> to debug — can't explain the intuition!)</p>
+                <p>Working: "Error in function X, stack trace shows Y"</p>
+                <p>Episodic: "Last time this error = memory leak in v2.3"</p>
+                <p>Semantic: "Memory leaks caused by unclosed connections"</p>
+                <p>Procedural: (Just knows how to debug — can't explain the intuition!)</p>
             </div>
 
             <h3>2. Capability Layer (What You Can Do)</h3>
             <p>Like <span class="tooltip" data-tip="Fast, automatic, intuitive thinking">System 1</span> and <span class="tooltip" data-tip="Slow, deliberate, analytical thinking">System 2</span> in dual-process theory:</p>
             <ul class="checklist">
-                <li><strong>Pattern recognition</strong> -- fast intuition, matching against past experiences</li>
-                <li><strong>Structural thinking</strong> -- causal reasoning, building mental models</li>
-                <li><strong>Deliberation</strong> -- slow reasoning, checking for errors</li>
-                <li><strong>Abstraction</strong> -- summarization, extracting key insights</li>
+                <li>Pattern recognition — fast intuition, matching against past experiences</li>
+                <li>Structural thinking — causal reasoning, building mental models</li>
+                <li>Deliberation — slow reasoning, checking for errors</li>
+                <li>Abstraction — summarization, extracting key insights</li>
             </ul>
 
             <h3>3. Mastery Layer (The Executive)</h3>
             <p>This is the missing piece in most "agents" — the control system that decides:</p>
             <ul class="checklist">
-                <li><strong>When to use which capability</strong> — like bounded rationality, satisficing not optimizing</li>
-                <li><strong>What to pay attention to</strong> — attention allocation, priority setting</li>
-                <li><strong>When to stop and verify</strong> -- metacognition, self-reflection</li>
-                <li><strong>How to allocate resources</strong> -- time, compute, which reasoning mode</li>
+                <li>When to use which capability — like bounded rationality, satisficing not optimizing</li>
+                <li>What to pay attention to — attention allocation, priority setting</li>
+                <li>When to stop and verify — metacognition, self-reflection</li>
+                <li>How to allocate resources — time, compute, which reasoning mode</li>
             </ul>
 
             <p style="margin-top: 20px; color: var(--text-muted);">Think of these as components that work <em>together</em>, not stacked: Information → Capability + Mastery → Action → Learn.</p>
@@ -630,10 +630,10 @@
                     <tr><th>Dimension</th><th>Mainstream "Agent"</th><th>True Agent</th></tr>
                 </thead>
                 <tbody>
-                    <tr><td><strong>Information</strong></td><td><span class="badge badge-red">RAG</span> External retrieval</td><td><span class="badge badge-green">Internal</span> Associative</td></tr>
-                    <tr><td><strong>Capability</strong></td><td><span class="badge badge-red">Tool Call</span> Fixed APIs</td><td><span class="badge badge-green">Multi-mode</span> Pattern + Structure</td></tr>
-                    <tr><td><strong>Mastery</strong></td><td><span class="badge badge-red">Hard-coded</span> No control</td><td><span class="badge badge-green">Executive</span> Bounded rationality</td></tr>
-                    <tr><td><strong>Uncertainty</strong></td><td><span class="badge badge-red">Binary</span> Know or don't</td><td><span class="badge badge-green">Probabilistic</span> Confidence levels</td></tr>
+                    <tr><td>Information</td><td><span class="badge badge-red">RAG</span> External retrieval</td><td><span class="badge badge-green">Internal</span> Associative</td></tr>
+                    <tr><td>Capability</td><td><span class="badge badge-red">Tool Call</span> Fixed APIs</td><td><span class="badge badge-green">Multi-mode</span> Pattern + Structure</td></tr>
+                    <tr><td>Mastery</td><td><span class="badge badge-red">Hard-coded</span> No control</td><td><span class="badge badge-green">Executive</span> Bounded rationality</td></tr>
+                    <tr><td>Uncertainty</td><td><span class="badge badge-red">Binary</span> Know or don't</td><td><span class="badge badge-green">Probabilistic</span> Confidence levels</td></tr>
                 </tbody>
             </table>
         </section>
@@ -712,18 +712,18 @@
         <section class="card reveal" id="bottom-line">
             <h2><i class="fa-solid fa-bullseye fa-icon"></i>The Bottom Line</h2>
             
-            <div class="quote-box">The mainstream confuses <strong>Agent</strong> (has intentionality) with <strong>Actor</strong> (just executes). Without knowledge architecture and associative memory, an "Agent" is just a <span class="highlight-coral">script in a trench coat</span>.</div>
+            <div class="quote-box">The mainstream confuses Agent (has intentionality) with Actor (just executes). Without knowledge architecture and associative memory, an "Agent" is just a <span class="highlight-coral">script in a trench coat</span>.</div>
 
             <h3>The Three Questions Every True Agent Must Answer:</h3>
             <ol style="margin: 18px 0; padding-left: 28px;">
-                <li style="margin-bottom: 14px;"><i class="fa-solid fa-question"></i> <strong>How does this agent understand ITSELF?</strong> -- Its capabilities, limits, biases</li>
-                <li style="margin-bottom: 14px;"><i class="fa-solid fa-cloud"></i> <strong>How does it remember the AMBIGUITY of the world?</strong> -- Holding unverified but useful ideas</li>
-                <li style="margin-bottom: 14px;"><i class="fa-solid fa-chart-line"></i> <strong>How does it extract INEXPRESSIBLE experience from failure?</strong> -- Learning what can't be put into words</li>
+                <li style="margin-bottom: 14px;"><i class="fa-solid fa-question"></i> How does this agent understand ITSELF? — Its capabilities, limits, biases</li>
+                <li style="margin-bottom: 14px;"><i class="fa-solid fa-cloud"></i> How does it remember the AMBIGUITY of the world? — Holding unverified but useful ideas</li>
+                <li style="margin-bottom: 14px;"><i class="fa-solid fa-chart-line"></i> How does it extract INEXPRESSIBLE experience from failure? — Learning what can't be put into words</li>
             </ol>
 
             <div class="insight-box" style="background: linear-gradient(135deg, #E8F5E9, #C8E6C9); border-color: var(--accent-teal);">
                 <i class="fa-solid fa-star insight-icon" style="color: var(--accent-sunflower);"></i>
-                <div><strong>The future isn't smarter automation</strong> -- it's digital cognitive entities that truly <em>think, remember, and understand</em>.</div>
+                <div>The future isn't smarter automation — it's digital cognitive entities that truly think, remember, and understand.</div>
             </div>
         </section>
 
