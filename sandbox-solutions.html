@@ -843,7 +843,7 @@
             
             <p>Agentic AI systems, capable of autonomous code execution, present <span class="highlight-coral">unique security challenges</span>. Their ability to generate and execute code on the fly increases the risk of system compromise, data exfiltration, and privilege escalation.</p>
             
-            <p>Sandboxing is thus a <span class="highlight">critical control</span>, providing isolation between the agent and the host environment, limiting the blast radius of potential exploits, and enabling safe experimentation and deployment of AI-driven automation.</p>
+            <p>Sandboxing is a critical control that provides isolation between the agent and the host environment. It limits the blast radius of potential exploits and enables safe experimentation with AI-driven automation.</p>
             
             <div class="quote-box">
                 <strong>Key Principle:</strong> The stronger the isolation, the safer your agentic workflows. Choose your sandbox based on your threat model, not just convenience.
@@ -1160,11 +1160,11 @@
                 <li><strong>Defense-in-depth:</strong> Layer sandboxing with runtime monitoring, approval gates, and signed artifacts.</li>
                 <li><strong>Narrow agent scope:</strong> Limit the capabilities and resource access of AI agents to reduce the impact of compromise.</li>
                 <li><strong>Continuous monitoring:</strong> Log all actions and resource usage, with alerting for policy violations or anomalies.</li>
-                <li><strong>Rapid adaptation:</strong> Security requirements for AI sandboxes evolve quickly—solutions must support quick updates and patching.</li>
+                <li><strong>Rapid adaptation:</strong> Security requirements for AI sandboxes evolve quickly. Solutions must support quick updates and patching.</li>
             </ul>
 
             <div class="quote-box">
-                <strong>Remember:</strong> Security is not binary—it's about choosing the right level of isolation for your specific threat model and operational requirements.
+                <strong>Remember:</strong> Security is not binary. It's about choosing the right level of isolation for your specific threat model and operational requirements.
             </div>
         </section>
 
@@ -1229,7 +1229,7 @@
             <div class="recommendation-box">
                 <div class="recommendation-title"><i class="fa-solid fa-star"></i> The Best Solution for Agentic AI</div>
                 
-                <p>For agentic AI systems—where code may be generated and executed autonomously, and the risk of prompt injection, privilege escalation, or sandbox escape is high—the industry consensus is to <strong>default to microVM-based solutions like Firecracker</strong> for the strongest isolation.</p>
+                <p>For agentic AI systems, where code may be generated and executed autonomously and the risk of prompt injection, privilege escalation, or sandbox escape is high, the industry consensus is to <strong>default to microVM-based solutions like Firecracker</strong> for the strongest isolation.</p>
                 
                 <p>Firecracker combines <span class="highlight-teal">VM-level security</span> with container-like speed and efficiency, supporting rapid, ephemeral sandbox creation at scale. This approach is particularly effective in multi-tenant and cloud environments.</p>
                 
