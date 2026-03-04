@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Plumbing 101: A developer's guide to understanding your home's water systems, common repairs, and maintenance.">
+    <meta name="keywords" content="plumbing, pipes, drains, fixtures, P-trap, water heater, clogs, DIY plumbing">
+    <meta name="author" content="Jiuhe Wang">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://wjiuhe.github.io/ai-notes/plumbing-101.html">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://wjiuhe.github.io/ai-notes/plumbing-101.html">
+    <meta property="og:title" content="Plumbing 101: The Complete Guide">
+    <meta property="og:description" content="Understanding your home's water systems, from pressurized supply to gravity drainage.">
+    <meta property="og:site_name" content="Mind & Machine - Overtime">
+    
+    <title>Plumbing 101 | Mind & Machine Overtime</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="static/dark-theme.css">
+    <style>
+        .page-wrapper {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .sidebar {
+            width: 280px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100vh;
+            background: var(--bg-secondary);
+            border-right: 2px solid #5d4037;
+            padding: 30px 20px;
+            overflow-y: auto;
+            z-index: 100;
+            box-shadow: 3px 0 15px rgba(0,0,0,0.5);
+        }
+
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(93, 64, 55, 0.3);
+        }
+
+        .sidebar-title {
+            font-family: var(--font-hand);
+            font-size: 1.8rem;
+            color: #ff8a65;
+            margin-bottom: 5px;
+            text-shadow: 0 0 10px rgba(255, 138, 101, 0.3);
+        }
+
+        .sidebar-subtitle {
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: #6272a4;
+        }
+
+        .toc-section {
+            margin-bottom: 20px;
+        }
+
+        .toc-title {
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            color: #bd93f9;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .toc-list li {
+            margin-bottom: 6px;
+        }
+
+        .toc-list a {
+            display: block;
+            padding: 6px 10px;
+            color: var(--fg-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+            font-family: var(--font-mono);
+        }
+
+        .toc-list a:hover {
+            background: rgba(189, 147, 249, 0.1);
+            border-left-color: var(--accent-purple);
+            transform: translateX(3px);
+        }
+
+        .toc-list a.active {
+            background: rgba(255, 138, 101, 0.15);
+            border-left-color: #ff8a65;
+            font-weight: 600;
+            color: #ff8a65;
+        }
+
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 40px;
+            max-width: calc(100vw - 320px);
+            min-width: 0;
+        }
+
+        .toc-toggle {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 200;
+            background: #ff8a65;
+            color: var(--bg-primary);
+            border: none;
+            padding: 12px 15px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(255, 138, 101, 0.4);
+            font-family: var(--font-mono);
+        }
+
+        @media (max-width: 1200px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+                max-width: 100%;
+            }
+
+            .toc-toggle {
+                display: block;
+            }
+        }
+
+        .article-header-section {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 40px;
+            background: var(--bg-secondary);
+            border: 2px solid #5d4037;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .article-header-section::before {
+            content: '\f0ad';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2rem;
+            color: #ff8a65;
+            text-shadow: 0 0 20px rgba(255, 138, 101, 0.5);
+        }
+
+        .article-header-section h1 {
+            font-family: var(--font-hand);
+            font-size: 3rem;
+            color: #ff8a65;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(255, 138, 101, 0.4);
+            margin-top: 35px;
+        }
+
+        .article-subtitle {
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            color: #32cd32;
+            margin-bottom: 20px;
+        }
+
+        .article-meta-info {
+            font-size: 0.85rem;
+            color: var(--fg-muted);
+        }
+
+        .article-card-section {
+            background: var(--bg-secondary);
+            border: 1px solid #3d3d3d;
+            border-radius: 8px;
+            padding: 35px;
+            margin-bottom: 30px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .article-card-section:hover {
+            border-color: #ff8a65;
+            box-shadow: 0 4px 20px rgba(255, 138, 101, 0.1);
+        }
+
+        .article-card-section h2 {
+            font-family: var(--font-hand);
+            font-size: 2rem;
+            color: #ff8a65;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .section-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--bg-primary);
+            border: 2px solid #5d4037;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .article-card-section h3 {
+            font-family: var(--font-mono);
+            font-size: 1.3rem;
+            color: var(--accent-cyan);
+            margin: 25px 0 15px;
+            border-bottom: 1px solid rgba(139, 233, 253, 0.2);
+            padding-bottom: 8px;
+        }
+
+        .article-card-section h4 {
+            font-family: var(--font-mono);
+            font-size: 1.1rem;
+            color: var(--accent-purple);
+            margin: 20px 0 10px;
+        }
+
+        .article-card-section p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .system-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .system-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--bg-tertiary);
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .system-card:hover {
+            border-color: var(--accent-orange);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .system-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .system-name {
+            font-family: var(--font-hand);
+            font-size: 1.4rem;
+            color: var(--accent-orange);
+            margin-bottom: 8px;
+        }
+
+        .system-desc {
+            font-size: 0.9rem;
+            color: var(--fg-secondary);
+            margin-bottom: 10px;
+        }
+
+        .system-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(255, 138, 101, 0.2);
+            border: 1px solid #ff8a65;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            color: #ff8a65;
+        }
+
+        .pipe-visual {
+            display: flex;
+            height: 80px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 25px 0;
+            border: 1px solid var(--bg-tertiary);
+        }
+
+        .pipe-type {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .pipe-type:hover {
+            flex: 1.5;
+        }
+
+        .pipe-type::after {
+            content: attr(data-tip);
+            position: absolute;
+            bottom: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            padding: 12px 16px;
+            background: var(--bg-secondary);
+            border: 2px solid var(--accent-primary);
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: normal;
+            color: var(--text-primary);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+            pointer-events: none;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .pipe-type::before {
+            content: '';
+            position: absolute;
+            bottom: calc(100% + 6px);
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: var(--accent-primary);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 101;
+        }
+
+        .pipe-type:hover::after,
+        .pipe-type:hover::before {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .pipe-pex { background: #3498db; color: white; }
+        .pipe-copper { background: #e67e22; color: white; }
+        .pipe-pvc { background: #ecf0f1; color: #2c3e50; }
+        .pipe-cpvc { background: #9b59b6; color: white; }
+        .pipe-abs { background: #2c3e50; color: white; }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9rem;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--bg-tertiary);
+        }
+
+        .comparison-table th {
+            background: var(--bg-primary);
+            font-family: var(--font-mono);
+            color: var(--accent-cyan);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        .comparison-table tr:hover td {
+            background: rgba(93, 64, 55, 0.1);
+        }
+
+        .diagram-block {
+            background: var(--bg-primary);
+            border: 1px solid #5d4037;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .diagram-header {
+            background: #5d4037;
+            padding: 10px 15px;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: #ff8a65;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .diagram-content {
+            padding: 20px;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .diagram-line {
+            margin-bottom: 8px;
+        }
+
+        .diagram-label {
+            color: #6272a4;
+        }
+
+        .diagram-value {
+            color: #32cd32;
+        }
+
+        .flow-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 20px;
+            background: var(--bg-primary);
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 20px;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            border-left: 4px solid #ff8a65;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .flow-number {
+            width: 30px;
+            height: 30px;
+            background: #ff8a65;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--bg-primary);
+            flex-shrink: 0;
+        }
+
+        .flow-arrow {
+            color: #6272a4;
+            font-size: 1.5rem;
+        }
+
+        .quote-box {
+            background: rgba(93, 64, 55, 0.1);
+            border-left: 4px solid #ff8a65;
+            padding: 20px 25px;
+            margin: 25px 0;
+            font-style: italic;
+        }
+
+        .quote-box p {
+            margin: 0 0 10px 0;
+            font-size: 1.1rem;
+        }
+
+        .quote-attribution {
+            color: var(--fg-muted);
+            font-size: 0.9rem;
+            font-family: var(--font-mono);
+        }
+
+        .warning-box {
+            background: rgba(255, 138, 101, 0.1);
+            border: 1px solid #ff8a65;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .warning-icon {
+            font-size: 1.5rem;
+            color: #ff8a65;
+        }
+
+        .tip-box {
+            background: rgba(50, 205, 50, 0.1);
+            border: 1px solid #32cd32;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .tip-icon {
+            font-size: 1.5rem;
+            color: #32cd32;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent-cyan);
+            text-decoration: none;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            margin-bottom: 30px;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            color: #ff8a65;
+            text-shadow: 0 0 10px rgba(255, 138, 101, 0.5);
+        }
+
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .tool-item {
+            background: var(--bg-primary);
+            border: 1px solid var(--bg-tertiary);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .tool-item:hover {
+            border-color: #ff8a65;
+            transform: translateY(-2px);
+        }
+
+        .tool-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .tool-name {
+            font-family: var(--font-hand);
+            font-size: 1.2rem;
+            color: #ff8a65;
+            margin-bottom: 5px;
+        }
+
+        .tool-use {
+            font-size: 0.8rem;
+            color: var(--fg-secondary);
+        }
+
+        .emergency-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .emergency-card {
+            background: var(--bg-primary);
+            border: 2px solid #e74c3c;
+            border-radius: 8px;
+            padding: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .emergency-card:hover {
+            box-shadow: 0 4px 20px rgba(231, 76, 60, 0.2);
+        }
+
+        .emergency-icon {
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .emergency-title {
+            font-family: var(--font-hand);
+            font-size: 1.3rem;
+            color: #e74c3c;
+            margin-bottom: 10px;
+        }
+
+        .emergency-steps {
+            font-size: 0.9rem;
+            color: var(--fg-secondary);
+            line-height: 1.6;
+        }
+
+        .clog-diagram {
+            background: var(--bg-primary);
+            border: 1px solid var(--bg-tertiary);
+            border-radius: 8px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .clog-section {
+            margin-bottom: 20px;
+        }
+
+        .clog-title {
+            font-family: var(--font-mono);
+            font-size: 1rem;
+            color: #ff8a65;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .system-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-table {
+                font-size: 0.8rem;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 8px 10px;
+            }
+
+            .article-header-section h1 {
+                font-size: 2rem;
+            }
+
+            .back-link {
+                margin-top: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button class="toc-toggle" onclick="toggleSidebar()">☰</button>
+
+    <div class="page-wrapper">
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-title">Plumbing 101</div>
+                <div class="sidebar-subtitle">Home Systems Guide</div>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title">>> Overview</div>
+                <ul class="toc-list">
+                    <li><a href="#introduction" onclick="scrollToSection('introduction')">The Plumbing Manifesto</a></li>
+                    <li><a href="#two-systems" onclick="scrollToSection('two-systems')">The Two Systems</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title">>> Pipe Materials</div>
+                <ul class="toc-list">
+                    <li><a href="#pipe-types" onclick="scrollToSection('pipe-types')">Pipe Types Overview</a></li>
+                    <li><a href="#pex" onclick="scrollToSection('pex')">PEX</a></li>
+                    <li><a href="#copper" onclick="scrollToSection('copper')">Copper</a></li>
+                    <li><a href="#pvc" onclick="scrollToSection('pvc')">PVC</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title">>> Toilet Mechanics</div>
+                <ul class="toc-list">
+                    <li><a href="#toilet-anatomy" onclick="scrollToSection('toilet-anatomy')">Toilet Anatomy</a></li>
+                    <li><a href="#flush-cycle" onclick="scrollToSection('flush-cycle')">The Flush Cycle</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title">>> Fixtures & Traps</div>
+                <ul class="toc-list">
+                    <li><a href="#fixtures" onclick="scrollToSection('fixtures')">Fixtures</a></li>
+                    <li><a href="#p-traps" onclick="scrollToSection('p-traps')">P-Traps</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title">>> Tools</div>
+                <ul class="toc-list">
+                    <li><a href="#tools" onclick="scrollToSection('tools')">Essential Tools</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title">>> Common Issues</div>
+                <ul class="toc-list">
+                    <li><a href="#clogs" onclick="scrollToSection('clogs')">Common Clogs</a></li>
+                    <li><a href="#emergencies" onclick="scrollToSection('emergencies')">Emergency Cases</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title">>> Maintenance</div>
+                <ul class="toc-list">
+                    <li><a href="#maintenance" onclick="scrollToSection('maintenance')">Maintenance Tips</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section" style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(93, 64, 55, 0.3);">
+                <a href="index_dark.html" style="display: flex; align-items: center; gap: 8px; color: #ff8a65; text-decoration: none; font-family: var(--font-mono); font-size: 0.9rem;">
+                    <span>←</span> Back to Shadows
+                </a>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <a href="index_dark.html" class="back-link"><span>←</span> Return to Mind & Machine</a>
+
+            <header class="article-header-section">
+                <h1>Plumbing 101</h1>
+                <p class="article-subtitle">A developer's guide to home water systems</p>
+                <p class="article-meta-info">
+                    <span style="color: #6272a4;">author:</span> Jiuhe Wang | 
+                    <span style="color: #6272a4;">published:</span> March 4, 2026 | 
+                    <span style="color: #6272a4;">difficulty:</span> WATER-LEVEL-1
+                </p>
+                <figure style="margin: 25px 0 0; background: var(--bg-primary); border: 1px solid var(--bg-tertiary); border-radius: 8px; overflow: hidden; text-align: center;">
+                    <img src="static/img/plumbing/slide_1_1.png" alt="Plumbing 101 Cover" style="width: 100%; max-width: 600px; height: auto; display: inline-block;">
+                </figure>
+            </header>
+
+            <!-- Introduction -->
+            <section class="article-card-section" id="introduction">
+                <h2><span class="section-icon"><i class="fas fa-wrench"></i></span>The Plumbing Manifesto</h2>
+                
+                <p>It is 11 PM. You hear a strange gurgling sound from the bathroom. The toilet is overflowing. Your partner is asking if you know how to fix it.</p>
+                
+                <p>As developers, we debug code every day. But when water starts flooding your floor, suddenly we feel helpless. This guide changes that.</p>
+
+                <div class="quote-box">
+                    <p>"Every developer should know three things: how to read documentation, how to use version control, and how to fix a running toilet."</p>
+                    <p class="quote-attribution">— Ancient Wisdom</p>
+                </div>
+
+                <p>Plumbing is just another system. It has inputs, outputs, and edge cases. Once you understand the architecture, debugging becomes simple.</p>
+            </section>
+
+            <!-- Two Systems -->
+            <section class="article-card-section" id="two-systems">
+                <h2><span class="section-icon">🔄</span>The Two Systems</h2>
+                
+                <p>Your home has two separate plumbing systems working together. Understanding the difference is crucial:</p>
+
+                <figure style="margin: 25px 0; background: var(--bg-primary); border: 1px solid var(--bg-tertiary); border-radius: 8px; overflow: hidden; text-align: center;">
+                    <img src="static/img/plumbing/slide_2_2.png" alt="The Two Systems - Water Supply and DWV" style="width: 100%; max-width: 700px; height: auto; display: inline-block;">
+                </figure>
+
+                <div class="system-grid">
+                    <div class="system-card">
+                        <div class="system-icon"><i class="fas fa-tint"></i></div>
+                        <div class="system-name">Water Supply</div>
+                        <div class="system-desc">Pressurized system bringing clean water INTO your home. Under pressure like your code under deadline.</div>
+                        <span class="system-tag">40-80 PSI</span>
+                    </div>
+                    <div class="system-card">
+                        <div class="system-icon"><i class="fas fa-arrow-down"></i></div>
+                        <div class="system-name">DWV System</div>
+                        <div class="system-desc">Drain-Waste-Vent. Uses gravity to carry wastewater OUT. Includes vents to prevent suction.</div>
+                        <span class="system-tag">Gravity-Fed</span>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <span class="warning-icon"><i class="fas fa-exclamation-triangle"></i></span>
+                    <div>
+                        <strong>Critical Concept:</strong> These two systems are COMPLETELY SEPARATED. Water supply is pressurized (can spray); DWV relies on gravity (must slope down). Never connect them incorrectly!
+                    </div>
+                </div>
+
+                <h3>The DWV Components</h3>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li><strong>Drain:</strong> Carries wastewater away (needs 1/4" slope per foot)</li>
+                    <li><strong>Waste:</strong> Connects to toilets and fixtures</li>
+                    <li><strong>Vent:</strong> Prevents vacuum locks, allows air into system</li>
+                </ul>
+
+                <p>Think of vents as exception handling—if there is no way for air to escape, your drains will gurgle and drain slowly. Just like your code needs error handling, drains need vents!</p>
+            </section>
+
+            <!-- Pipe Types -->
+            <section class="article-card-section" id="pipe-types">
+                <h2><span class="section-icon"><i class="fas fa-grip-lines"></i></span>Know Your Pipes</h2>
+                
+                <p>Different pipes for different jobs. Like choosing the right data structure:</p>
+
+                <figure style="margin: 25px 0; background: var(--bg-primary); border: 1px solid var(--bg-tertiary); border-radius: 8px; overflow: hidden; text-align: center;">
+                    <img src="static/img/plumbing/slide_3_3.png" alt="Pipe Types - PEX, Copper, PVC, CPVC, ABS" style="width: 100%; max-width: 700px; height: auto; display: inline-block;">
+                </figure>
+
+                <div class="pipe-visual">
+                    <div class="pipe-type pipe-pex" data-tip="Flexible, easy to install, freeze-resistant. Perfect for retrofits!">PEX</div>
+                    <div class="pipe-type pipe-copper" data-tip="Traditional, durable, but expensive. Great for visible locations.">COPPER</div>
+                    <div class="pipe-type pipe-pvc" data-tip="Drain/waste only! White color. Cheap and easy to glue.">PVC</div>
+                    <div class="pipe-type pipe-cpvc" data-tip="Hot water rated PVC. Orange/beige color. More expensive.">CPVC</div>
+                    <div class="pipe-type pipe-abs" data-tip="Black plastic. Stronger than PVC but noisier. Common in older homes.">ABS</div>
+                </div>
+
+                <div class="warning-box">
+                    <span class="warning-icon"><i class="fas fa-exclamation-triangle"></i></span>
+                    <div>
+                        <strong>NEVER use PVC for hot water supply!</strong> PVC melts at 60C. Use CPVC (orange) for hot water lines.
+                    </div>
+                </div>
+            </section>
+
+            <section class="article-card-section" id="pex">
+                <h2><span class="section-icon"><i class="fas fa-wave-square"></i></span>PEX: The Modern Choice</h2>
+                
+                <p>PEX (Cross-linked Polyethylene) is the developer's favorite pipe. Flexible, easy to install, and forgiving.</p>
+
+                <div class="system-grid">
+                    <div class="system-card">
+                        <div class="system-icon"><i class="fas fa-check"></i></div>
+                        <div class="system-name">Pros</div>
+                        <div class="system-desc">Flexible (fewer fittings), freeze-resistant, easy to install with crimp rings, inexpensive</div>
+                    </div>
+                    <div class="system-card">
+                        <div class="system-icon"><i class="fas fa-times"></i></div>
+                        <div class="system-name">Cons</div>
+                        <div class="system-desc">Cannot be used outdoors (UV sensitive), requires special tools, not for potable water in some areas</div>
+                    </div>
+                </div>
+
+                <h3>Connection Methods</h3>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Difficulty</th>
+                            <th>Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Crimp Rings</td>
+                            <td>Easy</td>
+                            <td>Low ($)</td>
+                        </tr>
+                        <tr>
+                            <td>Push-Fit (SharkBite)</td>
+                            <td>Very Easy</td>
+                            <td>High ($$$)</td>
+                        </tr>
+                        <tr>
+                            <td>Compression</td>
+                            <td>Medium</td>
+                            <td>Medium ($$)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="tip-box">
+                    <span class="tip-icon"><i class="fas fa-lightbulb"></i></span>
+                    <div>
+                        <strong>Pro Tip:</strong> PEX can be "swagged" (expanded) to go over fittings. This is the secret to those tight corners!
+                    </div>
+                </div>
+            </section>
+
+            <section class="article-card-section" id="copper">
+                <h2><span class="section-icon"><i class="fas fa-circle" style="color: #e67e22;"></i></span>Copper: The Classic</h2>
+                
+                <p>Traditional plumbing done right. Copper has been the gold standard for decades.</p>
+
+                <div class="system-grid">
+                    <div class="system-card">
+                        <div class="system-icon"><i class="fas fa-check"></i></div>
+                        <div class="system-name">Pros</div>
+                        <div class="system-desc">Extremely durable (50+ years), handles heat well, resists bacteria, recyclable</div>
+                    </div>
+                    <div class="system-card">
+                        <div class="system-icon"><i class="fas fa-times"></i></div>
+                        <div class="system-name">Cons</div>
+                        <div class="system-desc">Expensive, requires soldering, can burst if frozen, corrosion possible</div>
+                    </div>
+                </div>
+
+                <h3>Types of Copper</h3>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Use</th>
+                            <th>Thickness</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Type K</td>
+                            <td>Underground, HVAC</td>
+                            <td>Thickest</td>
+                        </tr>
+                        <tr>
+                            <td>Type L</td>
+                            <td>Interior water supply</td>
+                            <td>Medium</td>
+                        </tr>
+                        <tr>
+                            <td>Type M</td>
+                            <td>Domestic water, heating</td>
+                            <td>Thinnest</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="article-card-section" id="pvc">
+                <h2><span class="section-icon"><i class="fas fa-square"></i></span>PVC & CPVC: Drain & Supply</h2>
+                
+                <p>Plastic pipes for specific applications. Know the difference!</p>
+
+                <div class="diagram-block">
+                    <div class="diagram-header"><i class="fas fa-search"></i> Color Code Reference</div>
+                    <div class="diagram-content">
+                        <div class="diagram-line"><span class="diagram-label">White PVC</span> → <span class="diagram-value">Drain/Waste ONLY (cannot handle pressure)</span></div>
+                        <div class="diagram-line"><span class="diagram-label">Orange/Beige CPVC</span> → <span class="diagram-value">Hot & Cold water supply (pressure rated)</span></div>
+                        <div class="diagram-line"><span class="diagram-label">Black ABS</span> → <span class="diagram-value">Drain/Waste (stronger, noisier than PVC)</span></div>
+                        <div class="diagram-line"><span class="diagram-label">Blue PEX</span> → <span class="diagram-value">Cold water (may vary by manufacturer)</span></div>
+                        <div class="diagram-line"><span class="diagram-label">Red PEX</span> → <span class="diagram-value">Hot water (may vary by manufacturer)</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Toilet Mechanics -->
+            <section class="article-card-section" id="toilet-anatomy">
+                <h2><span class="section-icon"><i class="fas fa-toilet"></i></span>Toilet Mechanics</h2>
+                
+                <p>Understanding your toilet is like understanding your system's main() function—everything flows from here.</p>
+
+                <figure style="margin: 25px 0; background: var(--bg-primary); border: 1px solid var(--bg-tertiary); border-radius: 8px; overflow: hidden; text-align: center;">
+                    <img src="static/img/plumbing/slide_4_4.png" alt="Toilet Mechanics" style="width: 100%; max-width: 700px; height: auto; display: inline-block;">
+                </figure>
+
+                <h3>The Two Main Systems</h3>
+                <div class="system-grid">
+                    <div class="system-card">
+                        <div class="system-icon"><i class="fas fa-water"></i></div>
+                        <div class="system-name">Fill Valve</div>
+                        <div class="system-desc">Controls water entering the tank after flush. Includes float mechanism.</div>
+                    </div>
+                    <div class="system-card">
+                        <div class="system-icon"><i class="fas fa-ban"></i></div>
+                        <div class="system-name">Flush Valve</div>
+                        <div class="system-desc">The flapper or fluidmaster-style valve that releases water into bowl.</div>
+                    </div>
+                </div>
+
+                <h3>Common Toilet Problems</h3>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Problem</th>
+                            <th>Cause</th>
+                            <th>Fix</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Running toilet</td>
+                            <td>Bad flapper, bad fill valve</td>
+                            <td>Replace flapper first (cheap)</td>
+                        </tr>
+                        <tr>
+                            <td>Weak flush</td>
+                            <td>Clogged rim holes, low water level</td>
+                            <td>Clean holes, adjust float</td>
+                        </tr>
+                        <tr>
+                            <td>Ghost flushing</td>
+                            <td>Slow leak from tank to bowl</td>
+                            <td>Replace flapper or flush valve</td>
+                        </tr>
+                        <tr>
+                            <td>Rocking toilet</td>
+                            <td>Loose bolts, bad wax ring</td>
+                            <td>Re-secure or re-install</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="article-card-section" id="flush-cycle">
+                <h2><span class="section-icon"><i class="fas fa-sync-alt"></i></span>The Flush Cycle</h2>
+                
+                <p>Understanding the sequence helps debug issues:</p>
+
+                <div class="flow-diagram">
+                    <div class="flow-step">
+                        <span class="flow-number">1</span>
+                        <span>You press the handle</span>
+                    </div>
+                    <span class="flow-arrow">↓</span>
+                    <div class="flow-step">
+                        <span class="flow-number">2</span>
+                        <span>Lift chain raises flapper</span>
+                    </div>
+                    <span class="flow-arrow">↓</span>
+                    <div class="flow-step">
+                        <span class="flow-number">3</span>
+                        <span>Water rushes from tank to bowl via flush valve</span>
+                    </div>
+                    <span class="flow-arrow">↓</span>
+                    <div class="flow-step">
+                        <span class="flow-number">4</span>
+                        <span>Siphon action pulls waste down drain</span>
+                    </div>
+                    <span class="flow-arrow">↓</span>
+                    <div class="flow-step">
+                        <span class="flow-number">5</span>
+                        <span>Flapper closes, fill valve opens</span>
+                    </div>
+                    <span class="flow-arrow">↓</span>
+                    <div class="flow-step">
+                        <span class="flow-number">6</span>
+                        <span>Float rises, fill valve closes at correct level</span>
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <span class="tip-icon"><i class="fas fa-lightbulb"></i></span>
+                    <div>
+                        <strong>Debug Tip:</strong> Add food coloring to tank. If color appears in bowl without flushing, you have a leak!
+                    </div>
+                </div>
+            </section>
+
+            <!-- Fixtures & P-Traps -->
+            <section class="article-card-section" id="fixtures">
+                <h2><span class="section-icon"><i class="fas fa-faucet"></i></span>Fixtures & Faucets</h2>
+                
+                <p>Fixtures are where the system meets the user. Know your components:</p>
+
+                <figure style="margin: 25px 0; background: var(--bg-primary); border: 1px solid var(--bg-tertiary); border-radius: 8px; overflow: hidden; text-align: center;">
+                    <img src="static/img/plumbing/slide_5_5.png" alt="Fixtures and P-Traps" style="width: 100%; max-width: 700px; height: auto; display: inline-block;">
+                </figure>
+
+                <h3>Faucet Types</h3>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>How It Works</th>
+                            <th>Common Issue</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Ball Faucet</td>
+                            <td>Single handle, ball mechanism</td>
+                            <td>Spray leaks, worn seats</td>
+                        </tr>
+                        <tr>
+                            <td>Cartridge</td>
+                            <td>Single or double handle, pull-up</td>
+                            <td>Worn O-rings</td>
+                        </tr>
+                        <tr>
+                            <td>Disc Faucet</td>
+                            <td>Single handle, ceramic discs</td>
+                            <td>Cracked discs</td>
+                        </tr>
+                        <tr>
+                            <td>Compression</td>
+                            <td>Two handles, stem/washer</td>
+                            <td>Worn washers (most common)</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>Aerators</h3>
+                <p>The little screen at the faucet tip. It:</p>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li>Mixes air with water (makes it feel "wetter")</li>
+                    <li>Reduces splash</li>
+                    <li>Can get clogged with sediment</li>
+                </ul>
+
+                <div class="warning-box">
+                    <span class="warning-icon"><i class="fas fa-exclamation-triangle"></i></span>
+                    <div>
+                        <strong>Cleaning:</strong> Unscrew aerator monthly. If low pressure everywhere, check this first!
+                    </div>
+                </div>
+            </section>
+
+            <section class="article-card-section" id="p-traps">
+                <h2><span class="section-icon"><i class="fas fa-lock"></i></span>The P-Trap: Your Sewer Shield</h2>
+                
+                <p>The P-trap is the most important fixture you never think about. It holds water to block sewer gases from entering your home.</p>
+
+                <div class="diagram-block">
+                    <div class="diagram-header"><i class="fas fa-search"></i> P-Trap Anatomy</div>
+                    <div class="diagram-content">
+                        <div class="diagram-line"><span class="diagram-label">     ┌─</span> <span class="diagram-value">→ Fixture drain (sink, tub)</span></div>
+                        <div class="diagram-line"><span class="diagram-label">     │</span></div>
+                        <div class="diagram-line"><span class="diagram-label">  ├──┘</span> <span class="diagram-value">→ Water seal (the trap)</span></div>
+                        <div class="diagram-line"><span class="diagram-label">     │</span></div>
+                        <div class="diagram-line"><span class="diagram-label">  └──→</span> <span class="diagram-value">→ Drain pipe going down</span></div>
+                    </div>
+                </div>
+
+                <h3>Common P-Trap Issues</h3>
+                <div class="system-grid">
+                    <div class="system-card">
+                        <div class="system-icon"><i class="fas fa-wind"></i></div>
+                        <div class="system-name">Sewer Smell</div>
+                        <div class="system-desc">Trap dried out (unused fixture) or leak. Pour water to refill.</div>
+                    </div>
+                    <div class="system-card">
+                        <div class="system-icon"><i class="fas fa-tint"></i></div>
+                        <div name="system-name">Leaking</div>
+                        <div class="system-desc">Loose connections or cracked trap. Tighten or replace.</div>
+                    </div>
+                    <div class="system-card">
+                        <div class="system-icon"><i class="fas fa-sync-alt"></i></div>
+                        <div class="system-name">Slow Drain</div>
+                        <div class="system-desc">Partial clog in trap. Clean out the U-bend.</div>
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <span class="tip-icon"><i class="fas fa-lightbulb"></i></span>
+                    <div>
+                        <strong>Universal Trap:</strong> If you have a double sink, the "S" trap connects both drains before the main trap. Know your config!
+                    </div>
+                </div>
+            </section>
+
+            <!-- Essential Tools -->
+            <section class="article-card-section" id="tools">
+                <h2><span class="section-icon"><i class="fas fa-wrench"></i></span>Essential Tools</h2>
+                
+                <p>Every developer needs their toolkit. Here is your plumbing IDE:</p>
+
+                <figure style="margin: 25px 0; background: var(--bg-primary); border: 1px solid var(--bg-tertiary); border-radius: 8px; overflow: hidden; text-align: center;">
+                    <img src="static/img/plumbing/slide_6_6.png" alt="Essential Tools" style="width: 100%; max-width: 700px; height: auto; display: inline-block;">
+                </figure>
+
+                <div class="tool-grid">
+                    <div class="tool-item">
+                        <div class="tool-icon"><i class="fas fa-wrench"></i></div>
+                        <div class="tool-name">Pipe Wrench</div>
+                        <div class="tool-use">Adjusting, tightening steel pipes</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-icon"><i class="fas fa-tools"></i></div>
+                        <div class="tool-name">Basin Wrench</div>
+                        <div class="tool-use">Tightening faucet nuts in tight spaces</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-icon"><i class="fas fa-bomb"></i></div>
+                        <div class="tool-name">Plunger</div>
+                        <div class="tool-use">Creating suction to clear simple clogs</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-icon"><i class="fas fa-stethoscope"></i></div>
+                        <div class="tool-name">Toilet Auger</div>
+                        <div class="tool-use">Snaking toilet bowls without scratching</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-icon"><i class="fas fa-scroll"></i></div>
+                        <div class="tool-name">Plumber's Tape</div>
+                        <div class="tool-use">Sealing threaded connections</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-icon"><i class="fas fa-fill-drip"></i></div>
+                        <div class="tool-name">Plumber's Putty</div>
+                        <div class="tool-use">Sealing fixture bases, creating watertight seals</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-icon"><i class="fas fa-cut"></i></div>
+                        <div class="tool-name">Hacksaw</div>
+                        <div class="tool-use">Cutting metal and plastic pipes</div>
+                    </div>
+                    <div class="tool-item">
+                        <div class="tool-icon"><i class="fas fa-ruler"></i></div>
+                        <div class="tool-name">Pipe Cutter</div>
+                        <div class="tool-use">Clean cuts on copper and plastic</div>
+                    </div>
+                </div>
+
+                <div class="diagram-block">
+                    <div class="diagram-header"><i class="fas fa-tape"></i> Tape Application Guide</div>
+                    <div class="diagram-content">
+                        <div class="diagram-line"><span class="diagram-label">$ wrap</span> <span class="diagram-value">--direction=clockwise --layers=3</span></div>
+                        <div class="diagram-line"><span class="diagram-label">// Always wrap in direction of the threads!</span></div>
+                        <div class="diagram-line"><span class="diagram-label">// Wrong direction = tape will unravel under pressure</span></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Common Clogs -->
+            <section class="article-card-section" id="clogs">
+                <h2><span class="section-icon"><i class="fas fa-ban"></i></span>Common Clogs</h2>
+                
+                <p>Know your enemy. Different clogs need different strategies:</p>
+
+                <figure style="margin: 25px 0; background: var(--bg-primary); border: 1px solid var(--bg-tertiary); border-radius: 8px; overflow: hidden; text-align: center;">
+                    <img src="static/img/plumbing/slide_7_7.png" alt="Common Clogs" style="width: 100%; max-width: 700px; height: auto; display: inline-block;">
+                </figure>
+
+                <div class="clog-diagram">
+                    <div class="clog-section">
+                        <div class="clog-title">🧴 Hair + Soap Scum (Bathroom)</div>
+                        <p>Mixes into sticky clumps that cling to pipes. The most common bathroom drain clog.</p>
+                        <div class="warning-box">
+                            <span class="warning-icon"><i class="fas fa-exclamation-triangle"></i></span>
+                            <div>
+                                <strong>Solution:</strong> Remove drain cover, pull out clump with needle-nose pliers. Use enzymatic cleaner for prevention.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clog-section">
+                        <div class="clog-title"><i class="fas fa-bacon"></i> Grease Buildup (Kitchen)</div>
+                        <p>Hot grease pours in, cools and solidifies on pipe walls. Accumulates over time.</p>
+                        <div class="tip-box">
+                            <span class="tip-icon"><i class="fas fa-lightbulb"></i></span>
+                            <div>
+                                <strong>Prevention:</strong> Never pour grease down drain! Wipe pans with paper towel, or pour into old can, let solidify, trash it.
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="clog-section">
+                        <div class="clog-section">
+                            <div class="clog-title"><i class="fas fa-toilet-paper"></i> Toilet Clogs</div>
+                            <p>Too much paper or "flushable" wipes. Even "flushable" wipes do not break down!</p>
+                            <div class="warning-box">
+                            <span class="warning-icon"><i class="fas fa-exclamation-triangle"></i></span>
+                                <div>
+                                    <strong>Never flush:</strong> Wipes (even "flushable"), feminine products, cotton balls, paper towels. Only toilet paper!
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>The Clog Hierarchy</h3>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>First Try</th>
+                            <th>Second Try</th>
+                            <th>Last Resort</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Plunger</td>
+                            <td>Drain snake</td>
+                            <td>Call plumber</td>
+                        </tr>
+                        <tr>
+                            <td>Hot water</td>
+                            <td>Baking soda + vinegar</td>
+                            <td>Hydro jetting</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Emergency Cases -->
+            <section class="article-card-section" id="emergencies">
+                <h2><span class="section-icon"><i class="fas fa-exclamation-triangle"></i></span>Emergency Cases</h2>
+                
+                <p>When water is going where it should not, act fast!</p>
+
+                <figure style="margin: 25px 0; background: var(--bg-primary); border: 1px solid var(--bg-tertiary); border-radius: 8px; overflow: hidden; text-align: center;">
+                    <img src="static/img/plumbing/slide_8_8.png" alt="Emergency Cases" style="width: 100%; max-width: 700px; height: auto; display: inline-block;">
+                </figure>
+
+                <div class="emergency-grid">
+                    <div class="emergency-card">
+                        <div class="emergency-icon"><i class="fas fa-bomb"></i></div>
+                        <div class="emergency-title">Burst Pipe</div>
+                        <div class="emergency-steps">
+                            1. Turn off main water shutoff<br>
+                            2. Open faucets to drain<br>
+                            3. Locate break<br>
+                            4. Temporary patch with pipe clamp or rubber + hose clamp<br>
+                            5. Call plumber
+                        </div>
+                    </div>
+                    <div class="emergency-card">
+                        <div class="emergency-icon"><i class="fas fa-water"></i></div>
+                        <div class="emergency-title">Overflowing Toilet</div>
+                        <div class="emergency-steps">
+                            1. LIFT the tank lid<br>
+                            2. Push flapper DOWN to stop flow<br>
+                            3. Turn off supply valve behind toilet<br>
+                            4. Plunge or snake<br>
+                            5. Check float not stuck
+                        </div>
+                    </div>
+                    <div class="emergency-card">
+                        <div class="emergency-icon"><i class="fas fa-tint"></i></div>
+                        <div class="emergency-title">Active Leak</div>
+                        <div class="emergency-steps">
+                            1. Turn off water to that fixture<br>
+                            2. Place bucket underneath<br>
+                            3. Assess if DIY fixable<br>
+                            4. Turn off main if major<br>
+                            5. Document for insurance
+                        </div>
+                    </div>
+                    <div class="emergency-card">
+                        <div class="emergency-icon"><i class="fas fa-fire"></i></div>
+                        <div class="emergency-title">Water Heater Issues</div>
+                        <div class="emergency-steps">
+                            <strong>No hot water:</strong> Check pilot light, thermostat<br>
+                            <strong>Leaking:</strong> Turn off gas/electric + water, call immediately<br>
+                            <strong>Strange noises:</strong> Sediment buildup, flush tank<br>
+                            <strong>Pressure relief:</strong> Test valve yearly
+                        </div>
+                    </div>
+                </div>
+
+                <div class="warning-box">
+                    <span class="warning-icon"><i class="fas fa-exclamation-triangle"></i></span>
+                    <div>
+                        <strong>MAIN SHUTOFF:</strong> Know where your main water shutoff is! It is usually at the water meter or where the main line enters your home.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Maintenance Tips -->
+            <section class="article-card-section" id="maintenance">
+                <h2><span class="section-icon"><i class="fas fa-shield-alt"></i></span>Maintenance Tips</h2>
+                
+                <p>An ounce of prevention beats a pound of flooded floors.</p>
+
+                <figure style="margin: 25px 0; background: var(--bg-primary); border: 1px solid var(--bg-tertiary); border-radius: 8px; overflow: hidden; text-align: center;">
+                    <img src="static/img/plumbing/slide_9_9.png" alt="Maintenance Tips" style="width: 100%; max-width: 700px; height: auto; display: inline-block;">
+                </figure>
+
+                <h3>Water Heater Maintenance</h3>
+                <div class="diagram-block">
+                    <div class="diagram-header"><i class="fas fa-fire"></i> Water Heater Flush Protocol</div>
+                    <div class="diagram-content">
+                        <div class="diagram-line"><span class="diagram-comment">// Flush yearly to remove sediment</span></div>
+                        <div class="diagram-line"><span class="diagram-value">$ turn_off</span> --power=gas/electric</div>
+                        <div class="diagram-line"><span class="diagram-value">$ connect</span> --hose=drain_valve</div>
+                        <div class="diagram-line"><span class="diagram-value">$ open</span> --valve=drain</div>
+                        <div class="diagram-line"><span class="diagram-value">$ wait</span> --until=drain_clear</div>
+                        <div class="diagram-line"><span class="diagram-value">$ close</span> --valve=drain</div>
+                        <div class="diagram-line"><span class="diagram-value">$ refill</span> --until=full</div>
+                        <div class="diagram-line"><span class="diagram-value">$ relight</span> --pilot</div>
+                    </div>
+                </div>
+
+                <h3>Drain Care</h3>
+                <ul style="margin-left: 20px; margin-bottom: 15px;">
+                    <li>Weekly: Hot water flush (1 minute)</li>
+                    <li>Monthly: Remove and clean drain stoppers</li>
+                    <li>Quarterly: Baking soda + vinegar treatment</li>
+                    <li>Yearly: Inspect under-sink pipes for leaks</li>
+                </ul>
+
+                <h3>Prevention Checklist</h3>
+                <div class="system-grid">
+                    <div class="system-card">
+                        <div class="system-icon"><i class="fas fa-check"></i></div>
+                        <div class="system-name">Know Locations</div>
+                        <div class="system-desc">Main shutoff, gas shutoff, water heater</div>
+                    </div>
+                    <div class="system-card">
+                        <div class="system-icon"><i class="fas fa-check"></i></div>
+                        <div class="system-name">Test Valves</div>
+                        <div class="system-desc">Pressure relief yearly, main shutoff works</div>
+                    </div>
+                    <div class="system-card">
+                        <div class="system-icon"><i class="fas fa-check"></i></div>
+                        <div class="system-name">Insulate Pipes</div>
+                        <div class="system-desc">In cold climates, exposed pipes in winter</div>
+                    </div>
+                    <div class="system-card">
+                        <div class="system-icon"><i class="fas fa-check"></i></div>
+                        <div class="system-name">Check Caulk</div>
+                        <div class="system-desc">Around toilets, sinks, tubs to prevent mold</div>
+                    </div>
+                </div>
+
+                <div class="quote-box">
+                    <p>"The best time to fix a leak was last year. The second best time is now."</p>
+                    <p class="quote-attribution">— Every Plumber Ever</p>
+                </div>
+            </section>
+
+            <a href="index_dark.html" class="back-link"><span>←</span> Return to Mind & Machine</a>
+
+        </main>
+    </div>
+
+    <script>
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+            // Close sidebar on mobile after clicking
+            if (window.innerWidth <= 1200) {
+                document.getElementById('sidebar').classList.remove('open');
+            }
+        }
+
+        // Active link highlighting
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.toc-list a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
