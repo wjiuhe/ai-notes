@@ -480,6 +480,89 @@
             font-family: 'Patrick Hand', cursive;
         }
         .key-point i { margin-right: 10px; color: var(--accent-orange); }
+        .capability-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .capability-card {
+            background: var(--bg-paper);
+            border-radius: 15px;
+            padding: 15px;
+            border: 2px solid var(--pencil);
+            box-shadow: 2px 3px 0 rgba(0,0,0,0.1);
+        }
+        .capability-card h4 {
+            font-family: 'Caveat', cursive;
+            font-size: 1.2rem;
+            color: var(--pencil);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .capability-card ul {
+            margin-left: 0;
+            list-style: none;
+        }
+        .capability-card li {
+            padding: 3px 0;
+            font-size: 0.9rem;
+        }
+        .capability-card li::before {
+            content: '✓';
+            margin-right: 8px;
+            color: var(--accent-green);
+            font-weight: bold;
+        }
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 0.9rem;
+        }
+        .matrix-table th, .matrix-table td {
+            padding: 12px 10px;
+            border: 2px solid var(--pencil);
+            text-align: center;
+        }
+        .matrix-table th {
+            background: var(--accent-lavender);
+            font-family: 'Patrick Hand', cursive;
+            font-size: 1rem;
+        }
+        .matrix-table th:first-child {
+            background: var(--accent-sunflower);
+            text-align: left;
+        }
+        .matrix-table td:first-child {
+            text-align: left;
+            font-weight: 600;
+            background: rgba(255, 230, 109, 0.2);
+        }
+        .matrix-table tr:nth-child(even) {
+            background: var(--bg-paper);
+        }
+        .matrix-table tr:hover {
+            background: var(--accent-sky);
+        }
+        .matrix-yes { color: var(--accent-green); font-weight: bold; }
+        .matrix-no { color: var(--accent-red); }
+        .matrix-partial { color: var(--accent-orange); }
+        .ai-focus {
+            background: linear-gradient(135deg, #E3F2FD, #BBDEFB);
+            border: 3px solid #1976D2;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .ai-focus h4 {
+            color: #1565C0;
+            font-family: 'Caveat', cursive;
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+        }
         footer {
             text-align: center;
             font-family: 'Patrick Hand', cursive;
@@ -524,6 +607,14 @@
                     <li><a href="#lsp" onclick="scrollToSection('lsp')">Language Server Protocol</a></li>
                     <li><a href="#scip" onclick="scrollToSection('scip')">SCIP</a></li>
                     <li><a href="#lsif" onclick="scrollToSection('lsif')">LSIF</a></li>
+                </ul>
+            </div>
+
+            <div class="toc-section">
+                <div class="toc-title"><i class="fa-solid fa-robot"></i> AI Capabilities</div>
+                <ul class="toc-list">
+                    <li><a href="#capabilities" onclick="scrollToSection('capabilities')">What They Provide</a></li>
+                    <li><a href="#comparison-matrix" onclick="scrollToSection('comparison-matrix')">AI Tools Matrix</a></li>
                 </ul>
             </div>
 
@@ -679,6 +770,338 @@
                     <li>Offline code intelligence (no server needed)</li>
                     <li>Fast symbol lookups in large codebases</li>
                     <li>Integration with GitHub/GitLab code search</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="card reveal" id="capabilities">
+            <h2>
+                <i class="fa-solid fa-robot" style="color: var(--accent-coral);"></i>
+                What They Provide for AI Coding Tools
+            </h2>
+
+            <div class="ai-focus">
+                <h4><i class="fa-solid fa-brain"></i> Core Value for AI Agents</h4>
+                <p>These technologies enable AI coding agents to move beyond simple text generation to true code understanding—providing structured context, precise navigation, and semantic awareness that dramatically improves code generation accuracy and relevance.</p>
+            </div>
+
+            <h3><i class="fa-solid fa-tree" style="color: var(--accent-coral);"></i> Tree-sitter Capabilities</h3>
+            <div class="capability-grid">
+                <div class="capability-card">
+                    <h4><i class="fa-solid fa-sitemap"></i> Syntax Structure</h4>
+                    <ul>
+                        <li>Concrete Syntax Tree (CST) parsing</li>
+                        <li>AST with precise source locations</li>
+                        <li>Error recovery for incomplete code</li>
+                        <li>Language-agnostic query syntax</li>
+                    </ul>
+                </div>
+                <div class="capability-card">
+                    <h4><i class="fa-solid fa-bolt"></i> Real-time Performance</h4>
+                    <ul>
+                        <li>Incremental parsing (milliseconds)</li>
+                        <li>Edit-aware tree updates</li>
+                        <li>Efficient memory usage</li>
+                        <li>No full re-parse on changes</li>
+                    </ul>
+                </div>
+                <div class="capability-card">
+                    <h4><i class="fa-solid fa-search"></i> Pattern Matching</h4>
+                    <ul>
+                        <li>Tree queries for code patterns</li>
+                        <li>Capture groups for extraction</li>
+                        <li>Nested structure navigation</li>
+                        <li>Syntax highlighting data</li>
+                    </ul>
+                </div>
+                <div class="capability-card">
+                    <h4><i class="fa-solid fa-robot"></i> AI Tool Benefits</h4>
+                    <ul>
+                        <li>Extract function signatures</li>
+                        <li>Find all imports/dependencies</li>
+                        <li>Identify code blocks for editing</li>
+                        <li>Language-agnostic code analysis</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3><i class="fa-solid fa-language" style="color: var(--accent-teal);"></i> LSP Capabilities</h3>
+            <div class="capability-grid">
+                <div class="capability-card">
+                    <h4><i class="fa-solid fa-crosshairs"></i> Navigation</h4>
+                    <ul>
+                        <li>Go to definition</li>
+                        <li>Find all references</li>
+                        <li>Go to implementation</li>
+                        <li>Symbol search across workspace</li>
+                    </ul>
+                </div>
+                <div class="capability-card">
+                    <h4><i class="fa-solid fa-code"></i> Code Intelligence</h4>
+                    <ul>
+                        <li>Autocompletion with types</li>
+                        <li>Hover information (docs/types)</li>
+                        <li>Signature help</li>
+                        <li>Real-time diagnostics</li>
+                    </ul>
+                </div>
+                <div class="capability-card">
+                    <h4><i class="fa-solid fa-wand-magic-sparkles"></i> Refactoring</h4>
+                    <ul>
+                        <li>Rename symbol (safe)</li>
+                        <li>Code actions/quick fixes</li>
+                        <li>Organize imports</li>
+                        <li>Format on type/save</li>
+                    </ul>
+                </div>
+                <div class="capability-card">
+                    <h4><i class="fa-solid fa-robot"></i> AI Tool Benefits</h4>
+                    <ul>
+                        <li>Type-aware completions</li>
+                        <li>Understand variable scope</li>
+                        <li>Get documentation context</li>
+                        <li>Safe refactoring operations</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3><i class="fa-solid fa-cube" style="color: var(--accent-lavender);"></i> SCIP Capabilities</h3>
+            <div class="capability-grid">
+                <div class="capability-card">
+                    <h4><i class="fa-solid fa-network-wired"></i> Cross-Repository</h4>
+                    <ul>
+                        <li>Monorepo-scale navigation</li>
+                        <li>External dependency resolution</li>
+                        <li>Package-level symbol linking</li>
+                        <li>Version-aware indexing</li>
+                    </ul>
+                </div>
+                <div class="capability-card">
+                    <h4><i class="fa-solid fa-database"></i> Compact Storage</h4>
+                    <ul>
+                        <li>Binary protobuf format</li>
+                        <li>50-100x smaller than LSIF</li>
+                        <li>Fast query performance</li>
+                        <li>Efficient incremental updates</li>
+                    </ul>
+                </div>
+                <div class="capability-card">
+                    <h4><i class="fa-solid fa-bolt-lightning"></i> Performance</h4>
+                    <ul>
+                        <li>Sub-second symbol lookup</li>
+                        <li>No server startup time</li>
+                        <li>Parallel index processing</li>
+                        <li>Scales to millions of files</li>
+                    </ul>
+                </div>
+                <div class="capability-card">
+                    <h4><i class="fa-solid fa-robot"></i> AI Tool Benefits</h4>
+                    <ul>
+                        <li>Instant codebase navigation</li>
+                        <li>Understand library internals</li>
+                        <li>Cross-repo context gathering</li>
+                        <li>No LSP server overhead</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3><i class="fa-solid fa-project-diagram" style="color: var(--accent-sunflower);"></i> LSIF Capabilities</h3>
+            <div class="capability-grid">
+                <div class="capability-card">
+                    <h4><i class="fa-solid fa-graph"></i> Rich Data Model</h4>
+                    <ul>
+                        <li>Graph-based relationships</li>
+                        <li>Moniker-based symbol IDs</li>
+                        <li>Range-based references</li>
+                        <li>ResultSet aggregation</li>
+                    </ul>
+                </div>
+                <div class="capability-card">
+                    <h4><i class="fa-solid fa-plug"></i> Ecosystem</h4>
+                    <ul>
+                        <li>Multi-language emitters</li>
+                        <li>GitHub code navigation</li>
+                        <li>VS Code extension support</li>
+                        <li>GitLab integration</li>
+                    </ul>
+                </div>
+                <div class="capability-card">
+                    <h4><i class="fa-solid fa-server"></i> Serverless</h4>
+                    <ul>
+                        <li>Pre-computed responses</li>
+                        <li>No background processes</li>
+                        <li>Deterministic results</li>
+                        <li>CI/CD pipeline friendly</li>
+                    </ul>
+                </div>
+                <div class="capability-card">
+                    <h4><i class="fa-solid fa-robot"></i> AI Tool Benefits</h4>
+                    <ul>
+                        <li>Offline code intelligence</li>
+                        <li>Predictable query times</li>
+                        <li>GitHub-native support</li>
+                        <li>Rich relationship data</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="card reveal" id="comparison-matrix">
+            <h2>
+                <i class="fa-solid fa-table-cells" style="color: var(--accent-teal);"></i>
+                AI Coding Tools Comparison Matrix
+            </h2>
+            <p style="margin-bottom: 20px;">How each technology supports key AI agent capabilities for code understanding and generation.</p>
+
+            <table class="matrix-table">
+                <thead>
+                    <tr>
+                        <th>Capability</th>
+                        <th>Tree-sitter</th>
+                        <th>LSP</th>
+                        <th>SCIP</th>
+                        <th>LSIF</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Parsing Speed</strong></td>
+                        <td class="matrix-yes">Very Fast</td>
+                        <td class="matrix-partial">Server-dependent</td>
+                        <td class="matrix-yes">Fast</td>
+                        <td class="matrix-yes">Fast</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Type Information</strong></td>
+                        <td class="matrix-no">No</td>
+                        <td class="matrix-yes">Full</td>
+                        <td class="matrix-partial">Some</td>
+                        <td class="matrix-partial">Some</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cross-File Navigation</strong></td>
+                        <td class="matrix-no">No</td>
+                        <td class="matrix-yes">Yes</td>
+                        <td class="matrix-yes">Excellent</td>
+                        <td class="matrix-yes">Yes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cross-Repo Navigation</strong></td>
+                        <td class="matrix-no">No</td>
+                        <td class="matrix-partial">Limited</td>
+                        <td class="matrix-yes">Yes</td>
+                        <td class="matrix-yes">Yes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Real-time Updates</strong></td>
+                        <td class="matrix-yes">Yes</td>
+                        <td class="matrix-yes">Yes</td>
+                        <td class="matrix-no">Static</td>
+                        <td class="matrix-no">Static</td>
+                    </tr>
+                    <tr>
+                        <td><strong>No Server Required</strong></td>
+                        <td class="matrix-yes">Yes</td>
+                        <td class="matrix-no">No</td>
+                        <td class="matrix-yes">Yes</td>
+                        <td class="matrix-yes">Yes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Incremental Parsing</strong></td>
+                        <td class="matrix-yes">Yes</td>
+                        <td class="matrix-partial">Varies</td>
+                        <td class="matrix-no">No</td>
+                        <td class="matrix-no">No</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Semantic Analysis</strong></td>
+                        <td class="matrix-no">Syntactic</td>
+                        <td class="matrix-yes">Full</td>
+                        <td class="matrix-yes">Full</td>
+                        <td class="matrix-yes">Full</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Syntax Highlighting</strong></td>
+                        <td class="matrix-yes">Yes</td>
+                        <td class="matrix-no">No</td>
+                        <td class="matrix-no">No</td>
+                        <td class="matrix-no">No</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Error Recovery</strong></td>
+                        <td class="matrix-yes">Built-in</td>
+                        <td class="matrix-partial">Varies</td>
+                        <td class="matrix-no">N/A</td>
+                        <td class="matrix-no">N/A</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Memory Efficiency</strong></td>
+                        <td class="matrix-yes">High</td>
+                        <td class="matrix-partial">Moderate</td>
+                        <td class="matrix-yes">High</td>
+                        <td class="matrix-partial">Moderate</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Language Coverage</strong></td>
+                        <td class="matrix-yes">50+</td>
+                        <td class="matrix-yes">Most popular</td>
+                        <td class="matrix-partial">Growing</td>
+                        <td class="matrix-yes">Good</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Best for Large Codebases</strong></td>
+                        <td class="matrix-partial">File-level</td>
+                        <td class="matrix-partial">Resource heavy</td>
+                        <td class="matrix-yes">Optimized</td>
+                        <td class="matrix-yes">Yes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>AI Context Gathering</strong></td>
+                        <td class="matrix-partial">Structure only</td>
+                        <td class="matrix-yes">Rich context</td>
+                        <td class="matrix-yes">Cross-repo</td>
+                        <td class="matrix-yes">Cross-repo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Refactoring Support</strong></td>
+                        <td class="matrix-no">No</td>
+                        <td class="matrix-yes">Full</td>
+                        <td class="matrix-no">Navigation only</td>
+                        <td class="matrix-no">Navigation only</td>
+                    </tr>
+                    <tr>
+                        <td><strong>CI/CD Integration</strong></td>
+                        <td class="matrix-yes">Easy</td>
+                        <td class="matrix-no">Complex</td>
+                        <td class="matrix-yes">Designed for</td>
+                        <td class="matrix-yes">Designed for</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Startup Latency</strong></td>
+                        <td class="matrix-yes">None</td>
+                        <td class="matrix-no">Slow</td>
+                        <td class="matrix-yes">None</td>
+                        <td class="matrix-yes">None</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Documentation Access</strong></td>
+                        <td class="matrix-no">No</td>
+                        <td class="matrix-yes">Hover docs</td>
+                        <td class="matrix-partial">Some</td>
+                        <td class="matrix-partial">Some</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="key-point" style="margin-top: 30px;">
+                <i class="fa-solid fa-lightbulb"></i>
+                <strong>Recommendation Matrix:</strong>
+                <ul style="margin-top: 10px;">
+                    <li><strong>Start with Tree-sitter</strong> for syntax analysis and fast file-level operations</li>
+                    <li><strong>Add LSP</strong> when you need type information and real-time features</li>
+                    <li><strong>Use SCIP</strong> for cross-repository navigation in large monorepos</li>
+                    <li><strong>Use LSIF</strong> for GitHub/GitLab integration and offline intelligence</li>
+                    <li><strong>Combine all</strong> for production AI agents: Tree-sitter for parsing + LSP for live data + SCIP/LSIF for indexing</li>
                 </ul>
             </div>
         </section>
